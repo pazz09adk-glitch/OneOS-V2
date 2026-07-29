@@ -1,0 +1,838 @@
+{
+  "fetchedAt": "2026-07-24T11:32:53.000Z",
+  "sourceUrl": "https://lnoneos.com/business/lease-statistics/lease-business-detail",
+  "filter": "全部月份 / 全部部门 / 全部业务员",
+  "apiTotal": 2311,
+  "fetched": 2311,
+  "sampleKeys": [
+    "id",
+    "createTime",
+    "createBy",
+    "updateTime",
+    "updateBy",
+    "year",
+    "month",
+    "businessDept",
+    "salesperson",
+    "paymentDate",
+    "plateNo",
+    "vehicleType",
+    "customerName",
+    "valueAddedService",
+    "exemptionPolicy",
+    "pickupDate",
+    "contractStartDate",
+    "contractEndDate",
+    "periodStartDate",
+    "returnDate",
+    "avgDays",
+    "deposit",
+    "contractRent",
+    "receivableTotal",
+    "receivableRent",
+    "monthlyIncome",
+    "monthlyRent",
+    "maintenanceIncome",
+    "insuranceSurcharge",
+    "opsFeeIncome",
+    "otherIncome",
+    "mileageDeduction",
+    "otherDeduction",
+    "receivedAmount",
+    "outstanding",
+    "invoiceDate",
+    "actualPaymentDate",
+    "paymentMethod",
+    "vehicleStandardCost",
+    "vehicleActualCost",
+    "insuranceFee",
+    "hydrogenFee",
+    "opsFeeCost",
+    "brokerageFee",
+    "otherCost",
+    "totalCost",
+    "profitLoss",
+    "gpsMileage",
+    "otherDeductionDetail",
+    "assetOwner",
+    "signingCompany",
+    "remark",
+    "archiveStatus",
+    "reconciledAt",
+    "importBatchId",
+    "sourceFile",
+    "sourceRowNo",
+    "tenantId",
+    "fieldChecks",
+    "vehicleId",
+    "contractId",
+    "contractCode"
+  ],
+  "pageSummary": {
+    "count": 2311,
+    "brokerageFee": "104256.670",
+    "contractRent": "8195914.480",
+    "deposit": "4032900.000",
+    "hydrogenFee": "224.100",
+    "insuranceFee": "0.000",
+    "insuranceSurcharge": "16550.000",
+    "maintenanceIncome": "10815.602",
+    "mileageDeduction": "-70000.000",
+    "monthlyIncome": "7619949.896",
+    "monthlyRent": "7806220.644",
+    "opsFeeCost": "0.000",
+    "opsFeeIncome": "0.000",
+    "otherCost": "147705.000",
+    "otherDeduction": "-153824.000",
+    "otherIncome": "10187.650",
+    "deduction": "-223824.000",
+    "outstanding": "1151879.800",
+    "profitLoss": "192383.464",
+    "receivableRent": "7806220.644",
+    "receivableTotal": "7619949.896",
+    "receivedAmount": "6468070.096",
+    "totalCost": "7427566.432",
+    "vehicleActualCost": "7175380.662",
+    "vehicleStandardCost": "7679486.610"
+  },
+  "totals": {
+    "receivable": 7619949.91,
+    "received": 6468070.11,
+    "unpaid": 1151879.8,
+    "totalCost": 7427566.43,
+    "profit": 192383.49,
+    "rows": 2311
+  },
+  "customerCount": 81,
+  "byCustomer": [
+    {
+      "customer": "南京威路物流有限公司",
+      "receivable": 1621500,
+      "received": 1320000,
+      "unpaid": 301500,
+      "totalCost": 1639368.5,
+      "profit": -17868.5,
+      "rows": 557
+    },
+    {
+      "customer": "沈阳聚德物流有限公司",
+      "receivable": 846900,
+      "received": 689700,
+      "unpaid": 157200,
+      "totalCost": 803400,
+      "profit": 43500,
+      "rows": 256
+    },
+    {
+      "customer": "西安御盛合供应链管理有限公司",
+      "receivable": 442266.34,
+      "received": 442266.34,
+      "unpaid": 0,
+      "totalCost": 469560,
+      "profit": -27293.66,
+      "rows": 126
+    },
+    {
+      "customer": "广州市博众供应链管理有限公司",
+      "receivable": 335870.85,
+      "received": 146253.33,
+      "unpaid": 189617.52,
+      "totalCost": 341894.3,
+      "profit": -6023.45,
+      "rows": 100
+    },
+    {
+      "customer": "天津华兴捷运物流有限公司",
+      "receivable": 328000,
+      "received": 364000,
+      "unpaid": -36000,
+      "totalCost": 283847.7,
+      "profit": 44152.3,
+      "rows": 89
+    },
+    {
+      "customer": "上海昂久国际物流有限公司",
+      "receivable": 297407.65,
+      "received": 304843.26,
+      "unpaid": -7435.61,
+      "totalCost": 183145,
+      "profit": 114262.65,
+      "rows": 18
+    },
+    {
+      "customer": "陕西裕新物流有限公司",
+      "receivable": 260000,
+      "received": 220000,
+      "unpaid": 40000,
+      "totalCost": 216964.8,
+      "profit": 43035.2,
+      "rows": 65
+    },
+    {
+      "customer": "四川群彬物流有限公司",
+      "receivable": 225116.67,
+      "received": 179833.45,
+      "unpaid": 45283.22,
+      "totalCost": 172152,
+      "profit": 52964.67,
+      "rows": 30
+    },
+    {
+      "customer": "深圳市明浩货运代理有限公司",
+      "receivable": 199558.33,
+      "received": 199558.33,
+      "unpaid": 0,
+      "totalCost": 295920,
+      "profit": -96361.66,
+      "rows": 74
+    },
+    {
+      "customer": "武汉吉辰速运配送有限公司",
+      "receivable": 186450,
+      "received": 121007.51,
+      "unpaid": 65442.49,
+      "totalCost": 165728,
+      "profit": 20722,
+      "rows": 45
+    },
+    {
+      "customer": "广州新运多租赁有限公司",
+      "receivable": 175083.33,
+      "received": 93950,
+      "unpaid": 81133.33,
+      "totalCost": 215150.27,
+      "profit": -40066.94,
+      "rows": 71
+    },
+    {
+      "customer": "德州市永顺运输有限公司",
+      "receivable": 144783.99,
+      "received": 144783.99,
+      "unpaid": 0,
+      "totalCost": 121658.5,
+      "profit": 23125.49,
+      "rows": 18
+    },
+    {
+      "customer": "武汉洛安供应链有限公司",
+      "receivable": 138569.79,
+      "received": 0,
+      "unpaid": 138569.79,
+      "totalCost": 154950,
+      "profit": -16380.21,
+      "rows": 56
+    },
+    {
+      "customer": "广州长运冷链服务有限公司",
+      "receivable": 135000,
+      "received": 135000,
+      "unpaid": 0,
+      "totalCost": 150795.36,
+      "profit": -15795.36,
+      "rows": 45
+    },
+    {
+      "customer": "荣达餐饮(广东)集团有限公司",
+      "receivable": 130339,
+      "received": 125989,
+      "unpaid": 4350,
+      "totalCost": 137044,
+      "profit": -6705,
+      "rows": 48
+    },
+    {
+      "customer": "重庆正合印务有限公司",
+      "receivable": 124573.94,
+      "received": 124573.94,
+      "unpaid": 0,
+      "totalCost": 115500,
+      "profit": 9073.94,
+      "rows": 21
+    },
+    {
+      "customer": "武汉至上云合供应链管理有限公司",
+      "receivable": 124300,
+      "received": 85800,
+      "unpaid": 38500,
+      "totalCost": 98940,
+      "profit": 25360,
+      "rows": 32
+    },
+    {
+      "customer": "重庆金时源供应链有限公司",
+      "receivable": 108167,
+      "received": 95939.15,
+      "unpaid": 12227.85,
+      "totalCost": 127200,
+      "profit": -19033,
+      "rows": 36
+    },
+    {
+      "customer": "上海大金物流有限公司",
+      "receivable": 103600,
+      "received": 103600,
+      "unpaid": 0,
+      "totalCost": 103600,
+      "profit": 0,
+      "rows": 28
+    },
+    {
+      "customer": "嘉兴市京宝物流有限公司",
+      "receivable": 96000,
+      "received": 92000,
+      "unpaid": 4000,
+      "totalCost": 94800,
+      "profit": 1200,
+      "rows": 24
+    },
+    {
+      "customer": "上海利合供应链管理有限公司-科诗美丝",
+      "receivable": 84280,
+      "received": 84280,
+      "unpaid": 0,
+      "totalCost": 84000,
+      "profit": 280,
+      "rows": 28
+    },
+    {
+      "customer": "成都诺和物流有限公司",
+      "receivable": 82420.43,
+      "received": 87575.77,
+      "unpaid": -5155.34,
+      "totalCost": 79782.7,
+      "profit": 2637.73,
+      "rows": 13
+    },
+    {
+      "customer": "广州市范来餐饮管理有限公司",
+      "receivable": 82320,
+      "received": 77700,
+      "unpaid": 4620,
+      "totalCost": 80082,
+      "profit": 2238,
+      "rows": 28
+    },
+    {
+      "customer": "广州埔供优选配送服务有限公司",
+      "receivable": 80850,
+      "received": 80850,
+      "unpaid": 0,
+      "totalCost": 80430,
+      "profit": 420,
+      "rows": 24
+    },
+    {
+      "customer": "四川邦达蜀运供应链管理有限公司",
+      "receivable": 78354.57,
+      "received": 78322.5,
+      "unpaid": 32.07,
+      "totalCost": 68000,
+      "profit": 10354.57,
+      "rows": 21
+    },
+    {
+      "customer": "日邮物流(中国)有限公司",
+      "receivable": 77633.33,
+      "received": 52000,
+      "unpaid": 25633.33,
+      "totalCost": 68359,
+      "profit": 9274.33,
+      "rows": 17
+    },
+    {
+      "customer": "四川拱照物流有限公司",
+      "receivable": 75683.67,
+      "received": 86078,
+      "unpaid": -10394.33,
+      "totalCost": 63900,
+      "profit": 11783.67,
+      "rows": 10
+    },
+    {
+      "customer": "上海冉酷物流有限公司",
+      "receivable": 73950,
+      "received": 75950,
+      "unpaid": -2000,
+      "totalCost": 43202.7,
+      "profit": 30747.3,
+      "rows": 7
+    },
+    {
+      "customer": "广州市多顺储运有限公司",
+      "receivable": 71466.67,
+      "received": 71466.67,
+      "unpaid": 0,
+      "totalCost": 62021.75,
+      "profit": 9444.92,
+      "rows": 26
+    },
+    {
+      "customer": "上海畅霸实业有限公司",
+      "receivable": 58866,
+      "received": 50866,
+      "unpaid": 8000,
+      "totalCost": 82532,
+      "profit": -23666,
+      "rows": 25
+    },
+    {
+      "customer": "东莞沙田炽瑞物流有限公司",
+      "receivable": 58500,
+      "received": 58500,
+      "unpaid": 0,
+      "totalCost": 152280,
+      "profit": -93780,
+      "rows": 120
+    },
+    {
+      "customer": "成都易达创想物流科技有限责任公司",
+      "receivable": 52133.33,
+      "received": 52133.33,
+      "unpaid": 0,
+      "totalCost": 37404.6,
+      "profit": 14728.73,
+      "rows": 7
+    },
+    {
+      "customer": "安徽巨海国际物流有限公司",
+      "receivable": 49066.67,
+      "received": 40000,
+      "unpaid": 9066.67,
+      "totalCost": 38024.6,
+      "profit": 11042.07,
+      "rows": 14
+    },
+    {
+      "customer": "广州佳晟餐饮服务有限公司",
+      "receivable": 47880,
+      "received": 45360,
+      "unpaid": 2520,
+      "totalCost": 44077.68,
+      "profit": 3802.32,
+      "rows": 14
+    },
+    {
+      "customer": "日邮物流（中国）有限公司苏州分公司",
+      "receivable": 42000,
+      "received": 36000,
+      "unpaid": 6000,
+      "totalCost": 42000,
+      "profit": 0,
+      "rows": 14
+    },
+    {
+      "customer": "广州玉川物流有限公司",
+      "receivable": 39600,
+      "received": 29700,
+      "unpaid": 9900,
+      "totalCost": 23497.5,
+      "profit": 16102.5,
+      "rows": 21
+    },
+    {
+      "customer": "武汉市昱颂物流有限公司",
+      "receivable": 39466.67,
+      "received": 23466.67,
+      "unpaid": 16000,
+      "totalCost": 30295.7,
+      "profit": 9170.97,
+      "rows": 6
+    },
+    {
+      "customer": "广州市德利新隆生鲜食品有限公司",
+      "receivable": 38756.67,
+      "received": 38756.67,
+      "unpaid": 0,
+      "totalCost": 38556.61,
+      "profit": 200.06,
+      "rows": 12
+    },
+    {
+      "customer": "贵州省兴氢时代新能源科技有限公司",
+      "receivable": 38440,
+      "received": 18600,
+      "unpaid": 19840,
+      "totalCost": 30996.9,
+      "profit": 7443.1,
+      "rows": 5
+    },
+    {
+      "customer": "新疆佳淇信息科技有限公司",
+      "receivable": 32000,
+      "received": 24000,
+      "unpaid": 8000,
+      "totalCost": 12000,
+      "profit": 20000,
+      "rows": 4
+    },
+    {
+      "customer": "四川富庆物流有限公司",
+      "receivable": 30588,
+      "received": 34901.39,
+      "unpaid": -4313.39,
+      "totalCost": 23664.3,
+      "profit": 6923.7,
+      "rows": 4
+    },
+    {
+      "customer": "广州星达供应链管理有限公司",
+      "receivable": 24776.67,
+      "received": 24776.67,
+      "unpaid": 0,
+      "totalCost": 17441.61,
+      "profit": 7335.06,
+      "rows": 18
+    },
+    {
+      "customer": "广州市福禧农业发展有限公司",
+      "receivable": 24500,
+      "received": 24500,
+      "unpaid": 0,
+      "totalCost": 14000,
+      "profit": 10500,
+      "rows": 7
+    },
+    {
+      "customer": "广州市畅远供应链管理有限公司广州分公司",
+      "receivable": 23100,
+      "received": 21175,
+      "unpaid": 1925,
+      "totalCost": 21065,
+      "profit": 2035,
+      "rows": 6
+    },
+    {
+      "customer": "广东云通供应链有限公司",
+      "receivable": 20500,
+      "received": 15000,
+      "unpaid": 5500,
+      "totalCost": 17968,
+      "profit": 2532,
+      "rows": 5
+    },
+    {
+      "customer": "阿坝州川达物流有限公司",
+      "receivable": 20167,
+      "received": 20167,
+      "unpaid": 0,
+      "totalCost": 22700,
+      "profit": -2533,
+      "rows": 6
+    },
+    {
+      "customer": "上海心坦物流有限公司",
+      "receivable": 20166.67,
+      "received": 23666.67,
+      "unpaid": -3500,
+      "totalCost": 21068,
+      "profit": -901.33,
+      "rows": 6
+    },
+    {
+      "customer": "苏州睿幄物流有限公司",
+      "receivable": 16500,
+      "received": 16500,
+      "unpaid": 0,
+      "totalCost": 18000,
+      "profit": -1500,
+      "rows": 6
+    },
+    {
+      "customer": "嘉兴智奇供应链管理有限公司",
+      "receivable": 16000,
+      "received": 16000,
+      "unpaid": 0,
+      "totalCost": 16000,
+      "profit": 0,
+      "rows": 4
+    },
+    {
+      "customer": "四川国腾供应链管理有限公司",
+      "receivable": 15940,
+      "received": 15940,
+      "unpaid": 0,
+      "totalCost": 13300,
+      "profit": 2640,
+      "rows": 2
+    },
+    {
+      "customer": "广东氢沣科技有限公司",
+      "receivable": 13126.67,
+      "received": 13126.67,
+      "unpaid": 0,
+      "totalCost": 13150.5,
+      "profit": -23.83,
+      "rows": 13
+    },
+    {
+      "customer": "绿电运输蕲春有限公司",
+      "receivable": 12000,
+      "received": 0,
+      "unpaid": 12000,
+      "totalCost": 3784.3,
+      "profit": 8215.7,
+      "rows": 1
+    },
+    {
+      "customer": "新疆中铁瑞云冷链科技有限公司",
+      "receivable": 12000,
+      "received": 12000,
+      "unpaid": 0,
+      "totalCost": 12000,
+      "profit": 0,
+      "rows": 4
+    },
+    {
+      "customer": "上海子初供应链管理有限公司",
+      "receivable": 11400,
+      "received": 11400,
+      "unpaid": 0,
+      "totalCost": 9000,
+      "profit": 2400,
+      "rows": 3
+    },
+    {
+      "customer": "嘉兴益顺冷链物流有限公司",
+      "receivable": 10000,
+      "received": 10000,
+      "unpaid": 0,
+      "totalCost": 15000,
+      "profit": -5000,
+      "rows": 5
+    },
+    {
+      "customer": "佛山市昌盛骏业供应链管理有限公司",
+      "receivable": 9600,
+      "received": 9600,
+      "unpaid": 0,
+      "totalCost": 10200,
+      "profit": -600,
+      "rows": 6
+    },
+    {
+      "customer": "广州市黄埔区小胖兄弟蔬果配送 中心 （个体工商户）",
+      "receivable": 9000,
+      "received": 9000,
+      "unpaid": 0,
+      "totalCost": 10500,
+      "profit": -1500,
+      "rows": 7
+    },
+    {
+      "customer": "黑龙江圣合商贸有限公司新疆分公司",
+      "receivable": 8500,
+      "received": 8500,
+      "unpaid": 0,
+      "totalCost": 3000,
+      "profit": 5500,
+      "rows": 1
+    },
+    {
+      "customer": "广州市晨康贸易发展有限公司",
+      "receivable": 8283.33,
+      "received": 4783.33,
+      "unpaid": 3500,
+      "totalCost": 6999,
+      "profit": 1284.33,
+      "rows": 3
+    },
+    {
+      "customer": "上海迅杰物流有限公司",
+      "receivable": 8000,
+      "received": 8000,
+      "unpaid": 0,
+      "totalCost": 1169,
+      "profit": 6831,
+      "rows": 1
+    },
+    {
+      "customer": "嘉兴琳曜供应链管理有限公司",
+      "receivable": 8000,
+      "received": 8000,
+      "unpaid": 0,
+      "totalCost": 8000,
+      "profit": 0,
+      "rows": 2
+    },
+    {
+      "customer": "沈阳春风物流有限公司",
+      "receivable": 8000,
+      "received": 8000,
+      "unpaid": 0,
+      "totalCost": 16000,
+      "profit": -8000,
+      "rows": 10
+    },
+    {
+      "customer": "嘉兴市飞宇物流有限公司",
+      "receivable": 7800,
+      "received": 0,
+      "unpaid": 7800,
+      "totalCost": 3000,
+      "profit": 4800,
+      "rows": 2
+    },
+    {
+      "customer": "嘉兴市振鑫物流有限公司",
+      "receivable": 6000,
+      "received": 4000,
+      "unpaid": 2000,
+      "totalCost": 6000,
+      "profit": 0,
+      "rows": 2
+    },
+    {
+      "customer": "苏州望亭远方物流有限公司",
+      "receivable": 6000,
+      "received": 6000,
+      "unpaid": 0,
+      "totalCost": 6000,
+      "profit": 0,
+      "rows": 1
+    },
+    {
+      "customer": "桐乡市丰韵快递有限责任公司",
+      "receivable": 6000,
+      "received": 6000,
+      "unpaid": 0,
+      "totalCost": 7000,
+      "profit": -1000,
+      "rows": 2
+    },
+    {
+      "customer": "上海哲准供应链管理有限公司",
+      "receivable": 5066.67,
+      "received": 5066.67,
+      "unpaid": 0,
+      "totalCost": 3927.7,
+      "profit": 1138.97,
+      "rows": 2
+    },
+    {
+      "customer": "上海馨想事辰供应链有限公司",
+      "receivable": 4680,
+      "received": 4680,
+      "unpaid": 0,
+      "totalCost": 4030,
+      "profit": 650,
+      "rows": 2
+    },
+    {
+      "customer": "扬州力骏物流有限公司",
+      "receivable": 4000,
+      "received": 4000,
+      "unpaid": 0,
+      "totalCost": 3000,
+      "profit": 1000,
+      "rows": 2
+    },
+    {
+      "customer": "嘉兴市鑫峤供应链科技有限公司",
+      "receivable": 4000,
+      "received": 4000,
+      "unpaid": 0,
+      "totalCost": 3000,
+      "profit": 1000,
+      "rows": 1
+    },
+    {
+      "customer": "嘉兴坤鑫物流有限公司",
+      "receivable": 4000,
+      "received": 4000,
+      "unpaid": 0,
+      "totalCost": 3000,
+      "profit": 1000,
+      "rows": 1
+    },
+    {
+      "customer": "嘉兴吉时物流有限公司",
+      "receivable": 4000,
+      "received": 4000,
+      "unpaid": 0,
+      "totalCost": 3000,
+      "profit": 1000,
+      "rows": 1
+    },
+    {
+      "customer": "广州壹心膳食管理有限公司",
+      "receivable": 3357,
+      "received": 3357,
+      "unpaid": 0,
+      "totalCost": 3795.55,
+      "profit": -438.55,
+      "rows": 2
+    },
+    {
+      "customer": "广东新正东能源有限公司",
+      "receivable": 2450,
+      "received": 2450,
+      "unpaid": 0,
+      "totalCost": 2799,
+      "profit": -349,
+      "rows": 2
+    },
+    {
+      "customer": "上海岚通国际物流有限公司",
+      "receivable": 2000,
+      "received": 2000,
+      "unpaid": 0,
+      "totalCost": 1500,
+      "profit": 500,
+      "rows": 1
+    },
+    {
+      "customer": "杭州冠泽物流有限公司",
+      "receivable": 2000,
+      "received": 2000,
+      "unpaid": 0,
+      "totalCost": 1500,
+      "profit": 500,
+      "rows": 1
+    },
+    {
+      "customer": "广州仁昌物流仓储有限公司",
+      "receivable": 1293,
+      "received": 775.8,
+      "unpaid": 517.2,
+      "totalCost": 999,
+      "profit": 294,
+      "rows": 2
+    },
+    {
+      "customer": "上海浦江特种气体有限公司",
+      "receivable": 0,
+      "received": 0,
+      "unpaid": 0,
+      "totalCost": 9000,
+      "profit": -9000,
+      "rows": 6
+    },
+    {
+      "customer": "成都玉池物流有限公司",
+      "receivable": 0,
+      "received": 0,
+      "unpaid": 0,
+      "totalCost": 6411.3,
+      "profit": -6411.3,
+      "rows": 2
+    },
+    {
+      "customer": "住商国际物流有限公司无锡分公司",
+      "receivable": 0,
+      "received": 0,
+      "unpaid": 0,
+      "totalCost": 4000,
+      "profit": -4000,
+      "rows": 1
+    },
+    {
+      "customer": "深圳市兴峰物流有限公司",
+      "receivable": 0,
+      "received": 0,
+      "unpaid": 0,
+      "totalCost": 8532,
+      "profit": -8532,
+      "rows": 3
+    }
+  ]
+}

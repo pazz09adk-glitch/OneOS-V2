@@ -1,0 +1,74 @@
+{
+  "id": "vehicle-management",
+  "line": "ops",
+  "name": "车辆资产",
+  "confidence": "confirmed",
+  "roles": [
+    "运维",
+    "车管",
+    "Admin"
+  ],
+  "pages": [
+    {
+      "name": "资产台账",
+      "purpose": "分类 Pill、筛选、保险证照异常扫读、导入导出"
+    },
+    {
+      "name": "一车一档详情",
+      "purpose": "基本信息、证照、运维指派、全生命周期"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "分类与筛选查车",
+    "点车牌进详情",
+    "查看证照保险里程",
+    "Admin 编辑档案（正式环境）",
+    "处置出售/过户/报废审批归档"
+  ],
+  "reverse": [
+    {
+      "case": "筛选无命中",
+      "behavior": "空态暂无匹配车辆"
+    },
+    {
+      "case": "履约中",
+      "behavior": "停放展示车辆未在库"
+    },
+    {
+      "case": "非 Admin 改档案",
+      "behavior": "正式环境不可见/拦截编辑"
+    },
+    {
+      "case": "沪牌证照",
+      "behavior": "状态按等级评定时间特例"
+    }
+  ],
+  "rules": [
+    "运营状态五档",
+    "保险异常/临期30天/正常；临期不阻断交车",
+    "运维匹配依据最后停放区域",
+    "里程政策考核≠合同考核"
+  ],
+  "forbidden": [
+    "车牌带间隔点",
+    "以原型演示入口当作全员可编辑档案"
+  ],
+  "closedLoop": "档案准确可查；处置类审批归档后退出运营路径完成",
+  "triggers": [
+    {
+      "to": "oneos-h5-vehicle-assets",
+      "when": "移动只读同源"
+    },
+    {
+      "to": "insurance-procurement",
+      "when": "保险异常驱动采购"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/vehicle-management-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/车辆管理.jsx",
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/车辆状态说明-产品需求文档.md"
+  ],
+  "legacyMerged": true
+}

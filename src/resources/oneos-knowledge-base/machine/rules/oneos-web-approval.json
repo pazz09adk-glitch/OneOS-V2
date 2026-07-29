@@ -1,0 +1,47 @@
+{
+  "id": "oneos-web-approval",
+  "line": "platform",
+  "name": "审批中心",
+  "confidence": "confirmed",
+  "roles": [
+    "审批人",
+    "发起人"
+  ],
+  "pages": [
+    {
+      "name": "待办/已办/发起",
+      "purpose": "办理待办、追溯发起、多业务同壳"
+    }
+  ],
+  "preconditions": [
+    "业务单据提交审批"
+  ],
+  "forward": [
+    "打开待办",
+    "同意/驳回/转办（按壳能力）",
+    "回写业务单据状态"
+  ],
+  "reverse": [
+    {
+      "case": "已办结再改",
+      "behavior": "按业务规则禁止或走冲销"
+    },
+    {
+      "case": "无权限",
+      "behavior": "不可见或只读"
+    }
+  ],
+  "rules": [
+    "多业务同壳",
+    "标题与编号规范",
+    "办结必须回写源单"
+  ],
+  "forbidden": [
+    "壳内办结与源单状态不一致"
+  ],
+  "closedLoop": "审批结论回写源业务单据",
+  "triggers": [],
+  "sourceRefs": [
+    "src/resources/prd/oneos-web-approval-autoprd.md"
+  ]
+}

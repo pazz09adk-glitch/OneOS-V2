@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>打字速度测试 · 王冕</title>
+  <style>
+    :root {
+      --bg: #f6f9fc;
+      --card: #fff;
+      --text: #0a2540;
+      --muted: #425466;
+      --border: #e3e8ee;
+      --primary: #533afd;
+      --ok: #10b981;
+      --warn: #d97706;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #e8e4ff 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #dce9f8 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      padding: 28px 16px 48px;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 22px; margin: 0 0 6px; font-weight: 650; }
+    .sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(10, 37, 64, 0.04);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .stat {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .stat .v { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .stat .l { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .prompt {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 16px;
+      line-height: 1.7;
+      font-family: inherit;
+      color: var(--text);
+      resize: vertical;
+      outline: none;
+    }
+    textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(83, 58, 253, 0.15); }
+    textarea:disabled { background: #f1f5f9; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 10px;
+      padding: 0 18px;
+      min-height: 44px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .primary { background: var(--primary); color: #fff; }
+    .primary:hover { background: #6346ff; }
+    .ghost { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .ghost:hover { background: #f8fafc; }
+    .result {
+      display: none;
+      border-left: 4px solid var(--primary);
+    }
+    .result.show { display: block; }
+    .result h2 { margin: 0 0 10px; font-size: 18px; }
+    .result p { margin: 0 0 8px; line-height: 1.6; color: var(--muted); font-size: 14px; }
+    .big {
+      font-size: 36px;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+      margin: 8px 0 14px;
+    }
+    .cmp { font-size: 14px; color: var(--text); line-height: 1.65; }
+    .cmp strong { color: var(--ok); }
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .big { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>中文打字速度测试</h1>
+    <p class="sub">照着范文打字，满 60 秒自动结束；也可提前点「结束并统计」。结果按「正确汉字数 ÷ 分钟」计算，方便和语音工具对比。</p>
+
+    <div class="card">
+      <div class="stats">
+        <div class="stat"><div class="v" id="timer">60</div><div class="l">剩余秒</div></div>
+        <div class="stat"><div class="v" id="chars">0</div><div class="l">已输入字</div></div>
+        <div class="stat"><div class="v" id="correct">0</div><div class="l">正确字</div></div>
+        <div class="stat"><div class="v" id="cpm">0</div><div class="l">实时字/分</div></div>
+      </div>
+
+      <div class="prompt" id="prompt"></div>
+      <textarea id="input" placeholder="点击「开始测试」后在此输入…" disabled></textarea>
+
+      <div class="row">
+        <button class="primary" id="startBtn" type="button">开始测试</button>
+        <button class="ghost" id="stopBtn" type="button" disabled>结束并统计</button>
+        <button class="ghost" id="resetBtn" type="button">换一段范文</button>
+      </div>
+    </div>
+
+    <div class="card result" id="result">
+      <h2>你的打字速度</h2>
+      <div class="big"><span id="finalCpm">0</span> 字/分钟</div>
+      <p id="detail"></p>
+      <p class="cmp" id="compare"></p>
+    </div>
+  </div>
+
+  <script>
+    const PASSAGES = [
+      "打开租赁业务明细，按客户名称汇总应收、实收、未收、总成本和盈亏，并核对页面顶部指标是否一致。",
+      "保险采购台账里要看清一共维护了多少保单，各险种分别多少，车辆正常、临期、异常各有多少辆。",
+      "车辆管理中按品牌和车型统计数量，再看每个停车场停放多少辆；停车场为空表示车已交给客户、不在场。",
+      "把日常重复、可规则化的系统操作拆成步骤后交给人工智能执行或辅助，能明显提升部门整体效率。"
+    ];
+
+    const VOICE_LOW = 450;
+    const VOICE_HIGH = 550;
+
+    const promptEl = document.getElementById("prompt");
+    const inputEl = document.getElementById("input");
+    const timerEl = document.getElementById("timer");
+    const charsEl = document.getElementById("chars");
+    const correctEl = document.getElementById("correct");
+    const cpmEl = document.getElementById("cpm");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const resultEl = document.getElementById("result");
+    const finalCpmEl = document.getElementById("finalCpm");
+    const detailEl = document.getElementById("detail");
+    const compareEl = document.getElementById("compare");
+
+    let passage = "";
+    let startedAt = 0;
+    let ticking = null;
+    let running = false;
+    const DURATION = 60;
+
+    function pickPassage() {
+      passage = PASSAGES[Math.floor(Math.random() * PASSAGES.length)];
+      promptEl.textContent = passage;
+    }
+
+    function countCorrect(typed, target) {
+      let n = 0;
+      const len = Math.min(typed.length, target.length);
+      for (let i = 0; i < len; i++) {
+        if (typed[i] === target[i]) n++;
+      }
+      return n;
+    }
+
+    function elapsedSec() {
+      return Math.max(0.001, (Date.now() - startedAt) / 1000);
+    }
+
+    function updateLive() {
+      const typed = inputEl.value;
+      const ok = countCorrect(typed, passage);
+      const sec = elapsedSec();
+      const remain = Math.max(0, Math.ceil(DURATION - sec));
+      timerEl.textContent = String(remain);
+      charsEl.textContent = String(typed.length);
+      correctEl.textContent = String(ok);
+      cpmEl.textContent = String(Math.round((ok / sec) * 60));
+      if (sec >= DURATION) finish();
+    }
+
+    function finish() {
+      if (!running) return;
+      running = false;
+      clearInterval(ticking);
+      inputEl.disabled = true;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+
+      const typed = inputEl.value;
+      const ok = countCorrect(typed, passage);
+      const sec = Math.min(DURATION, elapsedSec());
+      const cpm = Math.round((ok / sec) * 60);
+      const accuracy = typed.length ? Math.round((ok / typed.length) * 100) : 0;
+
+      finalCpmEl.textContent = String(cpm);
+      detailEl.textContent =
+        `用时 ${sec.toFixed(1)} 秒 · 输入 ${typed.length} 字 · 正确 ${ok} 字 · 正确率 ${accuracy}%`;
+
+      const midVoice = (VOICE_LOW + VOICE_HIGH) / 2;
+      const ratio = cpm > 0 ? (midVoice / cpm).toFixed(1) : "—";
+      compareEl.innerHTML =
+        `对照本次语音工具产出约 <strong>${VOICE_LOW}–${VOICE_HIGH} 字/分</strong>：` +
+        (cpm > 0
+          ? `语音大约是你打字速度的 <strong>${ratio} 倍</strong>。`
+          : `请再测一次以得到有效对比。`);
+
+      resultEl.classList.add("show");
+    }
+
+    function start() {
+      resultEl.classList.remove("show");
+      inputEl.value = "";
+      inputEl.disabled = false;
+      inputEl.focus();
+      startedAt = Date.now();
+      running = true;
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      timerEl.textContent = String(DURATION);
+      charsEl.textContent = "0";
+      correctEl.textContent = "0";
+      cpmEl.textContent = "0";
+      clearInterval(ticking);
+      ticking = setInterval(updateLive, 200);
+    }
+
+    startBtn.addEventListener("click", start);
+    stopBtn.addEventListener("click", finish);
+    resetBtn.addEventListener("click", () => {
+      if (running) return;
+      pickPassage();
+      inputEl.value = "";
+      resultEl.classList.remove("show");
+      timerEl.textContent = String(DURATION);
+      charsEl.textContent = "0";
+      correctEl.textContent = "0";
+      cpmEl.textContent = "0";
+    });
+    inputEl.addEventListener("input", () => {
+      if (running) updateLive();
+    });
+
+    pickPassage();
+  </script>
+</body>
+</html>

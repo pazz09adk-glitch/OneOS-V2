@@ -1,0 +1,43 @@
+{
+  "id": "self-operated-contract",
+  "line": "logistics",
+  "name": "物流合同",
+  "confidence": "architecture",
+  "roles": [
+    "业务员"
+  ],
+  "pages": [
+    {
+      "name": "物流合同",
+      "purpose": "要素录入、确认生效、可派车提示"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "填写合同",
+    "确认生效",
+    "提示可进入调度"
+  ],
+  "reverse": [
+    {
+      "case": "未生效",
+      "behavior": "不可派车办结"
+    }
+  ],
+  "rules": [
+    "生效后才可调度勾连"
+  ],
+  "forbidden": [
+    "未生效合同落账营收"
+  ],
+  "closedLoop": "合同生效可创建调度任务",
+  "triggers": [
+    {
+      "to": "self-operated-dispatch-task",
+      "when": "生效后派车"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

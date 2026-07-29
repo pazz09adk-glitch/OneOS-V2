@@ -1,0 +1,44 @@
+{
+  "id": "version-roadmap",
+  "line": "platform",
+  "name": "版本完成情况与未来规划",
+  "confidence": "legacy",
+  "roles": [
+    "产品",
+    "项目",
+    "高管"
+  ],
+  "pages": [
+    {
+      "name": "双轨规划页",
+      "purpose": "资产全生命周期轨 + 业财全生命周期轨完成度与未来版本"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "查看资产轨/业财轨节点完成度",
+    "对齐未来版本（如移动商城 V1.3 等）"
+  ],
+  "reverse": [
+    {
+      "case": "规划未落地",
+      "behavior": "不作为现网验收依据"
+    }
+  ],
+  "rules": [
+    "资产轨：采购→运维→退租",
+    "业财轨：合同→账单→结算",
+    "强调 VIN 唯一档案与 YS 直连演进"
+  ],
+  "forbidden": [
+    "把未来版本能力当成已上线强验收"
+  ],
+  "closedLoop": "规划与现网能力边界清晰（治理闭环）",
+  "triggers": [],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/OneOS项目版本完成情况及未来版本规划.jsx"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/OneOS项目版本完成情况及未来版本规划.jsx",
+  "legacyPath": null
+}

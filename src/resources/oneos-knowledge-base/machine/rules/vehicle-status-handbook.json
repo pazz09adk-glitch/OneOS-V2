@@ -1,0 +1,52 @@
+{
+  "id": "vehicle-status-handbook",
+  "line": "foundation",
+  "name": "车辆状态说明（五维）",
+  "confidence": "legacy",
+  "roles": [
+    "运维",
+    "业务",
+    "财务",
+    "产品"
+  ],
+  "pages": [
+    {
+      "name": "车辆状态说明页",
+      "purpose": "运营/车辆/出库/证照/保险五维说明、场景问答与速查"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "阅读五维总览",
+    "查关联规则与速查表",
+    "按场景问答排障"
+  ],
+  "reverse": [
+    {
+      "case": "流程未上线",
+      "behavior": "文档内标注，避免与现网混淆"
+    }
+  ],
+  "rules": [
+    "五类状态组合判断能否备车/交车",
+    "流程占用与恢复规则"
+  ],
+  "forbidden": [
+    "把说明页当操作办结入口"
+  ],
+  "closedLoop": "人员理解一致，减少误操作（认知闭环）",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态展示对齐"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/车辆状态说明-产品需求文档.md",
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/车辆状态说明.jsx",
+    "~/Desktop/CURSOR/ONE-OS/docs/车辆状态说明手册.html"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/ONEOS-web/车辆状态说明-产品需求文档.md",
+  "legacyPath": null
+}

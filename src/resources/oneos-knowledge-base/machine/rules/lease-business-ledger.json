@@ -1,0 +1,59 @@
+{
+  "id": "lease-business-ledger",
+  "line": "lease",
+  "name": "租赁业务台账",
+  "confidence": "architecture",
+  "roles": [
+    "业务员",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "租赁台账/明细",
+      "purpose": "周期账单、溢出抵扣、履约核对"
+    }
+  ],
+  "preconditions": [
+    "交车完成进入租期"
+  ],
+  "forward": [
+    "查看周期账单",
+    "核对溢出款抵扣下期",
+    "异常催办",
+    "关联收款核销"
+  ],
+  "reverse": [
+    {
+      "case": "未交车",
+      "behavior": "无履约台账周期"
+    },
+    {
+      "case": "溢出未结转",
+      "behavior": "下期应付需体现抵扣规则"
+    }
+  ],
+  "rules": [
+    "周期自动计算",
+    "溢出款抵扣下期"
+  ],
+  "forbidden": [
+    "手工改账无痕迹导致业财不一致"
+  ],
+  "closedLoop": "租期账单可核销并回写实收状态",
+  "triggers": [
+    {
+      "to": "payment-records",
+      "when": "账单关联收款"
+    },
+    {
+      "to": "business-dept-ledger",
+      "when": "收入回填盈亏"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/台账数据/租赁业务台账.jsx",
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/租赁账单.jsx"
+  ],
+  "legacyMerged": true
+}

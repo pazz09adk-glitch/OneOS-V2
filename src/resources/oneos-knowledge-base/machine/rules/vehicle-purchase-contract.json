@@ -1,0 +1,49 @@
+{
+  "id": "vehicle-purchase-contract",
+  "line": "ops",
+  "name": "车辆采购合同",
+  "confidence": "confirmed",
+  "roles": [
+    "采购",
+    "财务",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "采购/三方合同",
+      "purpose": "合同要素、付款关联、验车任务下发"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "录入合同",
+    "关联付款",
+    "付款完成后下发验车任务"
+  ],
+  "reverse": [
+    {
+      "case": "未付款完成",
+      "behavior": "不触发验车入库任务（按口径）"
+    }
+  ],
+  "rules": [
+    "付款完成是验车前置（中期口径）"
+  ],
+  "forbidden": [
+    "无合同车辆幽灵入库"
+  ],
+  "closedLoop": "合同付款完成且验车任务已下发",
+  "triggers": [
+    {
+      "to": "vehicle-inspection",
+      "when": "下发验车"
+    },
+    {
+      "to": "payment-records",
+      "when": "关联付款"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/vehicle-purchase-contract-autoprd.md"
+  ]
+}

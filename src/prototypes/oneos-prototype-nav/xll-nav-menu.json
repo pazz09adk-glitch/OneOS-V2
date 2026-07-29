@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-20T05:34:46.063Z",
+  "title": "小羚羚",
+  "sectionId": "folder-prototypes-xll-miniapp",
+  "description": "氢能车辆运营移动端原型；菜单与小羚羚「小程序」项目目录同步。",
+  "prototypeId": "xll-miniapp",
+  "runtimeOrigin": "http://localhost:51723",
+  "hrefPrefix": "http://localhost:51723/prototypes/xll-miniapp",
+  "groups": [
+    {
+      "id": "directory-main",
+      "title": "主流程",
+      "defaultExpanded": true,
+      "links": [
+        {
+          "id": "route-todo",
+          "title": "工作台",
+          "pageId": "todo",
+          "route": "todo"
+        },
+        {
+          "id": "route-business",
+          "title": "业务",
+          "pageId": "business",
+          "route": "business"
+        },
+        {
+          "id": "route-map",
+          "title": "地图",
+          "pageId": "map",
+          "route": "map"
+        },
+        {
+          "id": "route-mine",
+          "title": "我的",
+          "pageId": "mine",
+          "route": "mine"
+        }
+      ]
+    },
+    {
+      "id": "directory-modules",
+      "title": "业务模块",
+      "defaultExpanded": true,
+      "links": [
+        {
+          "id": "route-audit",
+          "title": "审批中心",
+          "pageId": "audit",
+          "route": "audit"
+        },
+        {
+          "id": "route-inspection",
+          "title": "年审",
+          "pageId": "inspection",
+          "route": "inspection"
+        },
+        {
+          "id": "route-vehicle",
+          "title": "车辆管理",
+          "pageId": "vehicle",
+          "route": "vehicle"
+        },
+        {
+          "id": "route-delivery",
+          "title": "交车",
+          "pageId": "delivery",
+          "route": "delivery"
+        },
+        {
+          "id": "route-thirdreturn",
+          "title": "三方退车",
+          "pageId": "third-return",
+          "route": "thirdReturn"
+        },
+        {
+          "id": "route-replace",
+          "title": "替换车",
+          "pageId": "replace",
+          "route": "replace"
+        },
+        {
+          "id": "route-driver-training",
+          "title": "司机安全培训",
+          "pageId": "driver-training",
+          "route": "driver-training"
+        },
+        {
+          "id": "route-audit-return",
+          "title": "还车应结款（说明）",
+          "pageId": "audit-return",
+          "route": "audit-return"
+        }
+      ]
+    }
+  ]
+}

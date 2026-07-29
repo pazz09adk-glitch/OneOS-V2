@@ -1,0 +1,51 @@
+{
+  "id": "oneos-v2-h5-vehicle-fault-handling",
+  "line": "ops",
+  "name": "故障处置（H5）",
+  "confidence": "confirmed",
+  "roles": [
+    "运维",
+    "现场人员"
+  ],
+  "pages": [
+    {
+      "name": "H5 故障处置",
+      "purpose": "移动端查看与处置，口径对齐 PC"
+    }
+  ],
+  "preconditions": [
+    "存在故障单"
+  ],
+  "forward": [
+    "查看单据",
+    "补充证据/处置",
+    "提交或归档（门槛同 PC）"
+  ],
+  "reverse": [
+    {
+      "case": "网络中断",
+      "behavior": "提示重试，不丢关键校验"
+    },
+    {
+      "case": "归档条件不足",
+      "behavior": "拦截"
+    }
+  ],
+  "rules": [
+    "与 PC 业务口径一致",
+    "触控友好底栏操作"
+  ],
+  "forbidden": [
+    "H5 绕过归档硬门槛"
+  ],
+  "closedLoop": "与 PC 同一归档闭环",
+  "triggers": [
+    {
+      "to": "vehicle-fault-handling",
+      "when": "数据同源"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-v2-h5-vehicle-fault-handling-autoprd.md"
+  ]
+}

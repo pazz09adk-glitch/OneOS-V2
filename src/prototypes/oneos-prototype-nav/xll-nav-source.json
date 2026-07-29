@@ -1,0 +1,7 @@
+{
+  "projectRoot": "C:/Users/hsu06/Projects/xll-mini-program",
+  "prototypeId": "xll-miniapp",
+  "annotationSource": "src/prototypes/xll-miniapp/annotation-source.json",
+  "devServerInfo": ".axhub/make/.dev-server-info.json",
+  "includeDirectoryIds": ["directory-main", "directory-modules"]
+}

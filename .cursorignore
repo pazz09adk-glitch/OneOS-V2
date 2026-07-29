@@ -1,0 +1,75 @@
+# OneOS V2 · Cursor 索引/检索排除（省用量）
+# 目标：减少 Agent 误扫大目录、二进制与运行时产物。需要读某文件时仍可用 @ 精确引用。
+
+# Dependencies & build
+node_modules/
+dist/
+.vite/
+coverage/
+.tmp/
+tmp/
+temp/
+.cache/
+.npm/
+.npm-cache/
+.parcel-cache/
+.next/
+out/
+.nuxt/
+storybook-static/
+
+# VCS / local tooling noise
+.git/
+.superpowers/
+.playwright-cli/
+.git-versions/
+.drawio-tmp/
+
+# Lockfile（体积大，改依赖时再 @package-lock.json）
+package-lock.json
+
+# Axhub 运行时产物
+.axhub/make/
+.axhub/sessions/
+.dev-server-info.json
+entries.json
+
+# 设计比稿截图 / 演示素材（非代码源）
+src/resources/design-system/**/*-shots/**
+src/resources/design-system/lease-contract-theme-shots/
+src/resources/design-system/workbench-shots/
+src/resources/design-system/fault-form-shots/
+src/resources/design-system/lease-contract-combo-shots/
+src/resources/design-system/theme-variants/
+src/resources/oneos-web-legacy/**/docs/
+src/resources/oneos-web-legacy/**/*.png
+src/resources/oneos-web-legacy/**/*.pdf
+
+# 二进制与大媒体（需要时再 @ 精确路径）
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.webp
+**/*.mp4
+**/*.mov
+**/*.zip
+**/*.pptx
+**/*.ppt
+**/*.pdf
+**/*.ttf
+**/*.otf
+**/*.woff
+**/*.woff2
+**/*.tgz
+
+# 原型本地运行数据
+src/prototypes/**/.spec/acp/
+src/prototypes/**/.spec/prototype-comments.json
+
+# 日志与环境
+logs/
+*.log
+.env
+.env.*
+!.env.example

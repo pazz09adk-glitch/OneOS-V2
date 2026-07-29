@@ -1,0 +1,61 @@
+{
+  "id": "oneos-web-workbench-new",
+  "line": "platform",
+  "name": "全新工作台",
+  "confidence": "confirmed",
+  "roles": [
+    "高管",
+    "业管",
+    "运维",
+    "财务",
+    "安全",
+    "加氢站"
+  ],
+  "pages": [
+    {
+      "name": "工作台首页",
+      "purpose": "预警、入口、看板、待办、审批、通知、催办演示、版本日志"
+    }
+  ],
+  "preconditions": [
+    "用户已登录并具备角色视角"
+  ],
+  "forward": [
+    "扫视预警 KPI",
+    "处理待办/审批",
+    "快捷跳转业务模块办结",
+    "查看通知"
+  ],
+  "reverse": [
+    {
+      "case": "模块已下线",
+      "behavior": "勿再验收/入口移除"
+    },
+    {
+      "case": "无待办",
+      "behavior": "空态"
+    }
+  ],
+  "rules": [
+    "工作台不替代源模块闭环",
+    "角色视角切换",
+    "催办为演示能力时需标明"
+  ],
+  "forbidden": [
+    "仅在工作台点完成却无源单状态变化"
+  ],
+  "closedLoop": "异常与待办跳转源模块并完成业务闭环",
+  "triggers": [
+    {
+      "to": "oneos-web-approval",
+      "when": "进审批"
+    },
+    {
+      "to": "message-center",
+      "when": "通知中心"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-web-workbench-new-autoprd.md"
+  ]
+}

@@ -1,0 +1,19 @@
+/**
+ * ONE-OS Web 端 — 全局样式入口
+ * 构建时在入口 HTML/JS 中引入本文件即可
+ *
+ * @example HTML
+ * <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5/dist/reset.css" />
+ * <link rel="stylesheet" href="./styles/index.css" />
+ *
+ * @example Webpack / Vite
+ * import 'antd/dist/reset.css';
+ * import './styles/index.css';
+ *
+ * @see docs/ONE-OS-DESIGN-SPEC.md
+ */
+
+@import url('./ant-table-global-fix.css');
+@import url('./oneos-app.css');
+@import url('./contract-template.css');
+@import url('./vehicle-management.css');

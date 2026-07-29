@@ -1,0 +1,86 @@
+{
+  "id": "vehicle-return-settlement",
+  "line": "lease",
+  "name": "还车应结款",
+  "confidence": "confirmed",
+  "roles": [
+    "业务员",
+    "运维办理人",
+    "运维主管",
+    "安全",
+    "能源",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "还车应结台账",
+      "purpose": "多部门会签费用与审批进度"
+    },
+    {
+      "name": "费用明细",
+      "purpose": "各部门费用段填写/只读与运维转交；安全板块自动违章事故"
+    }
+  ],
+  "preconditions": [
+    "运维完成还车节点"
+  ],
+  "forward": [
+    "各部门填写费用段",
+    "运维可转交办理人（原因必填）",
+    "提交审批",
+    "补缴/退还关联收付款",
+    "归档"
+  ],
+  "reverse": [
+    {
+      "case": "审批中",
+      "behavior": "费用明细可查看；运维段只读仍可转交；不改审批流"
+    },
+    {
+      "case": "审批完成后",
+      "behavior": "无转交图标"
+    },
+    {
+      "case": "转给自己或非运维",
+      "behavior": "拦截"
+    },
+    {
+      "case": "原因为空",
+      "behavior": "不可提交转交"
+    },
+    {
+      "case": "安全员尚未提交本单",
+      "behavior": "仍展示自动带出的本段违章事故或暂无违章记录"
+    },
+    {
+      "case": "租期外历史违章事故",
+      "behavior": "不展示"
+    }
+  ],
+  "rules": [
+    "转交只换办理人不改费用与审批流",
+    "主管可代转",
+    "多部门会签齐备才可资金闭环",
+    "单据生成后安全板块按本段实际交还车周期自动只读展示违章事故，不依赖安全员提交；无记录文案为暂无违章记录"
+  ],
+  "forbidden": [
+    "审批完成后改关键费用无冲销",
+    "其他部门转交（本期非目标）"
+  ],
+  "closedLoop": "会签通过且收付款核销完成并归档",
+  "triggers": [
+    {
+      "to": "payment-records",
+      "when": "补缴/退还关联"
+    },
+    {
+      "to": "oneos-web-approval",
+      "when": "进入审批壳"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/vehicle-return-settlement-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/财务管理/还车应结款.jsx"
+  ],
+  "legacyMerged": true
+}

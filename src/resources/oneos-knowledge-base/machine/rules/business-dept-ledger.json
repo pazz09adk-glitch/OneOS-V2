@@ -1,0 +1,43 @@
+{
+  "id": "business-dept-ledger",
+  "line": "foundation",
+  "name": "项目盈亏情况",
+  "confidence": "architecture",
+  "roles": [
+    "业务主管",
+    "财务",
+    "高管"
+  ],
+  "pages": [
+    {
+      "name": "盈亏大表",
+      "purpose": "跨板块业绩、成本与盈亏钻取"
+    }
+  ],
+  "preconditions": [
+    "各条线有收入成本回填"
+  ],
+  "forward": [
+    "按项目/部门查看",
+    "钻取来源单据",
+    "发现异常催办源模块"
+  ],
+  "reverse": [
+    {
+      "case": "源模块未回填",
+      "behavior": "指标缺失或为 0，需标风险"
+    }
+  ],
+  "rules": [
+    "数据同源回填",
+    "不在本页伪造业务闭环"
+  ],
+  "forbidden": [
+    "在盈亏页直接改源业务单据无痕迹"
+  ],
+  "closedLoop": "盈亏可追溯到源单据（查看闭环，办理在源模块）",
+  "triggers": [],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

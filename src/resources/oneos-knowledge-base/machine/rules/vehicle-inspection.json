@@ -1,0 +1,49 @@
+{
+  "id": "vehicle-inspection",
+  "line": "ops",
+  "name": "验车入库",
+  "confidence": "confirmed",
+  "roles": [
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "验车任务/表单",
+      "purpose": "现场核对，验完标记库存入库"
+    }
+  ],
+  "preconditions": [
+    "采购侧验车任务已下发"
+  ],
+  "forward": [
+    "现场核对车辆识别代码与配置",
+    "提交验车结果",
+    "自动标记库存"
+  ],
+  "reverse": [
+    {
+      "case": "验车不合格",
+      "behavior": "不入库或退回采购处理"
+    }
+  ],
+  "rules": [
+    "车辆识别代码入库主键"
+  ],
+  "forbidden": [
+    "跳过验车直接上牌运营"
+  ],
+  "closedLoop": "验车通过并进入库存车辆",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "档案入库"
+    },
+    {
+      "to": "oneos-web-ops",
+      "when": "进入上牌证照备车"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/vehicle-inspection-autoprd.md"
+  ]
+}

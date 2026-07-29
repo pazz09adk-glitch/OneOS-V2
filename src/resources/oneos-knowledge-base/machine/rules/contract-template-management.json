@@ -1,0 +1,59 @@
+{
+  "id": "contract-template-management",
+  "line": "lease",
+  "name": "标准合同模板",
+  "confidence": "architecture",
+  "roles": ["法务", "业务员"],
+  "pages": [
+    {
+      "name": "模板库",
+      "purpose": "法务标准制式合同：红线、品牌车型可见条款附件、锁定区"
+    },
+    {
+      "name": "模板选用",
+      "purpose": "签约时调取模板"
+    }
+  ],
+  "preconditions": ["模板已发布且版本有效"],
+  "forward": [
+    "法务创建/修订标准制式合同",
+    "配置风控红线、品牌车型可见条款与附件、锁定区",
+    "发布版本",
+    "业务签约调取"
+  ],
+  "reverse": [
+    {
+      "case": "触碰或改动风控红线",
+      "behavior": "租赁合同转非标审批"
+    },
+    {
+      "case": "改锁定区",
+      "behavior": "禁止或需法务权限"
+    }
+  ],
+  "rules": [
+    "来源于法务标准制式化合同",
+    "锁定区不可被业务随意改写",
+    "可按品牌车型设置可见条款与附件",
+    "红线变更留痕并驱动非标"
+  ],
+  "forbidden": ["业务绕过模板直接生成无版本合同"],
+  "closedLoop": "有效模板可被租赁合同引用",
+  "triggers": [
+    {
+      "to": "lease-contract-management",
+      "when": "签约选用模板"
+    },
+    {
+      "to": "biz-finance-integration",
+      "when": "规划基准"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "src/resources/业财一体化全链条方案-汇报稿.md",
+    "src/resources/oneos-knowledge-base/foundations/biz-finance-integration.md"
+  ],
+  "legacyMerged": false,
+  "planningBaseline": true
+}

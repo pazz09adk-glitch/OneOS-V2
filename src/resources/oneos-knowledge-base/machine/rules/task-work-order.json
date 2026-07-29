@@ -1,0 +1,55 @@
+{
+  "id": "task-work-order",
+  "line": "platform",
+  "name": "任务工单",
+  "confidence": "confirmed",
+  "roles": [
+    "督办人",
+    "执行人"
+  ],
+  "pages": [
+    {
+      "name": "工单台账",
+      "purpose": "筛选督办"
+    },
+    {
+      "name": "详情/新增全页",
+      "purpose": "多来源关联、催办；里程门禁类专用表单"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "创建并关联来源",
+    "派发执行",
+    "催办",
+    "办结归档"
+  ],
+  "reverse": [
+    {
+      "case": "里程一车一规则冲突",
+      "behavior": "门禁拦截"
+    },
+    {
+      "case": "无关联来源（若必填）",
+      "behavior": "不可提交"
+    }
+  ],
+  "rules": [
+    "同页全页详情与新增",
+    "里程一车一规则门禁",
+    "业务数据调整类专用表单"
+  ],
+  "forbidden": [
+    "绕过里程门禁重复建冲突规则"
+  ],
+  "closedLoop": "工单办结且关联业务状态一致",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "里程任务展示联动"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/task-work-order-autoprd.md"
+  ]
+}

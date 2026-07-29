@@ -1,0 +1,46 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-lease-bill",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-lb-rule",
+        "index": 1,
+        "title": "交车起算与25日生成",
+        "pageId": "detail",
+        "locator": { "selectors": ["[data-annotation-id='bfcl-lb-rule']"], "fingerprint": "section|bfcl-lb-rule", "path": [] },
+        "aiPrompt": "租赁账单计费",
+        "annotationText": "按实际交车起算；每月25日生成；附加费可滚下期。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-lb-grace",
+        "index": 2,
+        "title": "宽限与逾期",
+        "pageId": "detail",
+        "locator": { "selectors": ["[data-annotation-id='bfcl-lb-grace']"], "fingerprint": "section|bfcl-lb-grace", "path": [] },
+        "aiPrompt": "KA15 LA10 SMB6",
+        "annotationText": "宽限自账单生成日起算；超宽限即逾期；收款关联后回写结清。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      { "type": "markdown", "id": "prd", "title": "产品需求说明（PRD）", "markdownPath": ".spec/requirements-prd.md" },
+      { "type": "link", "id": "hub", "title": "返回业财闭环总览", "href": "/prototypes/biz-finance-closed-loop/", "target": "self" }
+    ]
+  }
+}

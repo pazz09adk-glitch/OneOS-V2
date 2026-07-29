@@ -1,0 +1,792 @@
+/**
+ * ONE-OS 全局应用中后台样式
+ * 来源：web端/styles/vehicle-management.css（车辆管理）
+ * 页面根节点: .oneos-page（新页面）或 .vm-page（向后兼容）
+ *
+ * 依赖: Ant Design v5
+ * 建议顺序: antd.css → oneos-tokens.css → oneos-app.css
+ */
+
+@import url('./oneos-tokens.css');
+
+/* 页面根：oneos-page 与 vm-page 等价 */
+.oneos-page,
+.vm-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--oneos-page-padding-y) var(--oneos-page-padding-x) var(--oneos-page-padding-bottom);
+  font-family: var(--oneos-font-family);
+  font-size: var(--oneos-font-size-base);
+  line-height: var(--oneos-line-height-normal);
+  color: var(--oneos-color-text);
+  background: linear-gradient(
+    165deg,
+    var(--oneos-color-bg-page-alt) 0%,
+    var(--oneos-color-bg-page) 50%,
+    var(--oneos-color-bg-page-alt) 100%
+  );
+}
+
+.oneos-page *,
+.oneos-page *::before,
+.oneos-page *::after,
+.vm-page *,
+.vm-page *::before,
+.vm-page *::after {
+  box-sizing: border-box;
+}
+
+.oneos-page.oneos-detail-shell,
+.oneos-page.vm-detail-shell,
+.vm-page.oneos-detail-shell,
+.vm-page.vm-detail-shell {
+  padding: var(--oneos-page-padding-y) var(--oneos-page-padding-x);
+}
+
+/* ==========================================================================
+   Page header
+   ========================================================================== */
+
+.oneos-page .oneos-page-header,
+.vm-page .vm-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--oneos-space-3);
+  margin-bottom: var(--oneos-space-4);
+}
+
+.oneos-page .oneos-page-header .ant-breadcrumb,
+.vm-page .vm-page-header .ant-breadcrumb {
+  font-size: var(--oneos-font-size-base);
+}
+
+.oneos-page .oneos-page-header .ant-breadcrumb a,
+.oneos-page .oneos-page-header .ant-breadcrumb button,
+.vm-page .vm-page-header .ant-breadcrumb a,
+.vm-page .vm-page-header .ant-breadcrumb button {
+  color: var(--oneos-color-primary);
+  cursor: pointer;
+  transition: color var(--oneos-duration-fast) var(--oneos-ease-default);
+}
+
+.oneos-page .oneos-page-header .ant-breadcrumb a:hover,
+.oneos-page .oneos-page-header .ant-breadcrumb button:hover,
+.vm-page .vm-page-header .ant-breadcrumb a:hover,
+.vm-page .vm-page-header .ant-breadcrumb button:hover {
+  color: var(--oneos-color-primary-hover);
+}
+
+/* ==========================================================================
+   Filter card（oneos-filter-* / lc-filter-* / vm-filter-* 等价）
+   ========================================================================== */
+
+.oneos-page .oneos-filter-card.ant-card,
+.oneos-page .lc-filter-card.ant-card,
+.oneos-page .vm-filter-card.ant-card,
+.vm-page .oneos-filter-card.ant-card,
+.vm-page .lc-filter-card.ant-card,
+.vm-page .vm-filter-card.ant-card {
+  margin-bottom: var(--oneos-space-4);
+  border: 1px solid var(--oneos-color-border) !important;
+  border-radius: var(--oneos-radius-2xl) !important;
+  box-shadow: var(--oneos-shadow-card) !important;
+}
+
+.oneos-page .oneos-filter-card > .ant-card-head,
+.oneos-page .lc-filter-card > .ant-card-head,
+.oneos-page .vm-filter-card > .ant-card-head,
+.vm-page .oneos-filter-card > .ant-card-head,
+.vm-page .lc-filter-card > .ant-card-head,
+.vm-page .vm-filter-card > .ant-card-head {
+  min-height: auto;
+  padding: var(--oneos-space-3) var(--oneos-space-5) !important;
+  border-bottom: 1px solid var(--oneos-color-border-light) !important;
+}
+
+.oneos-page .oneos-filter-card > .ant-card-head .ant-card-head-title,
+.oneos-page .lc-filter-card > .ant-card-head .ant-card-head-title,
+.oneos-page .vm-filter-card > .ant-card-head .ant-card-head-title,
+.vm-page .oneos-filter-card > .ant-card-head .ant-card-head-title,
+.vm-page .lc-filter-card > .ant-card-head .ant-card-head-title,
+.vm-page .vm-filter-card > .ant-card-head .ant-card-head-title {
+  padding: 0 !important;
+  font-size: var(--oneos-font-size-md) !important;
+  font-weight: var(--oneos-font-weight-bold) !important;
+  color: var(--oneos-color-text) !important;
+}
+
+.oneos-page .oneos-filter-card > .ant-card-body,
+.oneos-page .lc-filter-card > .ant-card-body,
+.oneos-page .vm-filter-card > .ant-card-body,
+.vm-page .oneos-filter-card > .ant-card-body,
+.vm-page .lc-filter-card > .ant-card-body,
+.vm-page .vm-filter-card > .ant-card-body {
+  padding: var(--oneos-space-4) var(--oneos-space-5) var(--oneos-space-5) !important;
+}
+
+.oneos-page .oneos-filter-grid,
+.oneos-page .lc-filter-grid,
+.oneos-page .vm-filter-grid,
+.vm-page .oneos-filter-grid,
+.vm-page .lc-filter-grid,
+.vm-page .vm-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--oneos-filter-columns), minmax(0, 1fr));
+  gap: 14px var(--oneos-space-5);
+  align-items: center;
+}
+
+.oneos-page .oneos-filter-field,
+.oneos-page .lc-filter-field,
+.oneos-page .vm-filter-field,
+.vm-page .oneos-filter-field,
+.vm-page .lc-filter-field,
+.vm-page .vm-filter-field {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.oneos-page .oneos-filter-field-label,
+.oneos-page .lc-filter-field-label,
+.oneos-page .vm-filter-field-label,
+.vm-page .oneos-filter-field-label,
+.vm-page .lc-filter-field-label,
+.vm-page .vm-filter-field-label {
+  flex: 0 0 var(--oneos-filter-label-width);
+  font-size: var(--oneos-font-size-sm);
+  font-weight: var(--oneos-font-weight-medium);
+  line-height: var(--oneos-line-height-tight);
+  color: var(--oneos-color-text-secondary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.oneos-page .oneos-filter-field-control,
+.oneos-page .lc-filter-field-control,
+.oneos-page .vm-filter-field-control,
+.vm-page .oneos-filter-field-control,
+.vm-page .lc-filter-field-control,
+.vm-page .vm-filter-field-control {
+  flex: 1;
+  min-width: 0;
+}
+
+.oneos-page .oneos-filter-field-control .ant-input,
+.oneos-page .oneos-filter-field-control .ant-input-affix-wrapper,
+.oneos-page .oneos-filter-field-control .ant-select,
+.oneos-page .oneos-filter-field-control .ant-select-selector,
+.oneos-page .oneos-filter-field-control .ant-cascader,
+.oneos-page .oneos-filter-field-control .ant-picker,
+.oneos-page .lc-filter-field-control .ant-input,
+.oneos-page .lc-filter-field-control .ant-input-affix-wrapper,
+.oneos-page .lc-filter-field-control .ant-select .ant-select-selector,
+.oneos-page .lc-filter-field-control .ant-cascader .ant-select-selector,
+.oneos-page .vm-filter-field-control .ant-input,
+.oneos-page .vm-filter-field-control .ant-input-affix-wrapper,
+.oneos-page .vm-filter-field-control .ant-select .ant-select-selector,
+.oneos-page .vm-filter-field-control .ant-cascader .ant-select-selector,
+.vm-page .oneos-filter-field-control .ant-input,
+.vm-page .oneos-filter-field-control .ant-input-affix-wrapper,
+.vm-page .oneos-filter-field-control .ant-select .ant-select-selector,
+.vm-page .lc-filter-field-control .ant-input,
+.vm-page .lc-filter-field-control .ant-input-affix-wrapper,
+.vm-page .lc-filter-field-control .ant-select .ant-select-selector,
+.vm-page .vm-filter-field-control .ant-input,
+.vm-page .vm-filter-field-control .ant-input-affix-wrapper,
+.vm-page .vm-filter-field-control .ant-select .ant-select-selector {
+  width: 100%;
+  border-radius: var(--oneos-radius-md) !important;
+}
+
+.oneos-page .oneos-filter-actions,
+.oneos-page .lc-filter-actions,
+.oneos-page .vm-filter-actions,
+.vm-page .oneos-filter-actions,
+.vm-page .lc-filter-actions,
+.vm-page .vm-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--oneos-space-2);
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: var(--oneos-space-4);
+  padding-top: var(--oneos-space-4);
+  border-top: 1px solid var(--oneos-color-border-light);
+}
+
+/* ==========================================================================
+   KPI row
+   ========================================================================== */
+
+.oneos-page .oneos-kpi-row,
+.oneos-page .lc-alert-stats-row,
+.vm-page .oneos-kpi-row,
+.vm-page .lc-alert-stats-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--oneos-space-3);
+  margin-bottom: var(--oneos-space-4);
+}
+
+.oneos-page .oneos-kpi-card,
+.oneos-page .lc-alert-card,
+.vm-page .oneos-kpi-card,
+.vm-page .lc-alert-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 30px 14px 14px;
+  min-height: 76px;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--oneos-color-bg-card);
+  border: 1px solid var(--oneos-color-border);
+  border-radius: var(--oneos-radius-xl);
+  box-shadow: var(--oneos-shadow-kpi);
+}
+
+.oneos-page .oneos-kpi-card-icon,
+.oneos-page .lc-alert-card-icon,
+.vm-page .oneos-kpi-card-icon,
+.vm-page .lc-alert-card-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  background: linear-gradient(
+    145deg,
+    var(--oneos-color-primary-gradient-start) 0%,
+    var(--oneos-color-primary-gradient-end) 100%
+  );
+  border-radius: 50%;
+  box-shadow: var(--oneos-shadow-kpi-icon);
+}
+
+.oneos-page .oneos-kpi-card-val,
+.oneos-page .lc-alert-card-val,
+.vm-page .oneos-kpi-card-val,
+.vm-page .lc-alert-card-val {
+  flex-shrink: 0;
+  font-size: var(--oneos-font-size-kpi);
+  font-weight: var(--oneos-font-weight-extrabold);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--oneos-color-text);
+}
+
+.oneos-page .oneos-kpi-card-title,
+.oneos-page .lc-alert-card-title,
+.vm-page .oneos-kpi-card-title,
+.vm-page .lc-alert-card-title {
+  width: 100%;
+  min-width: 0;
+  font-size: var(--oneos-font-size-sm);
+  font-weight: var(--oneos-font-weight-semibold);
+  line-height: var(--oneos-line-height-tight);
+  color: var(--oneos-color-text-muted);
+  white-space: normal;
+}
+
+.oneos-page .oneos-kpi-card-clickable,
+.oneos-page .lc-alert-card-clickable,
+.vm-page .oneos-kpi-card-clickable,
+.vm-page .lc-alert-card-clickable {
+  cursor: pointer;
+  transition:
+    box-shadow var(--oneos-duration-normal) var(--oneos-ease-default),
+    border-color var(--oneos-duration-normal) var(--oneos-ease-default);
+}
+
+.oneos-page .oneos-kpi-card-clickable:hover,
+.oneos-page .lc-alert-card-clickable:hover,
+.vm-page .oneos-kpi-card-clickable:hover,
+.vm-page .lc-alert-card-clickable:hover {
+  box-shadow: var(--oneos-shadow-card-hover);
+}
+
+.oneos-page .oneos-kpi-card-clickable:focus-visible,
+.oneos-page .lc-alert-card-clickable:focus-visible,
+.vm-page .oneos-kpi-card-clickable:focus-visible,
+.vm-page .lc-alert-card-clickable:focus-visible {
+  outline: var(--oneos-focus-ring);
+  outline-offset: var(--oneos-focus-offset);
+}
+
+.oneos-page .oneos-kpi-card-active,
+.oneos-page .lc-alert-card-active,
+.vm-page .oneos-kpi-card-active,
+.vm-page .lc-alert-card-active {
+  border-color: var(--oneos-color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* ==========================================================================
+   Table section
+   ========================================================================== */
+
+.oneos-page .oneos-table-section,
+.oneos-page .lc-table-section,
+.oneos-page .vm-table-section,
+.vm-page .oneos-table-section,
+.vm-page .lc-table-section,
+.vm-page .vm-table-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.oneos-page .oneos-table-toolbar,
+.oneos-page .lc-table-toolbar,
+.oneos-page .vm-table-toolbar,
+.vm-page .oneos-table-toolbar,
+.vm-page .lc-table-toolbar,
+.vm-page .vm-table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px var(--oneos-space-4);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.oneos-page .oneos-table-toolbar-meta,
+.oneos-page .lc-table-toolbar-meta,
+.oneos-page .vm-table-toolbar-meta,
+.vm-page .oneos-table-toolbar-meta,
+.vm-page .lc-table-toolbar-meta,
+.vm-page .vm-table-toolbar-meta {
+  font-size: var(--oneos-font-size-sm);
+  color: var(--oneos-color-text-muted);
+}
+
+.oneos-page .oneos-table-toolbar-meta strong,
+.oneos-page .lc-table-toolbar-meta strong,
+.oneos-page .vm-table-toolbar-meta strong,
+.vm-page .oneos-table-toolbar-meta strong,
+.vm-page .lc-table-toolbar-meta strong,
+.vm-page .vm-table-toolbar-meta strong {
+  font-weight: var(--oneos-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--oneos-color-text);
+}
+
+.oneos-page .oneos-table-toolbar-actions,
+.oneos-page .lc-table-toolbar-actions,
+.oneos-page .vm-table-toolbar-actions,
+.vm-page .oneos-table-toolbar-actions,
+.vm-page .lc-table-toolbar-actions,
+.vm-page .vm-table-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--oneos-space-2);
+  align-items: center;
+}
+
+.oneos-page .oneos-table-card,
+.oneos-page .lc-table-card,
+.oneos-page .vm-table-card,
+.vm-page .oneos-table-card,
+.vm-page .lc-table-card,
+.vm-page .vm-table-card {
+  overflow: hidden;
+  background: var(--oneos-color-bg-card);
+  border: 1px solid var(--oneos-color-border);
+  border-radius: var(--oneos-radius-2xl);
+  box-shadow: var(--oneos-shadow-card);
+}
+
+.oneos-page .oneos-list-table .ant-table-thead > tr > th,
+.oneos-page .lc-list-table .ant-table-thead > tr > th,
+.oneos-page .vm-list-table .ant-table-thead > tr > th,
+.vm-page .oneos-list-table .ant-table-thead > tr > th,
+.vm-page .lc-list-table .ant-table-thead > tr > th,
+.vm-page .vm-list-table .ant-table-thead > tr > th {
+  padding: var(--oneos-space-3) var(--oneos-space-4) !important;
+  font-size: var(--oneos-font-size-sm) !important;
+  font-weight: var(--oneos-font-weight-bold) !important;
+  color: var(--oneos-color-text-secondary) !important;
+  background: var(--oneos-color-bg-muted) !important;
+  border-bottom: 1px solid var(--oneos-color-border) !important;
+}
+
+.oneos-page .oneos-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td,
+.oneos-page .lc-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td,
+.oneos-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td,
+.vm-page .oneos-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td,
+.vm-page .lc-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td,
+.vm-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+  padding: var(--oneos-space-3) var(--oneos-space-4) !important;
+  font-size: var(--oneos-font-size-sm);
+  vertical-align: middle !important;
+}
+
+.oneos-page .oneos-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td,
+.oneos-page .lc-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td,
+.oneos-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td,
+.vm-page .oneos-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td,
+.vm-page .lc-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td,
+.vm-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td {
+  background: var(--oneos-color-bg-muted) !important;
+}
+
+.oneos-page .oneos-list-table .ant-pagination,
+.oneos-page .lc-list-table .ant-pagination,
+.oneos-page .vm-list-table .ant-pagination,
+.vm-page .oneos-list-table .ant-pagination,
+.vm-page .lc-list-table .ant-pagination,
+.vm-page .vm-list-table .ant-pagination {
+  margin: 0 !important;
+  padding: var(--oneos-space-3) var(--oneos-space-4) !important;
+  border-top: 1px solid var(--oneos-color-border-light);
+}
+
+/* ==========================================================================
+   Actions & links
+   ========================================================================== */
+
+.oneos-page .oneos-action-btn,
+.oneos-page .lc-action-btn,
+.oneos-page .vm-action-btn,
+.vm-page .oneos-action-btn,
+.vm-page .lc-action-btn,
+.vm-page .vm-action-btn {
+  min-height: var(--oneos-control-height-lg);
+  padding: 0 var(--oneos-space-1) !important;
+  font-weight: var(--oneos-font-weight-semibold) !important;
+  color: var(--oneos-color-primary) !important;
+  cursor: pointer;
+}
+
+.oneos-page .oneos-cell-link,
+.oneos-page .vm-plate-link,
+.vm-page .oneos-cell-link,
+.vm-page .vm-plate-link {
+  padding: 0;
+  font-size: var(--oneos-font-size-sm);
+  font-weight: var(--oneos-font-weight-bold);
+  color: var(--oneos-color-text);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.oneos-page .oneos-cell-link:hover,
+.oneos-page .vm-plate-link:hover,
+.vm-page .oneos-cell-link:hover,
+.vm-page .vm-plate-link:hover {
+  color: var(--oneos-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.oneos-page .oneos-cell-link:focus-visible,
+.oneos-page .vm-plate-link:focus-visible,
+.vm-page .oneos-cell-link:focus-visible,
+.vm-page .vm-plate-link:focus-visible {
+  border-radius: var(--oneos-space-1);
+  outline: var(--oneos-focus-ring);
+  outline-offset: var(--oneos-focus-offset);
+}
+
+.oneos-page .oneos-mono-text,
+.oneos-page .vm-vin-text,
+.vm-page .oneos-mono-text,
+.vm-page .vm-vin-text {
+  font-family: var(--oneos-font-mono);
+  font-size: var(--oneos-font-size-xs);
+  letter-spacing: 0.02em;
+  color: var(--oneos-color-text-secondary);
+}
+
+/* ==========================================================================
+   Detail page
+   ========================================================================== */
+
+.oneos-page .oneos-detail-card,
+.oneos-page .vm-detail-card,
+.vm-page .oneos-detail-card,
+.vm-page .vm-detail-card {
+  margin-bottom: var(--oneos-space-4);
+  padding: var(--oneos-space-6);
+  background: var(--oneos-color-bg-card);
+  border: 1px solid var(--oneos-color-border);
+  border-radius: var(--oneos-radius-2xl);
+  box-shadow: var(--oneos-shadow-card);
+}
+
+.oneos-page .oneos-section-title,
+.oneos-page .vm-section-title,
+.vm-page .oneos-section-title,
+.vm-page .vm-section-title {
+  display: flex;
+  gap: var(--oneos-space-2);
+  align-items: center;
+  margin-bottom: var(--oneos-space-4);
+  font-size: var(--oneos-font-size-md);
+  font-weight: var(--oneos-font-weight-bold);
+  color: var(--oneos-color-text);
+}
+
+.oneos-page .oneos-section-title::before,
+.oneos-page .vm-section-title::before,
+.vm-page .oneos-section-title::before,
+.vm-page .vm-section-title::before {
+  flex-shrink: 0;
+  width: 3px;
+  height: 14px;
+  content: '';
+  background: linear-gradient(180deg, var(--oneos-color-primary), #60a5fa);
+  border-radius: 2px;
+}
+
+.oneos-page .oneos-kv-label,
+.oneos-page .vm-kv-label,
+.vm-page .oneos-kv-label,
+.vm-page .vm-kv-label {
+  flex-shrink: 0;
+  min-width: var(--oneos-kv-label-width);
+  font-size: var(--oneos-font-size-sm);
+  color: var(--oneos-color-text-muted);
+  text-align: right;
+}
+
+.oneos-page .oneos-kv-value,
+.oneos-page .vm-kv-value,
+.vm-page .oneos-kv-value,
+.vm-page .vm-kv-value {
+  min-width: 0;
+  font-size: var(--oneos-font-size-sm);
+  color: var(--oneos-color-text);
+}
+
+/* ==========================================================================
+   Blocks: hint / banner / fail
+   ========================================================================== */
+
+.oneos-page .oneos-modal-hint,
+.oneos-page .vm-modal-hint,
+.oneos-modal-hint,
+.vm-modal-hint {
+  margin-bottom: var(--oneos-space-4);
+  padding: 10px 14px;
+  font-size: var(--oneos-font-size-sm);
+  line-height: var(--oneos-line-height-relaxed);
+  color: var(--oneos-color-text-secondary);
+  background: var(--oneos-color-primary-light);
+  border: 1px solid var(--oneos-color-primary-border);
+  border-radius: var(--oneos-radius-lg);
+}
+
+.oneos-page .oneos-import-fail,
+.oneos-page .vm-import-fail,
+.oneos-import-fail,
+.vm-import-fail {
+  margin-top: var(--oneos-space-4);
+  padding: var(--oneos-space-3) 14px;
+  font-size: var(--oneos-font-size-sm);
+  background: var(--oneos-color-error-bg);
+  border: 1px solid var(--oneos-color-error-border);
+  border-radius: var(--oneos-radius-lg);
+}
+
+/* ==========================================================================
+   Ant Design overrides
+   ========================================================================== */
+
+.oneos-page .ant-btn,
+.vm-page .ant-btn {
+  border-radius: var(--oneos-radius-md);
+  transition:
+    transform var(--oneos-duration-fast) var(--oneos-ease-default),
+    box-shadow var(--oneos-duration-fast) var(--oneos-ease-default),
+    background var(--oneos-duration-fast) var(--oneos-ease-default),
+    border-color var(--oneos-duration-fast) var(--oneos-ease-default);
+}
+
+.oneos-page .ant-btn-primary:not(:disabled),
+.vm-page .ant-btn-primary:not(:disabled) {
+  background: var(--oneos-color-primary) !important;
+  border-color: var(--oneos-color-primary) !important;
+  box-shadow: var(--oneos-shadow-btn-primary);
+}
+
+.oneos-page .ant-btn-primary:not(:disabled):hover,
+.vm-page .ant-btn-primary:not(:disabled):hover {
+  background: var(--oneos-color-primary-hover) !important;
+  border-color: var(--oneos-color-primary-hover) !important;
+}
+
+.oneos-page .ant-input:focus,
+.oneos-page .ant-input-focused,
+.oneos-page .ant-input-affix-wrapper-focused,
+.oneos-page .ant-select-focused .ant-select-selector,
+.oneos-page .ant-picker-focused,
+.vm-page .ant-input:focus,
+.vm-page .ant-input-focused,
+.vm-page .ant-input-affix-wrapper-focused,
+.vm-page .ant-select-focused .ant-select-selector,
+.vm-page .ant-picker-focused {
+  border-color: var(--oneos-color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* ==========================================================================
+   Modal portal
+   ========================================================================== */
+
+.oneos-modal-wrap .ant-modal-content,
+.vm-modal-wrap .ant-modal-content {
+  border-radius: var(--oneos-radius-xl);
+}
+
+.oneos-modal-wrap .ant-modal-header,
+.vm-modal-wrap .ant-modal-header {
+  border-bottom: 1px solid var(--oneos-color-border-light);
+}
+
+.oneos-modal-wrap .ant-modal-footer,
+.vm-modal-wrap .ant-modal-footer {
+  border-top: 1px solid var(--oneos-color-border-light);
+}
+
+.oneos-modal-wrap .ant-btn-primary:not(:disabled),
+.vm-modal-wrap .ant-btn-primary:not(:disabled) {
+  background: var(--oneos-color-primary);
+  border-color: var(--oneos-color-primary);
+  box-shadow: var(--oneos-shadow-btn-primary);
+}
+
+.oneos-modal-wrap .ant-btn-primary:not(:disabled):hover,
+.vm-modal-wrap .ant-btn-primary:not(:disabled):hover {
+  background: var(--oneos-color-primary-hover);
+  border-color: var(--oneos-color-primary-hover);
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.oneos-u-sr-only,
+.vm-u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.oneos-u-tabular,
+.vm-u-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1600px) {
+  .oneos-page .oneos-kpi-row,
+  .oneos-page .lc-alert-stats-row,
+  .vm-page .oneos-kpi-row,
+  .vm-page .lc-alert-stats-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1280px) {
+  .oneos-page .oneos-filter-grid,
+  .oneos-page .lc-filter-grid,
+  .oneos-page .vm-filter-grid,
+  .vm-page .oneos-filter-grid,
+  .vm-page .lc-filter-grid,
+  .vm-page .vm-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .oneos-page .oneos-kpi-row,
+  .oneos-page .lc-alert-stats-row,
+  .vm-page .oneos-kpi-row,
+  .vm-page .lc-alert-stats-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .oneos-page,
+  .vm-page {
+    padding: var(--oneos-space-4) var(--oneos-space-4) var(--oneos-space-6);
+  }
+
+  .oneos-page .oneos-filter-field,
+  .oneos-page .lc-filter-field,
+  .oneos-page .vm-filter-field,
+  .vm-page .oneos-filter-field,
+  .vm-page .lc-filter-field,
+  .vm-page .vm-filter-field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--oneos-space-2);
+  }
+
+  .oneos-page .oneos-filter-field-label,
+  .oneos-page .lc-filter-field-label,
+  .oneos-page .vm-filter-field-label,
+  .vm-page .oneos-filter-field-label,
+  .vm-page .lc-filter-field-label,
+  .vm-page .vm-filter-field-label {
+    flex: none;
+    text-align: left;
+  }
+
+  .oneos-page .oneos-table-toolbar,
+  .oneos-page .lc-table-toolbar,
+  .oneos-page .vm-table-toolbar,
+  .vm-page .oneos-table-toolbar,
+  .vm-page .lc-table-toolbar,
+  .vm-page .vm-table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .oneos-page .oneos-filter-grid,
+  .oneos-page .lc-filter-grid,
+  .oneos-page .vm-filter-grid,
+  .vm-page .oneos-filter-grid,
+  .vm-page .lc-filter-grid,
+  .vm-page .vm-filter-grid,
+  .oneos-page .oneos-kpi-row,
+  .oneos-page .lc-alert-stats-row,
+  .vm-page .oneos-kpi-row,
+  .vm-page .lc-alert-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oneos-page .ant-btn,
+  .oneos-page .oneos-kpi-card-clickable,
+  .oneos-page .lc-alert-card-clickable,
+  .oneos-page .oneos-cell-link,
+  .vm-page .ant-btn,
+  .vm-page .oneos-kpi-card-clickable,
+  .vm-page .lc-alert-card-clickable,
+  .vm-page .vm-plate-link {
+    transition: none;
+  }
+}

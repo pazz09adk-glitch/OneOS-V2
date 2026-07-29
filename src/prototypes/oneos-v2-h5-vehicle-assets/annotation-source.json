@@ -1,0 +1,42 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "oneos-v2-h5-vehicle-assets",
+    "pageId": "main",
+    "updatedAt": 1784812800000,
+    "nodes": [
+      {
+        "id": "oneos-v2-h5-vehicle-overview",
+        "index": 1,
+        "title": "车辆资产 H5 移动端 (微信小程序 / 小羚羚 App 嵌套)",
+        "pageId": "main",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"oneos-v2-h5-vehicle-overview\"]"
+          ],
+          "fingerprint": "oneos-v2-h5-vehicle-overview",
+          "path": []
+        },
+        "aiPrompt": "基于 OneOS V2 Stripe Violet 设计规范与三视角架构的 H5 车辆资产台账。",
+        "annotationText": "支持 PC 全宽 / iPhone 15 / Android 视口切换，包含列表模式、看板模式、档案工作台三视图，高阶 13 项筛选 Bottom Sheet（确认查询后自动关闭）与 44px 触控适配。",
+        "hasMarkdown": true,
+        "color": "#533afd",
+        "images": [],
+        "createdAt": 1784812800000,
+        "updatedAt": 1784812800000
+      }
+    ],
+    "directory": {
+      "nodes": [
+        {
+          "id": "oneos-v2-h5-vehicle-prd",
+          "title": "产品需求说明（PRD）",
+          "markdownPath": ".spec/requirements-prd.md",
+          "markdown": "# 车辆资产 H5 移动端 (微信小程序 / 小羚羚 App 嵌套) · 产品需求说明 (PRD)\n\n## 1. 模块定位与基准\n\n| 项 | 说明 |\n|---|---|\n| 模块名称 | 车辆资产 H5 移动端 (Vehicle Assets H5) |\n| 适配场景 | **微信小程序嵌入** · **小羚羚 App Webview** · **手机浏览器** |\n| 设计规范 | **OneOS V2 全局定版设计规范** (Stripe Violet `#533AFD`) |\n| 视口兼容 | **iPhone 15 (390px)** · **Android (375px)** · **PC 全宽响应式** |\n| 触控规格 | 触控热区 **`≥ 44px`**，内文字号 **`≥ 14px`**，Bottom Sheet 吸底抽屉 |\n| 三视角架构 | **1. 列表模式 (List Card)** · **2. 看板模式 (Kanban Pipeline)** · **3. 档案工作台 (Split Workbench)** |\n| 数据口径 | 实时同步 PC 车辆资产台账 (`vehicles.json`) |\n\n---\n\n## 2. 三视角 H5 交互与功能规则\n\n1. **列表模式 (List View)**：\n   - 顶部 4 卡片 Bento KPI 网格（全部车辆、已交车、待交车、预警/出险），支持点击直达筛选；\n   - 快捷搜索框（搜车牌/VIN/客户）+ 13 项高阶条件 Bottom Sheet 抽屉；点击 **确认查询 / 重置** 后**关闭 Drawer** 并按条件展示结果（OneOS V2 查询收起规则）；\n   - 车辆卡片列表：Stripe 紫车牌号（无点标准，形如 `粤AGP3673`）、状态胶囊 Pill、实时里程 (`tabular-nums`)、归属地与折叠式**车辆关联履约/保单/违章子明细**。\n2. **看板模式 (Kanban View)**：\n   - 4 阶段 Pipeline 管道（库存待交车、履约执行中、维保/出险中、退车/结清中）；\n   - H5 管道列横向滑动切 Tab；支持快捷【更新里程】与【发起处置/出险】。\n3. **档案工作台模式 (Split View)**：\n   - 顶部车辆快捷搜索与卡片轮播选择；\n   - 5 大深度档案 Sub-tabs：基础档案、履约合同、证照年检、保险保单、出险违章；\n   - 固定吸底操作条 (`V2MobileActionBar`)，带有安全区 protection。\n"
+        }
+      ]
+    }
+  }
+}

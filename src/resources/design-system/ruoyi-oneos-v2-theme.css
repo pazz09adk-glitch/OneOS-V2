@@ -1,0 +1,193 @@
+/**
+ * OneOS V2 若依 (RuoYi) 框架全局主题样式与 CSS 变量桥接文件
+ * Version: 2.4.0
+ * Updated: 2026-07-23
+ *
+ * 引入方式:
+ * 在 main.js 或 src/assets/styles/index.scss 中引入:
+ * import '@/resources/design-system/ruoyi-oneos-v2-theme.css';
+ */
+
+/* ==========================================================================
+   1. 根节点 CSS 变量映射 (Root Tokens & Element Plus / RuoYi Bridge)
+   ========================================================================== */
+
+:root {
+  /* OneOS V2 Stripe Violet 品牌主色 (Stripe Violet) */
+  --oneos-primary: #533AFD;
+  --ln-primary: #533AFD;
+  --ln-primary-hover: #6346FF;
+  --ln-primary-focus: #4226E8;
+  --ln-primary-soft: #E0E7FF;
+
+  /* 画布与容器 */
+  --ln-canvas: #F6F9FC;
+  --ln-surface-card: #FFFFFF;
+  --ln-surface-pearl: #F8FAFC;
+  --ln-surface-strong: #F1F5F9;
+
+  /* 边框与分割线 */
+  --ln-hairline: #E3E8EE;
+  --ln-hairline-strong: #D4D4D8;
+
+  /* 文字语义 */
+  --ln-ink: #0A2540;
+  --ln-body: #425466;
+  --ln-muted: #627D98;
+
+  /* 状态语义 */
+  --ln-success: #10B981;
+  --ln-success-soft: #DCFCE7;
+  --ln-warning: #D97706;
+  --ln-warning-soft: #FEF3C7;
+  --ln-error: #EF4444;
+  --ln-error-soft: #FEE2E2;
+  --ln-info: #3B82F6;
+  --ln-info-soft: #DBEAFE;
+
+  /* Element Plus / Element UI 核心变量重置 */
+  --el-color-primary: var(--oneos-primary, #533AFD);
+  --el-color-primary-light-3: #8775FE;
+  --el-color-primary-light-5: #A99CFE;
+  --el-color-primary-light-7: #CBCEFE;
+  --el-color-primary-light-8: #DCDFFE;
+  --el-color-primary-light-9: var(--ln-primary-soft, #E0E7FF);
+  --el-color-primary-dark-2: var(--ln-primary-focus, #4226E8);
+
+  /* 若依 Layout 导组与侧边栏 Token (Light) */
+  --ruoyi-sidebar-bg: #FFFFFF;
+  --ruoyi-sidebar-text: #425466;
+  --ruoyi-menu-active-text: var(--oneos-primary, #533AFD);
+  --ruoyi-menu-active-bg: var(--ln-primary-soft, #E0E7FF);
+  --ruoyi-menu-hover-bg: #F8FAFC;
+  --ruoyi-navbar-bg: #FFFFFF;
+  --ruoyi-navbar-border: #E3E8EE;
+}
+
+/* ==========================================================================
+   2. 暗色模式 (Dark Mode Adaptations)
+   支持 若依 html.dark、[data-oneos-theme="dark"] 与 [data-ds-mode="dark"]
+   ========================================================================== */
+
+html.dark,
+[data-oneos-theme="dark"],
+[data-ds-mode="dark"],
+.theme-dark {
+  --oneos-primary: #533AFD;
+  --ln-primary: #533AFD;
+  --ln-primary-hover: #6346FF;
+  --ln-primary-focus: #4226E8;
+  --ln-primary-soft: rgba(83, 58, 253, 0.18);
+
+  /* 画布与容器 (Dark) */
+  --ln-canvas: #0A0B0D;
+  --ln-surface-card: #121418;
+  --ln-surface-pearl: #16181F;
+  --ln-surface-strong: #1E222D;
+
+  /* 边框与分割线 (Dark) */
+  --ln-hairline: #23272F;
+  --ln-hairline-strong: #2D3748;
+
+  /* 文字语义 (Dark) */
+  --ln-ink: #F7FAFC;
+  --ln-body: #A0AEC0;
+  --ln-muted: #718096;
+
+  /* 状态语义 (Dark) */
+  --ln-success-soft: rgba(16, 185, 129, 0.15);
+  --ln-warning-soft: rgba(217, 119, 6, 0.15);
+  --ln-error-soft: rgba(239, 68, 68, 0.15);
+  --ln-info-soft: rgba(59, 130, 246, 0.15);
+
+  /* Element Plus / Element UI 暗色变量适配 */
+  --el-color-primary-light-9: rgba(83, 58, 253, 0.18);
+  --el-bg-color: #121418;
+  --el-bg-color-page: #0A0B0D;
+  --el-border-color: #23272F;
+  --el-text-color-primary: #F7FAFC;
+  --el-text-color-regular: #A0AEC0;
+
+  /* 若依 Layout 暗色配置 */
+  --ruoyi-sidebar-bg: #121418;
+  --ruoyi-sidebar-text: #A0AEC0;
+  --ruoyi-menu-active-text: #FFFFFF;
+  --ruoyi-menu-active-bg: rgba(83, 58, 253, 0.25);
+  --ruoyi-menu-hover-bg: #16181F;
+  --ruoyi-navbar-bg: #121418;
+  --ruoyi-navbar-border: #23272F;
+}
+
+/* ==========================================================================
+   3. 若依 (RuoYi) 核心组件样式覆盖 (Element Plus / Element UI Overrides)
+   ========================================================================== */
+
+/* 主按钮 Primary Button */
+.el-button--primary {
+  background-color: var(--oneos-primary, var(--el-color-primary, #533AFD)) !important;
+  border-color: var(--oneos-primary, var(--el-color-primary, #533AFD)) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(83, 58, 253, 0.12);
+  transition: all 0.15s ease-in-out;
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: var(--ln-primary-hover, #6346FF) !important;
+  border-color: var(--ln-primary-hover, #6346FF) !important;
+}
+
+.el-button--primary:active {
+  background-color: var(--ln-primary-focus, #4226E8) !important;
+  border-color: var(--ln-primary-focus, #4226E8) !important;
+}
+
+/* 表单 Focus 焦点环 */
+.el-input__wrapper.is-focus,
+.el-select .el-input.is-focus .el-input__wrapper,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--oneos-primary, #533AFD) inset, 0 0 0 3px rgba(83, 58, 253, 0.2) !important;
+}
+
+/* 激活菜单与导航 Active Menu & Sidebar Items */
+.sidebar-container .el-menu-item.is-active,
+.sidebar-container .el-sub-menu.is-active > .el-sub-menu__title {
+  color: var(--ruoyi-menu-active-text, var(--oneos-primary, #533AFD)) !important;
+  background-color: var(--ruoyi-menu-active-bg, var(--ln-primary-soft, #E0E7FF)) !important;
+  border-right: 3px solid var(--oneos-primary, #533AFD);
+  font-weight: 600;
+}
+
+/* 标签页与 Pill Tabs */
+.el-tabs__item.is-active {
+  color: var(--oneos-primary, #533AFD) !important;
+  font-weight: 600;
+}
+
+.el-tabs__active-bar {
+  background-color: var(--oneos-primary, #533AFD) !important;
+}
+
+/* 单选框 Radio & 复选框 Checkbox & 开关 Switch */
+.el-radio__input.is-checked .el-radio__inner,
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-switch.is-checked .el-switch__core {
+  background-color: var(--oneos-primary, #533AFD) !important;
+  border-color: var(--oneos-primary, #533AFD) !important;
+}
+
+/* 分页组件 Pagination */
+.el-pagination.is-background .el-pager li.is-active {
+  background-color: var(--oneos-primary, #533AFD) !important;
+  color: #FFFFFF !important;
+}
+
+/* 步骤条 Steps */
+.el-step__head.is-finish {
+  color: var(--oneos-primary, #533AFD) !important;
+  border-color: var(--oneos-primary, #533AFD) !important;
+}
+
+.el-step__title.is-finish {
+  color: var(--oneos-primary, #533AFD) !important;
+}

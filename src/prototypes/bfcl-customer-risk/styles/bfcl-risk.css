@@ -1,0 +1,313 @@
+/* OneOS V2 · 业财·客户风险 */
+
+.bfcl-risk,
+.bfcl-risk-detail {
+  --bfcl-primary: var(--oneos-primary, var(--ln-primary, #533afd));
+  --bfcl-canvas: var(--ln-canvas, #f6f9fc);
+  --bfcl-card: var(--ln-surface-card, #ffffff);
+  --bfcl-border: var(--ln-hairline, #e3e8ee);
+  --bfcl-ink: var(--ln-ink, #0a2540);
+  --bfcl-body: var(--ln-body, #425466);
+  --bfcl-muted: var(--ln-muted, #627d98);
+  --bfcl-pearl: var(--ln-surface-pearl, #f8fafc);
+  --bfcl-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  width: 100%;
+  min-height: calc(100vh - 48px);
+  background: var(--bfcl-canvas);
+  color: var(--bfcl-ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  box-sizing: border-box;
+  padding: 20px 24px 32px;
+}
+
+.bfcl-risk *,
+.bfcl-risk-detail *,
+.bfcl-risk *::before,
+.bfcl-risk-detail *::before,
+.bfcl-risk *::after,
+.bfcl-risk-detail *::after {
+  box-sizing: border-box;
+}
+
+.bfcl-risk button,
+.bfcl-risk-detail button {
+  cursor: pointer;
+}
+
+.bfcl-risk button:focus-visible,
+.bfcl-risk-detail button:focus-visible {
+  outline: 2px solid var(--bfcl-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bfcl-risk *,
+  .bfcl-risk-detail * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.bfcl-risk-toolbar {
+  margin-bottom: 16px;
+}
+
+.bfcl-risk-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bfcl-risk-kpi__card {
+  text-align: left;
+  background: var(--bfcl-card);
+  border: 1px solid var(--bfcl-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.bfcl-risk-kpi__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bfcl-muted);
+  margin-bottom: 8px;
+}
+
+.bfcl-risk-kpi__value {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.bfcl-risk-shell {
+  background: var(--bfcl-card);
+  border: 1px solid var(--bfcl-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bfcl-risk-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  padding: 12px 14px;
+  overflow-x: auto;
+}
+
+.bfcl-risk-more {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px 12px;
+  align-items: end;
+  padding: 0 14px 14px;
+}
+
+.bfcl-risk-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bfcl-body);
+  margin-bottom: 6px;
+}
+
+.bfcl-risk-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bfcl-risk-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bfcl-muted);
+  background: var(--bfcl-pearl);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--bfcl-border);
+  white-space: nowrap;
+}
+
+.bfcl-risk-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--bfcl-border);
+  vertical-align: middle;
+}
+
+.bfcl-risk-primary {
+  font-weight: 700;
+}
+
+.bfcl-risk-muted {
+  font-size: 12px;
+  color: var(--bfcl-muted);
+}
+
+.is-danger {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.bfcl-risk-pager {
+  margin-top: 12px;
+}
+
+.bfcl-risk-form-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.bfcl-risk-form-header__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--bfcl-border);
+}
+
+.bfcl-risk-form-header__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.bfcl-risk-form-header__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.bfcl-risk-form-header__pill {
+  font-family: var(--bfcl-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bfcl-primary);
+  background: color-mix(in srgb, var(--bfcl-primary) 12%, white);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.bfcl-risk-form-header__actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.bfcl-risk-context {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  background: var(--bfcl-card);
+  border: 1px solid var(--bfcl-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.bfcl-risk-context > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bfcl-risk-score-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bfcl-risk-score-card {
+  background: var(--bfcl-card);
+  border: 1px solid var(--bfcl-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.bfcl-risk-score-card h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bfcl-body);
+}
+
+.bfcl-risk-score-num {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.bfcl-risk-panel {
+  background: var(--bfcl-card);
+  border: 1px solid var(--bfcl-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.bfcl-risk-panel h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bfcl-risk-panel ul {
+  margin: 0 0 14px;
+  padding-left: 18px;
+  color: var(--bfcl-body);
+}
+
+.bfcl-risk-panel li {
+  margin-bottom: 6px;
+}
+
+.bfcl-risk-panel__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.bfcl-risk-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  background: var(--bfcl-ink);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  max-width: 360px;
+}
+
+@media (max-width: 900px) {
+  .bfcl-risk-kpi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bfcl-risk-score-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .bfcl-risk,
+  .bfcl-risk-detail {
+    padding: 16px;
+  }
+  .bfcl-risk-tools {
+    flex-wrap: wrap;
+  }
+  .bfcl-risk-form-header__actions button,
+  .bfcl-risk-panel__actions button {
+    min-height: 44px;
+  }
+}

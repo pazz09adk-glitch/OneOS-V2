@@ -1,0 +1,199 @@
+/**
+ * 全局列表操作列 — OperationActions
+ * 规范：vm-shared/DESIGN.md · 操作列
+ * 不依赖 antd Dropdown class
+ */
+
+.vm-operation-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+.vm-op-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--ln-radius-control, 6px);
+  background: transparent;
+  color: var(--ln-link, var(--ln-primary, #32a06e));
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.vm-op-action:hover,
+.vm-op-action:focus-visible {
+  color: var(--ln-primary-hover, #278a5c);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+  outline: none;
+}
+
+.vm-op-action:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary, #32a06e) 35%, transparent);
+}
+
+.vm-op-action__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.vm-op-action__label {
+  white-space: nowrap;
+}
+
+.vm-op-action--open,
+.vm-op-action[aria-expanded="true"] {
+  color: var(--ln-primary-hover, #278a5c);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 12%, transparent);
+}
+
+.vm-op-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--ln-radius-control, 6px);
+  background: transparent;
+  color: var(--ln-muted, #64748b);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.vm-op-more-btn:hover,
+.vm-op-more-btn:focus-visible {
+  color: var(--ln-ink, #0f172a);
+  background: var(--ln-canvas-soft, #f4f4f5);
+  outline: none;
+}
+
+.vm-op-more-btn:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary, #32a06e) 35%, transparent);
+}
+
+.vm-op-more-btn--open,
+.vm-op-more-btn[aria-expanded="true"] {
+  color: var(--ln-ink, #0f172a);
+  background: var(--ln-canvas-soft, #f4f4f5);
+}
+
+.vm-op-more-btn__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* 更多下拉：portal 到 body */
+.vm-op-dropdown {
+  position: fixed;
+  z-index: 1060;
+}
+
+.vm-op-dropdown-menu {
+  min-width: 176px;
+  padding: 6px;
+  border: 1px solid color-mix(in srgb, var(--ln-ink, #0f172a) 8%, transparent);
+  border-radius: 10px;
+  background: var(--ln-surface-card, #fff);
+  box-shadow:
+    0 12px 28px -8px rgba(15, 23, 42, 0.16),
+    0 4px 10px -4px rgba(15, 23, 42, 0.08);
+}
+
+.vm-op-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  margin: 2px 0;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ln-ink, #0f172a);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.vm-op-dropdown-item:hover:not(:disabled),
+.vm-op-dropdown-item:focus-visible:not(:disabled) {
+  background: var(--ln-canvas-soft, #f4f4f5);
+  outline: none;
+}
+
+.vm-op-dropdown-divider {
+  height: 1px;
+  margin: 4px 8px;
+  background: color-mix(in srgb, var(--ln-ink, #0f172a) 8%, transparent);
+}
+
+.vm-op-menu-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.vm-op-menu-item__icon,
+.vm-op-menu-item__icon-spacer {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vm-op-menu-item__icon {
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-op-menu-item__label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.vm-op-dropdown-item--danger .vm-op-menu-item__label,
+.vm-op-menu-item--danger .vm-op-menu-item__label {
+  color: var(--ln-error, #e5484d);
+  font-weight: 500;
+}
+
+.vm-op-dropdown-item--danger .vm-op-menu-item__icon,
+.vm-op-menu-item--danger .vm-op-menu-item__icon {
+  color: var(--ln-error, #e5484d);
+}
+
+.vm-op-dropdown-item--danger:hover:not(:disabled),
+.vm-op-dropdown-item--danger:focus-visible:not(:disabled) {
+  background: color-mix(in srgb, var(--ln-error, #e5484d) 8%, transparent);
+}
+
+.vm-op-dropdown-item--disabled,
+.vm-op-dropdown-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vm-op-action,
+  .vm-op-more-btn,
+  .vm-op-dropdown-item {
+    transition: none;
+  }
+}

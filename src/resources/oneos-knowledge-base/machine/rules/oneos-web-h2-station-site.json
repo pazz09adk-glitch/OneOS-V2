@@ -1,0 +1,53 @@
+{
+  "id": "oneos-web-h2-station-site",
+  "line": "energy",
+  "name": "加氢站管理",
+  "confidence": "architecture",
+  "roles": [
+    "能源"
+  ],
+  "pages": [
+    {
+      "name": "站点信息",
+      "purpose": "签约站/非签约站、账号与预付款余额"
+    }
+  ],
+  "preconditions": [
+    "供应商可用"
+  ],
+  "forward": [
+    "区分签约/非签约",
+    "分配账号",
+    "维护预付款",
+    "供订单与补录引用"
+  ],
+  "reverse": [
+    {
+      "case": "非签约站",
+      "behavior": "不走主动/PLC 订单主路径，走氢费补录"
+    }
+  ],
+  "rules": [
+    "签约站路径与非签约站路径分流"
+  ],
+  "forbidden": [
+    "混淆两路径导致对账无法闭环"
+  ],
+  "closedLoop": "站点可支撑订单或补录与对账",
+  "triggers": [
+    {
+      "to": "oneos-h5-h2-order",
+      "when": "签约站下单"
+    },
+    {
+      "to": "vehicle-h2-fee-ledger",
+      "when": "非签约补录"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/加氢站管理/站点信息-产品需求说明.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/加氢站管理/站点管理使用说明书.md"
+  ],
+  "legacyMerged": true
+}

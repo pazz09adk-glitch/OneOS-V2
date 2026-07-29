@@ -1,0 +1,48 @@
+{
+  "id": "h2-station-dashboard",
+  "line": "energy",
+  "name": "加氢站大屏",
+  "confidence": "legacy",
+  "roles": [
+    "能源运营",
+    "高管"
+  ],
+  "pages": [
+    {
+      "name": "加氢站大屏",
+      "purpose": "站点运营可视化监控"
+    }
+  ],
+  "preconditions": [
+    "站点与加氢数据"
+  ],
+  "forward": [
+    "查看站点指标",
+    "发现异常下钻业务页"
+  ],
+  "reverse": [
+    {
+      "case": "数据延迟",
+      "behavior": "展示以接入时效为准"
+    }
+  ],
+  "rules": [
+    "大屏只读监控，不替代对账办结"
+  ],
+  "forbidden": [
+    "在大屏直接改结算状态"
+  ],
+  "closedLoop": "异常可跳转源模块处理",
+  "triggers": [
+    {
+      "to": "oneos-web-h2-station-site",
+      "when": "下钻站点"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/加氢站大屏.jsx"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/ONEOS-web/加氢站大屏.jsx",
+  "legacyPath": null
+}

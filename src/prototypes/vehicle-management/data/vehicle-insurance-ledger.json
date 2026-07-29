@@ -1,0 +1,41 @@
+{
+  "1": {
+    "compulsory": {
+      "policyNo": "PDAA2025440100B00001234",
+      "company": "中国人民财产保险股份有限公司",
+      "premium": "950.00"
+    },
+    "commercial": {
+      "policyNo": "PDAA2025440100B00005678",
+      "company": "中国平安财产保险股份有限公司",
+      "premium": "12800.50"
+    }
+  },
+  "3": {
+    "commercial": {
+      "policyNo": "PDAA2025440100B00009876",
+      "company": "中华联合财产保险股份有限公司",
+      "premium": "11200.00"
+    }
+  },
+  "42": {
+    "compulsory": {
+      "policyNo": "PDAA2025310100B00003210",
+      "company": "中国人寿财产保险股份有限公司",
+      "premium": "880.00"
+    },
+    "commercial": {
+      "policyNo": "PDAA2025310100B00008765",
+      "company": "太平洋财产保险股份有限公司",
+      "premium": "9850.00"
+    },
+    "excess": {
+      "policyNo": "PDAA2025310100B00009999",
+      "company": "中国人民财产保险股份有限公司",
+      "premium": "3200.00",
+      "expireDate": "2026-06-28",
+      "purchasedAt": "2025-06-28",
+      "operator": "李专员"
+    }
+  }
+}

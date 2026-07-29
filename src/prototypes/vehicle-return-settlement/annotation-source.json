@@ -1,0 +1,92 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "vehicle-return-settlement",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "vrs-care-package",
+        "index": 1,
+        "title": "无忧包自动核算",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='vrs-care-package']"],
+          "fingerprint": "section|data-annotation-id=vrs-care-package",
+          "path": []
+        },
+        "aiPrompt": "按各车型收费方案自动核算养护保/易损保",
+        "annotationText": "是否购买由业管与客户谈妥反写。养护保＝本段里程×车型元/公里；易损保＝计费月数×车型月费（不含轮胎、漆面、玻璃）。未购买不计费；已购买写入业务服务组并计入待结算。",
+        "hasMarkdown": true,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "vrs-ops-block",
+        "index": 2,
+        "title": "运维组 · 无忧包减免",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='vrs-ops-block']"],
+          "fingerprint": "section|data-annotation-id=vrs-ops-block",
+          "path": []
+        },
+        "aiPrompt": "运维无忧包减免与购买状态挂钩",
+        "annotationText": "未结算保养费依赖养护保、未结算维修费依赖易损保、轮胎磨损费依赖轮胎保。未购对应包时减免禁用。净计入＝金额−减免；减免计入业务成本不进运维成本。",
+        "hasMarkdown": true,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "vrs-safety-block",
+        "index": 3,
+        "title": "安全组 · 自动违章事故",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='vrs-safety-block']"],
+          "fingerprint": "section|data-annotation-id=vrs-safety-block",
+          "path": []
+        },
+        "aiPrompt": "单据生成后安全板块自动展示本段租期违章事故",
+        "annotationText": "单据生成后按车辆 + 本段实际交还车周期自动只读展示违章/事故，无需等待安全员提交。无数据文案：暂无违章记录。",
+        "hasMarkdown": true,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785542400000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "markdownMap": {},
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "type": "folder",
+        "id": "vrs-doc-root",
+        "title": "还车应结款说明",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "markdown",
+            "id": "vrs-doc-prd",
+            "title": "产品需求说明（PRD）",
+            "markdownPath": ".spec/requirements-prd.md"
+          },
+          {
+            "type": "markdown",
+            "id": "vrs-doc-pages",
+            "title": "页面与演示路径",
+            "markdown": "## 页面结构\n\n- **台账**：列表 / 看板 / 主从三视角（同页切换，侧栏单项）；列表展示养护保/易损保是否购买；「提交情况」展示各部门 + 提交人 + 提交状态\n- **详情/费用明细**：`layout: fullBleed`；扁平页头 + 上下文卡（含无忧包是/否）+ 无忧包自动核算卡 + 业务/运维/安全部门段\n- **费率**：`.spec/assets/各车型收费方案.xlsx`\n\n## 演示路径\n\n1. `HC-JS-2026-001`（苏龙车18T，双包已购）→ 核算卡见里程×0.06、月数×400；业务服务组有自动费用行；运维角色可改保养/维修减免\n2. `HC-JS-2026-002`（双包未购）→ 核算为 0；减免禁用\n3. `HC-JS-2026-004`（仅易损保）→ 只计维修无忧包；保养减免禁用\n4. 安全：`001` 业管可见违章；`002` 见「暂无违章记录」\n"
+          }
+        ]
+      }
+    ]
+  }
+}

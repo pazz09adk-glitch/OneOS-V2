@@ -1,0 +1,52 @@
+{
+  "id": "vehicle-h2-fee-ledger",
+  "line": "energy",
+  "name": "车辆氢费明细",
+  "confidence": "architecture",
+  "roles": [
+    "能源",
+    "业务"
+  ],
+  "pages": [
+    {
+      "name": "氢费明细台账",
+      "purpose": "非签约补录、核对、标记已对账"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "人工补录（可 OCR/围栏提示）",
+    "核对记录",
+    "标记已对账",
+    "进入账户对账单"
+  ],
+  "reverse": [
+    {
+      "case": "重复补录",
+      "behavior": "校验拦截或合并策略提示"
+    }
+  ],
+  "rules": [
+    "对账标记是核销前置",
+    "成本可回填盈亏"
+  ],
+  "forbidden": [
+    "未对账强制已付款"
+  ],
+  "closedLoop": "明细已对账并可进入账户核销",
+  "triggers": [
+    {
+      "to": "payment-records",
+      "when": "生成对账单"
+    },
+    {
+      "to": "business-dept-ledger",
+      "when": "成本回填"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/台账数据/车辆氢费明细-需求文档.md"
+  ],
+  "legacyMerged": true
+}

@@ -1,0 +1,45 @@
+{
+  "id": "message-center",
+  "line": "platform",
+  "name": "消息中心",
+  "confidence": "confirmed",
+  "roles": [
+    "全员"
+  ],
+  "pages": [
+    {
+      "name": "消息列表/详情",
+      "purpose": "多源通道、触达状态、多端路由"
+    }
+  ],
+  "preconditions": [
+    "业务触发消息"
+  ],
+  "forward": [
+    "接收消息",
+    "按路由打开业务页",
+    "标记已读/触达状态"
+  ],
+  "reverse": [
+    {
+      "case": "路由失效",
+      "behavior": "降级提示或仅展示正文"
+    },
+    {
+      "case": "重复推送",
+      "behavior": "按通道去重策略"
+    }
+  ],
+  "rules": [
+    "5 端路由解析口径",
+    "触达状态可追踪"
+  ],
+  "forbidden": [
+    "消息中心内直接改业务关键数据冒充办结"
+  ],
+  "closedLoop": "触达可追踪；办理在业务模块完成",
+  "triggers": [],
+  "sourceRefs": [
+    "src/resources/prd/message-center-autoprd.md"
+  ]
+}

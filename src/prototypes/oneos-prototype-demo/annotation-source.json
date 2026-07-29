@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "nodes": [],
+  "markdowns": {},
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "type": "folder",
+        "id": "opd-doc-root",
+        "title": "原型演示说明",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "markdown",
+            "id": "opd-prd",
+            "title": "产品需求说明（PRD）",
+            "markdown": "# 原型演示页 · 产品需求说明（PRD）\n\n> 羚牛 OneOS 原型演示宿主页。复用 `OneOsAppShell` 外壳组件，全自动化联动 `nav-menu.json` 动态级联菜单，提供带有左侧导航和顶栏 Chrome 的整体产品运行预览体验。\n\n## 1. 目标与价值\n\n在 PC Web 提供完整的 OneOS 级联导航与多页签外壳预览能力，使评审人员与开发团队能够在真实 SaaS 布局下演示、导航与验证全流程原型页面。\n\n## 2. 核心功能\n\n- **级联侧边栏**：自动解析 `nav-menu.json` 生成一/二级级联菜单，保持全系统导航一致。\n- **iframe 嵌套与隔离**：主内容区利用 iframe 加载对应原型，保证各个原型间样式与状态隔离。\n- **Hash 状态驱动**：使用 `#proto=xxx` 驱动当前展示原型，支持页面刷新恢复与深链接分享。\n- **Tab 页签系统**：点选侧边栏自动创建/切换 Tab 页签，支持快速平滑切换与关闭。\n- **浅暗色主题穿透**：通过顶栏主题切换控制外壳与 iframe 原型的主题模式。",
+            "markdownPath": ".spec/requirements-prd.md"
+          }
+        ]
+      }
+    ]
+  }
+}

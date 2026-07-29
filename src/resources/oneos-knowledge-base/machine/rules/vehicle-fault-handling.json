@@ -1,0 +1,66 @@
+{
+  "id": "vehicle-fault-handling",
+  "line": "ops",
+  "name": "故障处置（PC）",
+  "confidence": "confirmed",
+  "roles": [
+    "运维专员"
+  ],
+  "pages": [
+    {
+      "name": "故障台账三视角",
+      "purpose": "列表/看板/主从督办"
+    },
+    {
+      "name": "处置/详情全页",
+      "purpose": "处置、挂起、催办、证据链归档"
+    }
+  ],
+  "preconditions": [
+    "故障已上报入库"
+  ],
+  "forward": [
+    "筛选定位",
+    "处置填写与证据",
+    "必要时挂起/催办",
+    "附件与地点齐备后归档"
+  ],
+  "reverse": [
+    {
+      "case": "已挂起",
+      "behavior": "不计剩余时限；展示挂起暂停中"
+    },
+    {
+      "case": "归档缺附件或地点",
+      "behavior": "硬拦截提示"
+    },
+    {
+      "case": "超 30 天未处置",
+      "behavior": "临期/逾期辅文告警（非挂起时）"
+    }
+  ],
+  "rules": [
+    "上报后 30 天处置时限",
+    "归档硬门槛",
+    "详情全页非抽屉"
+  ],
+  "forbidden": [
+    "无证据链强制归档"
+  ],
+  "closedLoop": "归档完成，生命周期可回写故障事件",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "故障事件上链"
+    },
+    {
+      "to": "oneos-v2-h5-vehicle-fault-handling",
+      "when": "移动端同口径"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/vehicle-fault-handling-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/故障管理.jsx"
+  ],
+  "legacyMerged": true
+}

@@ -1,0 +1,40 @@
+{
+  "id": "help-center",
+  "line": "platform",
+  "name": "帮助中心",
+  "confidence": "legacy",
+  "roles": [
+    "全员"
+  ],
+  "pages": [
+    {
+      "name": "功能说明书",
+      "purpose": "功能说明聚合入口"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "打开说明书",
+    "按模块阅读"
+  ],
+  "reverse": [
+    {
+      "case": "与现行不一致",
+      "behavior": "以现行 AutoPRD/线上为准并标注待更新"
+    }
+  ],
+  "rules": [
+    "帮助不改变业务状态"
+  ],
+  "forbidden": [
+    "把过期说明书当唯一验收标准"
+  ],
+  "closedLoop": "用户可找到说明（非业务闭环）",
+  "triggers": [],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/帮助中心/功能说明书.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/帮助中心/",
+  "legacyPath": "src/resources/oneos-web-legacy/帮助中心/"
+}

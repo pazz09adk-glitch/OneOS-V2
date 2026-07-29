@@ -1,0 +1,95 @@
+{
+  "id": "lease-contract-management",
+  "line": "lease",
+  "name": "租赁合同",
+  "confidence": "confirmed",
+  "roles": ["业务员", "业务主管", "法务"],
+  "pages": [
+    {
+      "name": "列表/看板/主从",
+      "purpose": "同页三视角管理合同与车辆子表"
+    },
+    {
+      "name": "合同详情/表单",
+      "purpose": "标准/非标、签章、线下附件回传"
+    }
+  ],
+  "preconditions": [
+    "客户准入允许",
+    "选用有效标准合同模板"
+  ],
+  "forward": [
+    "调取标准合同模板填写要素与车辆",
+    "改红线或新增内容则非标审批",
+    "系统生成唯一合同编号",
+    "E签宝双章或线下盖章回传法务补附件",
+    "生效后按本合同规则驱动提车应收/账单/还车/里程"
+  ],
+  "reverse": [
+    {
+      "case": "禁止签约客户",
+      "behavior": "拦截"
+    },
+    {
+      "case": "非标未通过",
+      "behavior": "不可生效"
+    },
+    {
+      "case": "签章或法务附件未闭环",
+      "behavior": "工作台催办常驻；不可当已生效履约"
+    },
+    {
+      "case": "合同编号冲突",
+      "behavior": "拦截生成"
+    }
+  ],
+  "rules": [
+    "合同即规则一对一锁死：提车应收、租赁账单、还车应结、里程要求均由本合同驱动",
+    "改风控红线或新增合同内容自动进入非标审批",
+    "编号自动化且唯一，消除历史重复",
+    "支持在线打印与E签宝自动签章，客户登录签客户章",
+    "不愿线上签：分享链接或不可篡改文件，线下盖章回传法务补附件闭环",
+    "未闭环工作台催办任务持续存在"
+  ],
+  "forbidden": [
+    "未生效或未签章闭环合同触发交车",
+    "绕过模板或锁定区不进非标",
+    "编号重复入库",
+    "未闭环消除催办"
+  ],
+  "closedLoop": "签章或法务附件齐备且合同生效，履约要素按本合同规则生成",
+  "triggers": [
+    {
+      "to": "contract-template-management",
+      "when": "调取模板"
+    },
+    {
+      "to": "vehicle-pickup-receivable",
+      "when": "生效后产生提车应收"
+    },
+    {
+      "to": "lease-business-ledger",
+      "when": "账单与里程规则"
+    },
+    {
+      "to": "vehicle-return-settlement",
+      "when": "还车应结规则"
+    },
+    {
+      "to": "oneos-web-workbench-new",
+      "when": "签章未闭环催办"
+    },
+    {
+      "to": "biz-finance-integration",
+      "when": "规划基准"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/lease-contract-management-autoprd.md",
+    "src/resources/业财一体化全链条方案-汇报稿.md",
+    "src/resources/oneos-knowledge-base/foundations/biz-finance-integration.md",
+    "src/prototypes/lease-contract-management/.spec/requirements-prd.md"
+  ],
+  "legacyMerged": true,
+  "planningBaseline": true
+}

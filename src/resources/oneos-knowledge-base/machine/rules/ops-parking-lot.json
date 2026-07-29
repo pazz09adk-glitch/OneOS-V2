@@ -1,0 +1,46 @@
+{
+  "id": "ops-parking-lot",
+  "line": "ops",
+  "name": "停车场管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "停车场管理",
+      "purpose": "场站主数据与坐标，供停放与运维匹配"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "新增场站",
+    "维护类型与区域",
+    "供车辆停放引用"
+  ],
+  "reverse": [
+    {
+      "case": "车辆未录入停放",
+      "behavior": "资产侧警示未录入停放区域"
+    }
+  ],
+  "rules": [
+    "场站类型影响停车场/维修站识别"
+  ],
+  "forbidden": [
+    "无场站主数据却强制在库展示场站名"
+  ],
+  "closedLoop": "场站可被车辆停放与权限区域引用",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "停放展示与运维匹配"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/基本数据维护/停车场管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/基本数据维护/停车场管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/基本数据维护/停车场管理.jsx"
+}

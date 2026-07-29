@@ -1,0 +1,48 @@
+{
+  "id": "oneos-h5-vehicle-assets",
+  "line": "foundation",
+  "name": "车辆资产 H5",
+  "confidence": "confirmed",
+  "roles": [
+    "移动端用户"
+  ],
+  "pages": [
+    {
+      "name": "H5 查车",
+      "purpose": "只读查车、里程任务进度、异常角标"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "搜索车牌/车辆",
+    "查看档案摘要与异常",
+    "查看里程进度"
+  ],
+  "reverse": [
+    {
+      "case": "无权限车辆",
+      "behavior": "不可见或脱敏"
+    },
+    {
+      "case": "无里程任务",
+      "behavior": "空态文案"
+    }
+  ],
+  "rules": [
+    "只读为主",
+    "与 PC 资产口径一致"
+  ],
+  "forbidden": [
+    "H5 擅自改档案核心字段"
+  ],
+  "closedLoop": "查得到、异常看得见（不替代 PC 办理）",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "数据同源"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-h5-vehicle-assets-autoprd.md"
+  ]
+}

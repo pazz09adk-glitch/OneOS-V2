@@ -1,0 +1,50 @@
+{
+  "id": "ops-vehicle-prepare",
+  "line": "ops",
+  "name": "备车管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "备车管理",
+      "purpose": "库存车整备为可交付"
+    }
+  ],
+  "preconditions": [
+    "车辆在库",
+    "证照/保险等门槛按交车规则"
+  ],
+  "forward": [
+    "接收备车任务",
+    "完成整备检查",
+    "标记已备车"
+  ],
+  "reverse": [
+    {
+      "case": "未备车",
+      "behavior": "不可按可交付交车"
+    }
+  ],
+  "rules": [
+    "备车完成是交车前置之一"
+  ],
+  "forbidden": [
+    "断头办结无状态回写"
+  ],
+  "closedLoop": "车辆状态为已备车/可进入交车",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态/事件回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/备车管理.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/备车管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/备车管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/备车管理.jsx"
+}

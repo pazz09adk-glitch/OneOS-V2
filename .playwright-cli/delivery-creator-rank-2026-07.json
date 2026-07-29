@@ -1,0 +1,790 @@
+{
+  "fetchedAt": "2026-07-24T12:02:44.416Z",
+  "asOf": "2026-07-24",
+  "month": "2026-07",
+  "sourceUrl": "https://lnoneos.com/operations/vehicle-biz/delivery-task-2",
+  "menuPath": "运维管理 → 车辆业务 → 交车管理",
+  "definition": {
+    "metric": "本月交车数量 = 交车单创建时间落在本月的交车任务数",
+    "rankBy": "交车单创建人（createByName）",
+    "note": "按创建单数排行，非按「交车人」现场执行人"
+  },
+  "fetchMode": "client-filter",
+  "dateProbe": {
+    "createTimeBegin=2026-07-01&createTimeEnd=2026-07-31": {
+      "code": 200,
+      "total": 2134,
+      "msg": "操作成功"
+    },
+    "beginCreateTime=2026-07-01&endCreateTime=2026-07-31": {
+      "code": 200,
+      "total": 2134,
+      "msg": "操作成功"
+    },
+    "params%5BbeginCreateTime%5D=2026-07-01&params%5BendCreateTime%5D=2026-07-31": {
+      "code": 200,
+      "total": 2134,
+      "msg": "操作成功"
+    },
+    "createTime=2026-07": {
+      "code": 200,
+      "total": 2134,
+      "msg": "操作成功"
+    }
+  },
+  "apiTotalAll": 2134,
+  "monthTotal": 61,
+  "creatorCount": 5,
+  "statusBreakdown": {
+    "未开始": 1,
+    "待客户签章": 4,
+    "客户已签章": 56
+  },
+  "ranking": [
+    {
+      "creator": "童军林",
+      "createBy": "297201679525474304",
+      "count": 27,
+      "completed": 0,
+      "inProgress": 27,
+      "plates": [
+        "粤AGP4318",
+        "沪A35879F",
+        "沪A61187F",
+        "沪A32186F",
+        "粤A01128F"
+      ],
+      "rank": 1
+    },
+    {
+      "creator": "何苗苗",
+      "createBy": "297201670004404224",
+      "count": 13,
+      "completed": 0,
+      "inProgress": 13,
+      "plates": [
+        "粤A05378F",
+        "沪A62013F",
+        "沪A01559F",
+        "沪A03561F",
+        "沪A03212F"
+      ],
+      "rank": 2
+    },
+    {
+      "creator": "杨凤娥",
+      "createBy": "297201680477581312",
+      "count": 13,
+      "completed": 0,
+      "inProgress": 13,
+      "plates": [
+        "粤AGP9817",
+        "粤AGP2032",
+        "粤AGP7022",
+        "粤AGP9739",
+        "粤AGP4566"
+      ],
+      "rank": 3
+    },
+    {
+      "creator": "姚守涛",
+      "createBy": "297201669937295360",
+      "count": 6,
+      "completed": 0,
+      "inProgress": 6,
+      "plates": [
+        "粤AGR0772",
+        "粤AGQ0178",
+        "粤AGP5363",
+        "粤AGP5169",
+        "粤AGP3071"
+      ],
+      "rank": 4
+    },
+    {
+      "creator": "翁倚云",
+      "createBy": "297201685649158144",
+      "count": 2,
+      "completed": 0,
+      "inProgress": 2,
+      "plates": [
+        "粤A06632F",
+        "粤AGP4623"
+      ],
+      "rank": 5
+    }
+  ],
+  "rows": [
+    {
+      "plateNumber": "粤AGP4318",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "上海冉酷物流有限公司",
+      "deliveryStatusName": "未开始",
+      "createTime": "2026-07-22 15:28:05",
+      "createByName": "童军林",
+      "projectName": "冉酷物流-租赁帕力安4.5T（包氢）",
+      "contractCode": "LNZLHT2026012102-042"
+    },
+    {
+      "plateNumber": "沪A35879F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "安徽驰远供应链管理有限公司",
+      "deliveryStatusName": "待客户签章",
+      "createTime": "2026-07-18 15:36:22",
+      "createByName": "童军林",
+      "projectName": "安徽驰远18T租赁（20241115）",
+      "contractCode": "LNZLHT 20240815001（20241115）"
+    },
+    {
+      "plateNumber": "沪A61187F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "安徽驰远供应链管理有限公司",
+      "deliveryStatusName": "待客户签章",
+      "createTime": "2026-07-18 15:36:06",
+      "createByName": "童军林",
+      "projectName": "安徽驰远18T租赁（20241115）",
+      "contractCode": "LNZLHT 20240815001（20241115）"
+    },
+    {
+      "plateNumber": "沪A32186F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "安徽驰远供应链管理有限公司",
+      "deliveryStatusName": "待客户签章",
+      "createTime": "2026-07-18 15:35:48",
+      "createByName": "童军林",
+      "projectName": "安徽驰远18T租赁",
+      "contractCode": "LNZLHT 20240815001"
+    },
+    {
+      "plateNumber": "粤A01128F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州腾通物流有限公司",
+      "deliveryStatusName": "待客户签章",
+      "createTime": "2026-07-08 18:07:54",
+      "createByName": "童军林",
+      "projectName": "现代18T双飞翼*1",
+      "contractCode": "LNZLHT2026042014901"
+    },
+    {
+      "plateNumber": "粤A08578F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "嘉兴智奇供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-22 20:10:35",
+      "createByName": "童军林",
+      "projectName": "嘉兴智奇租赁现代18T*4",
+      "contractCode": "LNZLHT 20260413001"
+    },
+    {
+      "plateNumber": "粤A03676F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "嘉兴市南湖区大桥镇雪观运输装卸服务站",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-22 11:56:11",
+      "createByName": "童军林",
+      "projectName": "雪观运输租赁18T*3",
+      "contractCode": "LNZLHT20251010001"
+    },
+    {
+      "plateNumber": "粤AGP4502",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "新疆中铁黑豹物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-22 20:10:54",
+      "createByName": "童军林",
+      "projectName": "新疆中铁黑豹租赁-跃进4.5T*10",
+      "contractCode": "LNZLHT2024090201"
+    },
+    {
+      "plateNumber": "粤AGR0772",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "景伟",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-21 18:50:54",
+      "createByName": "姚守涛",
+      "projectName": "个人租赁现代4.5T冷藏车",
+      "contractCode": "LNZLHT2026072102-042"
+    },
+    {
+      "plateNumber": "粤AGQ0178",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "张磊",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-21 18:50:50",
+      "createByName": "姚守涛",
+      "projectName": "个人租赁现代4.5T冷藏车",
+      "contractCode": "LNZLHT2026072101-042"
+    },
+    {
+      "plateNumber": "粤AGP9717",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-21 15:07:35",
+      "createByName": "童军林",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤A08681F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "杭州宏狼物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:22:48",
+      "createByName": "童军林",
+      "projectName": "杭州宏狼租赁18T*7",
+      "contractCode": "LNZLHT 20260310001"
+    },
+    {
+      "plateNumber": "粤A02699F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "杭州宏狼物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:22:42",
+      "createByName": "童军林",
+      "projectName": "杭州宏狼租赁18T*7",
+      "contractCode": "LNZLHT 20260310001"
+    },
+    {
+      "plateNumber": "粤A06158F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "杭州宏狼物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:22:36",
+      "createByName": "童军林",
+      "projectName": "杭州宏狼租赁18T*7",
+      "contractCode": "LNZLHT 20260310001"
+    },
+    {
+      "plateNumber": "粤A05378F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "上海畅霸实业有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 13:10:12",
+      "createByName": "何苗苗",
+      "projectName": "畅霸实业-租赁帕力安18T",
+      "contractCode": "LNZLHT2026012701-042"
+    },
+    {
+      "plateNumber": "粤A08796F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州市博众供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-18 19:19:50",
+      "createByName": "童军林",
+      "projectName": "博众-租赁帕力安18T",
+      "contractCode": "LNZLHT2026021101-042"
+    },
+    {
+      "plateNumber": "粤A06632F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "上海昕海供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-17 12:15:31",
+      "createByName": "翁倚云",
+      "projectName": "上海昕海租赁18T*1",
+      "contractCode": "LNZLHT20260715001"
+    },
+    {
+      "plateNumber": "沪A62013F",
+      "brandName": "宇通",
+      "modelName": "49吨牵引车头",
+      "customerName": "绿电运输蕲春有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-16 09:54:07",
+      "createByName": "何苗苗",
+      "projectName": "绿电运输-试用宇通49T",
+      "contractCode": "LNZLHT2026071401-042"
+    },
+    {
+      "plateNumber": "沪A01559F",
+      "brandName": "宇通",
+      "modelName": "49吨牵引车头",
+      "customerName": "绿电运输蕲春有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-16 09:54:07",
+      "createByName": "何苗苗",
+      "projectName": "绿电运输-试用宇通49T",
+      "contractCode": "LNZLHT2026071401-042"
+    },
+    {
+      "plateNumber": "粤A09620F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州市博众供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-15 14:41:31",
+      "createByName": "童军林",
+      "projectName": "博众-租赁帕力安18T",
+      "contractCode": "LNZLHT2026021101-042"
+    },
+    {
+      "plateNumber": "沪A03561F",
+      "brandName": "宇通",
+      "modelName": "49吨牵引车头",
+      "customerName": "重庆丰坤达供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-13 13:23:39",
+      "createByName": "何苗苗",
+      "projectName": "丰坤达-租赁宇通49T",
+      "contractCode": "LNZLHT20260706001"
+    },
+    {
+      "plateNumber": "粤AGP5363",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "武汉洛安供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-12 11:44:57",
+      "createByName": "姚守涛",
+      "projectName": "洛安供应链-租赁帕力安4.5T*30",
+      "contractCode": "LNZLHT2026040301-042"
+    },
+    {
+      "plateNumber": "粤AGP5169",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "武汉洛安供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-12 11:44:57",
+      "createByName": "姚守涛",
+      "projectName": "洛安供应链-租赁帕力安4.5T*30",
+      "contractCode": "LNZLHT2026040301-042"
+    },
+    {
+      "plateNumber": "粤AGP3071",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "武汉洛安供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-12 11:44:57",
+      "createByName": "姚守涛",
+      "projectName": "洛安供应链-租赁帕力安4.5T*30",
+      "contractCode": "LNZLHT2026040301-042"
+    },
+    {
+      "plateNumber": "沪A03212F",
+      "brandName": "宇通",
+      "modelName": "49吨牵引车头",
+      "customerName": "四川国腾供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-10 11:14:57",
+      "createByName": "何苗苗",
+      "projectName": "国腾-租赁楚风、宇通49T",
+      "contractCode": "LNZLHT2026063001-042"
+    },
+    {
+      "plateNumber": "粤A05876F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州市博众供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-10 09:17:27",
+      "createByName": "童军林",
+      "projectName": "博众-租赁帕力安18T",
+      "contractCode": "LNZLHT2026021101-042"
+    },
+    {
+      "plateNumber": "粤A01552F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州市博众供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-10 09:17:14",
+      "createByName": "童军林",
+      "projectName": "博众-租赁帕力安18T",
+      "contractCode": "LNZLHT2026021101-042"
+    },
+    {
+      "plateNumber": "粤A08177F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "上海畅霸实业有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-08 18:08:25",
+      "createByName": "童军林",
+      "projectName": "畅霸实业-租赁帕力安18T",
+      "contractCode": "LNZLHT2026012701-042"
+    },
+    {
+      "plateNumber": "粤A01886F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "广州市博众供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-08 18:08:10",
+      "createByName": "童军林",
+      "projectName": "博众-租赁帕力安18T",
+      "contractCode": "LNZLHT2026021101-042"
+    },
+    {
+      "plateNumber": "粤A09620F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "嘉兴智奇供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-08 11:22:26",
+      "createByName": "童军林",
+      "projectName": "嘉兴智奇18T自运营",
+      "contractCode": "20260105"
+    },
+    {
+      "plateNumber": "粤AG59208",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "东莞沙田炽瑞物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-08 18:08:59",
+      "createByName": "童军林",
+      "projectName": "炽瑞-租赁现代4.5T",
+      "contractCode": "LNZLHT2025042201"
+    },
+    {
+      "plateNumber": "粤AFH7393",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "东莞沙田炽瑞物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-08 18:08:39",
+      "createByName": "童军林",
+      "projectName": "炽瑞-租赁现代4.5T",
+      "contractCode": "LNZLHT2025042201"
+    },
+    {
+      "plateNumber": "粤A05650F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "上海利合供应链管理有限公司 (二部)",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-04 21:19:13",
+      "createByName": "童军林",
+      "projectName": "上海利合租赁现代18T*1",
+      "contractCode": "LNZLHT 20260414001"
+    },
+    {
+      "plateNumber": "粤A00828F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "苏州望亭远方物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-04 13:01:21",
+      "createByName": "童军林",
+      "projectName": "苏州望亭租赁现代18T*1",
+      "contractCode": "LNZLHT 20260225001"
+    },
+    {
+      "plateNumber": "粤AGP4623",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "嘉兴港区众通快递有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-04 11:40:10",
+      "createByName": "翁倚云",
+      "projectName": "嘉兴港区众通租赁4.5T*1",
+      "contractCode": "LNZLHT 20260703001"
+    },
+    {
+      "plateNumber": "京A39361F",
+      "brandName": "楚风",
+      "modelName": "49吨牵引车头",
+      "customerName": "四川国腾供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 16:56:23",
+      "createByName": "姚守涛",
+      "projectName": "国腾-租赁楚风、宇通49T",
+      "contractCode": "LNZLHT2026063001-042"
+    },
+    {
+      "plateNumber": "粤A07577F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "嘉兴港区韵达快递有限公司新仓分理部",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 12:01:28",
+      "createByName": "童军林",
+      "projectName": "新仓港区韵达快递租赁18T*1",
+      "contractCode": "LNZLHT 20251202001"
+    },
+    {
+      "plateNumber": "粤AG01629",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "东莞沙田炽瑞物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 11:09:53",
+      "createByName": "童军林",
+      "projectName": "炽瑞-租赁现代4.5T",
+      "contractCode": "LNZLHT2025042201"
+    },
+    {
+      "plateNumber": "沪A89385F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "天津华兴捷运物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 18:46:43",
+      "createByName": "何苗苗",
+      "projectName": "天津华兴-租赁苏龙18T（2026）",
+      "contractCode": "LNZLHT20260701-042"
+    },
+    {
+      "plateNumber": "沪A62772F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "天津华兴捷运物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 18:46:43",
+      "createByName": "何苗苗",
+      "projectName": "天津华兴-租赁苏龙18T（2026）",
+      "contractCode": "LNZLHT20260701-042"
+    },
+    {
+      "plateNumber": "沪A58538F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "天津华兴捷运物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 18:46:43",
+      "createByName": "何苗苗",
+      "projectName": "天津华兴-租赁苏龙18T（2026）",
+      "contractCode": "LNZLHT20260701-042"
+    },
+    {
+      "plateNumber": "沪A58307F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "天津华兴捷运物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 18:46:43",
+      "createByName": "何苗苗",
+      "projectName": "天津华兴-租赁苏龙18T（2026）",
+      "contractCode": "LNZLHT20260701-042"
+    },
+    {
+      "plateNumber": "沪A01855F",
+      "brandName": "苏龙",
+      "modelName": "海格牌18吨双飞翼货车",
+      "customerName": "天津华兴捷运物流有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 18:46:43",
+      "createByName": "何苗苗",
+      "projectName": "天津华兴-租赁苏龙18T（2026）",
+      "contractCode": "LNZLHT20260701-042"
+    },
+    {
+      "plateNumber": "粤A08796F",
+      "brandName": "现代",
+      "modelName": "帕力安牌18吨双飞翼货车",
+      "customerName": "武汉至上云合供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-02 11:10:34",
+      "createByName": "童军林",
+      "projectName": "云合供应链-租赁帕力安18T",
+      "contractCode": "LNZLHT2026032001-042"
+    },
+    {
+      "plateNumber": "粤AGP5615",
+      "brandName": "跃进",
+      "modelName": "4.5吨冷链车",
+      "customerName": "平湖聚笙餐饮管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-01 15:20:35",
+      "createByName": "童军林",
+      "projectName": "平湖聚笙4.5T*1租赁",
+      "contractCode": "LNZLHT 20250711001"
+    },
+    {
+      "plateNumber": "粤AGH8490",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "佛山市昌盛骏业供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 23:49:33",
+      "createByName": "何苗苗",
+      "projectName": "骏业-租赁现代普货4.5T（原氢沣）",
+      "contractCode": "LNZLHT2026052603-042"
+    },
+    {
+      "plateNumber": "粤AG37316",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "佛山市昌盛骏业供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 23:49:33",
+      "createByName": "何苗苗",
+      "projectName": "骏业-租赁现代普货4.5T（原氢沣）",
+      "contractCode": "LNZLHT2026052603-042"
+    },
+    {
+      "plateNumber": "粤AFQ8722",
+      "brandName": "现代",
+      "modelName": "4.5吨货车",
+      "customerName": "佛山市昌盛骏业供应链管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-03 23:49:33",
+      "createByName": "何苗苗",
+      "projectName": "骏业-租赁现代普货4.5T（原氢沣）",
+      "contractCode": "LNZLHT2026052603-042"
+    },
+    {
+      "plateNumber": "粤AGP9817",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "佛山市三水区国裕饮食管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:33:20",
+      "createByName": "杨凤娥",
+      "projectName": "国裕帕力安4.5T（尾板）*5",
+      "contractCode": "LNZLHT2025120914901"
+    },
+    {
+      "plateNumber": "粤AGP2032",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "佛山市三水区国裕饮食管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:33:20",
+      "createByName": "杨凤娥",
+      "projectName": "国裕帕力安4.5T（尾板）*5",
+      "contractCode": "LNZLHT2025120914901"
+    },
+    {
+      "plateNumber": "粤AGP7022",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "佛山市三水区国裕饮食管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:33:20",
+      "createByName": "杨凤娥",
+      "projectName": "国裕帕力安4.5T（尾板）*5",
+      "contractCode": "LNZLHT2025120914901"
+    },
+    {
+      "plateNumber": "粤AGP9739",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "佛山市三水区国裕饮食管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:33:20",
+      "createByName": "杨凤娥",
+      "projectName": "国裕帕力安4.5T（尾板）*5",
+      "contractCode": "LNZLHT2025120914901"
+    },
+    {
+      "plateNumber": "粤AGP4566",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "佛山市三水区国裕饮食管理有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-20 16:33:20",
+      "createByName": "杨凤娥",
+      "projectName": "国裕帕力安4.5T（尾板）*5",
+      "contractCode": "LNZLHT2025120914901"
+    },
+    {
+      "plateNumber": "粤AGP9731",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP2009",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP4482",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP9817",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP9347",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP9351",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP5613",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    },
+    {
+      "plateNumber": "粤AGP4569",
+      "brandName": "现代",
+      "modelName": "帕力安牌4.5吨冷链车",
+      "customerName": "广州智卡物流供应链有限公司",
+      "deliveryStatusName": "客户已签章",
+      "createTime": "2026-07-14 21:05:34",
+      "createByName": "杨凤娥",
+      "projectName": "智卡-8台4.5T尾板冷链车",
+      "contractCode": "LNZLHT2026071314901"
+    }
+  ]
+}

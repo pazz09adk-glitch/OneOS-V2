@@ -1,0 +1,163 @@
+/**
+ * OneOS 内容区暗色 token（参照原型导航 / VoltAgent 深色画布）
+ * 由 html[data-oneos-theme="dark"] 驱动；浅色保持各页原有 :root 定义。
+ */
+
+html[data-oneos-theme='dark'] {
+  color-scheme: dark;
+
+  --ln-primary: #00d992;
+  --ln-primary-hover: #2fd6a1;
+  --ln-primary-focus: #10b981;
+  --ln-primary-active: #10b981;
+  --ln-primary-soft: rgba(0, 217, 146, 0.12);
+  --ln-primary-soft-strong: rgba(0, 217, 146, 0.2);
+  --ln-ink: #f2f2f2;
+  --ln-body: #bdbdbd;
+  --ln-body-strong: #f2f2f2;
+  --ln-muted: #8b949e;
+  --ln-muted-soft: #6b7280;
+  --ln-muted-80: #d1d5db;
+  --ln-divider-soft: #1a1a1a;
+  --ln-hairline: #3d3a39;
+  --ln-hairline-strong: #565656;
+  --ln-hairline-tertiary: #3d3a39;
+  --ln-canvas: #101010;
+  --ln-canvas-parchment: #101010;
+  --ln-surface-pearl: #1a1a1a;
+  --ln-surface-card: #1a1a1a;
+  --ln-surface-strong: #222222;
+  --ln-on-primary: #101010;
+  --ln-success: #00d992;
+  --ln-warning: #f59e0b;
+  --ln-error: #f87171;
+  --ln-brand-secure: #2fd6a1;
+  --ln-shadow-soft: none;
+  --ln-shadow-hover: none;
+  --ln-shadow-float: none;
+  --ln-shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.45);
+  --ln-link: #00d992;
+  --ln-canvas-soft: #1a1a1a;
+
+  --vm-primary: var(--ln-primary);
+  --vm-primary-dark: var(--ln-primary-focus);
+  --vm-primary-soft: var(--ln-primary-soft);
+  --vm-bg: var(--ln-canvas-parchment);
+  --vm-surface: var(--ln-surface-card);
+  --vm-border: var(--ln-hairline);
+  --vm-text: var(--ln-ink);
+  --vm-muted: var(--ln-muted);
+  --vm-danger: var(--ln-error);
+  --vm-warning: var(--ln-warning);
+  --vm-link: var(--ln-link);
+}
+
+html[data-oneos-theme='dark'],
+html[data-oneos-theme='dark'] body {
+  background-color: #101010 !important;
+  color: #f2f2f2;
+}
+
+html[data-oneos-theme='dark'] #root {
+  background-color: #101010;
+  color: #f2f2f2;
+  min-height: 100%;
+}
+
+/* 常见页面根容器 */
+html[data-oneos-theme='dark'] .vm-page,
+html[data-oneos-theme='dark'] .wb-page,
+html[data-oneos-theme='dark'] .page,
+html[data-oneos-theme='dark'] .ant-layout,
+html[data-oneos-theme='dark'] .ant-layout-content {
+  background: #101010 !important;
+  color: #f2f2f2;
+}
+
+html[data-oneos-theme='dark'] .ant-card,
+html[data-oneos-theme='dark'] .ant-table,
+html[data-oneos-theme='dark'] .ant-table-container,
+html[data-oneos-theme='dark'] .ant-table-thead > tr > th,
+html[data-oneos-theme='dark'] .ant-modal-content,
+html[data-oneos-theme='dark'] .ant-drawer-content,
+html[data-oneos-theme='dark'] .ant-input,
+html[data-oneos-theme='dark'] .ant-input-affix-wrapper,
+html[data-oneos-theme='dark'] .ant-select-selector,
+html[data-oneos-theme='dark'] .ant-picker {
+  background: #1a1a1a !important;
+  border-color: #3d3a39 !important;
+  color: #f2f2f2 !important;
+}
+
+html[data-oneos-theme='dark'] .ant-table-thead > tr > th {
+  background: #161616 !important;
+  color: #bdbdbd !important;
+}
+
+html[data-oneos-theme='dark'] .ant-table-tbody > tr > td {
+  border-color: #3d3a39 !important;
+  color: #f2f2f2 !important;
+}
+
+html[data-oneos-theme='dark'] .ant-table-tbody > tr:hover > td {
+  background: #222222 !important;
+}
+
+html[data-oneos-theme='dark'] .ant-btn-default {
+  background: #1a1a1a !important;
+  border-color: #3d3a39 !important;
+  color: #f2f2f2 !important;
+}
+
+html[data-oneos-theme='dark'] .ant-btn-primary {
+  background: #00d992 !important;
+  border-color: #00d992 !important;
+  color: #101010 !important;
+}
+
+/* 工作台 / 通用卡片：覆盖硬编码浅色渐变与表头 */
+html[data-oneos-theme='dark'] .wb-hero--welcome,
+html[data-oneos-theme='dark'] .wb-hero--personal,
+html[data-oneos-theme='dark'] .wb-panel,
+html[data-oneos-theme='dark'] .wb-insights,
+html[data-oneos-theme='dark'] .wb-section--flow,
+html[data-oneos-theme='dark'] .wb-section--approval,
+html[data-oneos-theme='dark'] .wb-kpi-tile,
+html[data-oneos-theme='dark'] .wb-notice-card {
+  background: #1a1a1a !important;
+  box-shadow: none;
+  color: #f2f2f2;
+}
+
+html[data-oneos-theme='dark'] .wb-kpi-chip {
+  background: #222222 !important;
+  box-shadow: none;
+  color: #f2f2f2;
+}
+
+html[data-oneos-theme='dark'] .wb-panel-header,
+html[data-oneos-theme='dark'] .wb-section-head,
+html[data-oneos-theme='dark'] .wb-todo-table thead th,
+html[data-oneos-theme='dark'] .wb-insight-table th,
+html[data-oneos-theme='dark'] .wb-insight-metric {
+  background: #161616 !important;
+  color: #bdbdbd;
+}
+
+html[data-oneos-theme='dark'] .wb-page--layout-personal {
+  background: #101010 !important;
+}
+
+html[data-oneos-theme='dark'] .wb-todo-table tbody tr:hover td,
+html[data-oneos-theme='dark'] .wb-kpi-chip:hover {
+  background: #222222 !important;
+}
+
+html[data-oneos-theme='dark'] .wb-tabs,
+html[data-oneos-theme='dark'] .wb-drawer,
+html[data-oneos-theme='dark'] .wb-modal,
+html[data-oneos-theme='dark'] .wb-overlay-panel {
+  background: #1a1a1a;
+  color: #f2f2f2;
+  border-color: #3d3a39;
+}

@@ -1,0 +1,96 @@
+{
+  "name": "ruoyi-oneos-v2-theme-preset",
+  "title": "OneOS V2 若依 (RuoYi) 框架主题预设与色盘配置",
+  "version": "2.4.0",
+  "updatedAt": "2026-07-23",
+  "description": "适用于若依 (RuoYi Element-UI / Element-Plus) 开源框架的 OneOS V2 紫光 (Stripe Violet #533AFD) 主题预设。包含内置色盘推荐、CSS 变量映射、侧边栏/导航栏预设与深浅模式适配。",
+  "author": "OneOS Design System Team",
+  "license": "MIT",
+  "tokens": {
+    "primary": {
+      "value": "#533AFD",
+      "hover": "#6346FF",
+      "focus": "#4226E8",
+      "active": "#4226E8",
+      "softLight": "#E0E7FF",
+      "softDark": "rgba(83, 58, 253, 0.18)",
+      "description": "Stripe Violet 极客紫光，作为若依系统默认首选主题色"
+    },
+    "surface": {
+      "cardLight": "#FFFFFF",
+      "cardDark": "#121418",
+      "pearlLight": "#F8FAFC",
+      "pearlDark": "#16181F",
+      "canvasLight": "#F6F9FC",
+      "canvasDark": "#0A0B0D"
+    },
+    "border": {
+      "hairlineLight": "#E3E8EE",
+      "hairlineDark": "#23272F",
+      "strongLight": "#D4D4D8",
+      "strongDark": "#2D3748"
+    }
+  },
+  "elementPlus": {
+    "--el-color-primary": "#533AFD",
+    "--el-color-primary-light-3": "#8775FE",
+    "--el-color-primary-light-5": "#A99CFE",
+    "--el-color-primary-light-7": "#CBCEFE",
+    "--el-color-primary-light-8": "#DCDFFE",
+    "--el-color-primary-light-9": "#E0E7FF",
+    "--el-color-primary-dark-2": "#4226E8"
+  },
+  "oneosBridgeVars": {
+    "--oneos-primary": "#533AFD",
+    "--ln-primary": "#533AFD",
+    "--ln-primary-hover": "#6346FF",
+    "--ln-primary-focus": "#4226E8",
+    "--ln-primary-soft": "#E0E7FF",
+    "--ln-surface-card": "#FFFFFF",
+    "--ln-hairline": "#E3E8EE"
+  },
+  "ruoyiSettings": {
+    "theme": "#533AFD",
+    "sideTheme": "theme-dark",
+    "navTheme": "light",
+    "presetColors": [
+      "#533AFD",
+      "#409EFF",
+      "#009688",
+      "#F5222D",
+      "#111936",
+      "#722ED1"
+    ],
+    "tagsView": true,
+    "fixedHeader": true,
+    "sidebarLogo": true
+  },
+  "sidebar": {
+    "light": {
+      "menuBg": "#FFFFFF",
+      "menuText": "#425466",
+      "menuActiveText": "#533AFD",
+      "menuActiveBg": "#E0E7FF",
+      "menuHoverBg": "#F8FAFC"
+    },
+    "dark": {
+      "menuBg": "#121418",
+      "menuText": "#A0AEC0",
+      "menuActiveText": "#FFFFFF",
+      "menuActiveBg": "rgba(83, 58, 253, 0.25)",
+      "menuHoverBg": "#16181F"
+    }
+  },
+  "navbar": {
+    "light": {
+      "bg": "#FFFFFF",
+      "border": "#E3E8EE",
+      "text": "#0A2540"
+    },
+    "dark": {
+      "bg": "#121418",
+      "border": "#23272F",
+      "text": "#F7FAFC"
+    }
+  }
+}

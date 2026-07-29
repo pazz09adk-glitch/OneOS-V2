@@ -1,0 +1,124 @@
+/**
+ * 全局数字字体：对齐车辆管理「交强险到期时间」(.vm-expire-date)
+ * — JetBrains Mono / 系统等宽 + tabular-nums
+ */
+
+.tabular-nums,
+.ln-num {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.ln-money,
+.ldb-col-money,
+.ln-modal-detail-table__money,
+.pr-linked-bill-native-table__money,
+.vpr-money,
+.vpr-money-cell,
+.vpr-collect-kpi-card__value,
+.vpr-collect-batch-panel__amount,
+.vpr-collect-footer__summary strong,
+.vpr-collect-td--num {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.vm-kpi-val,
+.lbd-kpi-val,
+.bdl-kpi-val,
+.sob-kpi-val,
+.vm-mileage,
+.vm-expire-date,
+.vm-handover-situation-line--mile,
+.vm-handover-situation-line--time,
+.vm-detail-gps-time,
+.vm-detail-plate,
+.vm-location-map-gps-time,
+.vm-pagination-total-num,
+.vm-filter-toggle-badge,
+.vm-vin,
+.vm-stack .code,
+.vm-stack .vm-link.code {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* 链接态「未购买」等文案仍用正文字体 */
+.vm-expire .vm-link.vm-expire-date {
+  font-family: inherit;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
+}
+
+.vm-page .ant-table .tabular-nums,
+.vm-page .ant-table-cell.tabular-nums,
+.vm-page .vm-list-table .tabular-nums {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+}
+
+.vm-page .ant-input.tabular-nums,
+.vm-page .ant-input-affix-wrapper.tabular-nums .ant-input,
+.lc-form-readonly.tabular-nums,
+.vm-stack .sub.tabular-nums {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.vm-page .ant-input-number-input,
+.vm-page .ant-input-affix-wrapper .ant-input[data-money="true"] {
+  font-family: var(
+    --vm-font-mono,
+    ui-monospace,
+    "JetBrains Mono",
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+  font-variant-numeric: tabular-nums;
+}

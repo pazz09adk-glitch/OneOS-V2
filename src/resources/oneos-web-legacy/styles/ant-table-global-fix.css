@@ -1,0 +1,37 @@
+/**
+ * ONE-OS · Ant Design Table 全局修复
+ * 消除表头与首行之间的空白（measure-row + 双表头 scroll 结构间隙）
+ *
+ * 构建入口：web端/styles/index.css 已 @import 本文件
+ * 独立 JSX 页面：将 oneos-ant-table-global-fix.js 中的规则 concat 到 PAGE_STYLE 首部
+ */
+
+.ant-table-container .ant-table-header {
+	margin-bottom: 0 !important;
+}
+
+.ant-table-container .ant-table-body {
+	margin-top: 0 !important;
+}
+
+.ant-table-container .ant-table-body > table,
+.ant-table-content table {
+	margin-top: 0 !important;
+}
+
+.ant-table-tbody > tr.ant-table-measure-row,
+.ant-table-tbody > tr.ant-table-measure-row > td,
+.ant-table-tbody > tr.ant-table-measure-row > th {
+	display: none !important;
+	height: 0 !important;
+	max-height: 0 !important;
+	min-height: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	border: none !important;
+	line-height: 0 !important;
+	font-size: 0 !important;
+	overflow: hidden !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+}

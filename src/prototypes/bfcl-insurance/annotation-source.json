@@ -1,0 +1,69 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-insurance",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-ins-sup",
+        "index": 1,
+        "title": "供应商账户",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-ins-sup']"
+          ],
+          "fingerprint": "div|bfcl-ins-sup",
+          "path": []
+        },
+        "aiPrompt": "账户齐全才能自动付款",
+        "annotationText": "保险公司等付款主体须维护收款账户；不全则阻断自动付款任务。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-ins-pol",
+        "index": 2,
+        "title": "保单批量归档门禁",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-ins-pol']"
+          ],
+          "fingerprint": "div|bfcl-ins-pol",
+          "path": []
+        },
+        "aiPrompt": "闭环后一车多保",
+        "annotationText": "保险付款单闭环后方可批量上传保单，自动识别一车多保。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "hub",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

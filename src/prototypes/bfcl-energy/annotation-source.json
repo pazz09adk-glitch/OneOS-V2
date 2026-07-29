@@ -1,0 +1,69 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-energy",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-en-recharge",
+        "index": 1,
+        "title": "充值入账门禁",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-en-recharge']"
+          ],
+          "fingerprint": "div|bfcl-en-recharge",
+          "path": []
+        },
+        "aiPrompt": "无关联不充值",
+        "annotationText": "关联收款后入账；无项目账户则自动建户。仅已核对加氢记录可扣费。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-en-station",
+        "index": 2,
+        "title": "加氢站付款",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-en-station']"
+          ],
+          "fingerprint": "div|bfcl-en-station",
+          "path": []
+        },
+        "aiPrompt": "付款明细关联",
+        "annotationText": "采购发起加氢站对账付款申请；财务付款明细关联后标记已付款。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "hub",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

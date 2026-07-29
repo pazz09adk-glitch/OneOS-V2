@@ -1,0 +1,56 @@
+{
+  "server": {
+    "host": "localhost",
+    "allowLAN": true,
+    "lanHost": "192.168.0.102",
+    "enableCommandAPI": false
+  },
+  "projectDefaults": {
+    "defaultTheme": null
+  },
+  "projectInfo": {
+    "description": null
+  },
+  "versionCollaboration": {
+    "remote": {
+      "url": "https://github.com/15810879921-coder/OneOS-V2.git",
+      "defaultBranch": "main"
+    }
+  },
+  "cloudPublishing": {
+    "vercel": {
+      "token": "",
+      "projectName": "",
+      "teamId": ""
+    },
+    "cloudflarePages": {
+      "apiToken": "",
+      "accountId": "",
+      "projectName": "",
+      "productionBranch": "main"
+    },
+    "s3": {
+      "accessKeyId": "",
+      "secretAccessKey": "",
+      "region": "cn-hangzhou",
+      "bucket": "model-lnoneos",
+      "prefix": "",
+      "baseUrl": "https://prototype.lnoneos.com/v2",
+      "endpoint": "https://model-lnoneos.oss-cn-hangzhou.aliyuncs.com",
+      "pathAliases": {}
+    },
+    "githubPages": {
+      "repository": "",
+      "branch": "gh-pages",
+      "sourceDirectory": "/",
+      "pathPrefix": ""
+    },
+    "publishSettings": {
+      "includeSource": true,
+      "visibleTargets": [
+        "axhub",
+        "s3"
+      ]
+    }
+  }
+}

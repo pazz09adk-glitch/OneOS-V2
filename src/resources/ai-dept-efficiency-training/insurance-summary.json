@@ -1,0 +1,190 @@
+{
+  "fetchedAt": "2026-07-24T11:38:32.931Z",
+  "sourceUrl": "https://lnoneos.com/business/insurance-procurement2",
+  "menuPath": "业务管理 → 保险采购",
+  "vehicleTotal": 1024,
+  "pageSummary": {
+    "totalCount": 1024,
+    "normalCount": 722,
+    "warningCount": 92,
+    "expiredCount": 234,
+    "missingCoreCount": 32
+  },
+  "vehicleStatusCount": {
+    "正常": 722,
+    "临期": 36,
+    "异常": 266
+  },
+  "vehicleStatusForShare": {
+    "正常": 722,
+    "临期": 36,
+    "异常": 266,
+    "待购": 0
+  },
+  "policyTotals": {
+    "maintainedSlots": 2469,
+    "uniquePolicyNos": 2452
+  },
+  "byType": [
+    {
+      "typeKey": "compulsory",
+      "typeLabel": "交强险",
+      "maintained": 1000,
+      "byStatus": {
+        "正常": 888,
+        "异常": 102,
+        "未购买": 24,
+        "临期": 10
+      },
+      "notPurchased": 24
+    },
+    {
+      "typeKey": "commercial",
+      "typeLabel": "商业险",
+      "maintained": 992,
+      "byStatus": {
+        "正常": 754,
+        "临期": 36,
+        "异常": 202,
+        "未购买": 32
+      },
+      "notPurchased": 32
+    },
+    {
+      "typeKey": "excess",
+      "typeLabel": "超赔险",
+      "maintained": 434,
+      "byStatus": {
+        "未购买": 590,
+        "临期": 69,
+        "正常": 337,
+        "异常": 28
+      },
+      "notPurchased": 590
+    },
+    {
+      "typeKey": "cargo",
+      "typeLabel": "货物险",
+      "maintained": 10,
+      "byStatus": {
+        "未购买": 1014,
+        "正常": 10
+      },
+      "notPurchased": 1014
+    },
+    {
+      "typeKey": "driverAccident",
+      "typeLabel": "驾意险",
+      "maintained": 33,
+      "byStatus": {
+        "正常": 28,
+        "未购买": 991,
+        "not_effective": 5
+      },
+      "notPurchased": 991
+    }
+  ],
+  "abnormalOrWarningCount": 302,
+  "sampleAbnormal": [
+    {
+      "plateNo": "粤AGQ0178",
+      "insuranceStatus": "临期",
+      "customerName": "张磊"
+    },
+    {
+      "plateNo": "粤A03423F",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "沪A09133F",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AGQ0119",
+      "insuranceStatus": "临期",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "京A05989F",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AGR8551",
+      "insuranceStatus": "临期",
+      "customerName": "广州新运多租赁有限公司"
+    },
+    {
+      "plateNo": "浙FHU33挂",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "浙F07000F",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "浙F05128F",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AFN0316",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG32029",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG38625",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AFG2730",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG26276",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG10806",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG23708",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG23781",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AFN2985",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG02973",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    },
+    {
+      "plateNo": "粤AG39287",
+      "insuranceStatus": "异常",
+      "customerName": "-"
+    }
+  ]
+}

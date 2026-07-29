@@ -1,0 +1,179 @@
+/**
+ * 弹窗 / 抽屉内 Ant Design Table 通用样式
+ * 防止 scroll.y 场景下表头与表体列宽错行、measure-row 撑开列宽等问题。
+ * 使用方式：Table className="ln-modal-detail-table" tableLayout="fixed" + 每列显式 width
+ */
+.ln-modal-detail-table.ant-table-wrapper .ant-table {
+  background: transparent;
+}
+
+.ln-modal-detail-table.ant-table-wrapper .ant-table-container {
+  border-inline-start: none;
+  border-top: none;
+}
+
+.ln-modal-detail-table.ant-table-wrapper .ant-table-header {
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+}
+
+.ln-modal-detail-table.ant-table-wrapper .ant-table-body {
+  margin-top: 0 !important;
+  overflow: auto !important;
+}
+
+.ln-modal-detail-table.ant-table-wrapper .ant-table-body > table,
+.ln-modal-detail-table.ant-table-wrapper .ant-table-header > table {
+  margin-top: 0 !important;
+  table-layout: fixed !important;
+}
+
+.ln-modal-detail-table .ant-table-tbody > tr.ant-table-measure-row,
+.ln-modal-detail-table .ant-table-tbody > tr.ant-table-measure-row > td,
+.ln-modal-detail-table .ant-table-tbody > tr.ant-table-measure-row > th {
+  display: none !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.ln-modal-detail-table .ant-table-thead > tr > th {
+  background: var(--ln-canvas-soft, #f8fafc) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ln-muted, #64748b) !important;
+  padding: 8px 12px !important;
+  white-space: nowrap;
+}
+
+.ln-modal-detail-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+  padding: 8px 12px !important;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.ln-modal-detail-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td.ant-table-cell-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ln-modal-detail-table .ant-table-tbody > tr:hover > td {
+  background: var(--ln-canvas-soft, #f8fafc) !important;
+}
+
+.ln-modal-detail-table .ant-table-cell-scrollbar {
+  box-shadow: none !important;
+}
+
+.ln-modal-detail-table .ant-table-thead > tr > th.ln-modal-detail-table__money,
+.ln-modal-detail-table .ant-table-tbody > tr > td.ln-modal-detail-table__money {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.ln-modal-detail-table .ant-table-thead > tr > th.ant-table-cell-align-right,
+.ln-modal-detail-table .ant-table-tbody > tr > td.ant-table-cell-align-right,
+.ln-modal-detail-table .ant-table-summary .ant-table-cell-align-right {
+  text-align: left !important;
+}
+
+/* 左侧冻结列（收款时间等） */
+.ln-modal-detail-table .ant-table-cell-fix-left,
+.ln-modal-detail-table .ant-table-cell-fix-start {
+  z-index: 2;
+  background: var(--ln-surface-card, #fff) !important;
+}
+
+.ln-modal-detail-table .ant-table-thead > tr > th.ant-table-cell-fix-left,
+.ln-modal-detail-table .ant-table-thead > tr > th.ant-table-cell-fix-start {
+  z-index: 3;
+  background: var(--ln-canvas-soft, #f8fafc) !important;
+}
+
+.ln-modal-detail-table .ant-table-tbody > tr:hover > td.ant-table-cell-fix-left,
+.ln-modal-detail-table .ant-table-tbody > tr:hover > td.ant-table-cell-fix-start {
+  background: var(--ln-canvas-soft, #f8fafc) !important;
+}
+
+.ln-modal-detail-table .ant-table-cell-fix-left-last::after,
+.ln-modal-detail-table .ant-table-cell-fix-start-last::after {
+  box-shadow: inset 10px 0 8px -8px rgba(15, 23, 42, 0.12);
+}
+
+.ln-modal-detail-table .ln-modal-detail-table__sticky-time {
+  white-space: nowrap;
+}
+
+/* 弹窗明细列表面板容器 */
+.ln-modal-detail-panel {
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: var(--ln-radius-card, 12px);
+  background: var(--ln-surface-card, #fff);
+  overflow: hidden;
+  box-shadow: var(--ln-shadow-soft, 0 1px 2px rgba(24, 24, 27, 0.06));
+}
+
+.ln-modal-detail-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+  background: linear-gradient(180deg, #fafbfc 0%, #f6f7f7 100%);
+}
+
+.ln-modal-detail-panel__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-body-strong, #18181b);
+}
+
+.ln-modal-detail-panel__meta {
+  font-size: 12px;
+  color: var(--ln-muted, #71717a);
+}
+
+.ln-modal-detail-panel .ln-modal-detail-table.ant-table-wrapper {
+  padding: 0;
+}
+
+.ln-modal-detail-panel .ln-modal-detail-table .ant-table-pagination {
+  margin: 0 !important;
+  padding: 10px 14px !important;
+  border-top: 1px solid var(--ln-hairline, #e2e8f0);
+  background: #fafbfc;
+}
+
+.ln-modal-detail-empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--ln-muted, #71717a);
+}
+
+.ln-modal-detail-empty p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ln-body, #52525b);
+}
+
+.ln-modal-detail-empty__hint {
+  margin-top: 6px !important;
+  font-size: 12px !important;
+  color: var(--ln-muted, #94a3b8) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-kpi-detail-modal .ant-modal {
+    animation: none !important;
+  }
+}

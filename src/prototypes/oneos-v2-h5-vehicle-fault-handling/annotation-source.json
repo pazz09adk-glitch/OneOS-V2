@@ -1,0 +1,48 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "oneos-v2-h5-vehicle-fault-handling",
+    "pageId": "main",
+    "updatedAt": 1784822400000,
+    "nodes": [
+      {
+        "id": "oneos-v2-h5-fault-handling-overview",
+        "index": 1,
+        "title": "故障处置 H5 移动端 (微信小程序 / 小羚羚 App 嵌套)",
+        "pageId": "main",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"oneos-v2-h5-fault-handling-overview\"]"
+          ],
+          "fingerprint": "oneos-v2-h5-fault-handling-overview",
+          "path": []
+        },
+        "aiPrompt": "基于 OneOS V2 Stripe Violet 设计规范与三视角架构的 H5 故障处置台账，复用 PC vehicle-fault-handling 业务数据。",
+        "annotationText": "支持 PC 全宽 / iPhone 15 / Android 视口切换，包含列表台账、看板管道、处置工作台三视图，处置时限临期逾期 KPI 深链筛选与 44px 触控适配。",
+        "hasMarkdown": true,
+        "color": "#533afd",
+        "images": [],
+        "createdAt": 1784822400000,
+        "updatedAt": 1784822400000
+      }
+    ],
+    "directory": {
+      "nodes": [
+        {
+          "id": "oneos-v2-h5-fault-prd",
+          "title": "产品需求说明（PRD）",
+          "markdownPath": ".spec/requirements-prd.md",
+          "markdown": "# 故障处置 H5 移动端 (微信小程序 / 小羚羚 App 嵌套) · 产品需求说明 (PRD)\n\n## 1. 模块定位与双入口关系\n\n| 项 | 说明 |\n|---|---|\n| PC 双入口 | `/prototypes/vehicle-fault-handling` |\n| H5 独立入口 | `/prototypes/oneos-v2-h5-vehicle-fault-handling` |\n| 三视角 | 列表台账 · 看板管道 · 处置工作台 |\n| 处置时限 | 上报后 30 天内闭环；辅文非标签；已挂起显示「挂起、暂停中」，临期/逾期与 KPI 深链筛选 |\n| 挂起/催办 | 与 PC 同源 mockData，留痕摘要展示 |"
+        },
+        {
+          "id": "oneos-v2-h5-fault-route",
+          "type": "route",
+          "title": "故障处置 H5 主页",
+          "itemKey": "prototypes/oneos-v2-h5-vehicle-fault-handling"
+        }
+      ]
+    }
+  }
+}

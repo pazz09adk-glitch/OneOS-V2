@@ -1,0 +1,95 @@
+---
+description: OneOS V2 全局定版设计规范（Stripe Violet 紫光高规 + 3视角架构 + PC/H5 移动端 100% 响应式 + 全量 UI 控件库 + 若依动态主题色 + 车牌号无点标准）
+globs: src/prototypes/oneos-v2/**/*, src/prototypes/lease-contract-management/**/*, src/resources/design-system/**/*, src/prototypes/**/*
+alwaysApply: true
+---
+
+# OneOS V2 全局定版设计规范（Cursor Agent 强制执行规则）
+
+> **【硬性准则】**：在 `OneOS V2` 目录下**生成新页面、修改或迁移任何原型页面**时，AI Agent **必须首先 Read** 并严格遵守 `src/resources/design-system/DESIGN.md` 或 `src/prototypes/oneos-v2/DESIGN.md`！
+
+---
+
+## 0. 新页面生成与修改工作流 (Mandatory Workflow)
+
+1. **强前置步骤**：在创建或修改 `OneOS V2` 下的任何页面前，必须读取 `src/resources/design-system/DESIGN.md`，确认最新的 Token、UI 控件用法、3 视图模板和响应式规范。
+2. **禁止使用原生 HTML 控件**：严禁直接使用原生 `<select>`、`<input type="date">` 或未经过 V2 封装的第三方组件。必须统一导入并使用 `UIComponents.tsx` 导出的封装控件：
+   - `V2Button`（主/次/描边/幽灵/危险/返回；详见 `DESIGN.md` §3.0）
+   - `V2Select`
+   - `V2DatePicker`
+   - `V2DateRangePicker`
+   - `V2SingleInputDateRangePicker`（单输入框双日历，默认推荐）
+   - `V2TimePicker`
+   - `V2SingleInputTimeRangePicker`（单输入框双时间）
+   - `V2RadioGroup`
+   - `V2CheckboxGroup`
+   - `V2Switch`
+   - `V2Steps`
+   - `V2Timeline`
+   - `V2ApprovalProgress`（默认 `direction="vertical"` 垂直贯穿时间轴）
+   - `V2Pagination`（统一分页控制器）
+   - `V2Empty`（空状态与异常页组件）
+   - `V2SegmentedControl`（顶栏视图/模式分段切换控件）
+   - `V2StatusTabs`（分类/状态过滤页签条）
+   - `V2ImageUpload`（图片拖拽/新增上传 · Web Dropzone + H5 拍照/相册；详见 `DESIGN.md` §3.17）
+   - `V2MobileHeader`
+   - `V2MobileBottomNav`
+   - `V2MobileActionBar`
+
+2b. **按钮硬门禁（吸底栏 / 页头 / 弹窗脚）**：
+   - **禁止**页面内自写 `ActionButton`、`className="…-btn-*"`、或手写 `border/background` 的 `<button>` 冒充主次按钮。
+   - 详情吸底、表单页头、弹窗 footer **必须**用 `V2Button`；变体只从 `primary | secondary | outline | ghost | danger | back | link` 中选。
+   - **现网/Ant 映射**：`primary`→`primary`；默认描边次按钮→`secondary`；主色描边→`outline`；幽灵/取消→`ghost`；危险实心→`danger`；危险描边（如现网 `ghost + danger` 终止）→`secondary` + `style={{ color/borderColor: var(--ln-error) }}`，**禁止**再造一套 CSS 变体。
+   - 交付前自检：操作区源码能否 `grep` 到 `V2Button`；若出现自制 `*-action-btn*` 样式类，视为未达标。
+3. **母版参考**：
+   - **台账三视角**：`src/prototypes/lease-contract-management/LeaseContractHub.tsx`（13 项高阶筛选、3 视图、嵌套车辆子表）。
+   - **表单页二选一（强制声明 `layout: sidebar | fullBleed`）**：
+     - **A · 侧栏工作台**：`src/prototypes/lease-contract-redesign/FaultDispositionForm.tsx`（左主表单三段卡 + 右 340px 指派/SLA；`DESIGN.md` §4.8）。
+     - **B · 横向整屏（B1）**：无右栏 340；主区 `width: 100%` + PC 水平边距 20–24px（非贴边）；`DESIGN.md` §4.9。有右栏业务用 A，无右栏需横向空间用 B；同一页禁止混用。
+4. **筛选查询收起（强制）**：台账筛选栏 /「更多筛选」展开后，点击 **查询** 必须应用条件并**自动收起**筛选栏（H5 为关闭 Bottom Sheet）；**重置**清空后同样收起。详见 `DESIGN.md` §2.4.3。
+5. **列表操作列（强制）**：常用「编辑 / 处理（处置）」**外侧**展示（最多 2 个）；低频「查看记录 / 操作记录 / 历史」及危险操作收入 **⋮ 更多**。统一使用 `OperationActions`（`DESIGN.md` §3.16 / `vm-shared/DESIGN.md`）。
+
+---
+
+## 1. 核心视觉与配色规范 (Stripe Fintech UI)
+
+- **主色 (Primary Accent)**：Stripe Violet `#533AFD`（悬停 `#6346FF`，Focus 环 `#4226E8`，浅亮底 `#E0E7FF`，暗亮底 `rgba(83, 58, 253, 0.18)`）
+- **画布背景**：浅色 `#F6F9FC` / 深色 `#0A0B0D`
+- **卡片容器**：浅色 `#FFFFFF` / 深色 `#121418`
+- **边框线**：浅色 `#E3E8EE` / 深色 `#23272F`
+- **主正文**：浅色 `#0A2540` / 深色 `#F7FAFC`
+- **次要正文**：浅色 `#425466` / 深色 `#A0AEC0`
+- **语义色**：成功 `#10B981` · 预警 `#D97706` · 危险/错误 `#EF4444` · 提示 `#3B82F6`
+- **若依 (RuoYi) 框架动态主题色**：所有组件背景、边框、选中态必须消费 CSS 变量 `var(--oneos-primary, var(--ln-primary, #533AFD))`，兼容若依的主题色动态切换。
+- **双色模式**：通过 `[data-ds-mode="dark"]` 或 `[data-oneos-theme="dark"]` 响应，严禁出现外壳深内容浅的失配情况。
+- **车牌号规范**：车牌号严禁出现间隔点 `·`（必须形如 `浙A88888F`、`京A66666`）。
+
+---
+
+## 2. PC / H5 移动端 App 嵌入 100% 响应式 (Mobile H5 Standard)
+
+- **双形态适配**：所有 V2 原型必须支持 PC 屏宽 (≥1024px) 与 H5 移动端 (≤767px) 形态。
+- **触控规格**：移动端 (≤767px) 场景下，所有可点击元素与输入框触控高度必须 **`≥ 44px`**（`min-height: 44px`），正文字号 **`≥ 14px`**。
+- **Mobile Bottom Sheet**：移动端下 `V2Select`、`V2DatePicker` 等弹窗自动转为固定吸底 **Bottom Sheet 面板**，配有顶部抓手条与 44px 确定按钮。
+- **移动端底部操作条**：提交与主操作按钮在移动端自动固定吸底（`V2MobileActionBar`）。
+
+---
+
+## 3. 统一的三视角页面架构 (Three Core Views)
+
+任何台账、列表、审批与履约管理页面必须提供或集成 3 视角模板（`V2SegmentedControl`）：
+1. **列表模式 (List View)**：Bento KPI + Pill Tabs（带 count）+ 高阶筛选（查询/重置后自动收起）+ **可含主表+嵌套子表**（合同/项目主行 + 车辆期账单等子行；见 `DESIGN.md` §5.0 / §5.1）。**禁止**把嵌套子表叫成「主从工作台」。
+2. **看板模式 (Kanban View)**：通常 4 列 Pipeline（列名按业务域定制，如账单：待收款/部分/逾期/已结清）。
+3. **主从工作台 (Split)**：左侧 320–340px 搜索单据列表 + 右侧深度工作台。
+
+单单据填报页（非台账三视角）须按 `DESIGN.md` §4.9 二选一：**A 侧栏** 或 **B 横向整屏 B1**，生成前声明 `layout`。
+
+---
+
+## 4. 规范参考文件路径
+
+- 全局主规范文档：`src/resources/design-system/DESIGN.md`
+- 规范展示页：`src/prototypes/oneos-v2/DesignSystemShowcase.tsx`
+- 组件库文件：`src/resources/design-system/components/UIComponents.tsx`
+- 全局 Token CSS：`src/resources/design-system/oneos-ds-tokens.css`
+- 若依预设导出：`src/resources/design-system/ruoyi-theme-preset.json` & `ruoyi-oneos-v2-theme.css`

@@ -1,0 +1,78 @@
+{
+  "id": "analytics-business-ledgers",
+  "line": "foundation",
+  "name": "数据分析 / 业务台账报表",
+  "confidence": "legacy",
+  "roles": [
+    "业务员",
+    "业务主管",
+    "高管"
+  ],
+  "pages": [
+    {
+      "name": "物流业务台账",
+      "purpose": "出车营收成本盈亏，氢费/ETC 异常提示"
+    },
+    {
+      "name": "业务部台账/汇总/业绩",
+      "purpose": "部门经营统计"
+    },
+    {
+      "name": "租赁车辆收入明细/客户氢费台账",
+      "purpose": "租赁经营分析"
+    },
+    {
+      "name": "物流业务月度统计等",
+      "purpose": "月度经营"
+    }
+  ],
+  "preconditions": [
+    "源台账有数据"
+  ],
+  "forward": [
+    "筛选",
+    "录入或导入（按报表权限）",
+    "查看盈亏",
+    "导出"
+  ],
+  "reverse": [
+    {
+      "case": "操作人",
+      "behavior": "仅本人数据；主管看全部（物流台账口径）"
+    },
+    {
+      "case": "氢费/ETC 异常",
+      "behavior": "提示与系统台账比对"
+    }
+  ],
+  "rules": [
+    "物流台账对齐业务二部运营总表子表",
+    "报表不替代源模块办结"
+  ],
+  "forbidden": [
+    "在报表直接改财务过账"
+  ],
+  "closedLoop": "经营数据可解释、可导出；异常回源模块处理",
+  "triggers": [
+    {
+      "to": "self-operated-business-ledger",
+      "when": "物流同源"
+    },
+    {
+      "to": "vehicle-h2-fee-ledger",
+      "when": "氢费比对"
+    },
+    {
+      "to": "biz-etc-management",
+      "when": "ETC 比对"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/数据分析/物流业务台账-产品需求说明.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/数据分析/",
+    "src/resources/oneos-web-legacy/数据分析/"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/数据分析/",
+  "legacyPath": "src/resources/oneos-web-legacy/数据分析/"
+}

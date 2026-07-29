@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-28T18:59:07.317Z",
+  "prototypes": [
+    {
+      "id": "item-prototypes-biz-finance-line-briefing",
+      "kind": "item",
+      "title": "biz finance line briefing",
+      "itemKey": "prototypes/biz-finance-line-briefing"
+    },
+    {
+      "id": "item-prototypes-bfcl-contract",
+      "kind": "item",
+      "title": "bfcl contract",
+      "itemKey": "prototypes/bfcl-contract"
+    },
+    {
+      "id": "item-prototypes-bfcl-customer-risk",
+      "kind": "item",
+      "title": "bfcl customer risk",
+      "itemKey": "prototypes/bfcl-customer-risk"
+    },
+    {
+      "id": "item-prototypes-bfcl-energy",
+      "kind": "item",
+      "title": "bfcl energy",
+      "itemKey": "prototypes/bfcl-energy"
+    },
+    {
+      "id": "item-prototypes-bfcl-insurance",
+      "kind": "item",
+      "title": "bfcl insurance",
+      "itemKey": "prototypes/bfcl-insurance"
+    },
+    {
+      "id": "item-prototypes-bfcl-lease-bill",
+      "kind": "item",
+      "title": "bfcl lease bill",
+      "itemKey": "prototypes/bfcl-lease-bill"
+    },
+    {
+      "id": "item-prototypes-bfcl-payment-hub",
+      "kind": "item",
+      "title": "bfcl payment hub",
+      "itemKey": "prototypes/bfcl-payment-hub"
+    },
+    {
+      "id": "item-prototypes-bfcl-pickup-receivable",
+      "kind": "item",
+      "title": "bfcl pickup receivable",
+      "itemKey": "prototypes/bfcl-pickup-receivable"
+    },
+    {
+      "id": "item-prototypes-bfcl-return",
+      "kind": "item",
+      "title": "bfcl return",
+      "itemKey": "prototypes/bfcl-return"
+    },
+    {
+      "id": "item-prototypes-biz-finance-closed-loop",
+      "kind": "item",
+      "title": "biz finance closed loop",
+      "itemKey": "prototypes/biz-finance-closed-loop"
+    },
+    {
+      "id": "item-prototypes-vehicle-return-settlement",
+      "kind": "item",
+      "title": "vehicle return settlement",
+      "itemKey": "prototypes/vehicle-return-settlement"
+    },
+    {
+      "id": "item-prototypes-task-work-order",
+      "kind": "item",
+      "title": "task work order",
+      "itemKey": "prototypes/task-work-order"
+    },
+    {
+      "id": "item-prototypes-receivable-dunning",
+      "kind": "item",
+      "title": "应收催款",
+      "itemKey": "prototypes/receivable-dunning"
+    },
+    {
+      "id": "folder-1784982146673-8derid",
+      "kind": "folder",
+      "title": "设计规范",
+      "children": [
+        {
+          "id": "item:prototypes:oneos-v2",
+          "kind": "item",
+          "title": "OneOS V2 全局规范示范",
+          "itemKey": "prototypes/oneos-v2"
+        },
+        {
+          "id": "item:prototypes:oneos-v2-form-kit",
+          "kind": "item",
+          "title": "OneOS V2 表单控件库",
+          "itemKey": "prototypes/oneos-v2-form-kit"
+        }
+      ]
+    },
+    {
+      "id": "item:prototypes:oneos-prototype-nav",
+      "kind": "item",
+      "title": "原型导航",
+      "itemKey": "prototypes/oneos-prototype-nav"
+    },
+    {
+      "id": "folder-oneos-v2-main",
+      "kind": "folder",
+      "title": "OneOS PC",
+      "children": [
+        {
+          "id": "item:prototypes:oneos-prototype-demo",
+          "kind": "item",
+          "title": "原型外壳演示",
+          "itemKey": "prototypes/oneos-prototype-demo"
+        },
+        {
+          "id": "item:prototypes:oneos-web-workbench-new",
+          "kind": "item",
+          "title": "工作台",
+          "itemKey": "prototypes/oneos-web-workbench-new"
+        },
+        {
+          "id": "folder-1784947329029-vktcp4",
+          "kind": "folder",
+          "title": "车辆资产",
+          "children": [
+            {
+              "id": "item:prototypes:vehicle-management",
+              "kind": "item",
+              "title": "车辆资产",
+              "itemKey": "prototypes/vehicle-management"
+            }
+          ]
+        },
+        {
+          "id": "folder-1785049457943-3j1z2h",
+          "kind": "folder",
+          "title": "车辆运维",
+          "children": [
+            {
+              "id": "item:prototypes:vehicle-fault-handling",
+              "kind": "item",
+              "title": "故障处置",
+              "itemKey": "prototypes/vehicle-fault-handling"
+            }
+          ]
+        },
+        {
+          "id": "folder-1784947288835-spcc8y",
+          "kind": "folder",
+          "title": "租赁业务",
+          "children": [
+            {
+              "id": "item:prototypes:lease-contract-management",
+              "kind": "item",
+              "title": "租赁合同",
+              "itemKey": "prototypes/lease-contract-management"
+            }
+          ]
+        },
+        {
+          "id": "folder-1784947267669-rqjehw",
+          "kind": "folder",
+          "title": "审批中心",
+          "children": [
+            {
+              "id": "item:prototypes:oneos-web-approval",
+              "kind": "item",
+              "title": "审批中心",
+              "itemKey": "prototypes/oneos-web-approval"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "folder-1784947215142-8tak4e",
+      "kind": "folder",
+      "title": "OneOS H5",
+      "children": [
+        {
+          "id": "item:prototypes:oneos-v2-h5-lease-contract",
+          "kind": "item",
+          "title": "租赁合同 H5 移动端（微信小程序 / 小羚羚 App 嵌套）",
+          "itemKey": "prototypes/oneos-v2-h5-lease-contract"
+        },
+        {
+          "id": "item:prototypes:oneos-v2-h5-vehicle-assets",
+          "kind": "item",
+          "title": "车辆资产 H5 移动端（微信小程序 / 小羚羚 App 嵌套）",
+          "itemKey": "prototypes/oneos-v2-h5-vehicle-assets"
+        },
+        {
+          "id": "item:prototypes:oneos-v2-h5-vehicle-fault-handling",
+          "kind": "item",
+          "title": "故障处置 H5 移动端（微信小程序 / 小羚羚 App 嵌套）",
+          "itemKey": "prototypes/oneos-v2-h5-vehicle-fault-handling"
+        }
+      ]
+    }
+  ],
+  "docs": [],
+  "themesTree": [],
+  "themes": [],
+  "data": [],
+  "templates": [],
+  "components": [],
+  "canvas": []
+}

@@ -1,0 +1,52 @@
+{
+  "id": "biz-etc-management",
+  "line": "logistics",
+  "name": "ETC 管理",
+  "confidence": "legacy",
+  "roles": [
+    "业务",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "ETC管理",
+      "purpose": "ETC 费用记录，供物流台账比对"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "录入/导入 ETC",
+    "关联车辆/项目",
+    "供台账比对"
+  ],
+  "reverse": [
+    {
+      "case": "与物流台账不一致",
+      "behavior": "异常提示"
+    }
+  ],
+  "rules": [
+    "物流台账可对 ETC 异常提示"
+  ],
+  "forbidden": [
+    "长期体外 Excel 无入库"
+  ],
+  "closedLoop": "ETC 可被项目成本引用",
+  "triggers": [
+    {
+      "to": "self-operated-business-ledger",
+      "when": "成本比对/补录"
+    },
+    {
+      "to": "analytics-business-ledgers",
+      "when": "报表引用"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/ETC管理.jsx",
+    "src/resources/oneos-web-legacy/业务管理/ETC管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/业务管理/ETC管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/业务管理/ETC管理.jsx"
+}

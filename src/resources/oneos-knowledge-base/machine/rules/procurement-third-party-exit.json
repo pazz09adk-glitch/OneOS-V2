@@ -1,0 +1,55 @@
+{
+  "id": "procurement-third-party-exit",
+  "line": "ops",
+  "name": "三方退租车管理",
+  "confidence": "legacy",
+  "roles": [
+    "采购",
+    "运维",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "三方退租申请",
+      "purpose": "三方车退租标准化与赔付核算"
+    }
+  ],
+  "preconditions": [
+    "三方租赁在租"
+  ],
+  "forward": [
+    "提交申请",
+    "核算赔付",
+    "审批",
+    "更新车辆状态并结算"
+  ],
+  "reverse": [
+    {
+      "case": "赔付未锁定",
+      "behavior": "不可完结退租"
+    }
+  ],
+  "rules": [
+    "退租完成后更新车辆状态并生成结算单（版本规划口径）"
+  ],
+  "forbidden": [
+    "线下退租无系统状态回写"
+  ],
+  "closedLoop": "退租办结+结算单+车辆状态更新",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态回写"
+    },
+    {
+      "to": "payment-records",
+      "when": "结算收付"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/采购管理/三方退租车管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/采购管理/",
+  "legacyPath": "src/resources/oneos-web-legacy/采购管理/"
+}

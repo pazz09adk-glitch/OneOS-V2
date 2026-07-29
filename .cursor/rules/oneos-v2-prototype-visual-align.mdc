@@ -1,0 +1,55 @@
+---
+description: 新建/迁移/改版 OneOS V2 原型时，必须对照设计规范与标杆页做视觉审计并对齐，禁止自创顶栏/筛选/表格样式
+globs: src/prototypes/**/*
+alwaysApply: true
+---
+
+# OneOS V2 原型视觉对齐（强制）
+
+凡 **新建、迁移、改版** `src/prototypes/**` 台账/工作台类页面，在交付前必须完成「规范比对 → 不一致则改」循环，**不要等用户复述**。
+
+## 0. 必读标杆（按优先级）
+
+1. `src/resources/design-system/DESIGN.md`（Token、三视角、筛选网格、控件）
+2. **台账交互母版**：`src/prototypes/vehicle-management/`（Pill Tabs + 搜索 + 更多筛选 + 表格连体）
+3. **三视角母版**：`src/prototypes/lease-contract-management/LeaseContractHub.tsx`
+4. 控件：`src/resources/design-system/components/UIComponents.tsx`（`V2Select` / 日期 / `V2Empty` / `V2Pagination` / Badge·Tag）
+
+独立 H5：对齐 `oneos-v2-h5-vehicle-assets` / `oneos-v2-h5-lease-contract`（手机壳 + 底栏 + Bottom Sheet），**不要**把 PC 标题卡片硬塞进 H5。
+
+## 1. 交付前视觉审计清单（逐项打勾）
+
+对照标杆截图或代码，检查本页是否一致：
+
+| # | 检查项 | 合格标准 | 常见错误（必须改掉） |
+|---|---|---|---|
+| 1 | 台账顶栏 | 仅「三视角切换 + 主操作」，无大标题说明卡片 | 自创 icon+标题+副标题卡片条 |
+| 1b | 详情/表单页头 | §4.8 / `va-form-header`：扁平返回+20px 标题+单号紫胶囊（若有）；**无**条线/模块面包屑 | 白底描边整条卡片顶栏；车牌当唯一大标题；状态 Tag 挤页头；页头再挂面包屑 |
+| 2 | KPI | 4 列 Bento，`18px 20px`，数字 24/800 tabular | 过重阴影、夸张 hover 抬升 |
+| 3 | 筛选工具条 | Pill Tabs（带 count）+ 搜索框 +「更多筛选」+ 查询/重置同排；PC 工具链 `nowrap`，搜索可缩（§2.4.3.1）；更多筛选与 Tabs **去重** | 首屏永远露出整排 Filter Grid；「重置」掉到搜索框下一行；Tabs 状态再塞进更多筛选 |
+| 4 | 更多筛选 | 展开后 `auto-fill minmax(200px,1fr)`，gap `16px 12px`，`align-items: end`；用 `V2Select`/V2 日期 | 原生 select/date；标签不对齐 |
+| 5 | 台账连体 | 筛选面板与表格默认无缝拼接；展开筛选后表格下移并恢复圆角 | 两块独立卡片、双边框夹缝 |
+| 6 | 表格密度 | thead 12/600 pearl；td padding≈14–16；首列主标题 14/700 + mono 单号 | 列过多堆 Tag、行高混乱、操作链过密无层级 |
+| 7 | 状态表达 | `V2Badge` 用 `status`+`label`；`V2Tag` 用 `type`；SLA 用统一 pill | 错用 `variant="error"` 等旧 API |
+| 7b | **按钮 / 吸底栏** | 页头、吸底、弹窗脚一律 `V2Button`；次按钮可见描边（`secondary`/`ghost`/`outline`）；危险次操作用 secondary + 红描边或弹窗内 `danger` | 自写 `ActionButton` / `*-action-btn*`；透明底导致无边框；手写紫/红 HEX |
+| 8 | Token | 主色 `var(--oneos-primary, var(--ln-primary, #533AFD))`；深浅双色 | 硬编码紫/灰导致若依主题失效 |
+| 9 | 车牌 | `浙A88888F`，禁止中间 `·` | 带点车牌 |
+| 10 | 空态/分页 | `V2Empty` + `V2Pagination` | 灰字空行、自制分页 |
+
+## 2. 强制工作流
+
+```text
+改/新建原型 → Read DESIGN.md → 打开车辆资产或租赁合同对照
+→ 按上表审计 → 不一致则改到一致 → 再预览 PC（及独立 H5）
+```
+
+- **纯样式对齐**：可小步改 CSS/结构，不必扩写业务。
+- **涉及流程/文案/判定**：同期按 AutoPRD 规则更新 `.spec/requirements-prd.md` 与 annotation。
+- 侧栏仍遵守「一原型一项」，列表/详情同页切换。
+
+## 3. 禁止
+
+- 以「本页特殊」为由偏离台账连体与三视角骨架（除非用户书面指定）
+- 同时维护两套互相矛盾的筛选 UI（始终展开 + 更多筛选重复）
+- 在 PC 台账页塞 H5 专用顶栏/底栏（H5 用独立 `oneos-v2-h5-*` 原型）
+- **为「对齐现网文案」而自造按钮皮肤**：现网 Ant/若依按钮文案可对齐，视觉必须落在 `V2Button` 变体上；禁止复制现网 CSS 类名或手写一套 action-btn

@@ -1,0 +1,69 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-return",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-rt-date",
+        "index": 1,
+        "title": "E签宝退租日",
+        "pageId": "detail",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-rt-date']"
+          ],
+          "fingerprint": "section|bfcl-rt-date",
+          "path": []
+        },
+        "aiPrompt": "退租日",
+        "annotationText": "还车成功且E签宝用户签字为实际退租日。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-rt-items",
+        "index": 2,
+        "title": "结算明细",
+        "pageId": "detail",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-rt-items']"
+          ],
+          "fingerprint": "section|bfcl-rt-items",
+          "path": []
+        },
+        "aiPrompt": "ETC氢差运维安全",
+        "annotationText": "明细含ETC/氢差/运维/安全未结与保证金；应收走收款、应退走付款。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "hub",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

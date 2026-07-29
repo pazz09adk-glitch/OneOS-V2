@@ -1,0 +1,61 @@
+{
+  "id": "payment-records",
+  "line": "energy",
+  "name": "收款记录 / 氢费账户",
+  "confidence": "architecture",
+  "roles": [
+    "财务",
+    "能源",
+    "业务"
+  ],
+  "pages": [
+    {
+      "name": "收款/付款记录",
+      "purpose": "业财对接面：流水、认领、核销"
+    },
+    {
+      "name": "客户氢费账户/对账单",
+      "purpose": "预付款与加氢对账关联收款"
+    }
+  ],
+  "preconditions": [
+    "存在业务应收/应付或预付款"
+  ],
+  "forward": [
+    "关联业务单据",
+    "财务确认到账/出账",
+    "回写业务已实收/已付款"
+  ],
+  "reverse": [
+    {
+      "case": "金额不匹配",
+      "behavior": "不可完成核销"
+    },
+    {
+      "case": "取消关联",
+      "behavior": "回退业务付款标记（按规则）"
+    }
+  ],
+  "rules": [
+    "收款流与付款流分列",
+    "双向核销与状态回写",
+    "可服务租赁/能源/物流/还车等多条线"
+  ],
+  "forbidden": [
+    "只改业务状态不留资金痕迹"
+  ],
+  "closedLoop": "业务单据回写已付款/已实收且资金记录一致",
+  "triggers": [
+    {
+      "to": "lease-business-ledger",
+      "when": "租期账单核销"
+    },
+    {
+      "to": "vehicle-h2-fee-ledger",
+      "when": "加氢已付款回写"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

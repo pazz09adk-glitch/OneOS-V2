@@ -1,0 +1,54 @@
+{
+  "id": "self-operated-dispatch-task",
+  "line": "logistics",
+  "name": "调度任务",
+  "confidence": "architecture",
+  "roles": [
+    "调度",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "调度任务",
+      "purpose": "轻量派车派司机；未交车强校验；办结出车"
+    }
+  ],
+  "preconditions": [
+    "物流合同已生效"
+  ],
+  "forward": [
+    "派车派司机",
+    "校验交车状态",
+    "办结出车落账"
+  ],
+  "reverse": [
+    {
+      "case": "车辆未交车",
+      "behavior": "强校验拦截办结"
+    },
+    {
+      "case": "司机不合格",
+      "behavior": "按安全口径拦截（若启用）"
+    }
+  ],
+  "rules": [
+    "未交车不可办结出车"
+  ],
+  "forbidden": [
+    "跳过交车直接运营落账"
+  ],
+  "closedLoop": "办结出车并写入物流台账",
+  "triggers": [
+    {
+      "to": "self-operated-business-ledger",
+      "when": "办结落账"
+    },
+    {
+      "to": "oneos-web-ops",
+      "when": "依赖交车状态"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

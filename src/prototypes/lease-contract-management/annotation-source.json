@@ -1,0 +1,806 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "lease-contract-management",
+    "pageId": "list",
+    "updatedAt": 1784984450059,
+    "nodes": [
+      {
+        "id": "lc-list-filter",
+        "index": 1,
+        "title": "筛选条件",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-list-filter\"]"
+          ],
+          "fingerprint": "lc-list-filter",
+          "path": []
+        },
+        "aiPrompt": "列表筛选区字段与查询逻辑。",
+        "annotationText": "默认展示 4 项，可展开至 13 项；合同结束日期用 DateRangeFilterField（「至」）；合同模板联动标准合同名称；查询与 KPI 联动。",
+        "hasMarkdown": true,
+        "color": "#2563eb",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-list-kpi",
+        "index": 2,
+        "title": "KPI 统计卡片",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-list-kpi\"]"
+          ],
+          "fingerprint": "lc-list-kpi",
+          "path": []
+        },
+        "aiPrompt": "五张 KPI 卡片口径与点击筛选。",
+        "annotationText": "全部 / 草稿 / 进行中 / 审批中 / 已终止。",
+        "hasMarkdown": true,
+        "color": "#64748b",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-fleet-summary",
+        "index": 3,
+        "title": "在租车辆概览",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-fleet-summary\"]"
+          ],
+          "fingerprint": "lc-fleet-summary",
+          "path": []
+        },
+        "aiPrompt": "按品牌型号统计在租车辆，支持品牌标签筛选。",
+        "annotationText": "顶部展示在租总数；品牌标签筛选车型卡片；点击卡片查看车辆明细。",
+        "hasMarkdown": true,
+        "color": "#32a06e",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-list-toolbar",
+        "index": 4,
+        "title": "列表工具栏",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-list-toolbar\"]"
+          ],
+          "fingerprint": "lc-list-toolbar",
+          "path": []
+        },
+        "aiPrompt": "费用模板、导出、新增入口。",
+        "annotationText": "「新增」进入租赁合同创建页。",
+        "hasMarkdown": true,
+        "color": "#0f766e",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-list-table",
+        "index": 5,
+        "title": "合同台账列表",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-list-table\"]"
+          ],
+          "fingerprint": "lc-list-table",
+          "path": []
+        },
+        "aiPrompt": "台账表格列与操作。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563eb",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-list-action-more",
+        "index": 6,
+        "title": "更多操作",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-list-action-more\"]"
+          ],
+          "fingerprint": "lc-list-action-more",
+          "path": []
+        },
+        "aiPrompt": "列表行更多菜单入口。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563eb",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-action-convert-tripartite",
+        "index": 7,
+        "title": "转三方合同",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-action-convert-tripartite\"]"
+          ],
+          "fingerprint": "lc-action-convert-tripartite",
+          "path": []
+        },
+        "aiPrompt": "进行中合同转三方。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#7c3aed",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-action-trial-to-formal",
+        "index": 8,
+        "title": "试用转正式",
+        "pageId": "list",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-action-trial-to-formal\"]"
+          ],
+          "fingerprint": "lc-action-trial-to-formal",
+          "path": []
+        },
+        "aiPrompt": "试用合同一步转正式。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0f766e",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-main-contract",
+        "index": 9,
+        "title": "主体合同信息",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-main-contract\"]"
+          ],
+          "fingerprint": "lc-create-main-contract",
+          "path": []
+        },
+        "aiPrompt": "签约、里程、费用三块表单。",
+        "annotationText": "完成度徽章；甲乙档案只读同步。",
+        "hasMarkdown": true,
+        "color": "#32a06e",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-signing-method",
+        "index": 10,
+        "title": "合同签署方式",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-signing-method\"]"
+          ],
+          "fingerprint": "lc-create-signing-method",
+          "path": []
+        },
+        "aiPrompt": "线上电子签章或线下人工上传。",
+        "annotationText": "影响电子签发送或盖章合同补传闭环。",
+        "hasMarkdown": true,
+        "color": "#0369a1",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-card-signing",
+        "index": 11,
+        "title": "签约信息",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-card-signing\"]"
+          ],
+          "fingerprint": "lc-card-signing",
+          "path": []
+        },
+        "aiPrompt": "合同编号、甲乙双方与乙方负责人。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0d9488",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-credentials-ocr",
+        "index": 12,
+        "title": "客户资质证照 OCR",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-credentials-ocr\"]"
+          ],
+          "fingerprint": "lc-credentials-ocr",
+          "path": []
+        },
+        "aiPrompt": "客户证照 OCR 识别与有效期校验。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#dc2626",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-signing-customer-principal",
+        "index": 13,
+        "title": "乙方负责人",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-signing-customer-principal\"]"
+          ],
+          "fingerprint": "lc-signing-customer-principal",
+          "path": []
+        },
+        "aiPrompt": "乙方签约对接负责人。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0d9488",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-lease-order",
+        "index": 14,
+        "title": "附件1：租赁订单",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-lease-order\"]"
+          ],
+          "fingerprint": "lc-create-lease-order",
+          "path": []
+        },
+        "aiPrompt": "订单车辆与交车信息。",
+        "annotationText": "三者责任险等为完成度必填项。",
+        "hasMarkdown": true,
+        "color": "#2563eb",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-lease-order-brand-model",
+        "index": 15,
+        "title": "品牌车型与在库",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-lease-order-brand-model\"]"
+          ],
+          "fingerprint": "lc-lease-order-brand-model",
+          "path": []
+        },
+        "aiPrompt": "选择车型后展示全国在库台数。",
+        "annotationText": "运营状态为「可运营」「待运营」计为在库；数据来自车辆管理主数据。",
+        "hasMarkdown": true,
+        "color": "#0f766e",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-lease-order-rent",
+        "index": 16,
+        "title": "车辆租金与最低租金",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-lease-order-rent\"]"
+          ],
+          "fingerprint": "lc-lease-order-rent",
+          "path": []
+        },
+        "aiPrompt": "租金低于车型最低值触发非标审批。",
+        "annotationText": "最低租金可在后台按品牌·型号配置；原型配置见 lease-order-vars.js。",
+        "hasMarkdown": true,
+        "color": "#c2410c",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-lease-order-service-content",
+        "index": 17,
+        "title": "服务项配置",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-lease-order-service-content\"]"
+          ],
+          "fingerprint": "lc-lease-order-service-content",
+          "path": []
+        },
+        "aiPrompt": "服务项后台可配置与计价规则。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#7c3aed",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-lease-order-lease-period",
+        "index": 18,
+        "title": "租赁期限与到期计算",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-lease-order-lease-period\"]"
+          ],
+          "fingerprint": "lc-lease-order-lease-period",
+          "path": []
+        },
+        "aiPrompt": "租期两种计算模式与合同到期规则。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0369a1",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-poa",
+        "index": 19,
+        "title": "授权委托书",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-poa\"]"
+          ],
+          "fingerprint": "lc-create-poa",
+          "path": []
+        },
+        "aiPrompt": "受托人列表编辑。",
+        "annotationText": "至少一行且姓名/联系方式/身份证完整。",
+        "hasMarkdown": true,
+        "color": "#7c3aed",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-contract-remark",
+        "index": 20,
+        "title": "合同备注",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-contract-remark\"]"
+          ],
+          "fingerprint": "lc-create-contract-remark",
+          "path": []
+        },
+        "aiPrompt": "独立卡片填写合同备注。",
+        "annotationText": "选填，最多 500 字；与授权委托书分离。",
+        "hasMarkdown": true,
+        "color": "#64748b",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-seal",
+        "index": 21,
+        "title": "用章类型",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-seal\"]"
+          ],
+          "fingerprint": "lc-create-seal",
+          "path": []
+        },
+        "aiPrompt": "电子签章用章类型多选。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#7c3aed",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-preview",
+        "index": 22,
+        "title": "实时预览",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-preview\"]"
+          ],
+          "fingerprint": "lc-create-preview",
+          "path": []
+        },
+        "aiPrompt": "Word 版式预览与可编辑正文。",
+        "annotationText": "改动风控红线条款将触发非标准合同。",
+        "hasMarkdown": true,
+        "color": "#0ea5e9",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      },
+      {
+        "id": "lc-create-footer",
+        "index": 23,
+        "title": "底栏操作",
+        "pageId": "create",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"lc-create-footer\"]"
+          ],
+          "fingerprint": "lc-create-footer",
+          "path": []
+        },
+        "aiPrompt": "取消、保存草稿、提交审核。",
+        "annotationText": "保存/提交时展示将走的审批类型。",
+        "hasMarkdown": true,
+        "color": "#64748b",
+        "images": [],
+        "createdAt": 1740787200000,
+        "updatedAt": 1740787200000
+      }
+    ]
+  },
+  "markdownMap": {
+    "lc-list-filter": "## 4. 筛选区\n\n默认展示 **第一行 4 个筛选项**，点击「更多筛选」显示全部 **13 项**（含合同结束日期）；支持「重置」「查询」。\n\n| 字段 | 控件 | 说明 |\n|---|---|---|\n| 合同编码 | 可搜索下拉 | 模糊匹配合同编码 |\n| 项目名称 | 可搜索下拉 | 模糊匹配项目名称 |\n| 客户名称 | 可搜索下拉 | 模糊匹配客户名称 |\n| 签约公司 | 下拉 | 租赁合同签约公司枚举 |\n| 审批状态 | 多选下拉 | 全部 / 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回 / 审批终止 / 撤回 |\n| 合同状态 | 多选下拉 | 全部 / 草稿 / 已提交审批 / 合同进行中 / 已终止 |\n| 业务部门 | 多选下拉 | 业务相关部门 |\n| 业务负责人 | 多选下拉 | 业务组人员 |\n| 合同模板 | 单选下拉 | 选项来自合同模板管理已发布且启用的模板「合同名称」维度（如正式合同、试用合同、现代18吨正式合同）；可清空 |\n| 标准合同名称 | 单选下拉 | **联动合同模板**：仅在选择合同模板后启用；选项为该模板类别下已发布文档名（如「2026年标准商用车租赁合同」）；支持搜索；可清空 |\n| 审批类型 | 多选下拉 | 全部 / 标准合同 / 非标准合同 |\n| 创建人 | 多选下拉 | 业务相关人员 |\n| 合同结束日期 | `DateRangeFilterField` | 起止精确至日；展示文案用中文「**至**」连接 |\n\n**合同模板联动规则**：\n\n1. 未选合同模板时，「标准合同名称」禁用并提示「请先选择合同模板」。\n2. 切换合同模板时，自动清空已选标准合同名称。\n3. 查询时按合同记录的 `contractTemplateId`（或由合同类型推断的模板 ID）匹配；合同模板与标准合同名称可单独或组合使用。\n\n**交互**：\n\n- **查询**：将当前筛选条件写入「已应用筛选」，列表与 KPI 统计联动；若「更多筛选」处于展开态，**自动收起筛选栏**后展示结果。\n- **重置**：清空为默认（多选类默认「全部」，单选类清空），刷新列表，并**同样收起**「更多筛选」面板。\n\n---",
+    "lc-list-kpi": "## 5. KPI 统计卡片\n\n共 5 张卡片，点击切换列表筛选（与筛选区条件 **叠加** 生效）。\n\n| 卡片 | 口径（按合同状态） |\n|---|---|\n| 全部合同 | 不做 KPI 维度过滤 |\n| 草稿 | 合同状态 = 草稿 |\n| 进行中 | 合同状态 = 合同进行中 |\n| 审批中 | 合同状态 = 已提交审批 |\n| 已终止 | 合同状态 = 已终止 |\n\n卡片右上角 `?` 悬停展示口径说明。\n\n> **说明**：KPI 按合同状态快速分桶；交还车履约口径（已交未还、临期等）见 §7.2 子表与 §6.6 全局规则，不在 KPI 卡片中重复统计。\n\n---",
+    "lc-fleet-summary": "# 在租车辆概览\n\n按品牌型号统计在租车辆，支持品牌标签筛选。\n\n## 说明\n\n顶部展示在租总数；品牌标签筛选车型卡片；点击卡片查看车辆明细。",
+    "lc-list-toolbar": "## 6. 列表工具栏\n\n| 按钮 | 行为 |\n|---|---|\n| 租赁费用模板 | 跳转或打开费用模板配置（本期原型 Toast） |\n| 导出 | 按当前筛选结果导出（本期原型 Toast） |\n| 新增 | 进入「新增租赁合同」页 |\n\n---",
+    "lc-list-table": "## 7. 列表字段说明\n\n### 7.1 项目信息（合并列）\n\n一列展示三行：\n\n1. 项目名称（主文案）\n2. 合同编码（次级）\n3. 客户名称（次级）\n\n点击整格跳转「查看」页（原型 Toast）。\n\n### 7.2 车辆与交车\n\n| 列 | 说明 |\n|---|---|\n| 租赁订单 · 车辆数 | 租赁订单车辆总数；点击弹出车辆明细表 |\n| 租赁订单 · 已交车 | **审批通过**且已有实际交车日期的车辆数；点击展开已交车子表 |\n\n**履约规则**：非审批通过的合同不视为已交车；「已交车辆数」为 0 时按钮禁用。\n\n### 7.2.1 已交车子表\n\n展开「已交车辆数」后展示车辆子表，列包括：\n\n| 列 | 说明 |\n|---|---|\n| 车辆信息 | 车牌、VIN、品牌型号 |\n| 提车应收款 | 支付状态，可跳转详情 |\n| 交车 | 已交车展示里程/交车人/时间；未交车显示「未交车」 |\n| 租赁账单 | 正常 / 欠费（仅已交车） |\n| 还车 | 已还车展示还车信息；未还车显示「未还车」 |\n| 还车应结款 | 还车后展示结款状态；**审批中**时展示当前审批人（UI 与主表「审批状态」列一致，含节点悬停） |\n| 交车安排 | 区域与计划/实际交车日期 |\n| 里程要求 / 里程完成 | 有最低里程要求时展示 |\n| 操作 | **审批通过 + 已交车 + 未还车** 显示「还车」链接 |\n\n车辆明细 Popover 字段：车辆类型、品牌、型号、车牌号、实际交车日期、交车人。\n\n### 7.3 状态与业务字段\n\n| 列 | 说明 |\n|---|---|\n| 合同签署方式 | 线上电子签章 / 线下人工上传；可展开查看或变更 |\n| 审批状态 | 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回等；「审批中」悬停展示审批流节点与当前处理人 |\n| 签约公司 | 创建时所选甲方签约主体简称 |\n| 业务部门 | 创建时选取 |\n| 费用信息 | 付款方式、周期、保证金等摘要 |\n| 交车安排 | 合同级交车区域与计划日期 |\n| 整体里程完成情况 | 按在租车辆里程汇总展示完成进度 |\n| 客户联系人 | 来自客户档案 |\n| 受托人 | 显示人数；点击弹出卡片查看姓名、联系方式、身份证号 |\n| 创建信息 | 创建人 / 创建时间，精确至分钟 |\n| 最后更新 | 更新人 / 最后更新时间，无则显示 `-` |\n\n**分页**：每页 10 / 20 / 50 条可选。\n\n---\n\n---\n\n## 8. 操作与弹窗\n\n### 8.1 操作列（主按钮 + 更多）\n\n| 操作 | 显示条件 | 行为 |\n|---|---|---|\n| 查看 | 始终 | 跳转合同查看页 |\n| 编辑 | 草稿；或审批驳回 | 进入编辑页 |\n| 删除合同 | 草稿 | 二次确认后删除 |\n| 撤回合同 | 已提交审批且非驳回 | 二次确认后撤回 |\n| 新增车辆 | 合同进行中 | 租赁订单内增车并重新审批 |\n| 续签合同 | 进行中 / 到期 | 跳转续签页 |\n| 添加被授权人 | 合同进行中 | 弹窗编辑被授权人列表 |\n| 附加费用 | 合同进行中 | 弹窗按车辆录入附加费用 |\n| 转三方合同 | 合同进行中 | 弹窗新增三方协议，上传协议附件与对方公函 |\n| 试用转正式 | 合同模板为「试用合同」 | 单步弹窗：自动拉取客户/授权人/车辆订单（车辆可编辑），可选同时转三方 |\n| 终止合同 | 合同进行中 | 二次确认，提交终止审批 |\n| 上传盖章合同 | 审批通过且法务未上传 | 仅法务部可见；多文件上传后关闭入口 |\n\n### 8.2 审批状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 未提交 | 仅保存草稿 |\n| 待审批 | 已提交，尚无节点通过 |\n| 审批中 | 已有节点通过，未完成终审 |\n| 审批通过 | 终审通过 |\n| 审批驳回 | 任一节点的驳回；可编辑重提 |\n| 审批终止 | 流程被终止 |\n| 撤回 | 提交人主动撤回 |\n\n### 8.3 合同状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 草稿 | 未提交审批 |\n| 已提交审批 | 初次提交，终审未完成 |\n| 合同进行中 | 终审通过且在有效期内 |\n| 已终止 | 终止、自然结束，或续签/转三方后旧合同自动终止 |\n\n### 8.4 弹窗摘要\n\n- **删除草稿**：「是否确认删除该合同草稿」\n- **撤回**：「是否确认撤回该合同」\n- **终止**：「是否确认终止合同」→ 提交审核\n- **添加被授权人**：姓名、电话、身份证；支持增删行\n- **附加费用**：按车辆展示类型/品牌/型号/车牌，可填服务项目、费用（元，2 位小数）、生效日期\n- **转三方合同**：支持新增多条三方协议；每条可填协议名称、上传协议附件与对方公函\n- **试用转正式**：自动带出客户信息、授权人与车辆订单；车辆订单字段可编辑；可勾选「同时转三方合同」并在同一步维护三方协议\n- **上传盖章合同**：拖拽多文件；确认后标记已上传\n\n### 8.5 操作流程文档\n\n从「新增合同」起的正向与逆向全流程图见：`.spec/requirements-flow-operations.md`",
+    "lc-list-action-more": "# 更多操作\n\n列表操作列「更多」入口，按合同状态与类型展示不同菜单项。\n\n- **合同进行中**：含转三方合同、续签、增车等\n- **试用合同**：含试用转正式",
+    "lc-action-convert-tripartite": "# 转三方合同\n\n**显示条件**：合同状态为「合同进行中」。\n\n**能力**：\n\n1. 支持 **新增多条三方协议**（协议名称）\n2. 每条协议可上传 **三方协议附件**\n3. 每条协议可上传 **对方公函**\n\n提交后走变更审批（原型演示 Toast）。",
+    "lc-action-trial-to-formal": "# 试用转正式\n\n**显示条件**：合同类型为「试用合同」。\n\n**单步完成**（转正式与转三方可合并，无需分两步）：\n\n1. **自动拉取**当前合同的客户信息、授权人、车辆订单\n2. **车辆订单可编辑**（品牌、型号、车牌、租金、租期月数等）\n3. 可勾选 **同时转三方合同**，在同一步新增三方协议并上传附件/公函\n\n提交后生成正式合同并走审批（原型演示 Toast）。",
+    "lc-create-main-contract": "## 2. 主体合同信息\n\n卡片内三个可折叠区块，标题行右侧展示区块说明（展开时显示在标题后方）。\n\n### 2.1 签约信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 合同编号 | 是 | 前缀 `HT-ZL-` + 用户输入 |\n| 甲方 | 是 | 出租方签约主体，来自组织机构 |\n| 乙方 | 是 | 客户选择器；仅 A/B 级客户可选 |\n| 乙方负责人姓名 | 否 | 签约对接负责人，可与档案联系人不同 |\n| 乙方负责人手机号 | 否 | 11 位手机号 |\n\n选择甲方/乙方后，下方只读面板自动带出档案：\n\n**甲方**：户名、开户行、账号、通讯地址、联系人、电话、邮箱。\n\n**乙方**：企业名称、开户银行、银行账号、纳税人识别号、企业地址、企业电话、通讯地址、联系人、电话、邮箱；资质证照缩略图可点击放大。\n\n#### 客户资质证照（OCR 与有效期）\n\n对以下四类证照做 **OCR 识别**并校验有效期：\n\n| 证照 | 说明 |\n|---|---|\n| 客户营业执照 | 识别统一社会信用代码与营业期限 |\n| 法人身份证（正面） | 识别姓名、证件号与有效期 |\n| 法人身份证（反面） | 识别签发机关与有效期 |\n| 道路运输许可证 | 识别许可编号与有效期 |\n\n**业务规则：**\n\n1. 上传后自动 OCR 提取有效期，证照区展示「OCR 已识别」、有效期及状态（有效 / 即将到期 / 已过期）。\n2. 距到期 **≤ 3 个月** 时，系统在工作台提前生成待办任务，推送给业管人员更新客户档案。\n3. 若业管尚未更新，业务人员选择该客户后仍可查看证照，但 **禁止提交新合同**；提交时给出明确拦截提示。\n4. 原型演示：客户「杭州某某租赁有限公司（B）」含即将到期与已过期证照样例，可用于验证提示与拦截。\n\n未选双方时展示空状态引导。\n\n### 2.2 里程标准\n\n对应合同正文最低里程与租金减免条款。\n\n| 字段 | 说明 |\n|---|---|\n| 是否有最低里程要求 | 开关 |\n| 统计周期 | 有要求时必选：月 / 季 / 年 |\n| 目标里程 | 有要求时必填（公里） |\n| 里程类型 | 多选标签：实际里程 / 仪表里程 等 |\n\n### 2.3 费用信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 付款周期 | 是 | 如月付、季付 |\n| 氢费支付方式 | 是 | 自行解决 / 预付款 / 按月结算（选按月结算时预览切换月结算占位条款） |\n| 预付金额 | 条件 | 选择预付款时必填 |\n| 提前付款工作日 | 条件 | 选择预付款时必填 |\n| 还车氢量差单价 | 是 | 元 |\n\n**完成度**：上述必填项均已填则卡片显示「已完成」。\n\n---",
+    "lc-create-signing-method": "# 合同签署方式\n\n与「选择合同类型」同一步配置，可选：\n\n| 方式 | 说明 |\n|---|---|\n| 线上电子签章 | 审批通过后向乙方负责人手机号发送 E签宝文件并自动归档 |\n| 线下人工上传 | 不发送电子签，审批通过后通过列表「盖章合同补传」完成闭环 |",
+    "lc-card-signing": "# 签约信息\n\n合同编号、甲乙双方与乙方负责人。",
+    "lc-credentials-ocr": "# 客户资质证照（OCR 与有效期）\n\n对 **客户营业执照**、**法人身份证正反面**、**道路运输许可证** 做 OCR 识别，校验有效期。\n\n| 规则 | 说明 |\n|---|---|\n| OCR | 上传后自动识别证照信息与有效期 |\n| 即将到期 | 距到期 ≤ 3 个月时，工作台提前生成待办推送给业管 |\n| 已过期 | 业管未更新前，禁止提交新合同 |\n| 页面展示 | 缩略图旁显示 OCR 标识、有效期与状态徽章；临期/过期时顶部展示提示条",
+    "lc-signing-customer-principal": "# 乙方负责人\n\n选择乙方后，在签约信息中补充填写：\n\n- **乙方负责人姓名**：签约对接负责人，可与客户档案中的联系人不同\n- **乙方负责人手机号**：E签宝电子合同签章时乙方经办人\n\n**签署闭环：**\n\n- **线上电子签章**：审批通过后自动向该手机号发送 E签宝电子签章文件\n- **线下人工上传**：审批通过不发送电子签，需在列表「盖章合同补传」上传 PDF/图片，查看时可预览与下载全部附件",
+    "lc-create-lease-order": "## 3. 附件1：租赁订单\n\n| 区域 | 说明 |\n|---|---|\n| 投保车辆数 / 三者责任险（百万） | 三者责任险必填 |\n| 交车区域 | 省市区级联 |\n| 计划交车日期 | 日期 |\n| 订单车辆表 | 品牌型号级联、车牌、租期、租金、氢费、增值服务等 |\n\n支持新增行、复制行、删除行；表头 KPI 展示合计。\n\n**完成度**：三者责任险已填即视为完成（原型简化口径）。\n\n---",
+    "lc-lease-order-brand-model": "# 品牌车型与在库\n\n选择品牌 / 型号后，在选框下方展示该车型**全国在库**台数。\n\n- 统计口径：车辆管理中运营状态为「可运营」或「待运营」\n- 按品牌 + 型号精确匹配\n- 用于签约前评估库存是否满足交付需求",
+    "lc-lease-order-rent": "# 车辆租金与最低租金\n\n- 车型最低租金可在后台按「品牌 · 型号」配置（原型见 `LEASE_VEHICLE_MIN_RENT_BY_MODEL`）\n- 录入租金 **低于** 系统最低值时，行内提示并自动判定为 **非标准合同** 审批\n- 与风控红线条款修改规则并列生效",
+    "lc-lease-order-service-content": "# 服务项配置需求\n\n1. **后台可配置**：支持新增、编辑、自定义服务项名称和计价规则；后续新增服务项可直接在签合同环节选用，无需迭代修改产品。\n\n2. **两类计价逻辑**：\n   - **固定金额类**：如无忧包、尾板服务费，直接录入固定总价，计入合同初始服务费合计\n   - **动态计费类**：如维保费、运保费，仅在合同中展示约定单价（例：0.1 元/公里），不计入合同初始总价；后续按每月实际行驶里程核算后合并计入租金账单，首期账单默认不包含该类动态服务费\n\n3. **合同同步**：所有选中的服务项自动同步展示到正式合同对应章节，支持单独添加备注说明，作为合同不可缺失的组成部分。",
+    "lc-lease-order-lease-period": "# 租赁期限与到期计算\n\n租赁到期时间支持两种计算模式：\n\n## 1. 固定日期模式\n\n手动指定合同的开始日期与结束日期；系统到达设定的结束日期时，自动标记合同为过期状态。\n\n## 2. 租期月数模式\n\n无需手动指定起止日期，仅输入租赁总月数。系统自动以 **车辆实际交付时间** 作为租期起始点，向后顺延对应月数，自动计算合同到期日期；到达该日期后自动标记合同为过期。\n\n### 多车合同\n\n当合同下关联多台车辆时，按固定月份规则取当前合同下 **第一辆到期** 的车辆到期时间，作为合同整体到期时间。\n\n> 原型表格列「租赁期限（月）」当前展示租期月数模式输入；固定日期模式在正式产品中于同行或弹层切换。",
+    "lc-create-poa": "## 4. 授权委托书\n\n被委托人表格：姓名、联系方式、身份证号。\n\n支持新增行、删除行。\n\n**完成度**：至少一行且三项均非空。\n\n---",
+    "lc-create-contract-remark": "## 5. 合同备注\n\n独立卡片，与授权委托书分离。\n\n提供文本域，支持自定义输入，非必填（最多 500 字）；列表页不展示备注列。\n\n---",
+    "lc-create-seal": "# 用章类型（第 6 步）\n\n支持多选，可选范围仅包含：\n\n| 用章 | 说明 |\n|---|---|\n| 合同章 | 合同正文用章 |\n| 公章 | 公司公章 |\n| 法人章 | 法定代表人章 |\n\n**不含**财务章、发票章。\n\n默认选中合同章；至少选择一种用章后方可提交审核。\n\n**提示**：额外勾选公章、法人章会进入非标审批流程。",
+    "lc-create-preview": "## 6. 实时预览\n\n- 基于标准合同模板 V26.6 拼装 HTML，A4 分页展示。\n- 支持缩放（50%—150%）、连续预览 / 单页预览切换。\n- **可编辑预览**：合同正文 `contentEditable`；用户可直接改字。\n- 顶栏展示当前 **审批类型** 徽章。\n\n### 5.1 占位符替换\n\n左侧表单变更时，预览内 `{{contractCode}}`、`{{customerName}}` 等变量实时替换。\n\n### 5.2 条件条款与附件章节\n\n按租赁订单车辆品牌型号，过滤模板中条件条款与附件章节绑定（与合同模板管理规则一致）。\n\n---\n\n---\n\n## 7. 审批类型判定\n\n| 类型 | 触发条件 |\n|---|---|\n| 标准合同 | 默认可编辑预览相对基线未改动风控红线条款 |\n| 非标准合同 | 预览中 `.ct-risk-redline[data-risk-redline=\"1\"]` 正文相对基线有增删改 |\n\n检测逻辑：`lease-contract-risk-detect.js` 对比基线 HTML 与当前合并页 HTML。\n\n保存草稿 / 提交审核时 Toast 展示将走的审批类型（原型）。\n\n---",
+    "lc-create-footer": "## 8. 底栏操作\n\n| 按钮 | 行为 |\n|---|---|\n| 取消 / 返回列表 | 不保存，回列表 |\n| 保存草稿 | 保存为草稿，审批类型随检测结果记录 |\n| 提交审核 | 校验必填后发起审批流程 |\n\n---"
+  },
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "type": "folder",
+        "id": "lc-doc-root",
+        "title": "租赁合同管理说明",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "markdown",
+            "id": "lc-doc-overview",
+            "title": "模块总览",
+            "markdown": "# 租赁合同管理 · 模块总览\n\n---\n\n商用车租赁合同全生命周期管理：台账筛选与 KPI 监控、结构化草拟与实时预览、标准/非标准审批判定、进行中变更与法务归档。\n\n---\n\n## 1. 模块定位\n\n| 项 | 说明 |\n|---|---|\n| 模块名称 | 租赁合同管理 |\n| 所属系统 | ONE-OS 业务管理 |\n| 面包屑 | 业务管理 → 租赁合同管理 |\n| 目标用户 | 业务人员（主）、法务（盖章上传）、客服/运营（查看） |\n| 核心任务 | 筛选与查看租赁合同台账，发起新增/变更/续签等流程 |\n| 交互原型 | `/prototypes/lease-contract-management` |\n| 设计规范 | OneOS Design System **v2**（`src/resources/design-system/`）；对照备份 `lease-contract-management-legacy` |\n\n---\n\n---\n\n## 1. 背景与目标\n\n### 1.1 背景\n\n商用车租赁业务以合同为履约核心。业务人员需要基于法务维护的标准 Word 合同模板，快速草拟租赁合同、录入订单车辆与费用条款，并走标准/非标准审批。合同全生命周期包含草稿、审批、进行中变更、到期续签、终止等状态。\n\n### 1.2 产品目标\n\n| 目标 | 说明 |\n|---|---|\n| 台账可视 | 多维度筛选 + KPI 卡片快速定位进行中/临期/过期合同 |\n| 草拟高效 | 左侧结构化表单 + 右侧 Word 版式实时预览 |\n| 合规可控 | 修改模板风控红线条款自动走非标准合同审批 |\n| 档案复用 | 甲乙双方信息从主数据只读带出，减少重复录入 |\n| 流程闭环 | 列表操作覆盖续签、增车、附加费用、终止、法务盖章等场景 |\n\n### 1.3 非目标（本期不做）\n\n- 完整审批流配置界面（审批节点由流程引擎提供）\n- 合同 PDF 在线签署\n- 与财务系统的自动对账接口\n- 三方合同变更页的完整表单（列表入口预留，原型 Toast）\n\n---\n\n---\n\n## 2. 用户与场景\n\n### 2.1 目标用户\n\n| 角色 | 诉求 |\n|---|---|\n| 业务人员 | 新增/编辑合同、提交审批、进行中变更 |\n| 法务人员 | 审批通过后上传盖章合同扫描件 |\n| 客服/运营 | 查看合同台账与车辆交车情况 |\n| 风控（间接） | 非标准合同审批识别风控条款变更 |\n\n### 2.2 核心用户故事\n\n1. **作为业务**，我希望按项目/客户/状态筛选合同，以便跟进我的在管合同。\n2. **作为业务**，我希望新增合同时选客户即带出开票与证照信息，以便快速核对乙方资料。\n3. **作为业务**，我希望右侧预览与左侧表单联动，以便确认合同正文与填写一致。\n4. **作为业务**，我若只改非红线内容，应走标准审批；改了风控红线则自动走非标准审批。\n5. **作为法务**，我希望审批通过后在列表上传盖章合同，以便归档。\n6. **作为业务**，我希望进行中的合同能续签、增车、录附加费用，以便业务持续运营。\n\n---\n\n---\n\n## 3. 名词解释\n\n| 名词 | 定义 |\n|---|---|\n| 标准合同审批 | 未改动模板风控红线条款正文时的审批路径 |\n| 非标准合同审批 | 预览中风控红线条款（`data-risk-redline=\"1\"`）相对模板基线被修改 |\n| 风控红线条款 | 合同模板中标记的合规关键条款 |\n| 合同状态 | 草稿、已提交审批、变更、合同进行中、到期合同、已结束等 |\n| 审批状态 | 未提交、待审批、审批中、审批通过、审批驳回 |\n| 标准模板 | 合同模板管理中 `isDefault=true` 的已发布租赁模板 |\n\n---\n\n---\n\n## 4. 信息架构\n\n```text\n租赁合同管理\n├── 列表页\n│   ├── 筛选区（13 项，默认展示 4 项）\n│   ├── KPI 卡片（5 张）\n│   ├── 工具栏（费用模板 / 导出 / 新增）\n│   └── 合同台账表\n└── 新增 / 编辑页\n    ├── 主体合同信息\n    │   ├── 签约信息\n    │   ├── 里程标准\n    │   └── 费用信息\n    ├── 附件1：租赁订单\n    ├── 授权委托书\n    ├── 实时预览（可编辑 + 审批类型）\n    └── 底栏（保存草稿 / 提交审核）\n```\n\n---\n\n---\n\n## 6. 业务规则（全局）\n\n### 6.1 乙方客户可选规则\n\n仅 **A/B 级** 风控客户可选；C/D 级在客户选择器中标记「不可选」。\n\n### 6.2 合同编号\n\n展示前缀 `HT-ZL-`，用户输入后缀；存储时拼接完整编码。\n\n### 6.3 审批类型自动判定\n\n- 基线：由 `buildLeaseContractPreviewHtml` 生成的初始 HTML。\n- 当前：用户可编辑预览合并后的 HTML。\n- 若 `isRiskRedlineContentModified(baseline, current)` 为真 → **非标准合同审批**。\n\n### 6.4 列表 KPI 与筛选\n\nKPI 卡片筛选与筛选区条件 **叠加**（先 KPI 维度，再应用筛选表单）。\n\n### 6.5 法务盖章上传\n\n- 条件：`approvalStatus = 审批通过` 且 `legalStampedContractUploaded != true`。\n- 权限：当前用户部门为法务部。\n- 上传成功后隐藏「上传盖章合同」入口。\n\n### 6.6 交还与履约规则\n\n| 规则 | 说明 |\n|---|---|\n| 审批 gate | **仅审批通过**的合同才产生交车/还车履约数据；待审批、审批中、驳回、撤回等状态下，车辆不计入「已交车辆数」 |\n| 交车 | 审批通过后，经提车应收款办理实际交车；子表「交车」列展示里程、交车人、时间 |\n| 租赁账单 | 仅已交车车辆展示「正常 / 欠费」 |\n| 子表还车 | **审批通过 + 已交车 + 未还车** 时，子表操作列显示「还车」；已还车为「—」 |\n| 还车应结款 | 还车后按待提交 → 审批中 → 已完成流转；审批中审批人展示与主表「审批状态」列一致 |\n| 已终止 | 全部车辆已还车，或续签/转三方后旧合同自动终止 |\n\n> 操作流程图见 `.spec/requirements-flow-operations.md`；标注上下文见 `.spec/requirements-annotation-context.md`。\n\n---\n\n---\n\n## 9. 与其他模块的关系\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-sZvAxW/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-sZvAxW/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[合同模板管理] -->|标准模板 HTML| B[租赁合同创建]\n  C[客户管理] -->|乙方档案| B\n  D[组织机构] -->|甲方档案| B\n  E[车辆管理] -->|品牌型号/车牌| B\n  B -->|审批类型| F[审批流引擎]\n  B -->|盖章附件| G[法务归档]\n```\n\n\n\n| 模块 | 关系 |\n|---|---|\n| 合同模板管理 | 提供标准模板、风控红线/条件条款标记 |\n| 客户管理 | 乙方选择、风控等级、证照 |\n| 车辆管理 | 租赁订单品牌型号、可交车辆车牌 |\n| 审批流 | 消费标准/非标准审批类型 |\n\n---\n\n---\n\n## 12. 验收标准\n\n### 12.1 列表页\n\n- [ ] 13 项筛选（含合同模板联动标准合同名称）与 KPI 五卡片联动正确\n- [ ] 项目信息列、车辆/交车 Popover、审批流悬停\n- [ ] 操作按合同状态/类型正确显隐\n- [ ] 法务盖章上传后入口关闭\n\n### 12.2 新增页\n\n- [ ] 三块主体合同表单 + 完成度徽章\n- [ ] 甲乙档案只读同步、客户 A/B 级限制\n- [ ] 预览随表单实时更新\n- [ ] 可编辑预览改动风控红线 → 非标准审批徽章\n- [ ] 保存/提交展示审批类型\n\n### 12.3 标注与文档（原型）\n\n- [ ] 已接入 `@axhub/annotation`，关键区域有 `data-annotation-id`\n- [ ] 目录可切换列表页 / 新增页，PRD 全文可阅\n\n---"
+          },
+          {
+            "type": "link",
+            "id": "lc-link-template",
+            "title": "合同模板管理",
+            "href": "/prototypes/contract-template-management",
+            "target": "self"
+          },
+          {
+            "type": "folder",
+            "id": "lc-doc-prd",
+            "title": "PRD 全文",
+            "defaultExpanded": true,
+            "children": [
+              {
+                "type": "markdown",
+                "id": "lc-doc-prd-full",
+                "title": "PRD 完整文档",
+                "markdown": "# 租赁合同管理 · 产品需求文档（PRD）\n\n| 项 | 内容 |\n|---|---|\n| 文档版本 | v1.2 |\n| 模块名称 | 租赁合同管理 |\n| 所属系统 | ONE-OS 业务管理 |\n| 目标读者 | 前端 / 后端 / 测试 / 业务产品对接人 |\n| 交互原型 | `/prototypes/lease-contract-management` |\n| 关联原型 | [合同模板管理](/prototypes/contract-template-management)、[车辆管理](/prototypes/vehicle-management) |\n| 文档状态 | 已对齐原型，待研发排期 |\n\n---\n\n## 1. 背景与目标\n\n### 1.1 背景\n\n商用车租赁业务以合同为履约核心。业务人员需要基于法务维护的标准 Word 合同模板，快速草拟租赁合同、录入订单车辆与费用条款，并走标准/非标准审批。合同全生命周期包含草稿、审批、进行中变更、到期续签、终止等状态。\n\n### 1.2 产品目标\n\n| 目标 | 说明 |\n|---|---|\n| 台账可视 | 多维度筛选 + KPI 卡片快速定位进行中/临期/过期合同 |\n| 草拟高效 | 左侧结构化表单 + 右侧 Word 版式实时预览 |\n| 合规可控 | 修改模板风控红线条款自动走非标准合同审批 |\n| 档案复用 | 甲乙双方信息从主数据只读带出，减少重复录入 |\n| 流程闭环 | 列表操作覆盖续签、增车、附加费用、终止、法务盖章等场景 |\n\n### 1.3 非目标（本期不做）\n\n- 完整审批流配置界面（审批节点由流程引擎提供）\n- 合同 PDF 在线签署\n- 与财务系统的自动对账接口\n- 三方合同变更页的完整表单（列表入口预留，原型 Toast）\n\n---\n\n## 2. 用户与场景\n\n### 2.1 目标用户\n\n| 角色 | 诉求 |\n|---|---|\n| 业务人员 | 新增/编辑合同、提交审批、进行中变更 |\n| 法务人员 | 审批通过后上传盖章合同扫描件 |\n| 客服/运营 | 查看合同台账与车辆交车情况 |\n| 风控（间接） | 非标准合同审批识别风控条款变更 |\n\n### 2.2 核心用户故事\n\n1. **作为业务**，我希望按项目/客户/状态筛选合同，以便跟进我的在管合同。\n2. **作为业务**，我希望新增合同时选客户即带出开票与证照信息，以便快速核对乙方资料。\n3. **作为业务**，我希望右侧预览与左侧表单联动，以便确认合同正文与填写一致。\n4. **作为业务**，我若只改非红线内容，应走标准审批；改了风控红线则自动走非标准审批。\n5. **作为法务**，我希望审批通过后在列表上传盖章合同，以便归档。\n6. **作为业务**，我希望进行中的合同能续签、增车、录附加费用，以便业务持续运营。\n\n---\n\n## 3. 名词解释\n\n| 名词 | 定义 |\n|---|---|\n| 标准合同审批 | 未改动模板风控红线条款正文时的审批路径 |\n| 非标准合同审批 | 预览中风控红线条款（`data-risk-redline=\"1\"`）相对模板基线被修改 |\n| 风控红线条款 | 合同模板中标记的合规关键条款 |\n| 合同状态 | 草稿、已提交审批、变更、合同进行中、到期合同、已结束等 |\n| 审批状态 | 未提交、待审批、审批中、审批通过、审批驳回 |\n| 标准模板 | 合同模板管理中 `isDefault=true` 的已发布租赁模板 |\n\n---\n\n## 4. 信息架构\n\n```text\n租赁合同管理\n├── 列表页\n│   ├── 筛选区（13 项，默认展示 4 项）\n│   ├── KPI 卡片（5 张）\n│   ├── 工具栏（费用模板 / 导出 / 新增）\n│   └── 合同台账表\n└── 新增 / 编辑页\n    ├── 主体合同信息\n    │   ├── 签约信息\n    │   ├── 里程标准\n    │   └── 费用信息\n    ├── 附件1：租赁订单\n    ├── 授权委托书\n    ├── 实时预览（可编辑 + 审批类型）\n    └── 底栏（保存草稿 / 提交审核）\n```\n\n---\n\n## 5. 数据模型（建议）\n\n```typescript\ninterface LeaseContract {\n  id: string;\n  contractCode: string;           // HT-ZL-YYYY-NNN\n  projectId: string;\n  projectName: string;\n  lessorId: string;               // 甲方签约主体\n  customerId: string;             // 乙方客户\n  contractType: 'formal' | 'trial';\n  contractApprovalType: 'standard' | 'nonstandard';\n  approvalStatus: 'draft' | 'pending' | 'in_review' | 'approved' | 'rejected';\n  contractStatus: string;\n  contractEndDate: string;        // YYYY-MM-DD\n  businessDept: string;\n  businessOwner: string;\n  mileage: MileageStandard;\n  feeInfo: FeeInfo;\n  leaseOrder: LeaseOrder;\n  powerOfAttorney: PowerOfAttorney;\n  previewHtmlBaseline: string;    // 用于风控比对\n  previewHtmlCurrent?: string;\n  legalStampedContractUploaded?: boolean;\n  vehicles: LeaseVehicleRow[];\n  creator: string;\n  createTime: string;\n  updater?: string;\n  updateTime?: string;\n  remark?: string;\n}\n```\n\n字段细节见新增页各表单区块说明（`.spec/requirements-prd-create.md`）。\n\n---\n\n## 6. 业务规则（全局）\n\n### 6.1 乙方客户可选规则\n\n仅 **A/B 级** 风控客户可选；C/D 级在客户选择器中标记「不可选」。\n\n### 6.2 合同编号\n\n展示前缀 `HT-ZL-`，用户输入后缀；存储时拼接完整编码。\n\n### 6.3 审批类型自动判定\n\n- 基线：由 `buildLeaseContractPreviewHtml` 生成的初始 HTML。\n- 当前：用户可编辑预览合并后的 HTML。\n- 若 `isRiskRedlineContentModified(baseline, current)` 为真 → **非标准合同审批**。\n\n### 6.4 列表 KPI 与筛选\n\nKPI 卡片筛选与筛选区条件 **叠加**（先 KPI 维度，再应用筛选表单）。\n\n### 6.5 法务盖章上传\n\n- 条件：`approvalStatus = 审批通过` 且 `legalStampedContractUploaded != true`。\n- 权限：当前用户部门为法务部。\n- 上传成功后隐藏「上传盖章合同」入口。\n\n### 6.6 交还与履约规则\n\n| 规则 | 说明 |\n|---|---|\n| 审批 gate | **仅审批通过**的合同才产生交车/还车履约数据；待审批、审批中、驳回、撤回等状态下，车辆不计入「已交车辆数」 |\n| 交车 | 审批通过后，经提车应收款办理实际交车；子表「交车」列展示里程、交车人、时间 |\n| 租赁账单 | 仅已交车车辆展示「正常 / 欠费」 |\n| 子表还车 | **审批通过 + 已交车 + 未还车** 时，子表操作列显示「还车」；已还车为「—」 |\n| 还车应结款 | 还车后按待提交 → 审批中 → 已完成流转；审批中审批人展示与主表「审批状态」列一致 |\n| 已终止 | 全部车辆已还车，或续签/转三方后旧合同自动终止 |\n\n> 操作流程图见 `.spec/requirements-flow-operations.md`；标注上下文见 `.spec/requirements-annotation-context.md`。\n\n---\n\n## 7. 列表页需求\n\n> 详细字段与操作见 `src/prototypes/lease-contract-management/.spec/requirements-prd-list.md`\n\n### 7.1 筛选区\n\n13 个筛选项；默认 4 项；支持展开/收起、查询、重置。\n\n其中 **合同模板** 与 **标准合同名称** 为联动单选：\n\n- 合同模板：取自合同模板管理已发布模板的「合同名称」类别（正式合同、试用合同等）\n- 标准合同名称：选定合同模板后，列出该类别下具体 Word 文档名（如 2026年标准商用车租赁合同）\n- 切换合同模板时清空标准合同名称；未选模板时标准合同名称禁用\n\n### 7.2 KPI 卡片\n\n全部合同 / 草稿 / 进行中 / 审批中 / 已终止（按合同状态分桶，与筛选区叠加）。\n\n### 7.3 工具栏\n\n租赁费用模板、导出、新增。\n\n### 7.4 列表\n\n项目信息合并列、租赁订单车辆数/已交车子表、合同签署方式、审批流悬停、费用与交车安排、整体里程、操作列。\n\n子表「还车应结款」审批中状态与主表审批人展示一致；仅审批通过合同产生交车履约数据。\n\n### 7.5 操作\n\n查看、编辑、删除、撤回、增车、续签、被授权人、附加费用、三方变更、转正式、终止、上传盖章合同等（按状态显隐）。\n\n---\n\n## 8. 新增 / 编辑页需求\n\n> 详细见 `src/prototypes/lease-contract-management/.spec/requirements-prd-create.md`\n\n### 8.1 主体合同信息\n\n签约信息（含甲乙档案只读）、里程标准、费用信息；区块完成度徽章。\n\n### 8.2 附件1：租赁订单\n\n订单车辆表、交车信息、三者责任险等。\n\n### 8.3 授权委托书\n\n被委托人列表。\n\n### 8.4 实时预览\n\nWord 版式、可编辑正文、缩放与翻页、审批类型徽章。\n\n### 8.5 底栏\n\n取消、保存草稿、提交审核。\n\n---\n\n## 9. 与其他模块的关系\n\n```mermaid\nflowchart LR\n  A[合同模板管理] -->|标准模板 HTML| B[租赁合同创建]\n  C[客户管理] -->|乙方档案| B\n  D[组织机构] -->|甲方档案| B\n  E[车辆管理] -->|品牌型号/车牌| B\n  B -->|审批类型| F[审批流引擎]\n  B -->|盖章附件| G[法务归档]\n```\n\n| 模块 | 关系 |\n|---|---|\n| 合同模板管理 | 提供标准模板、风控红线/条件条款标记 |\n| 客户管理 | 乙方选择、风控等级、证照 |\n| 车辆管理 | 租赁订单品牌型号、可交车辆车牌 |\n| 审批流 | 消费标准/非标准审批类型 |\n\n---\n\n## 10. 接口需求（建议）\n\n### 10.1 列表查询\n\n```\nGET /api/lease-contracts?...filters&page=1&pageSize=10\n```\n\n### 10.2 详情\n\n```\nGET /api/lease-contracts/{id}\n```\n\n### 10.3 创建 / 更新\n\n```\nPOST /api/lease-contracts\nPUT  /api/lease-contracts/{id}\n```\n\n请求体含表单各区块与 `contractApprovalType`。\n\n### 10.4 提交审批\n\n```\nPOST /api/lease-contracts/{id}/submit\n```\n\n### 10.5 上传盖章合同\n\n```\nPOST /api/lease-contracts/{id}/stamped-files\nContent-Type: multipart/form-data\n```\n\n---\n\n## 11. 非功能需求\n\n| 类别 | 要求 |\n|---|---|\n| 性能 | 预览 HTML 变更后 300ms 内更新审批类型判定 |\n| 兼容性 | Chrome / Edge 最新两版；推荐宽度 ≥ 1280px |\n| 可访问性 | 表单 `aria-label`；完成度 `role=\"status\"` |\n| 安全 | 预览 HTML 入库前 XSS 清洗 |\n\n---\n\n## 12. 验收标准\n\n### 12.1 列表页\n\n- [ ] 13 项筛选（含合同模板联动标准合同名称）与 KPI 五卡片联动正确\n- [ ] 项目信息列、车辆/交车 Popover、审批流悬停\n- [ ] 操作按合同状态/类型正确显隐\n- [ ] 法务盖章上传后入口关闭\n\n### 12.2 新增页\n\n- [ ] 三块主体合同表单 + 完成度徽章\n- [ ] 甲乙档案只读同步、客户 A/B 级限制\n- [ ] 预览随表单实时更新\n- [ ] 可编辑预览改动风控红线 → 非标准审批徽章\n- [ ] 保存/提交展示审批类型\n\n### 12.3 标注与文档（原型）\n\n- [ ] 已接入 `@axhub/annotation`，关键区域有 `data-annotation-id`\n- [ ] 目录可切换列表页 / 新增页，PRD 全文可阅\n\n---\n\n## 13. 原型实现映射\n\n| 能力 | 文件 |\n|---|---|\n| 列表主逻辑 | `LeaseContractManagement.jsx` |\n| 新增页 | `LeaseContractCreate.jsx` |\n| 主体表单 | `LeaseContractEditorForm.jsx` |\n| 预览 | `LeaseContractPreviewPanel.jsx` |\n| 预览拼装 | `lease-contract-preview-build.js` |\n| 风控检测 | `lease-contract-risk-detect.js` |\n| 表单校验 | `lease-contract-form-validation.js` |\n| 标注入口 | `index.tsx` |\n| 标注数据 | `annotation-source.json` |\n| PRD | `src/resources/lease-contract-management/PRD.md` |\n| 操作流程图 | `.spec/requirements-flow-operations.md` |\n| 标注上下文 | `.spec/requirements-annotation-context.md` |\n\n---\n\n## 14. 修订记录\n\n| 版本 | 日期 | 说明 |\n|---|---|---|\n| v1.0 | 2026-06-25 | 首版：对齐列表/新增原型、风控审批判定、标注与 PRD 接入 |\n| v1.1 | 2026-07-12 | 补充交还车履约规则、子表还车条件、全流程操作图与标注上下文文档 |\n| v1.2 | 2026-07-12 | 筛选「合同类型」改为「合同模板 + 标准合同名称」联动；KPI/列表列与原型对齐 |\n",
+                "markdownPath": "src/resources/lease-contract-management/PRD.md"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-prd-list",
+                "title": "列表页 PRD",
+                "markdown": "# 租赁合同管理 · 列表页 PRD\n\n## 1. 模块定位\n\n| 项 | 说明 |\n|---|---|\n| 模块名称 | 租赁合同管理 |\n| 所属系统 | ONE-OS 业务管理 |\n| 面包屑 | 业务管理 → 租赁合同管理 |\n| 目标用户 | 业务人员（主）、法务（盖章上传）、客服/运营（查看） |\n| 核心任务 | 筛选与查看租赁合同台账，发起新增/变更/续签等流程 |\n| 交互原型 | `/prototypes/lease-contract-management` |\n| 设计规范 | OneOS Design System **v2**（`src/resources/design-system/`）；对照备份 `lease-contract-management-legacy` |\n\n---\n\n## 1.1 设计规范对齐（v2）\n\n| 项 | 约定 |\n|---|---|\n| 页面壳层 | `vm-page lc-page`；引入 `vehicle-management/style.css` + `oneos-ds-tokens.css` |\n| 主色 / Ant | 默认 **Linear + 若依** `#409EFF`；`ConfigProvider` 对齐 `tokens.json` → `antdTheme` |\n| 主题实验室 | 左下角可切换 **官方** 与候选 **A–E（Linear / Stripe / Airbnb / Claude / Intercom）× 浅/暗**；选择写入 `localStorage`；规范见设计系统第 10 章 |\n| 筛选日期 | **必须** `DateRangeFilterField`，展示「开始日期 至 结束日期」；禁止列表筛选用 Ant `RangePicker` |\n| 分页 | `TablePagination`（共 N 条 → 页码 → 每页条数） |\n| 操作列 | `OperationActions` |\n| 数字 | `tabular-nums`；金额列左对齐 |\n\n---\n\n## 4. 筛选区\n\n默认展示 **第一行 4 个筛选项**，点击「更多筛选」显示全部 **13 项**（含合同结束日期）；支持「重置」「查询」。\n\n| 字段 | 控件 | 说明 |\n|---|---|---|\n| 合同编码 | 可搜索下拉 | 模糊匹配合同编码 |\n| 项目名称 | 可搜索下拉 | 模糊匹配项目名称 |\n| 客户名称 | 可搜索下拉 | 模糊匹配客户名称 |\n| 签约公司 | 下拉 | 租赁合同签约公司枚举 |\n| 审批状态 | 多选下拉 | 全部 / 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回 / 审批终止 / 撤回 |\n| 合同状态 | 多选下拉 | 全部 / 草稿 / 已提交审批 / 合同进行中 / 已终止 |\n| 业务部门 | 多选下拉 | 业务相关部门 |\n| 业务负责人 | 多选下拉 | 业务组人员 |\n| 合同模板 | 单选下拉 | 选项来自合同模板管理已发布且启用的模板「合同名称」维度（如正式合同、试用合同、现代18吨正式合同）；可清空 |\n| 标准合同名称 | 单选下拉 | **联动合同模板**：仅在选择合同模板后启用；选项为该模板类别下已发布文档名（如「2026年标准商用车租赁合同」）；支持搜索；可清空 |\n| 审批类型 | 多选下拉 | 全部 / 标准合同 / 非标准合同 |\n| 创建人 | 多选下拉 | 业务相关人员 |\n| 合同结束日期 | `DateRangeFilterField` | 起止精确至日；展示文案用中文「**至**」连接 |\n\n**合同模板联动规则**：\n\n1. 未选合同模板时，「标准合同名称」禁用并提示「请先选择合同模板」。\n2. 切换合同模板时，自动清空已选标准合同名称。\n3. 查询时按合同记录的 `contractTemplateId`（或由合同类型推断的模板 ID）匹配；合同模板与标准合同名称可单独或组合使用。\n\n**交互**：\n\n- **查询**：将当前筛选条件写入「已应用筛选」，列表与 KPI 统计联动；若「更多筛选」处于展开态，**自动收起筛选栏**后展示结果。\n- **重置**：清空为默认（多选类默认「全部」，单选类清空），刷新列表，并**同样收起**「更多筛选」面板。\n\n---\n\n## 5. KPI 统计卡片\n\n共 5 张卡片，点击切换列表筛选（与筛选区条件 **叠加** 生效）。\n\n| 卡片 | 口径（按合同状态） |\n|---|---|\n| 全部合同 | 不做 KPI 维度过滤 |\n| 草稿 | 合同状态 = 草稿 |\n| 进行中 | 合同状态 = 合同进行中 |\n| 审批中 | 合同状态 = 已提交审批 |\n| 已终止 | 合同状态 = 已终止 |\n\n卡片右上角 `?` 悬停展示口径说明。\n\n> **说明**：KPI 按合同状态快速分桶；交还车履约口径（已交未还、临期等）见 §7.2 子表与 §6.6 全局规则，不在 KPI 卡片中重复统计。\n\n---\n\n## 6. 列表工具栏\n\n| 按钮 | 行为 |\n|---|---|\n| 租赁费用模板 | 跳转或打开费用模板配置（本期原型 Toast） |\n| 导出 | 按当前筛选结果导出（本期原型 Toast） |\n| 新增 | 进入「新增租赁合同」页 |\n\n---\n\n## 7. 列表字段说明\n\n### 7.1 项目信息（合并列）\n\n一列展示三行：\n\n1. 项目名称（主文案）\n2. 合同编码（次级）\n3. 客户名称（次级）\n\n点击整格跳转「查看」页（原型 Toast）。\n\n### 7.2 车辆与交车\n\n| 列 | 说明 |\n|---|---|\n| 租赁订单 · 车辆数 | 租赁订单车辆总数；点击弹出车辆明细表 |\n| 租赁订单 · 已交车 | **审批通过**且已有实际交车日期的车辆数；点击展开已交车子表 |\n\n**履约规则**：非审批通过的合同不视为已交车；「已交车辆数」为 0 时按钮禁用。\n\n### 7.2.1 已交车子表\n\n展开「已交车辆数」后展示车辆子表，列包括：\n\n| 列 | 说明 |\n|---|---|\n| 车辆信息 | 车牌、VIN、品牌型号 |\n| 提车应收款 | 支付状态，可跳转详情 |\n| 交车 | 已交车展示里程/交车人/时间；未交车显示「未交车」 |\n| 租赁账单 | 正常 / 欠费（仅已交车） |\n| 还车 | 已还车展示还车信息；未还车显示「未还车」 |\n| 还车应结款 | 还车后展示结款状态；**审批中**时展示当前审批人（UI 与主表「审批状态」列一致，含节点悬停） |\n| 交车安排 | 区域与计划/实际交车日期 |\n| 里程要求 / 里程完成 | 有最低里程要求时展示 |\n| 操作 | **审批通过 + 已交车 + 未还车** 显示「还车」链接 |\n\n车辆明细 Popover 字段：车辆类型、品牌、型号、车牌号、实际交车日期、交车人。\n\n### 7.3 状态与业务字段\n\n| 列 | 说明 |\n|---|---|\n| 合同签署方式 | 线上电子签章 / 线下人工上传；可展开查看或变更 |\n| 审批状态 | 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回等；「审批中」悬停展示审批流节点与当前处理人 |\n| 签约公司 | 创建时所选甲方签约主体简称 |\n| 业务部门 | 创建时选取 |\n| 费用信息 | 付款方式、周期、保证金等摘要 |\n| 交车安排 | 合同级交车区域与计划日期 |\n| 整体里程完成情况 | 按在租车辆里程汇总展示完成进度 |\n| 客户联系人 | 来自客户档案 |\n| 受托人 | 显示人数；点击弹出卡片查看姓名、联系方式、身份证号 |\n| 创建信息 | 创建人 / 创建时间，精确至分钟 |\n| 最后更新 | 更新人 / 最后更新时间，无则显示 `-` |\n\n**分页**：每页 10 / 20 / 50 条可选。\n\n---\n\n## 8. 操作与弹窗\n\n### 8.1 操作列（常用外置 + 更多 · OperationActions）\n\n对齐 OneOS V2 / vm-shared：常用「编辑」外侧；「查看记录」及低频/危险操作进 ⋮ 更多。\n\n| 操作 | 位置 | 显示条件 | 行为 |\n|---|---|---|---|\n| 编辑 | **外侧** | 草稿；或审批驳回 | 进入编辑 |\n| 查看记录 | **更多**（无编辑时外侧） | 始终 | 进入主从/详情 |\n| 删除合同 | 更多 | 草稿 | 二次确认后删除 |\n| 撤回合同 | 更多 | 已提交审批且非驳回 | 二次确认后撤回 |\n| 添加被授权人 | 更多 | 合同进行中 | 弹窗编辑被授权人列表 |\n| 附加费用 | 更多 | 合同进行中 | 弹窗按车辆录入附加费用 |\n| 转三方合同 | 更多 | 合同进行中 | 弹窗新增三方协议 |\n| 试用转正式 | 更多 | 合同模板为「试用合同」 | 试用转正式弹窗 |\n| 终止合同 | 更多 | 合同进行中 | 二次确认，提交终止审批 |\n| 上传盖章合同 | 更多 | 审批通过且法务未上传 | 多文件上传 |\n\n### 8.2 审批状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 未提交 | 仅保存草稿 |\n| 待审批 | 已提交，尚无节点通过 |\n| 审批中 | 已有节点通过，未完成终审 |\n| 审批通过 | 终审通过 |\n| 审批驳回 | 任一节点的驳回；可编辑重提 |\n| 审批终止 | 流程被终止 |\n| 撤回 | 提交人主动撤回 |\n\n### 8.3 合同状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 草稿 | 未提交审批 |\n| 已提交审批 | 初次提交，终审未完成 |\n| 合同进行中 | 终审通过且在有效期内 |\n| 已终止 | 终止、自然结束，或续签/转三方后旧合同自动终止 |\n\n### 8.4 弹窗摘要\n\n- **删除草稿**：「是否确认删除该合同草稿」\n- **撤回**：「是否确认撤回该合同」\n- **终止**：「是否确认终止合同」→ 提交审核\n- **添加被授权人**：姓名、电话、身份证；支持增删行\n- **附加费用**：按车辆展示类型/品牌/型号/车牌，可填服务项目、费用（元，2 位小数）、生效日期\n- **转三方合同**：支持新增多条三方协议；每条可填协议名称、上传协议附件与对方公函\n- **试用转正式**：自动带出客户信息、授权人与车辆订单；车辆订单字段可编辑；可勾选「同时转三方合同」并在同一步维护三方协议\n- **上传盖章合同**：拖拽多文件；确认后标记已上传\n\n### 8.5 操作流程文档\n\n从「新增合同」起的正向与逆向全流程图见：`.spec/requirements-flow-operations.md`\n",
+                "markdownPath": "src/prototypes/lease-contract-management/.spec/requirements-prd-list.md"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-prd-create",
+                "title": "新增页 PRD",
+                "markdown": "# 租赁合同管理 · 新增/编辑页 PRD\n\n## 1. 页面结构\n\n左右分栏工作区：\n\n```text\n新增租赁合同\n├── 顶栏：返回列表\n├── 左侧编辑列（可滚动）\n│   ├── 主体合同信息（完成度徽章）\n│   ├── 附件1：租赁订单\n│   ├── 授权委托书\n│   └── 合同备注（独立卡片）\n├── 右侧：实时预览（V26.6 完整合同 + 审批类型徽章）\n└── 底栏：取消 / 保存草稿 / 提交审核\n```\n\n编辑页与新增页表单结构一致；编辑时回填已保存数据。\n\n---\n\n## 2. 主体合同信息\n\n卡片内三个可折叠区块，标题行右侧展示区块说明（展开时显示在标题后方）。\n\n### 2.1 签约信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 合同编号 | 是 | 前缀 `HT-ZL-` + 用户输入 |\n| 甲方 | 是 | 出租方签约主体，来自组织机构 |\n| 乙方 | 是 | 客户选择器；仅 A/B 级客户可选 |\n| 乙方负责人姓名 | 否 | 签约对接负责人，可与档案联系人不同 |\n| 乙方负责人手机号 | 否 | 11 位手机号 |\n\n选择甲方/乙方后，下方只读面板自动带出档案：\n\n**甲方**：户名、开户行、账号、通讯地址、联系人、电话、邮箱。\n\n**乙方**：企业名称、开户银行、银行账号、纳税人识别号、企业地址、企业电话、通讯地址、联系人、电话、邮箱；资质证照缩略图可点击放大。\n\n#### 客户资质证照（OCR 与有效期）\n\n对以下四类证照做 **OCR 识别**并校验有效期：\n\n| 证照 | 说明 |\n|---|---|\n| 客户营业执照 | 识别统一社会信用代码与营业期限 |\n| 法人身份证（正面） | 识别姓名、证件号与有效期 |\n| 法人身份证（反面） | 识别签发机关与有效期 |\n| 道路运输许可证 | 识别许可编号与有效期 |\n\n**业务规则：**\n\n1. 上传后自动 OCR 提取有效期，证照区展示「OCR 已识别」、有效期及状态（有效 / 即将到期 / 已过期）。\n2. 距到期 **≤ 3 个月** 时，系统在工作台提前生成待办任务，推送给业管人员更新客户档案。\n3. 若业管尚未更新，业务人员选择该客户后仍可查看证照，但 **禁止提交新合同**；提交时给出明确拦截提示。\n4. 原型演示：客户「杭州某某租赁有限公司（B）」含即将到期与已过期证照样例，可用于验证提示与拦截。\n\n未选双方时展示空状态引导。\n\n### 2.2 里程标准\n\n对应合同正文最低里程与租金减免条款。\n\n| 字段 | 说明 |\n|---|---|\n| 是否有最低里程要求 | 开关 |\n| 统计周期 | 有要求时必选：月 / 季 / 年 |\n| 目标里程 | 有要求时必填（公里） |\n| 里程类型 | 多选标签：实际里程 / 仪表里程 等 |\n\n### 2.3 费用信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 付款周期 | 是 | 如月付、季付 |\n| 氢费支付方式 | 是 | 自行解决 / 预付款 / 按月结算（选按月结算时预览切换月结算占位条款） |\n| 预付金额 | 条件 | 选择预付款时必填 |\n| 提前付款工作日 | 条件 | 选择预付款时必填 |\n| 还车氢量差单价 | 是 | 元 |\n\n**完成度**：上述必填项均已填则卡片显示「已完成」。\n\n---\n\n## 3. 附件1：租赁订单\n\n| 区域 | 说明 |\n|---|---|\n| 投保车辆数 / 三者责任险（百万） | 三者责任险必填 |\n| 交车区域 | 省市区级联 |\n| 计划交车日期 | 日期 |\n| 订单车辆表 | 品牌型号级联、车牌、租期、租金、氢费、增值服务等 |\n\n支持新增行、复制行、删除行；表头 KPI 展示合计。\n\n**完成度**：三者责任险已填即视为完成（原型简化口径）。\n\n---\n\n## 4. 授权委托书\n\n被委托人表格：姓名、联系方式、身份证号。\n\n支持新增行、删除行。\n\n**完成度**：至少一行且三项均非空。\n\n---\n\n## 5. 合同备注\n\n独立卡片，与授权委托书分离。\n\n提供文本域，支持自定义输入，非必填（最多 500 字）；列表页不展示备注列。\n\n---\n\n## 5.1 用章类型（第 6 步）\n\n右侧工作区「用章类型」支持多选，可选范围：\n\n| 用章 | 说明 |\n|---|---|\n| 合同章 | 合同正文用章 |\n| 公章 | 公司公章 |\n| 法人章 | 法定代表人章 |\n\n**不含**财务章、发票章（租赁合同电子签章场景不使用）。\n\n默认选中合同章；至少选择一种用章后方可提交审核。\n\n---\n\n## 6. 实时预览\n\n- 基于标准合同模板 V26.6 拼装 HTML，A4 分页展示。\n- 支持缩放（50%—150%）、连续预览 / 单页预览切换。\n- **可编辑预览**：合同正文 `contentEditable`；用户可直接改字。\n- 顶栏展示当前 **审批类型** 徽章。\n\n### 5.1 占位符替换\n\n左侧表单变更时，预览内 `{{contractCode}}`、`{{customerName}}` 等变量实时替换。\n\n### 5.2 条件条款与附件章节\n\n按租赁订单车辆品牌型号，过滤模板中条件条款与附件章节绑定（与合同模板管理规则一致）。\n\n---\n\n## 7. 审批类型判定\n\n| 类型 | 触发条件 |\n|---|---|\n| 标准合同 | 默认可编辑预览相对基线未改动风控红线条款 |\n| 非标准合同 | 预览中 `.ct-risk-redline[data-risk-redline=\"1\"]` 正文相对基线有增删改 |\n\n检测逻辑：`lease-contract-risk-detect.js` 对比基线 HTML 与当前合并页 HTML。\n\n保存草稿 / 提交审核时 Toast 展示将走的审批类型（原型）。\n\n---\n\n## 8. 底栏操作\n\n| 按钮 | 行为 |\n|---|---|\n| 取消 / 返回列表 | 不保存，回列表 |\n| 保存草稿 | 保存为草稿，审批类型随检测结果记录 |\n| 提交审核 | 校验必填后发起审批流程 |\n\n---\n\n## 9. 与合同模板的关系\n\n- 创建时默认引用 **标准合同模板**（合同模板管理 `isDefault=true` 的已发布版本）。\n- 模板内风控红线条款、条件条款、锁定区标记在预览中保留。\n- 业务侧仅编辑表单字段与允许编辑的预览正文；锁定区不可改（正式环境由编辑器约束）。\n",
+                "markdownPath": "src/prototypes/lease-contract-management/.spec/requirements-prd-create.md"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-prd-acceptance",
+                "title": "验收标准",
+                "markdown": "## 12. 验收标准\n\n### 12.1 列表页\n\n- [ ] 13 项筛选（含合同模板联动标准合同名称）与 KPI 五卡片联动正确\n- [ ] 项目信息列、车辆/交车 Popover、审批流悬停\n- [ ] 操作按合同状态/类型正确显隐\n- [ ] 法务盖章上传后入口关闭\n\n### 12.2 新增页\n\n- [ ] 三块主体合同表单 + 完成度徽章\n- [ ] 甲乙档案只读同步、客户 A/B 级限制\n- [ ] 预览随表单实时更新\n- [ ] 可编辑预览改动风控红线 → 非标准审批徽章\n- [ ] 保存/提交展示审批类型\n\n### 12.3 标注与文档（原型）\n\n- [ ] 已接入 `@axhub/annotation`，关键区域有 `data-annotation-id`\n- [ ] 目录可切换列表页 / 新增页，PRD 全文可阅\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-annotation-context",
+                "title": "标注与原型上下文",
+                "markdown": "# 租赁合同管理 · 标注与原型上下文\n\n> 由 `extract-annotation-source` 从运行态 `window.__AXHUB_ANNOTATION_SOURCE__` 提取，并与仓库源码对齐。  \n> 原型地址：`/prototypes/lease-contract-management`\n\n---\n\n## 1. 提取摘要\n\n| 项 | 值 |\n|---|---|\n| 标注节点数 | 22 |\n| 列表页节点 | 8（`pageId: list`） |\n| 新增页节点 | 14（`pageId: create`） |\n| 图片附件 | 无 |\n| 开发态 `source.root` | 未发布（以仓库路径为准） |\n\n### 1.1 目录结构\n\n```text\n租赁合同管理说明\n├── 模块总览\n├── 合同模板管理（链接）\n├── PRD 全文\n│   ├── PRD 完整文档\n│   ├── 列表页 PRD\n│   ├── 新增页 PRD\n│   └── 验收标准\n├── 列表页模块（route + 各标注说明）\n├── 新增页模块（route + 各标注说明）\n├── 操作流程（正向 / 逆向流程图）\n└── 标注查看提示\n```\n\n### 1.2 标注节点索引\n\n**列表页**\n\n| id | 标题 |\n|---|---|\n| `lc-list-filter` | 筛选条件 |\n| `lc-list-kpi` | KPI 统计卡片 |\n| `lc-fleet-summary` | 在租车辆概览 |\n| `lc-list-toolbar` | 列表工具栏 |\n| `lc-list-table` | 合同台账列表 |\n| `lc-list-action-more` | 更多操作 |\n| `lc-action-convert-tripartite` | 转三方合同 |\n| `lc-action-trial-to-formal` | 试用转正式 |\n\n**新增页**\n\n| id | 标题 |\n|---|---|\n| `lc-create-main-contract` | 主体合同信息 |\n| `lc-create-signing-method` | 合同签署方式 |\n| `lc-card-signing` | 签约信息 |\n| `lc-signing-customer-principal` | 乙方负责人 |\n| `lc-create-lease-order` | 附件1：租赁订单 |\n| `lc-lease-order-brand-model` | 品牌车型与在库 |\n| `lc-lease-order-rent` | 车辆租金与最低租金 |\n| `lc-lease-order-service-content` | 服务项配置 |\n| `lc-lease-order-lease-period` | 租赁期限与到期计算 |\n| `lc-create-poa` | 授权委托书 |\n| `lc-create-contract-remark` | 合同备注 |\n| `lc-create-seal` | 用章类型 |\n| `lc-create-preview` | 实时预览 |\n| `lc-create-footer` | 底栏操作 |\n\n定位器统一为：`[data-annotation-id=\"<id>\"]`\n\n---\n\n## 2. 履约与交还车规则（列表子表）\n\n| 规则 | 说明 |\n|---|---|\n| 审批未通过 | 合同下车辆**不视为已交车**；子表「交车」显示「未交车」，无租赁账单/还车应结款 |\n| 审批通过 | 方进入履约态；有实际交车时间的车辆计入「已交车辆数」 |\n| 子表还车 | **审批通过 + 已交车 + 未还车** 时，操作列显示「还车」 |\n| 已还车 | 操作列为「—」；「还车应结款」按状态展示待提交/审批中/已完成 |\n\n子表列：车辆信息、提车应收款、交车、租赁账单、还车、还车应结款、交车安排、里程要求、里程完成、操作。\n\n---\n\n## 3. 源码入口\n\n| 能力 | 文件 |\n|---|---|\n| 标注/路由入口 | `index.tsx` |\n| 列表主逻辑 | `LeaseContractManagement.jsx` |\n| 列表数据与履约规则 | `lease-contract-list-data.js` |\n| 新增页 | `LeaseContractCreate.jsx` |\n| 主体表单 | `LeaseContractEditorForm.jsx` |\n| 标注数据构建 | `scripts/build-annotation-source.mjs` |\n| 标注数据 | `annotation-source.json` |\n| PRD 全文 | `src/resources/lease-contract-management/PRD.md` |\n\n同步命令：\n\n```bash\nnode src/prototypes/lease-contract-management/scripts/build-annotation-source.mjs\n```\n",
+                "markdownPath": "src/prototypes/lease-contract-management/.spec/requirements-annotation-context.md"
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "id": "lc-doc-flows",
+            "title": "操作流程",
+            "defaultExpanded": false,
+            "children": [
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-overview",
+                "title": "全流程总览",
+                "markdown": "## 1. 总览：从新增到履约结束\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-Fm0HQ5/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-Fm0HQ5/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TB\n  subgraph create [草拟与审批]\n    A[列表 · 新增] --> B[新增/编辑页填写]\n    B --> C{底栏操作}\n    C -->|取消| Z1[返回列表 · 不保存]\n    C -->|保存草稿| D[草稿]\n    C -->|提交审核| E[待审批]\n    E --> F[审批中]\n    F --> G[审批通过]\n    F --> H[审批驳回]\n    F --> I[审批终止]\n    E --> J[撤回]\n    F --> J\n    J --> K[撤回 / 可再编辑]\n    H --> L[编辑后重提]\n    L --> E\n    D --> M[删除草稿]\n  end\n\n  subgraph signing [签署闭环]\n    G --> N{签署方式}\n    N -->|线上电子签章| O[E签宝发送乙方]\n    O --> P[签署完成归档]\n    N -->|线下人工上传| Q[盖章合同补传]\n    Q --> P\n  end\n\n  subgraph fulfill [履约]\n    G --> R[合同进行中]\n    R --> S[提车应收款]\n    S --> T[交车]\n    T --> U[在租 · 租赁账单]\n    U --> V[子表 · 还车]\n    V --> W[还车应结款]\n    W --> X[全部车辆已还车]\n    X --> Y[已终止 / 已结束]\n  end\n\n  subgraph change [进行中变更]\n    R --> AA[续签 / 增车 / 转三方 / 附加费用 / 添加授权书 / 试用转正式]\n    AA --> AB[变更审批]\n    AB --> G\n    R --> AC[主动终止]\n    AC --> AD[终止审批]\n    AD --> Y\n  end\n```\n\n\n\n---",
+                "markdownPath": "src/prototypes/lease-contract-management/.spec/requirements-flow-operations.md"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-create-forward",
+                "title": "新增合同 · 正向",
+                "markdown": "## 2. 新增合同 · 正向流程\n\n### 2.1 保存草稿\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-vZbgTh/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-vZbgTh/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[点击新增] --> B[填写主体/订单/授权书/预览]\n  B --> C[系统判定标准/非标准审批类型]\n  C --> D[保存草稿]\n  D --> E[合同状态: 草稿]\n  E --> F[审批状态: 未提交]\n  F --> G[列表可编辑/删除]\n```\n\n\n\n### 2.2 提交审核 → 审批通过\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-L7wKWZ/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-L7wKWZ/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[提交审核] --> B{必填与证照校验}\n  B -->|不通过| C[Toast 提示 · 停留当前页]\n  B -->|通过| D[审批状态: 待审批]\n  D --> E[合同状态: 已提交审批]\n  E --> F[进入审批流节点]\n  F --> G[审批中]\n  G --> H{终审结果}\n  H -->|通过| I[审批通过]\n  I --> J[合同状态: 合同进行中]\n  H -->|驳回| K[审批驳回 → 合同回草稿可编辑]\n  H -->|终止| L[审批终止]\n```\n\n\n\n### 2.3 签署闭环（审批通过后）\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-4Uj2ad/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-4Uj2ad/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[审批通过] --> B{合同签署方式}\n  B -->|线上电子签章| C[向乙方负责人手机号发送 E签宝]\n  C --> D[乙方签署]\n  D --> E[电子合同自动归档]\n  B -->|线下人工上传| F[列表 · 盖章合同补传]\n  F --> G[法务/业务上传 PDF/图片]\n  G --> H[标记已补传 · 查看可预览下载]\n  E --> I[履约开始]\n  H --> I\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-create-reverse",
+                "title": "新增合同 · 逆向",
+                "markdown": "## 3. 新增合同 · 逆向流程\n\n### 3.1 取消草拟（不保存）\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-3St6zf/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-3St6zf/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[新增页] --> B[点击取消/返回列表]\n  B --> C[丢弃未保存修改]\n  C --> D[回到列表 · 无新记录]\n```\n\n\n\n### 3.2 删除草稿\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ziCe38/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ziCe38/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[草稿合同] --> B[更多 · 删除合同]\n  B --> C[二次确认]\n  C --> D[从台账移除]\n```\n\n\n\n### 3.3 撤回已提交审批\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ncHgnj/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ncHgnj/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[待审批 / 审批中] --> B[更多 · 撤回合同]\n  B --> C[二次确认]\n  C --> D[审批状态: 撤回]\n  D --> E[可重新编辑后再次提交]\n```\n\n\n\n### 3.4 审批驳回后重提\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ycj38W/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-ycj38W/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[审批驳回] --> B[主按钮 · 编辑]\n  B --> C[修改表单/预览]\n  C --> D[保存草稿或提交审核]\n  D --> E[重新进入审批流]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-fulfill",
+                "title": "履约 · 交还车",
+                "markdown": "## 4. 履约正向：交车 → 还车 → 结清\n\n> **前置条件**：仅 `审批通过` 的合同才产生交车/还车履约数据。\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-m3OFRy/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-m3OFRy/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[合同进行中] --> B[办理提车应收款]\n  B --> C[实际交车]\n  C --> D[子表 · 交车列展示里程/交车人/时间]\n  D --> E[租赁账单: 正常/欠费]\n  E --> F{是否还车}\n  F -->|未还车| G[子表操作列 · 还车]\n  G --> H[还车管理]\n  H --> I[子表 · 还车列展示还车信息]\n  I --> J[还车应结款]\n  J --> K{结款状态}\n  K -->|待提交| L[去处理]\n  K -->|审批中| M[展示审批人 · 同主表样式]\n  K -->|已完成| N[查看结款]\n  F -->|已还车| N\n  N --> O{全部车辆已还?}\n  O -->|是| P[KPI · 已终止口径]\n```\n\n\n\n### 4.1 子表还车操作条件\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-p1SWHR/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-p1SWHR/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[展开已交车子表] --> B{审批通过?}\n  B -->|否| C[交车显示未交车 · 无还车按钮]\n  B -->|是| D{已交车且未还车?}\n  D -->|是| E[操作列: 还车]\n  D -->|否| F[操作列: —]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-fulfill-reverse",
+                "title": "履约 · 逆向与异常",
+                "markdown": "## 5. 履约逆向与异常\n\n### 5.1 非审批通过合同不出现交车\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-h9w9CX/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-h9w9CX/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[待审批/审批中/驳回/撤回] --> B[即使有 planned 交车计划]\n  B --> C[不计入已交车辆数]\n  C --> D[子表交车列: 未交车]\n```\n\n\n\n### 5.2 主动终止合同\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-pWfZv6/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-pWfZv6/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[合同进行中] --> B[更多 · 主动终止合同]\n  B --> C[填写终止信息]\n  C --> D[提交终止审批]\n  D --> E{审批结果}\n  E -->|通过| F[合同已终止/已结束]\n  E -->|驳回| G[维持进行中]\n```\n\n\n\n### 5.3 续签 / 转三方导致旧合同终止\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-OeVgk2/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-OeVgk2/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[进行中旧合同] --> B[续签或转三方]\n  B --> C[生成新合同并走审批]\n  C --> D[旧合同自动标记已终止]\n  D --> E[在租统计转移至新合同]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-change-forward",
+                "title": "进行中变更 · 正向",
+                "markdown": "## 6. 进行中变更 · 正向流程\n\n### 6.1 新增车辆\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-XMZx76/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-XMZx76/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[合同进行中] --> B[更多 · 新增车辆]\n  B --> C[打开增车编辑页]\n  C --> D[仅新增车辆走审批]\n  D --> E[审批通过]\n  E --> F[新车生成提车应收款]\n```\n\n\n\n### 6.2 续签合同\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-tjr1TE/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-tjr1TE/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[进行中/到期合同] --> B[更多 · 续签合同]\n  B --> C[复制原合同]\n  C --> D[锁定已交未还车辆]\n  D --> E[可新增车辆卡片]\n  E --> F[提交续签审批]\n  F --> G[新合同审批通过]\n  G --> H[旧合同自动终止]\n```\n\n\n\n### 6.3 试用转正式\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-phO8bb/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-phO8bb/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[试用合同] --> B[更多 · 试用转正式]\n  B --> C[自动拉取客户/授权人/车辆订单]\n  C --> D[车辆订单可编辑]\n  D --> E{同时转三方?}\n  E -->|是| F[同一步维护三方协议与附件]\n  E -->|否| G[仅转正式]\n  F --> H[提交审批]\n  G --> H\n  H --> I[生成正式合同]\n```\n\n\n\n### 6.4 转三方合同\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-6wVf6Z/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-6wVf6Z/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[合同进行中] --> B[更多 · 转三方合同]\n  B --> C[新增多条三方协议]\n  C --> D[上传协议附件与对方公函]\n  D --> E[提交变更审批]\n  E --> F[审批通过后沿用原签署方式]\n```\n\n\n\n### 6.5 附加费用\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-WYV6Bs/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-WYV6Bs/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[合同进行中] --> B[更多 · 附加费用]\n  B --> C[按车辆录入服务项与费用]\n  C --> D[已有费用只读]\n  D --> E[提交审批]\n  E --> F[通过后按计费规则入账]\n```\n\n\n\n### 6.6 添加授权委托书\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-yaPqWE/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-yaPqWE/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[合同进行中] --> B[更多 · 添加授权委托书]\n  B --> C[维护受托人列表]\n  C --> D[仅授权书走审批/签署]\n  D --> E[主合同无需重签]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-change-reverse",
+                "title": "进行中变更 · 逆向",
+                "markdown": "## 7. 进行中变更 · 逆向流程\n\n### 7.1 变更审批撤回\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-MA6Ae7/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-MA6Ae7/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[增车/续签/转三方/附加费用/授权书/终止] --> B[已提交变更审批]\n  B --> C[撤回合同]\n  C --> D[变更单撤回]\n  D --> E[原进行中合同保持不变]\n```\n\n\n\n### 7.2 变更审批驳回\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-p3Cp9Y/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-p3Cp9Y/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[变更审批驳回] --> B[合同状态回变更/草稿口径]\n  B --> C[业务修改后重新提交]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-delivery-edit",
+                "title": "交车安排编辑",
+                "markdown": "## 8. 交车安排编辑（列表与子表）\n\n### 8.1 正向：修改交车安排\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-1BlLu5/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-1BlLu5/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart TD\n  A[列表 · 交车安排列] --> B{可编辑?}\n  B -->|未锁定| C[编辑区域/日期]\n  C --> D[同步所有未交车车辆]\n  D --> E[回写提车应收款 · 刷新待办]\n  B -->|已锁定| F[提示在提车应收款中调整]\n```\n\n\n\n### 8.2 子表：单车交车时间\n\n\n\n> ⚠️ 流程图渲染失败：Command failed: /Users/sylvawong/oneos1.2/node_modules/.bin/mmdc -i /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-CRnmFl/diagram.mmd -o /var/folders/32/wbyp9285795_3gj02yx2wnsh0000gn/T/lc-mermaid-CRnmFl/diagram.svg -b transparent -t neutral\n\nError: Could not find chrome-headless-shell (ver. 150.0.7871.24). This can occur if either\n 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome-headless-shell`) or\n 2. your cache path is incorrectly configured (which is: /Users/sylvawong/.cache/puppeteer).\nFor (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.\n    at ChromeLauncher.resolveExecutablePath (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:319:19)\n    at async ChromeLauncher.computeLaunchArguments (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:92:19)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/BrowserLauncher.js:67:28)\n    at async ChromeLauncher.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/ChromeLauncher.js:39:16)\n    at async PuppeteerNode.launch (file:///Users/sylvawong/oneos1.2/node_modules/puppeteer-core/lib/puppeteer/node/PuppeteerNode.js:120:16)\n    at async run (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:862:19)\n    at async cli (file:///Users/sylvawong/oneos1.2/node_modules/@mermaid-js/mermaid-cli/src/index.js:374:3)\n\n\n\n```mermaid\nflowchart LR\n  A[未交车车辆行] --> B[编辑本车交车时间]\n  B --> C[仅影响当前车辆]\n  C --> D[不影响已交车车辆]\n```\n\n\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-flow-matrix",
+                "title": "操作与状态对照表",
+                "markdown": "## 9. 操作与状态对照表\n\n| 操作 | 显示条件 | 正向结果 | 逆向/回退 |\n|---|---|---|---|\n| 新增 | 工具栏 | 进入新增页 | 取消不保存 |\n| 保存草稿 | 新增/编辑页 | 草稿 | 删除草稿 |\n| 提交审核 | 新增/编辑页 | 进入审批 | 撤回 |\n| 编辑 | 草稿/驳回 | 修改后重提 | — |\n| 删除 | 草稿 | 记录删除 | — |\n| 撤回 | 待审批/审批中 | 审批撤回 | 可再提交 |\n| 盖章补传 | 审批通过+线下 | 附件归档 | — |\n| 交车 | 审批通过后履约 | 在租 | — |\n| 还车 | 子表·已交未还 | 还车应结款 | — |\n| 续签 | 进行中/到期 | 新合同+旧合同终止 | 撤回变更审批 |\n| 增车 | 进行中 | 变更审批 | 驳回/撤回 |\n| 转三方 | 进行中 | 变更审批 | 驳回/撤回 |\n| 试用转正式 | 试用合同 | 新正式合同 | 驳回/撤回 |\n| 附加费用 | 进行中 | 费用入账审批 | 驳回/撤回 |\n| 添加授权书 | 进行中 | 授权书审批 | 驳回/撤回 |\n| 主动终止 | 进行中 | 终止审批 | 驳回 |\n\n---"
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "id": "lc-doc-list",
+            "title": "列表页模块",
+            "defaultExpanded": true,
+            "children": [
+              {
+                "type": "route",
+                "id": "lc-route-list",
+                "title": "打开列表页",
+                "route": "lease-contract:list",
+                "payload": {
+                  "pageId": "list"
+                }
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-list-filter",
+                "title": "筛选条件",
+                "markdown": "## 4. 筛选区\n\n默认展示 **第一行 4 个筛选项**，点击「更多筛选」显示全部 **13 项**（含合同结束日期）；支持「重置」「查询」。\n\n| 字段 | 控件 | 说明 |\n|---|---|---|\n| 合同编码 | 可搜索下拉 | 模糊匹配合同编码 |\n| 项目名称 | 可搜索下拉 | 模糊匹配项目名称 |\n| 客户名称 | 可搜索下拉 | 模糊匹配客户名称 |\n| 签约公司 | 下拉 | 租赁合同签约公司枚举 |\n| 审批状态 | 多选下拉 | 全部 / 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回 / 审批终止 / 撤回 |\n| 合同状态 | 多选下拉 | 全部 / 草稿 / 已提交审批 / 合同进行中 / 已终止 |\n| 业务部门 | 多选下拉 | 业务相关部门 |\n| 业务负责人 | 多选下拉 | 业务组人员 |\n| 合同模板 | 单选下拉 | 选项来自合同模板管理已发布且启用的模板「合同名称」维度（如正式合同、试用合同、现代18吨正式合同）；可清空 |\n| 标准合同名称 | 单选下拉 | **联动合同模板**：仅在选择合同模板后启用；选项为该模板类别下已发布文档名（如「2026年标准商用车租赁合同」）；支持搜索；可清空 |\n| 审批类型 | 多选下拉 | 全部 / 标准合同 / 非标准合同 |\n| 创建人 | 多选下拉 | 业务相关人员 |\n| 合同结束日期 | `DateRangeFilterField` | 起止精确至日；展示文案用中文「**至**」连接 |\n\n**合同模板联动规则**：\n\n1. 未选合同模板时，「标准合同名称」禁用并提示「请先选择合同模板」。\n2. 切换合同模板时，自动清空已选标准合同名称。\n3. 查询时按合同记录的 `contractTemplateId`（或由合同类型推断的模板 ID）匹配；合同模板与标准合同名称可单独或组合使用。\n\n**交互**：\n\n- **查询**：将当前筛选条件写入「已应用筛选」，列表与 KPI 统计联动；若「更多筛选」处于展开态，**自动收起筛选栏**后展示结果。\n- **重置**：清空为默认（多选类默认「全部」，单选类清空），刷新列表，并**同样收起**「更多筛选」面板。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-list-kpi",
+                "title": "KPI 统计卡片",
+                "markdown": "## 5. KPI 统计卡片\n\n共 5 张卡片，点击切换列表筛选（与筛选区条件 **叠加** 生效）。\n\n| 卡片 | 口径（按合同状态） |\n|---|---|\n| 全部合同 | 不做 KPI 维度过滤 |\n| 草稿 | 合同状态 = 草稿 |\n| 进行中 | 合同状态 = 合同进行中 |\n| 审批中 | 合同状态 = 已提交审批 |\n| 已终止 | 合同状态 = 已终止 |\n\n卡片右上角 `?` 悬停展示口径说明。\n\n> **说明**：KPI 按合同状态快速分桶；交还车履约口径（已交未还、临期等）见 §7.2 子表与 §6.6 全局规则，不在 KPI 卡片中重复统计。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-fleet-summary",
+                "title": "在租车辆概览",
+                "markdown": "# 在租车辆概览\n\n按品牌型号统计在租车辆，支持品牌标签筛选。\n\n## 说明\n\n顶部展示在租总数；品牌标签筛选车型卡片；点击卡片查看车辆明细。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-list-toolbar",
+                "title": "列表工具栏",
+                "markdown": "## 6. 列表工具栏\n\n| 按钮 | 行为 |\n|---|---|\n| 租赁费用模板 | 跳转或打开费用模板配置（本期原型 Toast） |\n| 导出 | 按当前筛选结果导出（本期原型 Toast） |\n| 新增 | 进入「新增租赁合同」页 |\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-list-table",
+                "title": "合同台账列表",
+                "markdown": "## 7. 列表字段说明\n\n### 7.1 项目信息（合并列）\n\n一列展示三行：\n\n1. 项目名称（主文案）\n2. 合同编码（次级）\n3. 客户名称（次级）\n\n点击整格跳转「查看」页（原型 Toast）。\n\n### 7.2 车辆与交车\n\n| 列 | 说明 |\n|---|---|\n| 租赁订单 · 车辆数 | 租赁订单车辆总数；点击弹出车辆明细表 |\n| 租赁订单 · 已交车 | **审批通过**且已有实际交车日期的车辆数；点击展开已交车子表 |\n\n**履约规则**：非审批通过的合同不视为已交车；「已交车辆数」为 0 时按钮禁用。\n\n### 7.2.1 已交车子表\n\n展开「已交车辆数」后展示车辆子表，列包括：\n\n| 列 | 说明 |\n|---|---|\n| 车辆信息 | 车牌、VIN、品牌型号 |\n| 提车应收款 | 支付状态，可跳转详情 |\n| 交车 | 已交车展示里程/交车人/时间；未交车显示「未交车」 |\n| 租赁账单 | 正常 / 欠费（仅已交车） |\n| 还车 | 已还车展示还车信息；未还车显示「未还车」 |\n| 还车应结款 | 还车后展示结款状态；**审批中**时展示当前审批人（UI 与主表「审批状态」列一致，含节点悬停） |\n| 交车安排 | 区域与计划/实际交车日期 |\n| 里程要求 / 里程完成 | 有最低里程要求时展示 |\n| 操作 | **审批通过 + 已交车 + 未还车** 显示「还车」链接 |\n\n车辆明细 Popover 字段：车辆类型、品牌、型号、车牌号、实际交车日期、交车人。\n\n### 7.3 状态与业务字段\n\n| 列 | 说明 |\n|---|---|\n| 合同签署方式 | 线上电子签章 / 线下人工上传；可展开查看或变更 |\n| 审批状态 | 未提交 / 待审批 / 审批中 / 审批通过 / 审批驳回等；「审批中」悬停展示审批流节点与当前处理人 |\n| 签约公司 | 创建时所选甲方签约主体简称 |\n| 业务部门 | 创建时选取 |\n| 费用信息 | 付款方式、周期、保证金等摘要 |\n| 交车安排 | 合同级交车区域与计划日期 |\n| 整体里程完成情况 | 按在租车辆里程汇总展示完成进度 |\n| 客户联系人 | 来自客户档案 |\n| 受托人 | 显示人数；点击弹出卡片查看姓名、联系方式、身份证号 |\n| 创建信息 | 创建人 / 创建时间，精确至分钟 |\n| 最后更新 | 更新人 / 最后更新时间，无则显示 `-` |\n\n**分页**：每页 10 / 20 / 50 条可选。\n\n---\n\n---\n\n## 8. 操作与弹窗\n\n### 8.1 操作列（主按钮 + 更多）\n\n| 操作 | 显示条件 | 行为 |\n|---|---|---|\n| 查看 | 始终 | 跳转合同查看页 |\n| 编辑 | 草稿；或审批驳回 | 进入编辑页 |\n| 删除合同 | 草稿 | 二次确认后删除 |\n| 撤回合同 | 已提交审批且非驳回 | 二次确认后撤回 |\n| 新增车辆 | 合同进行中 | 租赁订单内增车并重新审批 |\n| 续签合同 | 进行中 / 到期 | 跳转续签页 |\n| 添加被授权人 | 合同进行中 | 弹窗编辑被授权人列表 |\n| 附加费用 | 合同进行中 | 弹窗按车辆录入附加费用 |\n| 转三方合同 | 合同进行中 | 弹窗新增三方协议，上传协议附件与对方公函 |\n| 试用转正式 | 合同模板为「试用合同」 | 单步弹窗：自动拉取客户/授权人/车辆订单（车辆可编辑），可选同时转三方 |\n| 终止合同 | 合同进行中 | 二次确认，提交终止审批 |\n| 上传盖章合同 | 审批通过且法务未上传 | 仅法务部可见；多文件上传后关闭入口 |\n\n### 8.2 审批状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 未提交 | 仅保存草稿 |\n| 待审批 | 已提交，尚无节点通过 |\n| 审批中 | 已有节点通过，未完成终审 |\n| 审批通过 | 终审通过 |\n| 审批驳回 | 任一节点的驳回；可编辑重提 |\n| 审批终止 | 流程被终止 |\n| 撤回 | 提交人主动撤回 |\n\n### 8.3 合同状态口径\n\n| 状态 | 定义 |\n|---|---|\n| 草稿 | 未提交审批 |\n| 已提交审批 | 初次提交，终审未完成 |\n| 合同进行中 | 终审通过且在有效期内 |\n| 已终止 | 终止、自然结束，或续签/转三方后旧合同自动终止 |\n\n### 8.4 弹窗摘要\n\n- **删除草稿**：「是否确认删除该合同草稿」\n- **撤回**：「是否确认撤回该合同」\n- **终止**：「是否确认终止合同」→ 提交审核\n- **添加被授权人**：姓名、电话、身份证；支持增删行\n- **附加费用**：按车辆展示类型/品牌/型号/车牌，可填服务项目、费用（元，2 位小数）、生效日期\n- **转三方合同**：支持新增多条三方协议；每条可填协议名称、上传协议附件与对方公函\n- **试用转正式**：自动带出客户信息、授权人与车辆订单；车辆订单字段可编辑；可勾选「同时转三方合同」并在同一步维护三方协议\n- **上传盖章合同**：拖拽多文件；确认后标记已上传\n\n### 8.5 操作流程文档\n\n从「新增合同」起的正向与逆向全流程图见：`.spec/requirements-flow-operations.md`"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-list-action-more",
+                "title": "更多操作",
+                "markdown": "# 更多操作\n\n列表操作列「更多」入口，按合同状态与类型展示不同菜单项。\n\n- **合同进行中**：含转三方合同、续签、增车等\n- **试用合同**：含试用转正式"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-action-convert-tripartite",
+                "title": "转三方合同",
+                "markdown": "# 转三方合同\n\n**显示条件**：合同状态为「合同进行中」。\n\n**能力**：\n\n1. 支持 **新增多条三方协议**（协议名称）\n2. 每条协议可上传 **三方协议附件**\n3. 每条协议可上传 **对方公函**\n\n提交后走变更审批（原型演示 Toast）。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-action-trial-to-formal",
+                "title": "试用转正式",
+                "markdown": "# 试用转正式\n\n**显示条件**：合同类型为「试用合同」。\n\n**单步完成**（转正式与转三方可合并，无需分两步）：\n\n1. **自动拉取**当前合同的客户信息、授权人、车辆订单\n2. **车辆订单可编辑**（品牌、型号、车牌、租金、租期月数等）\n3. 可勾选 **同时转三方合同**，在同一步新增三方协议并上传附件/公函\n\n提交后生成正式合同并走审批（原型演示 Toast）。"
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "id": "lc-doc-create",
+            "title": "新增页模块",
+            "defaultExpanded": false,
+            "children": [
+              {
+                "type": "route",
+                "id": "lc-route-create",
+                "title": "打开新增页",
+                "route": "lease-contract:create",
+                "payload": {
+                  "pageId": "create"
+                }
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-main-contract",
+                "title": "主体合同信息",
+                "markdown": "## 2. 主体合同信息\n\n卡片内三个可折叠区块，标题行右侧展示区块说明（展开时显示在标题后方）。\n\n### 2.1 签约信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 合同编号 | 是 | 前缀 `HT-ZL-` + 用户输入 |\n| 甲方 | 是 | 出租方签约主体，来自组织机构 |\n| 乙方 | 是 | 客户选择器；仅 A/B 级客户可选 |\n| 乙方负责人姓名 | 否 | 签约对接负责人，可与档案联系人不同 |\n| 乙方负责人手机号 | 否 | 11 位手机号 |\n\n选择甲方/乙方后，下方只读面板自动带出档案：\n\n**甲方**：户名、开户行、账号、通讯地址、联系人、电话、邮箱。\n\n**乙方**：企业名称、开户银行、银行账号、纳税人识别号、企业地址、企业电话、通讯地址、联系人、电话、邮箱；资质证照缩略图可点击放大。\n\n#### 客户资质证照（OCR 与有效期）\n\n对以下四类证照做 **OCR 识别**并校验有效期：\n\n| 证照 | 说明 |\n|---|---|\n| 客户营业执照 | 识别统一社会信用代码与营业期限 |\n| 法人身份证（正面） | 识别姓名、证件号与有效期 |\n| 法人身份证（反面） | 识别签发机关与有效期 |\n| 道路运输许可证 | 识别许可编号与有效期 |\n\n**业务规则：**\n\n1. 上传后自动 OCR 提取有效期，证照区展示「OCR 已识别」、有效期及状态（有效 / 即将到期 / 已过期）。\n2. 距到期 **≤ 3 个月** 时，系统在工作台提前生成待办任务，推送给业管人员更新客户档案。\n3. 若业管尚未更新，业务人员选择该客户后仍可查看证照，但 **禁止提交新合同**；提交时给出明确拦截提示。\n4. 原型演示：客户「杭州某某租赁有限公司（B）」含即将到期与已过期证照样例，可用于验证提示与拦截。\n\n未选双方时展示空状态引导。\n\n### 2.2 里程标准\n\n对应合同正文最低里程与租金减免条款。\n\n| 字段 | 说明 |\n|---|---|\n| 是否有最低里程要求 | 开关 |\n| 统计周期 | 有要求时必选：月 / 季 / 年 |\n| 目标里程 | 有要求时必填（公里） |\n| 里程类型 | 多选标签：实际里程 / 仪表里程 等 |\n\n### 2.3 费用信息\n\n| 字段 | 必填 | 说明 |\n|---|---|:---:|\n| 付款周期 | 是 | 如月付、季付 |\n| 氢费支付方式 | 是 | 自行解决 / 预付款 / 按月结算（选按月结算时预览切换月结算占位条款） |\n| 预付金额 | 条件 | 选择预付款时必填 |\n| 提前付款工作日 | 条件 | 选择预付款时必填 |\n| 还车氢量差单价 | 是 | 元 |\n\n**完成度**：上述必填项均已填则卡片显示「已完成」。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-signing-method",
+                "title": "合同签署方式",
+                "markdown": "# 合同签署方式\n\n与「选择合同类型」同一步配置，可选：\n\n| 方式 | 说明 |\n|---|---|\n| 线上电子签章 | 审批通过后向乙方负责人手机号发送 E签宝文件并自动归档 |\n| 线下人工上传 | 不发送电子签，审批通过后通过列表「盖章合同补传」完成闭环 |"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-card-signing",
+                "title": "签约信息",
+                "markdown": "# 签约信息\n\n合同编号、甲乙双方与乙方负责人。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-credentials-ocr",
+                "title": "客户资质证照 OCR",
+                "markdown": "# 客户资质证照（OCR 与有效期）\n\n对 **客户营业执照**、**法人身份证正反面**、**道路运输许可证** 做 OCR 识别，校验有效期。\n\n| 规则 | 说明 |\n|---|---|\n| OCR | 上传后自动识别证照信息与有效期 |\n| 即将到期 | 距到期 ≤ 3 个月时，工作台提前生成待办推送给业管 |\n| 已过期 | 业管未更新前，禁止提交新合同 |\n| 页面展示 | 缩略图旁显示 OCR 标识、有效期与状态徽章；临期/过期时顶部展示提示条"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-signing-customer-principal",
+                "title": "乙方负责人",
+                "markdown": "# 乙方负责人\n\n选择乙方后，在签约信息中补充填写：\n\n- **乙方负责人姓名**：签约对接负责人，可与客户档案中的联系人不同\n- **乙方负责人手机号**：E签宝电子合同签章时乙方经办人\n\n**签署闭环：**\n\n- **线上电子签章**：审批通过后自动向该手机号发送 E签宝电子签章文件\n- **线下人工上传**：审批通过不发送电子签，需在列表「盖章合同补传」上传 PDF/图片，查看时可预览与下载全部附件"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-lease-order",
+                "title": "附件1：租赁订单",
+                "markdown": "## 3. 附件1：租赁订单\n\n| 区域 | 说明 |\n|---|---|\n| 投保车辆数 / 三者责任险（百万） | 三者责任险必填 |\n| 交车区域 | 省市区级联 |\n| 计划交车日期 | 日期 |\n| 订单车辆表 | 品牌型号级联、车牌、租期、租金、氢费、增值服务等 |\n\n支持新增行、复制行、删除行；表头 KPI 展示合计。\n\n**完成度**：三者责任险已填即视为完成（原型简化口径）。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-lease-order-brand-model",
+                "title": "品牌车型与在库",
+                "markdown": "# 品牌车型与在库\n\n选择品牌 / 型号后，在选框下方展示该车型**全国在库**台数。\n\n- 统计口径：车辆管理中运营状态为「可运营」或「待运营」\n- 按品牌 + 型号精确匹配\n- 用于签约前评估库存是否满足交付需求"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-lease-order-rent",
+                "title": "车辆租金与最低租金",
+                "markdown": "# 车辆租金与最低租金\n\n- 车型最低租金可在后台按「品牌 · 型号」配置（原型见 `LEASE_VEHICLE_MIN_RENT_BY_MODEL`）\n- 录入租金 **低于** 系统最低值时，行内提示并自动判定为 **非标准合同** 审批\n- 与风控红线条款修改规则并列生效"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-lease-order-service-content",
+                "title": "服务项配置",
+                "markdown": "# 服务项配置需求\n\n1. **后台可配置**：支持新增、编辑、自定义服务项名称和计价规则；后续新增服务项可直接在签合同环节选用，无需迭代修改产品。\n\n2. **两类计价逻辑**：\n   - **固定金额类**：如无忧包、尾板服务费，直接录入固定总价，计入合同初始服务费合计\n   - **动态计费类**：如维保费、运保费，仅在合同中展示约定单价（例：0.1 元/公里），不计入合同初始总价；后续按每月实际行驶里程核算后合并计入租金账单，首期账单默认不包含该类动态服务费\n\n3. **合同同步**：所有选中的服务项自动同步展示到正式合同对应章节，支持单独添加备注说明，作为合同不可缺失的组成部分。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-lease-order-lease-period",
+                "title": "租赁期限与到期计算",
+                "markdown": "# 租赁期限与到期计算\n\n租赁到期时间支持两种计算模式：\n\n## 1. 固定日期模式\n\n手动指定合同的开始日期与结束日期；系统到达设定的结束日期时，自动标记合同为过期状态。\n\n## 2. 租期月数模式\n\n无需手动指定起止日期，仅输入租赁总月数。系统自动以 **车辆实际交付时间** 作为租期起始点，向后顺延对应月数，自动计算合同到期日期；到达该日期后自动标记合同为过期。\n\n### 多车合同\n\n当合同下关联多台车辆时，按固定月份规则取当前合同下 **第一辆到期** 的车辆到期时间，作为合同整体到期时间。\n\n> 原型表格列「租赁期限（月）」当前展示租期月数模式输入；固定日期模式在正式产品中于同行或弹层切换。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-poa",
+                "title": "授权委托书",
+                "markdown": "## 4. 授权委托书\n\n被委托人表格：姓名、联系方式、身份证号。\n\n支持新增行、删除行。\n\n**完成度**：至少一行且三项均非空。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-contract-remark",
+                "title": "合同备注",
+                "markdown": "## 5. 合同备注\n\n独立卡片，与授权委托书分离。\n\n提供文本域，支持自定义输入，非必填（最多 500 字）；列表页不展示备注列。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-seal",
+                "title": "用章类型",
+                "markdown": "# 用章类型（第 6 步）\n\n支持多选，可选范围仅包含：\n\n| 用章 | 说明 |\n|---|---|\n| 合同章 | 合同正文用章 |\n| 公章 | 公司公章 |\n| 法人章 | 法定代表人章 |\n\n**不含**财务章、发票章。\n\n默认选中合同章；至少选择一种用章后方可提交审核。\n\n**提示**：额外勾选公章、法人章会进入非标审批流程。"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-preview",
+                "title": "实时预览",
+                "markdown": "## 6. 实时预览\n\n- 基于标准合同模板 V26.6 拼装 HTML，A4 分页展示。\n- 支持缩放（50%—150%）、连续预览 / 单页预览切换。\n- **可编辑预览**：合同正文 `contentEditable`；用户可直接改字。\n- 顶栏展示当前 **审批类型** 徽章。\n\n### 5.1 占位符替换\n\n左侧表单变更时，预览内 `{{contractCode}}`、`{{customerName}}` 等变量实时替换。\n\n### 5.2 条件条款与附件章节\n\n按租赁订单车辆品牌型号，过滤模板中条件条款与附件章节绑定（与合同模板管理规则一致）。\n\n---\n\n---\n\n## 7. 审批类型判定\n\n| 类型 | 触发条件 |\n|---|---|\n| 标准合同 | 默认可编辑预览相对基线未改动风控红线条款 |\n| 非标准合同 | 预览中 `.ct-risk-redline[data-risk-redline=\"1\"]` 正文相对基线有增删改 |\n\n检测逻辑：`lease-contract-risk-detect.js` 对比基线 HTML 与当前合并页 HTML。\n\n保存草稿 / 提交审核时 Toast 展示将走的审批类型（原型）。\n\n---"
+              },
+              {
+                "type": "markdown",
+                "id": "lc-doc-node-lc-create-footer",
+                "title": "底栏操作",
+                "markdown": "## 8. 底栏操作\n\n| 按钮 | 行为 |\n|---|---|\n| 取消 / 返回列表 | 不保存，回列表 |\n| 保存草稿 | 保存为草稿，审批类型随检测结果记录 |\n| 提交审核 | 校验必填后发起审批流程 |\n\n---"
+              }
+            ]
+          },
+          {
+            "type": "markdown",
+            "id": "lc-doc-annotation-hint",
+            "title": "标注查看提示",
+            "markdown": "## 标注查看提示\n\n右侧标注工具栏可浏览目录、切换主题与颜色筛选。列表页与新增页标注按当前页面自动显隐。\n\n**PRD 同步**：修改 `src/resources/lease-contract-management/PRD.md` 或 `.spec/requirements-prd-*.md`、`.spec/requirements-flow-operations.md` 后，运行 `node src/prototypes/lease-contract-management/scripts/build-annotation-source.mjs` 重新生成 `annotation-source.json`（含 Mermaid 流程图预渲染为 SVG 图片）。"
+          }
+        ]
+      }
+    ]
+  }
+}

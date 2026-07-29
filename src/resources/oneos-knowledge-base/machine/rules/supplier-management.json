@@ -1,0 +1,64 @@
+{
+  "id": "supplier-management",
+  "line": "energy",
+  "name": "供应商管理",
+  "confidence": "architecture",
+  "roles": [
+    "能源",
+    "采购"
+  ],
+  "pages": [
+    {
+      "name": "供应商台账",
+      "purpose": "结算要素、资质与站点属性绑定"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "维护资质与结算要素",
+    "上传自动付款主体收款账户信息",
+    "绑定加氢/充电站属性",
+    "供站点与订单及付款任务引用"
+  ],
+  "reverse": [
+    {
+      "case": "资质过期",
+      "behavior": "提示或限制新站签约"
+    },
+    {
+      "case": "账户信息缺失",
+      "behavior": "禁止或标红阻断自动生成付款任务"
+    }
+  ],
+  "rules": [
+    "结算要素完整才可对账",
+    "保险公司等自动付款主体必须维护收款账户",
+    "付款任务自动带出打款信息告知财务"
+  ],
+  "forbidden": [
+    "无供应商主数据直接结算",
+    "账户不全静默自动出付款任务"
+  ],
+  "closedLoop": "供应商可被站点与对账及自动付款任务引用",
+  "triggers": [
+    {
+      "to": "oneos-web-h2-station-site",
+      "when": "建站绑定供应商"
+    },
+    {
+      "to": "insurance-procurement",
+      "when": "保险付款任务带出账户"
+    },
+    {
+      "to": "biz-finance-integration",
+      "when": "业财门禁"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "src/resources/业财一体化全链条方案-汇报稿.md",
+    "src/resources/oneos-knowledge-base/foundations/biz-finance-integration.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/供应商管理.jsx"
+  ],
+  "legacyMerged": true
+}

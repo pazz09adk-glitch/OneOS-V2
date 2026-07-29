@@ -1,0 +1,49 @@
+{
+  "id": "biz-vehicle-cost",
+  "line": "ops",
+  "name": "车辆成本维护",
+  "confidence": "legacy",
+  "roles": [
+    "业务",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "车辆成本维护",
+      "purpose": "单车成本项维护，支撑单车利润"
+    }
+  ],
+  "preconditions": [
+    "车辆 VIN 档案存在"
+  ],
+  "forward": [
+    "按车维护成本项",
+    "汇总查询",
+    "供盈亏引用"
+  ],
+  "reverse": [
+    {
+      "case": "无 VIN",
+      "behavior": "不可归集"
+    }
+  ],
+  "rules": [
+    "采购垫资与加装宜绑车架号"
+  ],
+  "forbidden": [
+    "成本无法追溯到车"
+  ],
+  "closedLoop": "单车成本可汇总进利润台账",
+  "triggers": [
+    {
+      "to": "business-dept-ledger",
+      "when": "盈亏引用"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/车辆成本维护.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/业务管理/车辆成本维护.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/业务管理/车辆成本维护.jsx"
+}

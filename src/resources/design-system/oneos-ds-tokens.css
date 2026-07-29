@@ -1,0 +1,244 @@
+/**
+ * OneOS V2 Design System — Global CSS Variables
+ * 事实源：tokens.json / DESIGN.md
+ * 主色与全站风格对齐为 Stripe Violet #533AFD (Linear 结构 + Stripe Violet)
+ * 完全支持 Light / Dark 双色模式无缝切换
+ */
+
+@import './oneos-ds-filter-affordance.css';
+
+:root {
+  /* Brand & RuoYi Dynamic Theme Color Bridge */
+  --oneos-primary: var(--ln-primary, #533afd);
+  --oneos-primary-hover: var(--ln-primary-hover, #6346ff);
+  --oneos-primary-focus: var(--ln-primary-focus, #4226e8);
+  --oneos-primary-soft: var(--ln-primary-soft, #e0e7ff);
+  --ln-primary: #533afd;
+  --ln-primary-hover: #6346ff;
+  --ln-primary-focus: #4226e8;
+  --ln-primary-soft: #e0e7ff;
+  --ln-primary-soft-solid: #eef2ff;
+  --ln-on-primary: #ffffff;
+  --ln-link: var(--oneos-primary, #533afd);
+
+  /* Neutral text */
+  --ln-ink: #0a2540;
+  --ln-body: #425466;
+  --ln-muted: #627d98;
+  --ln-muted-soft: #9fb3c8;
+
+  /* Surfaces */
+  --ln-canvas-parchment: #f6f9fc;
+  --ln-canvas-soft: #f8fafc;
+  --ln-surface-card: #ffffff;
+  --ln-surface-strong: #f1f5f9;
+  --ln-overlay: rgba(10, 37, 64, 0.45);
+
+  /* Borders */
+  --ln-hairline: #e3e8ee;
+  --ln-hairline-strong: #d4d4d8;
+
+  /* Semantic */
+  --ln-success: #10b981;
+  --ln-success-soft: #dcfce7;
+  --ln-warning: #d97706;
+  --ln-warning-soft: #fef3c7;
+  --ln-error: #ef4444;
+  --ln-error-soft: #fee2e2;
+  --ln-info: #3b82f6;
+  --ln-info-soft: #dbeafe;
+
+  /* Radius */
+  --ln-radius-xs: 4px;
+  --ln-radius-sm: 6px;
+  --ln-radius-control: 8px;
+  --ln-radius-card: 12px;
+  --ln-radius-xl: 16px;
+  --ln-radius-pill: 9999px;
+
+  /* Spacing scale */
+  --ln-space-1: 4px;
+  --ln-space-2: 8px;
+  --ln-space-3: 12px;
+  --ln-space-4: 16px;
+  --ln-space-5: 20px;
+  --ln-space-6: 24px;
+  --ln-space-8: 32px;
+  --ln-space-10: 40px;
+
+  /*
+   * 台账列表行高规范（母版：租赁合同枢纽）
+   * 所有 PC 数据列表 / 台账表必须消费下列 Token，禁止私自压扁行高。
+   */
+  --ln-table-cell-padding-y: 16px;
+  --ln-table-cell-padding-x: 20px;
+  --ln-table-row-min-height: 87px;
+  --ln-table-th-padding-y: 14px;
+  --ln-table-th-padding-x: 20px;
+
+  /* Typography */
+  --vm-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+  --vm-font-mono: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+}
+
+/* 原生 <table> 台账行高标准（可直接挂 class） */
+.ln-data-table thead th {
+  padding: var(--ln-table-th-padding-y) var(--ln-table-th-padding-x);
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.ln-data-table tbody td {
+  padding: var(--ln-table-cell-padding-y) var(--ln-table-cell-padding-x);
+  height: var(--ln-table-row-min-height);
+  min-height: var(--ln-table-row-min-height);
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+/* 暗色模式 Token 映射 (Stripe Dark Fintech) */
+[data-ds-mode="dark"],
+[data-oneos-theme="dark"],
+.dark {
+  --ln-primary: #533afd;
+  --ln-primary-hover: #6346ff;
+  --ln-primary-soft: rgba(83, 58, 253, 0.18);
+  --ln-primary-soft-solid: rgba(83, 58, 253, 0.25);
+  --ln-on-primary: #ffffff;
+  --ln-link: #818cf8;
+
+  --ln-ink: #f7fafc;
+  --ln-body: #a0aec0;
+  --ln-muted: #718096;
+  --ln-muted-soft: #4a5568;
+
+  --ln-canvas-parchment: #0a0b0d;
+  --ln-canvas-soft: #16181f;
+  --ln-surface-card: #121418;
+  --ln-surface-strong: #1e222d;
+  --ln-overlay: rgba(0, 0, 0, 0.65);
+
+  --ln-hairline: #23272f;
+  --ln-hairline-strong: #2d3748;
+
+  --ln-success: #10b981;
+  --ln-success-soft: rgba(16, 185, 129, 0.15);
+  --ln-warning: #d97706;
+  --ln-warning-soft: rgba(217, 119, 6, 0.15);
+  --ln-error: #ef4444;
+  --ln-error-soft: rgba(239, 68, 68, 0.15);
+  --ln-info: #3b82f6;
+  --ln-info-soft: rgba(59, 130, 246, 0.15);
+}
+
+/* Grid & Layout Utilities */
+.ds-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--ln-space-4);
+}
+@media (max-width: 1024px) {
+  .ds-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .ds-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--ln-space-4) var(--ln-space-3);
+  align-items: end;
+}
+
+.ds-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--ln-space-5);
+}
+
+.ds-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--ln-space-4);
+}
+
+.ds-split-layout {
+  display: flex;
+  gap: var(--ln-space-4);
+}
+.ds-split-sidebar {
+  width: 340px;
+  flex-shrink: 0;
+}
+.ds-split-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* —— §3.1.2 表单字段必填 / 选填胶囊 —— */
+.v2-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-ink, #0a2540);
+  line-height: 1.4;
+}
+
+.v2-field-label__text {
+  min-width: 0;
+}
+
+.v2-field-req-pill,
+.v2-field-opt-pill {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.v2-field-req-pill {
+  font-weight: 700;
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.v2-field-opt-pill {
+  font-weight: 600;
+  color: var(--ln-body, #425466);
+  background: var(--ln-surface-pearl, #f8fafc);
+  border: 1px solid var(--ln-hairline, #e3e8ee);
+}
+
+[data-ds-mode='dark'] .v2-field-label,
+[data-oneos-theme='dark'] .v2-field-label {
+  color: var(--ln-ink, #f7fafc);
+}
+
+[data-ds-mode='dark'] .v2-field-req-pill,
+[data-oneos-theme='dark'] .v2-field-req-pill {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+[data-ds-mode='dark'] .v2-field-opt-pill,
+[data-oneos-theme='dark'] .v2-field-opt-pill {
+  color: var(--ln-muted, #a0aec0);
+  background: var(--ln-surface-pearl, #16181f);
+  border-color: var(--ln-hairline, #23272f);
+}

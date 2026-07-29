@@ -1,0 +1,65 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-payment-hub",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-pay-kpi",
+        "index": 1,
+        "title": "关联状态 KPI",
+        "pageId": "list",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfcl-pay-kpi']"],
+          "fingerprint": "div|bfcl-pay-kpi",
+          "path": []
+        },
+        "aiPrompt": "待关联/部分/已闭环统计",
+        "annotationText": "财务流水先进入系统，再由业务/能源/采购关联业务单据；KPI 反映闭环进度。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-pay-gate",
+        "index": 2,
+        "title": "关联门禁",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfcl-pay-gate']"],
+          "fingerprint": "section|bfcl-pay-gate",
+          "path": []
+        },
+        "aiPrompt": "无关联不得假性结清",
+        "annotationText": "未闭环不可标记已结清；取消已闭环关联需复核拦截。关联成功回写业务实收/实付。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "bfcl-pay-prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "bfcl-pay-hub-link",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

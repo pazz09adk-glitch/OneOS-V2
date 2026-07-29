@@ -1,0 +1,56 @@
+{
+  "id": "ops-vehicle-delivery",
+  "line": "ops",
+  "name": "交车管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维",
+    "业务"
+  ],
+  "pages": [
+    {
+      "name": "交车管理",
+      "purpose": "区域派单、培训留痕、电子签、交车单"
+    }
+  ],
+  "preconditions": [
+    "提车款对齐（租赁）",
+    "已备车",
+    "交车任务存在"
+  ],
+  "forward": [
+    "办理交车单",
+    "司机培训/电子签",
+    "提交交车成功"
+  ],
+  "reverse": [
+    {
+      "case": "首款未对齐",
+      "behavior": "不可交车"
+    },
+    {
+      "case": "未备车",
+      "behavior": "拦截"
+    }
+  ],
+  "rules": [
+    "交车成功写车辆履约态并触发租赁台账"
+  ],
+  "forbidden": [
+    "断头办结无状态回写"
+  ],
+  "closedLoop": "交车成功且生命周期留痕",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态/事件回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/交车管理.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/交车管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/交车管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/交车管理.jsx"
+}

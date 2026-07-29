@@ -1,0 +1,71 @@
+{
+  "id": "vehicle-pickup-receivable",
+  "line": "lease",
+  "name": "提车应收款",
+  "confidence": "architecture",
+  "roles": [
+    "财务",
+    "业务员"
+  ],
+  "pages": [
+    {
+      "name": "应收台账",
+      "purpose": "提车前应收与实收匹配分配"
+    },
+    {
+      "name": "对齐办理",
+      "purpose": "关联收款记录并触发交车"
+    }
+  ],
+  "preconditions": [
+    "租赁合同已生效且存在提车应收"
+  ],
+  "forward": [
+    "导入/同步收款流水",
+    "应收与实收匹配分配",
+    "对齐完成触发运维交车任务"
+  ],
+  "reverse": [
+    {
+      "case": "金额未对齐",
+      "behavior": "不可触发交车"
+    },
+    {
+      "case": "重复分配超额",
+      "behavior": "拦截"
+    }
+  ],
+  "rules": [
+    "对齐是交车门禁",
+    "与收款记录双向关联",
+    "≤15日提车：剩余天租金+保证金+剩余天服务费；＞15日：当月+下月整月+保证金+整月服务费",
+    "先开票审批后开票上传；后开票关联收款后开票",
+    "实收不足须特批才可交车"
+  ],
+  "forbidden": [
+    "未收款对齐强制交车",
+    "无关联假性付清"
+  ],
+  "closedLoop": "提车款对齐且交车任务已生成",
+  "triggers": [
+    {
+      "to": "oneos-web-ops",
+      "when": "对齐后生成交车任务"
+    },
+    {
+      "to": "payment-records",
+      "when": "关联收款"
+    },
+    {
+      "to": "biz-finance-integration",
+      "when": "业财门禁"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "src/resources/业财一体化全链条方案-汇报稿.md",
+    "src/resources/oneos-knowledge-base/foundations/biz-finance-integration.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/财务管理/提车应收款.jsx"
+  ],
+  "legacyMerged": true
+}

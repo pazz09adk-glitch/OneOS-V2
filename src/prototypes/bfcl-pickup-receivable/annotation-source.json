@@ -1,0 +1,46 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-pickup-receivable",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-pu-algo",
+        "index": 1,
+        "title": "15日前后算法",
+        "pageId": "detail",
+        "locator": { "selectors": ["[data-annotation-id='bfcl-pu-algo']"], "fingerprint": "section|bfcl-pu-algo", "path": [] },
+        "aiPrompt": "提车应收算法",
+        "annotationText": "≤15日：剩余天租金+保证金+剩余天服务费；＞15日：当月+下月整月+保证金+整月服务费。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-pu-gate",
+        "index": 2,
+        "title": "交车门禁",
+        "pageId": "detail",
+        "locator": { "selectors": ["[data-annotation-id='bfcl-pu-gate']"], "fingerprint": "section|bfcl-pu-gate", "path": [] },
+        "aiPrompt": "付清或特批才可交车",
+        "annotationText": "实收=应收可交车；不足须特批。无关联不得假性付清。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      { "type": "markdown", "id": "prd", "title": "产品需求说明（PRD）", "markdownPath": ".spec/requirements-prd.md" },
+      { "type": "link", "id": "hub", "title": "返回业财闭环总览", "href": "/prototypes/biz-finance-closed-loop/", "target": "self" }
+    ]
+  }
+}

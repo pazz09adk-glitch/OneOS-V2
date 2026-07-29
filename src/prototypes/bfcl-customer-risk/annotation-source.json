@@ -1,0 +1,65 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-customer-risk",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-risk-scores",
+        "index": 1,
+        "title": "三维评分",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfcl-risk-scores']"],
+          "fingerprint": "div|bfcl-risk-scores",
+          "path": []
+        },
+        "aiPrompt": "法务/安全/财务三维评分",
+        "annotationText": "法务每3月自动法律评估；安全按违规；财务按逾期。综合分与红线驱动新签特批与强制收车。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-risk-context",
+        "index": 2,
+        "title": "分级与宽限",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfcl-risk-context']"],
+          "fingerprint": "section|bfcl-risk-context",
+          "path": []
+        },
+        "aiPrompt": "KA15 LA10 SMB6",
+        "annotationText": "客户分级由业管维护；账单宽限 KA15/LA10/SMB6 日，超宽限即逾期。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "bfcl-risk-prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "bfcl-risk-hub-link",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "bfcl-contract",
+    "pageId": "list",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfcl-ct-lock",
+        "index": 1,
+        "title": "合同即规则",
+        "pageId": "detail",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-ct-lock']"
+          ],
+          "fingerprint": "section|bfcl-ct-lock",
+          "path": []
+        },
+        "aiPrompt": "锁死提车账单还车",
+        "annotationText": "合同条款与标准模板锁死；提车应收/账单/还车应结/里程一对一由本合同驱动。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-ct-status",
+        "index": 2,
+        "title": "签章催办",
+        "pageId": "detail",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id='bfcl-ct-status']"
+          ],
+          "fingerprint": "section|bfcl-ct-status",
+          "path": []
+        },
+        "aiPrompt": "未闭环催办常驻",
+        "annotationText": "E签宝或线下盖章回传法务补附件；未闭环工作台催办常驻。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      },
+      {
+        "type": "link",
+        "id": "hub",
+        "title": "返回业财闭环总览",
+        "href": "/prototypes/biz-finance-closed-loop/",
+        "target": "self"
+      }
+    ]
+  }
+}

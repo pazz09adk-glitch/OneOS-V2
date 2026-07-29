@@ -1,0 +1,49 @@
+{
+  "id": "oneos-web-crm-erp-sandbox",
+  "line": "platform",
+  "name": "ONEOS-web CRM/ERP 试验",
+  "confidence": "building",
+  "roles": [
+    "产品"
+  ],
+  "pages": [
+    {
+      "name": "CRM 客户/供应商/维修",
+      "purpose": "早期 CRM 试验页"
+    },
+    {
+      "name": "ERP 订单管理",
+      "purpose": "早期 ERP 试验"
+    },
+    {
+      "name": "合同管理/资产管理",
+      "purpose": "试验目录"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "仅作历史参考",
+    "正式能力以 V2/主站模块为准"
+  ],
+  "reverse": [
+    {
+      "case": "与主站重复",
+      "behavior": "不双轨并行验收"
+    }
+  ],
+  "rules": [
+    "试验页不等于现网"
+  ],
+  "forbidden": [
+    "按试验页直接开发覆盖主站口径"
+  ],
+  "closedLoop": "试验结论沉淀进主站规则卡",
+  "triggers": [],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/CRM/",
+    "~/Desktop/CURSOR/ONE-OS/ONEOS-web/ERP/"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/ONEOS-web/",
+  "legacyPath": null
+}

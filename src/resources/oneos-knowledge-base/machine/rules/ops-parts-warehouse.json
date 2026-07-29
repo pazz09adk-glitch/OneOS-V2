@@ -1,0 +1,52 @@
+{
+  "id": "ops-parts-warehouse",
+  "line": "ops",
+  "name": "备件库存 / 仓库管理",
+  "confidence": "legacy",
+  "roles": [
+    "仓管",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "仓库管理",
+      "purpose": "仓库主数据"
+    },
+    {
+      "name": "备件库存",
+      "purpose": "备件进出与库存"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "维护仓库",
+    "出入库",
+    "库存查询"
+  ],
+  "reverse": [
+    {
+      "case": "库存不足",
+      "behavior": "出库拦截或告警"
+    }
+  ],
+  "rules": [
+    "备件消耗可关联维修（若启用）"
+  ],
+  "forbidden": [
+    "负库存无审批长期存在"
+  ],
+  "closedLoop": "库存账实可核对",
+  "triggers": [
+    {
+      "to": "vehicle-maintenance-ledger",
+      "when": "维修领料（若打通）"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/备件管理/备件库存.jsx",
+    "src/resources/oneos-web-legacy/运维管理/备件管理/备件库存.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/备件管理/",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/备件管理/"
+}

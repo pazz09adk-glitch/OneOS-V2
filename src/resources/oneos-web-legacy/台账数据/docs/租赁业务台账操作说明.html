@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ONE-OS · 租赁业务台账操作说明</title>
+<style>
+@page { size: A4; margin: 18mm 16mm 20mm; }
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+  color: #0f172a; line-height: 1.65; font-size: 11pt; margin: 0; background: #fff;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.cover {
+  min-height: 260mm; display: flex; flex-direction: column; justify-content: center;
+  padding: 48px 40px; background: linear-gradient(145deg, #0c1222 0%, #132337 42%, #0f4c47 100%);
+  color: #fff; page-break-after: always;
+}
+.cover-tag { display: inline-block; font-size: 11pt; font-weight: 600; padding: 6px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.14); color: #a7f3d0; margin-bottom: 20px; }
+.cover h1 { font-size: 32pt; font-weight: 800; margin: 0 0 16px; letter-spacing: -0.02em; }
+.cover-desc { font-size: 13pt; color: rgba(255,255,255,0.78); max-width: 520px; margin: 0 0 36px; }
+.cover-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 560px; }
+.cover-kpi { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px; }
+.cover-kpi-val { font-size: 22pt; font-weight: 800; color: #5eead4; }
+.cover-kpi-lbl { font-size: 10pt; color: rgba(255,255,255,0.62); margin-top: 4px; }
+.cover-meta { margin-top: 48px; font-size: 10pt; color: rgba(255,255,255,0.55); }
+.content { padding: 0 40px 40px; max-width: 210mm; margin: 0 auto; }
+.toc { page-break-after: always; padding: 40px 0; }
+.toc h2 { font-size: 18pt; margin: 0 0 20px; }
+.toc ol { padding-left: 22px; font-size: 12pt; }
+.toc li { margin: 8px 0; }
+.toc a { color: #0f766e; text-decoration: none; }
+h2.section { font-size: 16pt; font-weight: 800; margin: 28px 0 12px; padding-bottom: 8px;
+  border-bottom: 2px solid #10b981; page-break-after: avoid; }
+h3 { font-size: 12pt; font-weight: 700; color: #334155; margin: 20px 0 8px; page-break-after: avoid; }
+p, li { color: #334155; }
+.panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 18px; margin: 14px 0; }
+.callout { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 12px 14px; margin: 14px 0; font-size: 10.5pt; color: #92400e; }
+.callout strong { color: #b45309; }
+.algo { background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%); border: 1px solid #bbf7d0; border-radius: 10px;
+  padding: 12px 14px; margin: 12px 0; font-family: ui-monospace, monospace; font-size: 10pt; color: #065f46; }
+table { width: 100%; border-collapse: collapse; font-size: 10pt; margin: 12px 0; }
+th { background: #f1f5f9; text-align: left; padding: 10px 12px; font-weight: 700; border: 1px solid #e2e8f0; }
+td { padding: 10px 12px; border: 1px solid #e2e8f0; vertical-align: top; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 9pt; font-weight: 600; }
+.tag-default { background: #f1f5f9; color: #475569; }
+.tag-orange { background: #fff7ed; color: #c2410c; }
+.tag-purple { background: #f5f3ff; color: #6d28d9; }
+.tag-blue { background: #eff6ff; color: #1d4ed8; }
+.tag-green { background: #ecfdf5; color: #047857; }
+.flow-wrap { overflow-x: auto; margin: 16px 0; page-break-inside: avoid; }
+.flow-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.figure { margin: 16px 0; page-break-inside: avoid; }
+.figure img { max-width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+.figure-cap { font-size: 10pt; color: #64748b; text-align: center; margin-top: 8px; }
+.page-break { page-break-before: always; }
+.footer-note { text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 40px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+ul.compact { margin: 8px 0; padding-left: 20px; }
+ul.compact li { margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<div class="cover">
+  <span class="cover-tag">ONE-OS · 台账数据</span>
+  <h1>租赁业务台账<br/>操作说明</h1>
+  <p class="cover-desc">从明细录入、保存、批量生成账单、发起收款审批到财务审批闭环的完整操作指南。含状态流转、拆单算法与审批分支说明。</p>
+  <div class="cover-kpis">
+    <div class="cover-kpi"><div class="cover-kpi-val">5</div><div class="cover-kpi-lbl">明细状态</div></div>
+    <div class="cover-kpi"><div class="cover-kpi-val">2</div><div class="cover-kpi-lbl">审批分支</div></div>
+    <div class="cover-kpi"><div class="cover-kpi-val">8</div><div class="cover-kpi-lbl">操作章节</div></div>
+    <div class="cover-kpi"><div class="cover-kpi-val">10</div><div class="cover-kpi-lbl">场景问答</div></div>
+  </div>
+  <div class="cover-meta">
+    适用模块：台账数据 / 租赁业务运营明细台账 · 租赁收款账单管理<br/>
+    适用角色：客服（操作员）、客服主管、财务<br/>
+    文档版本：V1.0 &nbsp;|&nbsp; 更新日期：2026-06-09<br/>
+    路径：ONE-OS web端「租赁业务台账」
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 目录 -->
+<div class="toc" id="toc">
+  <h2>目录</h2>
+  <ol>
+    <li><a href="#s1">角色与权限</a></li>
+    <li><a href="#s2">明细状态总览</a></li>
+    <li><a href="#s3">端到端主流程</a></li>
+    <li><a href="#s4">操作员：新增与导入</a></li>
+    <li><a href="#s5">操作员：保存与校验</a></li>
+    <li><a href="#s6">批量生成账单与预览确认</a></li>
+    <li><a href="#s7">账单管理与异常分支</a></li>
+    <li><a href="#s8">财务审批流（先开 / 后开）</a></li>
+    <li><a href="#s9">关键算法与字段逻辑</a></li>
+    <li><a href="#s10">常见场景问答</a></li>
+    <li><a href="#s11">操作速查表</a></li>
+  </ol>
+</div>
+
+<!-- 1 角色 -->
+<h2 class="section" id="s1">一、角色与权限</h2>
+<table>
+  <thead><tr><th style="width:100px">角色</th><th>权限摘要</th></tr></thead>
+  <tbody>
+    <tr><td><strong>客服（操作员）</strong></td><td>仅可查看、维护<strong>本人</strong>台账明细；可新增/导入、保存、勾选已保存记录提交收款审批、在账单预览中生成对账单并发起审批。</td></tr>
+    <tr><td><strong>客服主管</strong></td><td>可查看<strong>全部</strong>客服明细；对「审批通过」记录可编辑、删除；无需执行保存/提交收款审批操作。</td></tr>
+    <tr><td><strong>财务</strong></td><td>在「账单管理」中对审批中账单执行审批：上传发票、填写到账金额、上传收款凭据；支持驳回。</td></tr>
+  </tbody>
+</table>
+
+<!-- 2 状态 -->
+<h2 class="section" id="s2">二、明细状态总览</h2>
+<p>每条台账明细带有独立状态，与账单状态联动。请按顺序理解，不可跳步。</p>
+<table>
+  <thead><tr><th>状态</th><th>标签色</th><th>说明</th><th>可否勾选</th><th>可否编辑</th></tr></thead>
+  <tbody>
+    <tr><td><span class="tag tag-default">待保存</span></td><td>灰</td><td>新增一行或 CSV 导入后，尚未点击「保存」。</td><td>否</td><td>是（本人）</td></tr>
+    <tr><td><span class="tag tag-orange">已保存</span></td><td>橙</td><td>点击「保存」后；可勾选并提交收款审批。</td><td><strong>是</strong></td><td>需点「编辑」</td></tr>
+    <tr><td><span class="tag tag-purple">已生成账单</span></td><td>紫</td><td>提交收款审批后已归入某份账单，待预览确认/发起审批。</td><td>否</td><td>否（账单锁定）</td></tr>
+    <tr><td><span class="tag tag-blue">审批中</span></td><td>蓝</td><td>已发起收款审批，等待财务处理。</td><td>否（禁用）</td><td>否</td></tr>
+    <tr><td><span class="tag tag-green">审批通过</span></td><td>绿</td><td>财务审批闭环完成，到账与附件已回写。</td><td>否</td><td>仅主管</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>记忆要点：</strong>只有「已保存」可多选；「已生成账单」「审批中」在账单流程中锁定；审批通过后明细与账单均闭环。</div>
+
+<!-- 3 主流程 -->
+<h2 class="section" id="s3">三、端到端主流程</h2>
+<p>下图展示从录入到财务闭环的完整路径，含主要分支出口。</p>
+<div class="flow-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/></marker>
+    <style>.bx{fill:#fff;stroke:#cbd5e1;stroke-width:1.5;rx:8}.bx-g{fill:#ecfdf5;stroke:#10b981}.bx-o{fill:#fff7ed;stroke:#f97316}.bx-p{fill:#f5f3ff;stroke:#8b5cf6}.bx-b{fill:#eff6ff;stroke:#3b82f6}.bx-gr{fill:#ecfdf5;stroke:#059669}.t{font:600 11px PingFang SC,sans-serif;fill:#0f172a}.ts{font:10px PingFang SC,sans-serif;fill:#64748b}</style>
+  </defs>
+  <rect class="bx" x="280" y="16" width="160" height="40"/><text class="t" x="360" y="41" text-anchor="middle">新增一行 / CSV导入</text>
+  <line x1="360" y1="56" x2="360" y2="76" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx" x="280" y="76" width="160" height="40"/><text class="t" x="360" y="101" text-anchor="middle">待保存</text>
+  <line x1="360" y1="116" x2="360" y2="136" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-o" x="270" y="136" width="180" height="40"/><text class="t" x="360" y="161" text-anchor="middle">点击「保存」→ 已保存</text>
+  <line x1="360" y1="176" x2="360" y2="196" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-o" x="230" y="196" width="260" height="48"/><text class="t" x="360" y="218" text-anchor="middle">勾选已保存记录</text><text class="ts" x="360" y="234" text-anchor="middle">可多客户、多月份</text>
+  <line x1="360" y1="244" x2="360" y2="264" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-g" x="200" y="264" width="320" height="48"/><text class="t" x="360" y="286" text-anchor="middle">提交收款审批 → 按客户·账单月·项目拆单</text><text class="ts" x="360" y="302" text-anchor="middle">明细 → 已生成账单；弹出账单预览</text>
+  <line x1="360" y1="312" x2="360" y2="332" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-p" x="240" y="332" width="240" height="40"/><text class="t" x="360" y="357" text-anchor="middle">账单预览：生成PDF / 发起审批</text>
+  <line x1="360" y1="372" x2="360" y2="392" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-b" x="260" y="392" width="200" height="40"/><text class="t" x="360" y="417" text-anchor="middle">审批中</text>
+  <line x1="360" y1="432" x2="360" y2="452" stroke="#64748b" marker-end="url(#arr)"/>
+  <rect class="bx-gr" x="240" y="452" width="240" height="40"/><text class="t" x="360" y="477" text-anchor="middle">审批通过（闭环）</text>
+  <!-- 分支：取消 -->
+  <line x1="520" y1="352" x2="600" y2="352" stroke="#dc2626" marker-end="url(#arr)"/>
+  <rect class="bx" x="600" y="332" width="100" height="40" stroke="#fca5a5"/><text class="ts" x="650" y="357" text-anchor="middle">取消账单</text>
+  <line x1="650" y1="372" x2="650" y2="156" stroke="#dc2626" stroke-dasharray="4" marker-end="url(#arr)"/>
+  <text class="ts" x="662" y="260">明细回</text><text class="ts" x="662" y="274">已保存</text>
+  <!-- 分支：撤回 -->
+  <line x1="240" y1="412" x2="120" y2="412" stroke="#d97706" marker-end="url(#arr)"/>
+  <rect class="bx" x="20" y="392" width="100" height="40" stroke="#fcd34d"/><text class="ts" x="70" y="417" text-anchor="middle">撤回审批</text>
+  <line x1="70" y1="392" x2="70" y2="352" stroke="#d97706" marker-end="url(#arr)"/>
+  <text class="ts" x="12" y="376">回待确认</text>
+</svg>
+</div>
+<p class="figure-cap">图 1 · 租赁业务台账端到端主流程（含取消/撤回分支）</p>
+
+<div class="page-break"></div>
+
+<!-- 4 新增导入 -->
+<h2 class="section" id="s4">四、操作员：新增与导入</h2>
+<h3>4.1 新增一行</h3>
+<ul class="compact">
+  <li>点击表格底部虚线按钮「+ 新增一行」，或工具栏（原型中底部为主入口）。</li>
+  <li>系统追加空白可编辑行，状态为 <span class="tag tag-default">待保存</span>，归属当前登录客服。</li>
+  <li>填写年份、月份、账单日期、车牌、客户等必填项；选择车牌后自动带出车型、客户、合同、标准成本等。</li>
+</ul>
+<h3>4.2 CSV 导入</h3>
+<ul class="compact">
+  <li>点击「导入」→ 下载模板 → 填写后上传 .csv 文件。</li>
+  <li>解析成功的记录均为 <span class="tag tag-default">待保存</span>，归属当前客服。</li>
+  <li>导入后须点击「保存」才会变为 <span class="tag tag-orange">已保存</span>。</li>
+</ul>
+
+<!-- 5 保存 -->
+<h2 class="section" id="s5">五、操作员：保存与校验</h2>
+<h3>5.1 保存规则</h3>
+<ul class="compact">
+  <li>仅将本人 <strong>待保存</strong> 记录批量更新为 <strong>已保存</strong>。</li>
+  <li>保存前校验必填项：年份、月份、部门、业务员、账单日期、车牌、客户名称。</li>
+  <li>保存时触发系统比对警告（不阻断保存）：押金、合同标的租金与系统合同不一致时显示警告图标。</li>
+</ul>
+<h3>5.2 保存后编辑</h3>
+<p>已保存记录默认只读展示；需点击操作列「编辑」进入编辑模式，修改完成后点「完成」。</p>
+
+<!-- 6 拆单 -->
+<h2 class="section" id="s6">六、批量生成账单与预览确认</h2>
+<h3>6.1 提交收款审批（拆单入口）</h3>
+<ol>
+  <li>在明细表左侧勾选一条或多条 <span class="tag tag-orange">已保存</span> 记录。</li>
+  <li>点击工具栏「提交收款审批」。</li>
+  <li>系统按拆单算法生成 1～N 份账单，明细状态变为 <span class="tag tag-purple">已生成账单</span>。</li>
+  <li>自动打开「账单预览」弹窗，标题显示「第 x 份 / 共 y 份」，可逐份确认。</li>
+</ol>
+
+<h3>6.2 拆单算法（关键逻辑）</h3>
+<div class="algo">
+  分组键 = 客户名称 + 账单年 + 账单月 + 合同编码（无合同则用项目名称）<br/>
+  同一分组键下的明细 → 合并为 1 份账单<br/>
+  支持一次勾选：<strong>多个客户</strong>、<strong>多个账单月</strong>、<strong>多个项目/合同</strong>
+</div>
+<table>
+  <thead><tr><th>勾选场景</th><th>拆单结果</th></tr></thead>
+  <tbody>
+    <tr><td>同客户、同月、同一合同下 3 条车</td><td>1 份账单，含 3 条明细行</td></tr>
+    <tr><td>同客户、同月、两个不同合同/项目</td><td>2 份账单，各含对应明细</td></tr>
+    <tr><td>客户 A 1月 + 客户 B 10月 各勾选若干条</td><td>按客户×月份×项目分别拆成多份</td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 账单预览卡片</h3>
+<p>每份账单预览包含：</p>
+<ul class="compact">
+  <li><strong>摘要区：</strong>客户名称、项目名称、账单周期、账单日、实收总额、开票方式（先开/后开）、到账金额、签约公司</li>
+  <li><strong>附件区：</strong>收款凭据、发票附件（审批前为「—」，财务填写后支持预览/下载）</li>
+  <li><strong>明细表：</strong>车牌号、账单日期、提车/退车日期、起始日期、应收合计、减免金额、实收金额</li>
+  <li><strong>底部操作：</strong>「生成该对账单」（PDF，含签约公司付款账户）、「发起收款审批」</li>
+</ul>
+<div class="figure">
+  <img src="lease-bill-preview-screenshot.png" alt="账单预览界面截图" width="680"/>
+  <div class="figure-cap">图 2 · 账单预览弹窗（摘要卡片 + 明细表 + 操作按钮）</div>
+</div>
+
+<h3>6.4 发起收款审批</h3>
+<ul class="compact">
+  <li>在预览中点击「发起收款审批」→ 提示「收款审批已发起」。</li>
+  <li>该账单状态 → 审批中；所含明细 → <span class="tag tag-blue">审批中</span>。</li>
+  <li>自动切换至下一份待确认账单；全部处理完后关闭预览。</li>
+  <li>已生成账单同步出现在「账单管理」列表中。</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- 7 账单管理 -->
+<h2 class="section" id="s7">七、账单管理与异常分支</h2>
+<h3>7.1 账单管理列表</h3>
+<p>入口：工具栏「账单管理」（位于「保存」左侧）。列表字段：</p>
+<table>
+  <thead><tr><th>字段</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>状态</td><td>待确认 / 审批中 / 审批通过 / 已驳回 / 已取消</td></tr>
+    <tr><td>账单周期</td><td>如 2026年1月</td></tr>
+    <tr><td>客户名称、项目名称</td><td>拆单维度展示</td></tr>
+    <tr><td>实收金额</td><td>该账单下明细实收合计</td></tr>
+    <tr><td>操作</td><td>继续确认、取消账单、撤回、财务审批（原型模拟）</td></tr>
+  </tbody>
+</table>
+
+<h3>7.2 异常分支流程</h3>
+<div class="flow-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="680" height="280">
+  <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/></marker></defs>
+  <rect fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="8" x="260" y="20" width="160" height="36"/><text font="600 11px PingFang SC" x="340" y="43" text-anchor="middle" fill="#0f172a">审批中</text>
+  <line x1="200" y1="56" x2="120" y2="100" stroke="#d97706" marker-end="url(#a2)"/>
+  <rect fill="#fff" stroke="#fcd34d" rx="8" x="40" y="100" width="160" height="36"/><text font="11px PingFang SC" x="120" y="123" text-anchor="middle">撤回 → 待确认</text>
+  <text font="10px PingFang SC" x="24" y="90" fill="#64748b">明细→已生成账单</text>
+  <line x1="340" y1="56" x2="340" y2="100" stroke="#dc2626" marker-end="url(#a2)"/>
+  <rect fill="#fff" stroke="#fca5a5" rx="8" x="260" y="100" width="160" height="36"/><text font="11px PingFang SC" x="340" y="123" text-anchor="middle">财务驳回</text>
+  <text font="10px PingFang SC" x="300" y="148" text-anchor="middle" fill="#64748b">账单→已驳回；明细→已生成账单</text>
+  <line x1="480" y1="56" x2="560" y2="100" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#fff" stroke="#cbd5e1" rx="8" x="480" y="100" width="160" height="36"/><text font="11px PingFang SC" x="560" y="123" text-anchor="middle">取消账单</text>
+  <text font="10px PingFang SC" x="500" y="90" fill="#dc2626">审批中不可取消</text>
+  <text font="10px PingFang SC" x="488" y="148" text-anchor="middle" fill="#64748b">明细释放→已保存</text>
+  <line x1="120" y1="136" x2="120" y2="180" stroke="#64748b" marker-end="url(#a2)"/>
+  <line x1="340" y1="136" x2="340" y2="180" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#fff7ed" stroke="#f97316" rx="8" x="200" y="180" width="280" height="40"/><text font="600 11px PingFang SC" x="340" y="205" text-anchor="middle">修改明细 → 重新勾选 → 提交收款审批</text>
+</svg>
+</div>
+<p class="figure-cap">图 3 · 审批异常与回退分支</p>
+
+<table>
+  <thead><tr><th>操作</th><th>适用状态</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td><strong>取消账单</strong></td><td>待确认、已驳回（非审批中）</td><td>账单→已取消；明细 billId 清空，状态→已保存，可修改后重新提交</td></tr>
+    <tr><td><strong>撤回</strong></td><td>审批中</td><td>账单→待确认；明细→已生成账单</td></tr>
+    <tr><td><strong>撤回</strong></td><td>审批通过（原型）</td><td>账单→待确认；明细→已生成账单，可再取消释放</td></tr>
+    <tr><td><strong>财务驳回</strong></td><td>审批中</td><td>账单→已驳回；明细→已生成账单；建议取消账单后修改重提</td></tr>
+  </tbody>
+</table>
+
+<!-- 8 财务 -->
+<h2 class="section" id="s8">八、财务审批流（先开 / 后开）</h2>
+<p>开票方式取自车辆租赁合同配置，决定财务审批步骤数。</p>
+<div class="flow-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" width="700" height="320">
+  <text font="700 12px PingFang SC" x="175" y="24" text-anchor="middle" fill="#2563eb">后开（一次审批）</text>
+  <rect fill="#eff6ff" stroke="#3b82f6" rx="8" x="80" y="36" width="190" height="32"/><text font="11px PingFang SC" x="175" y="57" text-anchor="middle">审批中</text>
+  <line x1="175" y1="68" x2="175" y2="88" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#fff" stroke="#cbd5e1" rx="8" x="40" y="88" width="270" height="48"/><text font="10px PingFang SC" x="175" y="108" text-anchor="middle">上传收款凭据 + 到账金额 + 发票附件</text>
+  <line x1="175" y1="136" x2="175" y2="156" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#ecfdf5" stroke="#059669" rx="8" x="80" y="156" width="190" height="32"/><text font="11px PingFang SC" x="175" y="177" text-anchor="middle">审批通过</text>
+  <text font="700 12px PingFang SC" x="525" y="24" text-anchor="middle" fill="#7c3aed">先开（两步审批）</text>
+  <rect fill="#eff6ff" stroke="#3b82f6" rx="8" x="430" y="36" width="190" height="32"/><text font="11px PingFang SC" x="525" y="57" text-anchor="middle">审批中 · 步骤1</text>
+  <line x1="525" y1="68" x2="525" y2="88" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#f5f3ff" stroke="#8b5cf6" rx="8" x="390" y="88" width="270" height="40"/><text font="10px PingFang SC" x="525" y="113" text-anchor="middle">第一步：上传发票附件</text>
+  <line x1="525" y1="128" x2="525" y2="148" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#eff6ff" stroke="#3b82f6" rx="8" x="430" y="148" width="190" height="32"/><text font="11px PingFang SC" x="525" y="169" text-anchor="middle">审批中 · 步骤2</text>
+  <line x1="525" y1="180" x2="525" y2="200" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#fff" stroke="#cbd5e1" rx="8" x="390" y="200" width="270" height="40"/><text font="10px PingFang SC" x="525" y="225" text-anchor="middle">第二步：收款凭据 + 到账金额</text>
+  <line x1="525" y1="240" x2="525" y2="260" stroke="#64748b" marker-end="url(#a2)"/>
+  <rect fill="#ecfdf5" stroke="#059669" rx="8" x="430" y="260" width="190" height="32"/><text font="11px PingFang SC" x="525" y="281" text-anchor="middle">审批通过</text>
+</svg>
+</div>
+<p class="figure-cap">图 4 · 财务审批双分支（后开 / 先开）</p>
+<table>
+  <thead><tr><th>开票方式</th><th>财务步骤</th><th>回写字段</th><th>闭环后状态</th></tr></thead>
+  <tbody>
+    <tr><td>后开</td><td>一步：凭据 + 到账 + 发票</td><td>账单管理对应模块；明细列表同步</td><td>账单与明细均为审批通过</td></tr>
+    <tr><td>先开</td><td>① 发票附件 ② 凭据 + 到账</td><td>第一步后发票即可在账单中预览；第二步完成后到账回写</td><td>同上</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>到账金额：</strong>提交审批时显示「待财务填写」；审批通过前为「—」；财务填写后自动反写至账单管理与预览卡片。</div>
+
+<div class="page-break"></div>
+
+<!-- 9 算法 -->
+<h2 class="section" id="s9">九、关键算法与字段逻辑</h2>
+<h3>9.1 起始日期</h3>
+<div class="algo">
+  IF 提车日在账单月内 THEN 起始日期 = 提车日期（如 2025-10-15）<br/>
+  ELSE 起始日期 = 当月完整天数（如 10月 → 显示 31，非 10-01）
+</div>
+<h3>9.2 在租天数与平均天数</h3>
+<div class="algo">
+  在租天数 = 自起始日期起至退车日（未退车则至月末），含首尾日<br/>
+  平均天数 = 在租天数 ÷ 当月天数（保留 2 位小数）<br/>
+  实际成本 = 标准成本 × 平均天数
+</div>
+<h3>9.3 应收与实收</h3>
+<div class="algo">
+  应收合计 = 应收租金 + 保险上浮 + 运维费(收) + 其他收入<br/>
+  减免金额 = 里程减免 + 其他减免<br/>
+  实收金额 = 手填；未收 = 应收合计 - 实收金额 - 减免
+</div>
+<h3>9.4 合同匹配</h3>
+<p>根据 <strong>车牌 + 账单日期</strong> 匹配有效租赁合同，自动带出合同起止、月租、项目名、开票方式。合同日期/押金/租金与系统不一致时，保存后显示警告（可继续流程）。</p>
+<h3>9.5 账单实收总额</h3>
+<div class="algo">
+  账单.实收总额 = Σ(该账单下各明细.实收金额)，保留 2 位小数
+</div>
+
+<!-- 10 FAQ -->
+<h2 class="section" id="s10">十、常见场景问答</h2>
+<table>
+  <thead><tr><th style="width:36px">#</th><th>问题</th><th>解答</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>为什么勾选框是灰的？</td><td>仅「已保存」可勾选。已生成账单、审批中、审批通过均禁用。</td></tr>
+    <tr><td>2</td><td>能否一次选多个客户？</td><td>可以。系统按客户×账单月×项目自动拆成多份账单。</td></tr>
+    <tr><td>3</td><td>同客户同月两个合同怎么拆？</td><td>每个合同/项目各生成 1 份账单，预览中逐份确认。</td></tr>
+    <tr><td>4</td><td>审批中能改明细吗？</td><td>不能。须撤回或驳回后取消账单，明细回已保存再改。</td></tr>
+    <tr><td>5</td><td>审批中能取消账单吗？</td><td>不能。须先「撤回」审批，或等待驳回后再取消。</td></tr>
+    <tr><td>6</td><td>先开和后开区别？</td><td>后开：财务一次上传凭据+到账+发票；先开：先发票、再到账。</td></tr>
+    <tr><td>7</td><td>保存时押金警告能提交吗？</td><td>可以。警告不阻断保存与收款审批，但建议核对后提交。</td></tr>
+    <tr><td>8</td><td>起始日期为什么显示 31？</td><td>提车日不在账单月内时，显示当月总天数而非月初日期。</td></tr>
+    <tr><td>9</td><td>PDF 对账单含什么？</td><td>客户/项目/周期、明细表、实收总额、签约公司付款账户信息。</td></tr>
+    <tr><td>10</td><td>主管需要点保存吗？</td><td>不需要。主管主要维护审批通过后的历史数据。</td></tr>
+  </tbody>
+</table>
+
+<!-- 11 速查 -->
+<h2 class="section" id="s11">十一、操作速查表</h2>
+<table>
+  <thead><tr><th>操作</th><th>前置条件</th><th>结果状态</th></tr></thead>
+  <tbody>
+    <tr><td>新增/导入</td><td>登录为客服</td><td>明细 → 待保存</td></tr>
+    <tr><td>保存</td><td>本人待保存 + 必填完整</td><td>明细 → 已保存</td></tr>
+    <tr><td>提交收款审批</td><td>勾选已保存记录</td><td>拆单；明细 → 已生成账单；打开预览</td></tr>
+    <tr><td>生成该对账单</td><td>账单预览中</td><td>打开 PDF 打印预览</td></tr>
+    <tr><td>发起收款审批</td><td>账单待确认/已驳回</td><td>账单/明细 → 审批中</td></tr>
+    <tr><td>取消账单</td><td>非审批中</td><td>明细 → 已保存</td></tr>
+    <tr><td>撤回</td><td>审批中</td><td>明细 → 已生成账单</td></tr>
+    <tr><td>财务审批通过</td><td>审批中 + 附件/到账齐全</td><td>账单/明细 → 审批通过</td></tr>
+  </tbody>
+</table>
+
+<div class="footer-note">
+  ONE-OS 租赁业务台账操作说明 V1.0 · 生成日期 2026-06-09<br/>
+  依据租赁业务运营明细台账原型实现整理；正式环境以实际上线功能为准。疑问请联系数智部或产品负责人。
+</div>
+
+</div>
+</body>
+</html>

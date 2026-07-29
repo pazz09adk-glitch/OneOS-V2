@@ -1,0 +1,78 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "oneos-web-workbench-new",
+    "pageId": "workbench",
+    "updatedAt": 1785120000000,
+    "nodes": [
+      {
+        "id": "wb-customer-fleet",
+        "index": 1,
+        "title": "客户交车在租大盘",
+        "pageId": "workbench",
+        "locator": {
+          "selectors": ["[data-annotation-id=\"wb-customer-fleet\"]"],
+          "fingerprint": "div|data-annotation-id=wb-customer-fleet",
+          "path": []
+        },
+        "aiPrompt": "在租/租赁数量与占比；可搜索客户选择器；无 TOP 列表。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785120000000,
+        "updatedAt": 1785120000000
+      },
+      {
+        "id": "wb-kpi-grid",
+        "index": 2,
+        "title": "预警中心（模块分组）",
+        "pageId": "workbench",
+        "locator": {
+          "selectors": ["[data-annotation-id=\"wb-kpi-grid\"]"],
+          "path": []
+        },
+        "aiPrompt": "按功能模块分组的高密预警指标条，点击开明细。",
+        "annotationText": "按功能模块分组展示十余项预警；含紧急项的分组默认展开。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785120000000,
+        "updatedAt": 1785120000000
+      },
+      {
+        "id": "wb-cockpit",
+        "index": 3,
+        "title": "运营看板（角色绑定部门）",
+        "pageId": "workbench",
+        "locator": {
+          "selectors": ["[data-annotation-id=\"wb-cockpit\"]"],
+          "path": []
+        },
+        "aiPrompt": "Tab 切角色；内容由角色 boundDeptId 对应部门模板决定。",
+        "annotationText": "若依角色管理绑定部门后，多角色可共用同一部门运营看板；工作台按当前角色读取绑定部门渲染模板。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785120000000,
+        "updatedAt": 1785120000000
+      }
+    ]
+  },
+  "markdownMap": {
+    "wb-customer-fleet": "# 客户交车在租大盘\n\n- **在租数量 / 租赁数量**，占比 = 在租 ÷ 租赁\n- 右上角可搜索客户选择器，默认全部客户\n- 不展示 TOP 排名列表\n"
+  },
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "id": "prd-node",
+        "type": "markdown",
+        "title": "产品需求说明（PRD）",
+        "markdown": "# 工作台 (V2) · 产品需求说明\n\n- **快捷入口**：快速发起 + 功能入口，支持自定义钉选（按角色记忆）\n- **预警中心**：模块分组高密指标条（十余项）\n- **运营看板**：角色绑定部门 → 共用部门看板；多角色 Tab 切角色\n- **待办**：逾期优先 → 创建时间倒序；紧急程度/业务类型筛选；主管多通道催办\n- **审批**：四 Tab；抄送显示抄送内容；发起人可催办（邮件/短信/微信）\n- **通知/版本更新**：走「原型外壳演示」顶栏\n\n> 角色绑定部门能力归属若依用户中心 · 角色管理；本原型用 `boundDeptId` 演示。"
+      }
+    ]
+  }
+}

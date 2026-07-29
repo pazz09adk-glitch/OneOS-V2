@@ -1,0 +1,49 @@
+{
+  "id": "ops-certificates",
+  "line": "ops",
+  "name": "证照管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "证照管理",
+      "purpose": "一车一档证照维护与临期"
+    }
+  ],
+  "preconditions": [
+    "车辆档案存在"
+  ],
+  "forward": [
+    "维护证照",
+    "上传影像",
+    "临期处理"
+  ],
+  "reverse": [
+    {
+      "case": "沪牌",
+      "behavior": "等级评定特例见资产规则"
+    }
+  ],
+  "rules": [
+    "临期自动待办"
+  ],
+  "forbidden": [
+    "断头办结无状态回写"
+  ],
+  "closedLoop": "证照状态可指导交车合规",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态/事件回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/证照管理.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/证照管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/证照管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/证照管理.jsx"
+}

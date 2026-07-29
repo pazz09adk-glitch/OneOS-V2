@@ -1,0 +1,78 @@
+{
+  "id": "insurance-procurement",
+  "line": "ops",
+  "name": "保险采购",
+  "confidence": "confirmed",
+  "roles": [
+    "采购",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "保单台账",
+      "purpose": "一车一档保单检索、录入、停保复驶退保留痕"
+    }
+  ],
+  "preconditions": [
+    "车辆档案存在"
+  ],
+  "forward": [
+    "供应商账户信息齐备（保险公司等）",
+    "发起比价并审批通过",
+    "自动生成保险付款任务并带出打款账户",
+    "财务付款后关联保险付款单闭环",
+    "批量上传保单自动识别一车多保",
+    "回写资产保险状态"
+  ],
+  "reverse": [
+    {
+      "case": "交强或商业缺失/过期",
+      "behavior": "资产侧保险异常"
+    },
+    {
+      "case": "临期",
+      "behavior": "提示关注不阻断交车"
+    },
+    {
+      "case": "付款未闭环",
+      "behavior": "不可批量正式归档保单"
+    }
+  ],
+  "rules": [
+    "交车合规关注在保状态",
+    "变更必须留痕",
+    "比价审批通过自动生成付款任务并带供应商账户",
+    "保险付款单闭环后才可批量上传保单完成一车多保"
+  ],
+  "forbidden": [
+    "无留痕直接改保单状态",
+    "未付款闭环即批量正式归档保单"
+  ],
+  "closedLoop": "付款关联闭环且保单有效并回写车辆保险列",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "保险状态回写"
+    },
+    {
+      "to": "supplier-management",
+      "when": "读取保险公司账户"
+    },
+    {
+      "to": "payment-records",
+      "when": "保险付款关联"
+    },
+    {
+      "to": "biz-finance-integration",
+      "when": "业财门禁"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/insurance-procurement-autoprd.md",
+    "src/resources/业财一体化全链条方案-汇报稿.md",
+    "src/resources/oneos-knowledge-base/foundations/biz-finance-integration.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/保险采购.jsx",
+    "~/Desktop/CURSOR/ONE-OS/docs/保险采购-比价单操作手册.html"
+  ],
+  "legacyMerged": true
+}

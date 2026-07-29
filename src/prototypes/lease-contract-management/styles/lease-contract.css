@@ -1,0 +1,4014 @@
+/**
+ * 租赁合同管理 — Ant Design 控件与 vm 布局对齐
+ * 列表壳层与台账页对齐说明见 ledger-shared/DESIGN.md（ldb-page / lc-page）
+ */
+
+/* ==========================================================================
+   全模块表单控件统一（列表筛选 + 新增/编辑）
+   ========================================================================== */
+
+.vm-page.lc-page {
+  --lc-control-height: 36px;
+  --lc-control-border: var(--ln-hairline-strong);
+  --lc-control-border-hover: color-mix(in srgb, var(--ln-ink) 12%, var(--ln-hairline-strong));
+  --lc-control-radius: var(--ln-radius-control);
+  --lc-placeholder-color: var(--ln-muted-soft, #a1a1aa);
+  --lc-placeholder-font-size: 0.875rem;
+  --lc-placeholder-font-weight: 400;
+  --lc-placeholder-line-height: 1.5715;
+  --ant-color-text-placeholder: var(--lc-placeholder-color);
+  --ant-input-placeholder-color: var(--lc-placeholder-color);
+}
+
+/* 占位/提示文案：输入框、下拉、日期、自定义选择器统一 */
+.vm-page.lc-page input::placeholder,
+.vm-page.lc-page textarea::placeholder,
+.vm-page.lc-page .ant-input::placeholder,
+.vm-page.lc-page .ant-input-affix-wrapper input.ant-input::placeholder,
+.vm-page.lc-page .ant-input-outlined::placeholder,
+.vm-page.lc-page .ant-input-affix-wrapper.ant-input-outlined input.ant-input::placeholder,
+.vm-page.lc-page .ant-picker .ant-picker-input > input::placeholder,
+.vm-page.lc-page .ant-input-number .ant-input-number-input::placeholder,
+.vm-page.lc-page .ant-input-number-input::placeholder,
+.vm-page.lc-page .vm-filter-picker-input::placeholder,
+.vm-page.lc-page .vm-operate-city-edit-search-input::placeholder {
+  color: var(--lc-placeholder-color) !important;
+  -webkit-text-fill-color: var(--lc-placeholder-color) !important;
+  font-size: var(--lc-placeholder-font-size) !important;
+  font-weight: var(--lc-placeholder-font-weight) !important;
+  line-height: var(--lc-placeholder-line-height) !important;
+  opacity: 1 !important;
+}
+
+.vm-page.lc-page .ant-select .ant-select-placeholder,
+.vm-page.lc-page .ant-select-selection-placeholder,
+.vm-page.lc-page .ant-cascader .ant-select-placeholder {
+  color: var(--lc-placeholder-color) !important;
+  font-size: var(--lc-placeholder-font-size) !important;
+  font-weight: var(--lc-placeholder-font-weight) !important;
+  line-height: var(--lc-placeholder-line-height) !important;
+}
+
+.vm-page.lc-page .lc-customer-picker__placeholder,
+.vm-page.lc-page [class*="__summary"].is-placeholder,
+.vm-page.lc-page [class*="__summary-line"].is-placeholder,
+.vm-page.lc-page .vm-filter-picker-input.is-placeholder {
+  color: var(--lc-placeholder-color) !important;
+  font-size: var(--lc-placeholder-font-size) !important;
+  font-weight: var(--lc-placeholder-font-weight) !important;
+  line-height: var(--lc-placeholder-line-height) !important;
+}
+
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) {
+  --lc-placeholder-color: var(--ln-muted-soft, #a1a1aa);
+  --lc-placeholder-font-size: 0.875rem;
+  --lc-placeholder-font-weight: 400;
+  --lc-placeholder-line-height: 1.5715;
+}
+
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) input::placeholder,
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) textarea::placeholder,
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) .vm-operate-city-edit-search-input::placeholder,
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) .lc-lease-order-service-popover__search-input::placeholder,
+:is(
+  .lc-lease-order-service-popover,
+  .lc-business-dept-picker-popover,
+  .lc-lease-order-brand-model-picker-popover,
+  .lc-lease-order-plate-picker-popover,
+  .lc-lease-order-delivery-region-popover,
+  .lc-customer-picker-modal
+) .lc-customer-picker-modal__search::placeholder {
+  color: var(--lc-placeholder-color, var(--ln-muted-soft, #a1a1aa)) !important;
+  -webkit-text-fill-color: var(--lc-placeholder-color, var(--ln-muted-soft, #a1a1aa));
+  font-size: var(--lc-placeholder-font-size, 0.875rem) !important;
+  font-weight: var(--lc-placeholder-font-weight, 400) !important;
+  line-height: var(--lc-placeholder-line-height, 1.5715) !important;
+  opacity: 1 !important;
+}
+
+/* 边框与圆角：Ant Design 4 结构 */
+.vm-page.lc-page :is(
+  .ant-input:not(textarea):not(.ant-input-borderless),
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled),
+  .ant-input-number:not(.ant-input-number-borderless),
+  .ant-input-number .ant-input-number-group-wrapper,
+  .ant-select:not(.ant-select-borderless),
+  .ant-select .ant-select-selector,
+  .ant-cascader .ant-select-selector,
+  .ant-picker:not(.ant-picker-borderless),
+  .vm-filter-picker-control,
+  .lc-customer-picker__trigger,
+  .vm-input:not(textarea)
+) {
+  border-color: var(--lc-control-border) !important;
+}
+
+.vm-page.lc-page :is(
+  .ant-input:not(textarea):not(.ant-input-borderless),
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled),
+  .ant-input-number:not(.ant-input-number-borderless),
+  .ant-input-number .ant-input-number-group-wrapper,
+  .ant-select:not(.ant-select-borderless),
+  .ant-select .ant-select-selector,
+  .ant-cascader .ant-select-selector,
+  .ant-picker:not(.ant-picker-borderless),
+  .vm-filter-picker-control,
+  .lc-customer-picker__trigger,
+  .vm-input:not(textarea)
+):not([class*="-compact-item"]) {
+  border-radius: var(--lc-control-radius) !important;
+}
+
+/* 边框：Ant Design 5 outlined */
+.vm-page.lc-page :is(
+  .ant-select-outlined:not(.ant-select-borderless),
+  .ant-picker-outlined:not(.ant-picker-borderless),
+  .ant-input-number-outlined:not(.ant-input-number-borderless),
+  .ant-input-outlined:not(.ant-input-borderless),
+  .ant-input-affix-wrapper-outlined
+) {
+  border-color: var(--lc-control-border) !important;
+}
+
+.vm-page.lc-page :is(
+  .ant-select-outlined:not(.ant-select-borderless),
+  .ant-picker-outlined:not(.ant-picker-borderless),
+  .ant-input-number-outlined:not(.ant-input-number-borderless),
+  .ant-input-outlined:not(.ant-input-borderless),
+  .ant-input-affix-wrapper-outlined
+):not([class*="-compact-item"]) {
+  border-radius: var(--lc-control-radius) !important;
+}
+
+/* 输入框 + 后缀/前缀单位：外层统一边框，内侧仅保留分割线 */
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon),
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon),
+.vm-page.lc-page .lc-form-readonly-compact {
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 100%;
+  vertical-align: top;
+  box-sizing: border-box;
+  min-height: var(--lc-control-height);
+  height: var(--lc-control-height);
+  border: 1px solid var(--lc-control-border);
+  border-radius: var(--lc-control-radius);
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) > .ant-input-number,
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon) > .ant-input-number,
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) > .ant-input,
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) > .ant-input-affix-wrapper,
+.vm-page.lc-page .lc-form-readonly-compact > :first-child {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  outline: none !important;
+}
+
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) > .ant-space-addon,
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon) > .ant-input-number-addon,
+.vm-page.lc-page .lc-form-readonly-compact > .ant-space-addon:last-child {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  border-inline-start: 1px solid var(--lc-control-border) !important;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--ln-body);
+}
+
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):has(.ant-input-number:not(.ant-input-number-disabled):hover),
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon):has(.ant-input-number:not(.ant-input-number-disabled):hover),
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):has(.ant-input:not(:disabled):hover),
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):has(.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover) {
+  border-color: var(--lc-control-border-hover) !important;
+}
+
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):has(.ant-input-number-focused),
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon):has(.ant-input-number-focused),
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):focus-within:has(.ant-input:focus),
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon):focus-within:has(.ant-input-affix-wrapper-focused) {
+  border-color: var(--vm-focus-border-color) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary) 14%, transparent);
+}
+
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) .ant-input-number-focused,
+.vm-page.lc-page .ant-space-compact:has(> .ant-input-number-addon) .ant-input-number-focused,
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) .ant-input:focus,
+.vm-page.lc-page .ant-space-compact:has(> .ant-space-addon) .ant-input-affix-wrapper-focused {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 兼容 ant-space-compact-item 旧类名 */
+.vm-page.lc-page .ant-space-compact > .ant-space-compact-item.ant-space-compact-first-item:not(.ant-space-compact-last-item):is(
+  .ant-input-number,
+  .ant-input-number-outlined,
+  .ant-input,
+  .ant-input-outlined,
+  .ant-input-affix-wrapper,
+  .ant-input-affix-wrapper-outlined
+) {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+.vm-page.lc-page .ant-space-compact > .ant-space-compact-item.ant-space-compact-last-item:not(.ant-space-compact-first-item):is(
+  .ant-space-addon,
+  .ant-input-number-addon
+) {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  border-inline-start: 1px solid var(--lc-control-border) !important;
+}
+
+.vm-page.lc-page .ant-input-group > .ant-input-group-addon:first-child {
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+}
+
+.vm-page.lc-page .ant-input-group > .ant-input-group-addon:first-child + :is(.ant-input, .ant-input-affix-wrapper),
+.vm-page.lc-page .ant-input-group > :is(.ant-input, .ant-input-affix-wrapper):first-child:not(:last-child) {
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+}
+
+.vm-page.lc-page .ant-input-group > .ant-input-group-addon:last-child:not(:first-child),
+.vm-page.lc-page .ant-input-group > :is(.ant-input, .ant-input-affix-wrapper):last-child:not(:first-child) {
+  border-start-start-radius: 0 !important;
+  border-end-start-radius: 0 !important;
+}
+
+/* 筛选区：控件同高同边框 */
+.vm-page.lc-page .vm-filter-field .ant-select,
+.vm-page.lc-page .vm-filter-field .ant-picker,
+.vm-page.lc-page .vm-filter-field .ant-input:not(textarea),
+.vm-page.lc-page .vm-filter-field .ant-input-affix-wrapper {
+  width: 100%;
+}
+
+.vm-page.lc-page .vm-filter-field :is(
+  .ant-select,
+  .ant-picker,
+  .ant-input:not(textarea),
+  .ant-input-affix-wrapper
+) {
+  min-height: var(--lc-control-height) !important;
+  height: var(--lc-control-height);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .vm-filter-field .ant-select .ant-select-selector {
+  min-height: calc(var(--lc-control-height) - 2px) !important;
+  height: calc(var(--lc-control-height) - 2px);
+  display: flex;
+  align-items: center;
+  padding-inline: 11px;
+}
+
+.vm-page.lc-page .vm-filter-field .ant-select-multiple.ant-select {
+  height: auto;
+  min-height: var(--lc-control-height) !important;
+}
+
+.vm-page.lc-page .vm-filter-field .ant-select-multiple .ant-select-selector {
+  height: auto !important;
+  min-height: calc(var(--lc-control-height) - 2px) !important;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  align-items: center;
+}
+
+.vm-page.lc-page .vm-filter-field .ant-picker .ant-picker-input > input {
+  font-size: 0.875rem;
+  line-height: calc(var(--lc-control-height) - 2px);
+}
+
+/* 筛选区：合同结束日期（DateRangeFilterField，设计规范 v2 强制） */
+.vm-page.lc-page .vm-filter-field .vm-date-range-field {
+  width: 100%;
+}
+
+/* 弹层等场景若仍用 Ant RangePicker，保留基础字号 */
+.vm-page.lc-page .lc-filter-date-range.ant-picker {
+  width: 100%;
+  padding: 0 11px;
+}
+
+.vm-page.lc-page .lc-filter-date-range.ant-picker .ant-picker-input > input {
+  font-size: 0.875rem;
+  color: var(--ln-ink);
+}
+
+.vm-page.lc-page .lc-filter-date-range.ant-picker .ant-picker-separator {
+  color: var(--ln-muted);
+  font-size: 0.8125rem;
+}
+
+.vm-page.lc-page .lc-filter-date-range.ant-picker .ant-picker-suffix {
+  color: var(--ln-muted-soft);
+}
+
+/* 悬停 / 聚焦 */
+.vm-page.lc-page :is(
+  .ant-select:not(.ant-select-disabled):not(.ant-select-borderless):hover,
+  .ant-picker:not(.ant-picker-disabled):not(.ant-picker-borderless):hover,
+  .ant-input-number:not(.ant-input-number-disabled):not(.ant-input-number-borderless):hover,
+  .ant-input:not(textarea):not(:disabled):not(.ant-input-borderless):hover,
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+  .vm-filter-picker-control:hover,
+  .lc-customer-picker__trigger:hover
+) {
+  border-color: var(--lc-control-border-hover) !important;
+}
+
+.vm-page.lc-page :is(
+  .ant-select-outlined:not(.ant-select-disabled):hover,
+  .ant-picker-outlined:not(.ant-picker-disabled):hover,
+  .ant-input-number-outlined:not(.ant-input-number-disabled):hover,
+  .ant-input-outlined:not(:disabled):hover
+) {
+  border-color: var(--lc-control-border-hover) !important;
+}
+
+.vm-page.lc-page :is(
+  .ant-select-focused:not(.ant-select-borderless),
+  .ant-select.ant-select-open:not(.ant-select-borderless),
+  .ant-picker-focused:not(.ant-picker-borderless),
+  .ant-input-number-focused:not(.ant-input-number-borderless),
+  .ant-input:focus:not(.ant-input-borderless),
+  .ant-input-affix-wrapper-focused,
+  .vm-filter-picker-control.open,
+  .vm-filter-picker-control:focus-within,
+  .lc-customer-picker__trigger:focus-visible
+) {
+  border-color: var(--vm-focus-border-color) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary) 14%, transparent);
+}
+
+.vm-page.lc-page :is(
+  .ant-select-outlined.ant-select-focused,
+  .ant-select-outlined.ant-select-open,
+  .ant-picker-outlined.ant-picker-focused,
+  .ant-input-number-outlined.ant-input-number-focused,
+  .ant-input-outlined:focus
+) {
+  border-color: var(--vm-focus-border-color) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary) 14%, transparent);
+}
+
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-header-view button:hover {
+  color: var(--ln-primary);
+}
+
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background: var(--ln-primary, #32a06e);
+}
+
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: var(--ln-primary, #32a06e);
+}
+
+.lc-filter-date-dropdown.ant-picker-dropdown .ant-picker-footer .ant-btn-primary {
+  background: var(--ln-primary, #32a06e);
+}
+
+.vm-page.lc-page .vm-filter-picker-control {
+  min-height: var(--lc-control-height);
+  height: var(--lc-control-height);
+  border-color: var(--lc-control-border) !important;
+  border-radius: var(--lc-control-radius) !important;
+}
+
+/* 列表工具栏：上下间距一致（以下方 16px 为准） */
+.vm-page.lc-page .vm-filter-card {
+  margin-bottom: 16px;
+}
+
+/* —— 列表紧凑模式：一屏展示更多行 —— */
+.vm-page.lc-page.lc-page--list-dense {
+  --lc-list-chrome-offset: 434px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 32px);
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-filter-card {
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-filter-header {
+  margin-bottom: 10px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-filter-title {
+  font-size: 1rem;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-filter-grid {
+  gap: 12px 16px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-row {
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-card {
+  min-height: 72px;
+  padding: 12px 30px 12px 14px;
+  gap: 10px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-main {
+  gap: 2px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-kpi-val {
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-fleet-summary.is-embedded {
+  margin-bottom: 12px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-table-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-table-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-table-card > .vm-table-wrap {
+  flex: 1;
+  min-height: 0;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-table-section .vm-table-toolbar {
+  padding-bottom: 12px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-table-footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .ant-table-thead > tr > th {
+  /* 全局台账行高规范：禁止再压扁为 6px 级 */
+  padding: var(--ln-table-th-padding-y, 14px) var(--ln-table-th-padding-x, 20px) !important;
+  font-size: 0.75rem !important;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+  padding: var(--ln-table-cell-padding-y, 16px) var(--ln-table-cell-padding-x, 20px) !important;
+  height: var(--ln-table-row-min-height, 87px);
+  min-height: var(--ln-table-row-min-height, 87px);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .vm-stack {
+  gap: 1px;
+  line-height: 1.3;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .vm-stack .sub,
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .vm-stack .code {
+  font-size: 0.75rem;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-project-info-cell {
+  gap: 8px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-lease-order-counts__item {
+  min-height: 34px;
+  min-width: 40px;
+  padding: 2px 4px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-lease-order-counts__value {
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-lease-order-counts__label {
+  font-size: 0.6875rem;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-fee-info-cell__side {
+  gap: 3px;
+  padding: 4px 6px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-fee-info-cell__value {
+  min-height: 20px;
+  padding: 1px 6px;
+  font-size: 11px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-fee-info-cell__sep {
+  margin: 4px 0;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-delivery-cell {
+  gap: 2px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-approval-status-cell__inline-name {
+  font-size: 11px;
+  max-width: 4.5em;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-approval-status-cell__count-badge {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 10px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .vm-list-table .ant-btn-link {
+  font-size: 0.75rem;
+  padding: 0 2px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-row-actions {
+  gap: 2px;
+}
+
+.vm-page.lc-page.lc-page--list-dense .lc-action-more-btn {
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-height: 820px) {
+  .vm-page.lc-page.lc-page--list-dense {
+    --lc-list-chrome-offset: 406px;
+  }
+}
+
+@media (min-height: 960px) {
+  .vm-page.lc-page.lc-page--list-dense {
+    --lc-list-chrome-offset: 418px;
+  }
+}
+
+.vm-page.lc-page .vm-table-section .vm-table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: var(--vm-btn-height);
+  padding: 0 0 16px;
+  margin-bottom: 0;
+}
+
+.vm-page.lc-page .lc-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vm-page.lc-page .lc-action-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--ln-muted, #64748b);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-action-more-btn:hover {
+  background: #f1f5f9;
+  color: var(--ln-body, #334155);
+}
+
+.vm-page.lc-page .lc-action-more-btn:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 2px;
+}
+
+/* 转三方 / 试用转正式弹窗 */
+.vm-page.lc-page .lc-flow-modal__meta {
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-flow-modal__meta-value {
+  color: var(--ln-body, #334155);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.vm-page.lc-page .lc-flow-modal__hint {
+  margin: 0 0 16px;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-flow-modal__section {
+  margin-bottom: 20px;
+}
+
+.vm-page.lc-page .lc-flow-modal__section-title {
+  margin: 0 0 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ln-body, #334155);
+}
+
+.vm-page.lc-page .lc-flow-modal__readonly-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.vm-page.lc-page .lc-flow-modal__readonly-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-picker--inline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-picker__btn,
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-picker__btn--inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--ln-primary) 32%, var(--ln-hairline));
+  border-radius: var(--ln-radius-control);
+  background: var(--ln-surface-card, #fff);
+  color: var(--ln-primary-focus, #15803d);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-picker__btn--inline {
+  width: 100%;
+  min-height: 36px;
+}
+
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-field--inline {
+  margin-top: 0;
+}
+
+.vm-page.lc-page .lc-flow-modal--extra-fee .lc-lease-order-service-selected {
+  gap: 6px;
+}
+
+.vm-page.lc-page .lc-tripartite-agreements__add {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ln-body, #334155);
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card__field {
+  margin-bottom: 10px;
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card__field:last-child {
+  margin-bottom: 0;
+}
+
+.vm-page.lc-page .lc-tripartite-agreement-card__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.8125rem;
+  color: var(--ln-muted, #64748b);
+}
+
+/* 列表区：Ant Table 嵌入 vm-table-card */
+.vm-page.lc-page .vm-table-card .vm-list-table.ant-table-wrapper,
+.vm-page.lc-page .vm-table-card .vm-list-table .ant-table-wrapper {
+  width: 100%;
+}
+
+.vm-page.lc-page .vm-kpi-row {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: 16px;
+}
+
+.vm-page.lc-page .vm-kpi-row.vm-kpi-row--with-fleet {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.vm-page.lc-page .lc-fleet-kpi-card.active {
+  border-color: var(--ln-primary);
+  box-shadow: 0 0 0 1px var(--ln-primary-soft, rgba(50, 160, 110, 0.25));
+}
+
+.vm-page.lc-page .vm-table-wrap.vm-list-table {
+  overflow: auto;
+  max-height: none;
+}
+
+/* 列表宽表：横向滚动交给 Ant Table 内部，避免外层滚动抢滚动上下文 */
+.vm-page.lc-page .vm-table-section {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vm-page.lc-page .vm-table-card > .vm-table-wrap {
+  overflow: hidden;
+  max-height: none;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-list-table--nested.ant-table-wrapper,
+.vm-page.lc-page .lc-list-table--nested .ant-table-wrapper {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 左侧冻结：项目信息列（含展开按钮） */
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-start,
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-left {
+  background: var(--ln-surface-card);
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.ant-table-cell-fix-start,
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.ant-table-cell-fix-left {
+  z-index: 3;
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:not(.ant-table-expanded-row) > td.ant-table-cell-fix-start,
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:not(.ant-table-expanded-row) > td.ant-table-cell-fix-left {
+  z-index: 2;
+  background: var(--ln-surface-card) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td.ant-table-cell-fix-start,
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td.ant-table-cell-fix-left {
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-col.ant-table-cell-fix-start,
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-col.ant-table-cell-fix-left {
+  z-index: 3;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.lc-project-info-col {
+  z-index: 3;
+}
+
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-col.ant-table-cell-fix-start-shadow-show::after,
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-col.ant-table-cell-fix-left-last::after,
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-left-last::after {
+  box-shadow: inset 10px 0 8px -8px rgba(15, 23, 42, 0.12);
+}
+
+/* 右侧冻结：操作列 + 滚动条占位缝（避免横向滚动时右侧漏出其他列） */
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-end:not(.ant-table-cell-scrollbar),
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-right:not(.ant-table-cell-scrollbar) {
+  background: var(--ln-surface-card) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.ant-table-cell-fix-end:not(.ant-table-cell-scrollbar),
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.ant-table-cell-fix-right:not(.ant-table-cell-scrollbar) {
+  z-index: 4;
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:not(.ant-table-expanded-row) > td.ant-table-cell-fix-end:not(.ant-table-cell-scrollbar),
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:not(.ant-table-expanded-row) > td.ant-table-cell-fix-right:not(.ant-table-cell-scrollbar) {
+  z-index: 3;
+  overflow: visible;
+  background: var(--ln-surface-card) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td.ant-table-cell-fix-end:not(.ant-table-cell-scrollbar),
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td.ant-table-cell-fix-right:not(.ant-table-cell-scrollbar) {
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-end-shadow-show:not(.ant-table-cell-scrollbar)::after,
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-fix-right-last::after {
+  box-shadow: inset -10px 0 8px -8px rgba(15, 23, 42, 0.12);
+}
+
+/* 盖住纵向滚动条占位缝，防止表头/表体滚动列从操作列右侧露出 */
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th.ant-table-cell-fix-end:not(.ant-table-cell-scrollbar)::before,
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr > td.ant-table-cell-fix-end:not(.ant-table-cell-scrollbar)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -17px;
+  width: 17px;
+  background: inherit;
+  pointer-events: none;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-cell-scrollbar {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  visibility: hidden;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-thead > tr > th:not(.ant-table-cell-fix-start):not(.ant-table-cell-fix-end),
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:not(.ant-table-expanded-row) > td:not(.ant-table-cell-fix-start):not(.ant-table-cell-fix-end) {
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-container {
+  overflow: hidden;
+}
+
+/* 主表横向滚动容器：子表宽度以此为基准，不随主表列一起滑走 */
+.vm-page.lc-page .lc-list-table--nested .ant-table-body {
+  container-type: inline-size;
+  container-name: lc-main-table-scroll;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-expanded-row > td {
+  overflow: visible;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-expanded-row .lc-contract-vehicle-table-wrap {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+@supports (width: 100cqw) {
+  .vm-page.lc-page .lc-list-table--nested .ant-table-expanded-row .lc-contract-vehicle-table-wrap {
+    width: 100cqw;
+    max-width: 100cqw;
+  }
+}
+
+@media (max-width: 1280px) {
+  .vm-page.lc-page .vm-kpi-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .vm-page.lc-page .vm-kpi-row.vm-kpi-row--with-fleet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .vm-page.lc-page .vm-kpi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .vm-page.lc-page .vm-kpi-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vm-page.lc-page .vm-list-table .ant-table-thead > tr > th {
+  background: var(--ln-canvas-soft) !important;
+  color: var(--ln-muted) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  padding: 8px 12px !important;
+  white-space: nowrap;
+}
+
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+  padding: 8px 12px !important;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--ln-hairline);
+}
+
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:not(.ant-table-measure-row):hover > td {
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .vm-list-table .ant-table-cell-fix-left,
+.vm-page.lc-page .vm-list-table .ant-table-cell-fix-start,
+.vm-page.lc-page .vm-list-table .ant-table-cell-fix-right,
+.vm-page.lc-page .vm-list-table .ant-table-cell-fix-end {
+  background: var(--ln-surface-card);
+}
+
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:hover .ant-table-cell-fix-left,
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:hover .ant-table-cell-fix-start,
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:hover .ant-table-cell-fix-right,
+.vm-page.lc-page .vm-list-table .ant-table-tbody > tr:hover .ant-table-cell-fix-end {
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .vm-list-table .oneos-cell-link,
+.vm-page.lc-page .vm-list-table .vm-link {
+  padding: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ln-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.vm-page.lc-page .vm-list-table .oneos-cell-link:hover,
+.vm-page.lc-page .vm-list-table .vm-link:hover {
+  color: var(--ln-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.vm-page.lc-page .vm-list-table .ant-btn-link {
+  min-height: auto;
+  height: auto;
+  padding: 0 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ln-primary) !important;
+}
+
+.vm-page.lc-page .vm-list-table .ant-btn-link:hover {
+  color: var(--ln-primary-hover) !important;
+}
+
+/* 审批流 Popover 标签 */
+.vm-page.lc-page .lc-approval-tag {
+  margin: 0;
+  color: var(--ln-primary);
+  background: var(--ln-primary-soft);
+  border-color: color-mix(in srgb, var(--ln-primary) 35%, transparent);
+}
+
+.lc-approval-flow-popover .ant-popover-inner {
+  padding: 12px 14px;
+}
+
+.lc-approval-flow__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-approval-flow__head-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-ink, #0f172a);
+}
+
+.lc-approval-flow__kind {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.lc-approval-flow__kind--standard {
+  color: #166534;
+  background: color-mix(in srgb, #22c55e 12%, #fff);
+  border: 1px solid color-mix(in srgb, #22c55e 28%, transparent);
+}
+
+.lc-approval-flow__kind--nonstandard {
+  color: #b45309;
+  background: color-mix(in srgb, #f59e0b 12%, #fff);
+  border: 1px solid color-mix(in srgb, #f59e0b 30%, transparent);
+}
+
+.lc-approval-flow {
+  width: min(380px, calc(100vw - 48px));
+  max-height: min(420px, calc(100vh - 120px));
+  overflow-y: auto;
+  padding-top: 2px;
+}
+
+.lc-approval-flow__empty {
+  color: var(--ln-muted);
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.lc-approval-flow__item {
+  display: flex;
+  align-items: stretch;
+}
+
+.lc-approval-flow__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.lc-approval-flow__operator {
+  font-size: 13px;
+  color: var(--ln-muted);
+  line-height: 1.4;
+}
+
+.lc-approval-flow__comment {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ln-surface-strong, #f8fafc);
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-approval-flow__comment.is-rejected {
+  background: color-mix(in srgb, var(--ln-error, #e5484d) 6%, #fff);
+  border-color: color-mix(in srgb, var(--ln-error, #e5484d) 18%, var(--ln-hairline, #e2e8f0));
+}
+
+.lc-approval-flow__comment-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ln-muted);
+  margin-bottom: 4px;
+}
+
+.lc-approval-flow__comment-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ln-body, #334155);
+  word-break: break-word;
+}
+
+.lc-approval-flow__comment.is-rejected .lc-approval-flow__comment-text {
+  color: var(--ln-error, #e5484d);
+}
+
+/* 面包屑与 vm 页头 */
+.vm-page.lc-page .vm-page-header .ant-breadcrumb {
+  font-size: 0.875rem;
+}
+
+.vm-page.lc-page .vm-page-header .ant-breadcrumb li:last-child {
+  color: var(--ln-ink);
+  font-weight: 500;
+}
+
+/* 项目信息：三行堆叠，与车辆管理所属项目一致 */
+.vm-page.lc-page .vm-list-table .lc-project-info-col {
+  white-space: normal !important;
+  vertical-align: middle;
+  min-width: 320px !important;
+}
+
+.vm-page.lc-page .lc-project-info-btn .vm-stack .primary,
+.vm-page.lc-page .lc-project-info-btn .vm-stack .sub {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.vm-page.lc-page .lc-project-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-project-info-cell .lc-project-info-btn {
+  flex: 1;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-project-info-cell__status {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  align-self: center;
+  max-width: 108px;
+}
+
+.vm-page.lc-page .lc-project-info-btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs);
+}
+
+.vm-page.lc-page .lc-project-info-btn:hover .vm-stack .primary,
+.vm-page.lc-page .lc-project-info-btn:hover .vm-stack .code {
+  color: var(--ln-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-project-info-btn:focus-visible {
+  outline: var(--vm-focus-border-color, var(--ln-primary)) solid 2px;
+  outline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-project-info-btn .vm-stack .primary {
+  font-weight: 500;
+  color: var(--ln-link);
+}
+
+.vm-page.lc-page .lc-project-info-btn .vm-stack .code {
+  font-family: var(--vm-font-mono);
+  font-size: 0.8125rem;
+  color: var(--ln-link);
+}
+
+.vm-page.lc-page .lc-list-table .vm-stack .code {
+  font-family: var(--vm-font-mono);
+  font-size: 0.75rem;
+  color: var(--ln-muted);
+}
+
+.vm-page.lc-page .lc-list-table .ant-table-cell {
+  vertical-align: middle;
+}
+
+.vm-page.lc-page .lc-project-info-btn .vm-stack .sub {
+  font-size: 0.8125rem;
+  color: var(--ln-body);
+}
+
+/* 列表「租赁订单」列：租赁 / 已交 双计数 */
+.vm-page.lc-page .lc-lease-order-counts {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  min-width: 108px;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--ln-radius-control, 8px);
+  color: inherit;
+  font: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item:hover {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item--active {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 12%, transparent);
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item.is-disabled:hover {
+  background: transparent;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__item:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 1px;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ln-primary, #32a06e);
+  line-height: 1.2;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__label {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.2;
+}
+
+.vm-page.lc-page .lc-lease-order-counts__sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 6px 0;
+  background: var(--ln-hairline, #e2e8f0);
+  flex-shrink: 0;
+}
+
+.lc-stamp-upload-modal .ant-modal-body {
+  padding-top: 16px;
+}
+
+.lc-stamp-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lc-stamp-modal__hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.5;
+}
+
+.lc-stamp-modal__meta {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-stamp-modal__meta-value {
+  color: var(--ln-body, #334155);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.lc-stamp-modal__hero {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-stamp-modal__hero-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lc-stamp-modal__hero-label {
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-stamp-modal__hero-code {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ln-body, #1e293b);
+  font-variant-numeric: tabular-nums;
+}
+
+.lc-stamp-modal__hero-sub {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.45;
+}
+
+.lc-stamp-modal__steps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lc-stamp-modal__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--ln-muted, #94a3b8);
+}
+
+.lc-stamp-modal__step.is-active {
+  color: var(--ln-body, #334155);
+}
+
+.lc-stamp-modal__step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e2e8f0;
+  color: #64748b;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.lc-stamp-modal__step.is-active .lc-stamp-modal__step-num {
+  background: var(--ln-primary, #32a06e);
+  color: #fff;
+}
+
+.lc-stamp-modal__step-text {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.lc-stamp-modal__step-line {
+  flex: 1;
+  height: 1px;
+  min-width: 24px;
+  background: var(--ln-hairline, #e2e8f0);
+}
+
+.lc-stamp-modal__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lc-stamp-modal__section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lc-stamp-modal__section-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ln-body, #334155);
+}
+
+.lc-stamp-modal__section-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.5;
+}
+
+.lc-stamp-modal__method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lc-stamp-modal__method-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.lc-stamp-modal__method-card:hover {
+  border-color: color-mix(in srgb, var(--ln-primary, #32a06e) 35%, #e2e8f0);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.lc-stamp-modal__method-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lc-stamp-modal__method-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ln-primary-focus, #15803d);
+  background: var(--ln-primary-soft, #e8f5ee);
+}
+
+.lc-stamp-modal__method-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--ln-primary, #32a06e);
+  background: var(--ln-primary-soft, #e8f5ee);
+}
+
+.lc-stamp-modal__method-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ln-body, #334155);
+}
+
+.lc-stamp-modal__method-desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.lc-stamp-modal__method-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.lc-stamp-modal__method-btn .lc-stamp-modal__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.lc-stamp-modal__email-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.lc-stamp-modal__email-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ln-body, #475569);
+}
+
+.lc-stamp-modal__email-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.lc-stamp-modal__email-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.lc-stamp-modal__email-send-btn {
+  flex-shrink: 0;
+  min-width: 72px;
+  min-height: 36px;
+  cursor: pointer;
+}
+
+.lc-stamp-modal__email-error {
+  margin: 0;
+  font-size: 12px;
+  color: #dc2626;
+  line-height: 1.4;
+}
+
+.lc-stamp-modal__sent-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #166534;
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+}
+
+.lc-stamp-modal__sent-banner .lc-stamp-modal__icon {
+  flex-shrink: 0;
+  color: #16a34a;
+}
+
+.lc-stamp-modal__upload-panel .ant-upload-drag {
+  border-radius: 10px;
+  border-color: var(--ln-hairline, #e2e8f0);
+  background: #fafbfc;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.lc-stamp-modal__upload-panel .ant-upload-drag:hover,
+.lc-stamp-modal__upload-panel .ant-upload-drag.ant-upload-drag-hover {
+  border-color: color-mix(in srgb, var(--ln-primary, #32a06e) 45%, #e2e8f0);
+  background: var(--ln-primary-soft, #f0fdf4);
+}
+
+.lc-stamp-modal__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 12px;
+}
+
+.lc-stamp-modal__dropzone-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--ln-primary, #32a06e);
+  background: var(--ln-primary-soft, #e8f5ee);
+}
+
+.lc-stamp-modal__dropzone-icon .lc-stamp-modal__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.lc-stamp-modal__dropzone-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ln-body, #334155);
+}
+
+.lc-stamp-modal__dropzone-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-stamp-modal__file-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--ln-body, #475569);
+  background: #f8fafc;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-stamp-modal__file-summary .lc-stamp-modal__icon {
+  flex-shrink: 0;
+  color: var(--ln-primary, #32a06e);
+}
+
+.lc-stamp-modal__icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .lc-stamp-modal__method-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lc-stamp-modal__steps {
+    flex-wrap: wrap;
+  }
+
+  .lc-stamp-modal__step-text {
+    white-space: normal;
+  }
+
+  .lc-stamp-modal__email-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lc-stamp-modal__email-send-btn {
+    width: 100%;
+  }
+}
+
+.lc-contract-view-attachments__meta {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--ln-body, #334155);
+}
+
+.lc-contract-view-attachments__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lc-contract-view-attachments__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 8px;
+  background: var(--ln-surface-muted, #f8fafc);
+}
+
+.lc-contract-view-attachments__name {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.lc-contract-view-attachments__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.lc-contract-view-attachments__empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+}
+
+/* 列表「费用信息」列：付款方式 / 付款周期 / 氢费支付 三栏展示 */
+.vm-page.lc-page .vm-list-table th.lc-fee-info-col {
+  text-align: center !important;
+}
+
+.vm-page.lc-page .vm-list-table .lc-fee-info-col {
+  white-space: normal !important;
+  min-width: 248px !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+.vm-page.lc-page .lc-fee-info-cell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 6px 8px;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .lc-fee-info-cell__caption {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.vm-page.lc-page .lc-fee-info-cell__value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 22px;
+  padding: 2px 7px;
+  border-radius: var(--ln-radius-pill, 999px);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side--period .lc-fee-info-cell__value {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 12%, transparent);
+  color: var(--ln-primary, #32a06e);
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side--payment .lc-fee-info-cell__value {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 12%, transparent);
+  color: var(--ln-primary, #32a06e);
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side--payment.is-postpay .lc-fee-info-cell__value {
+  background: color-mix(in srgb, var(--ln-error, #e5484d) 10%, transparent);
+  color: var(--ln-error, #e5484d);
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side--hydrogen .lc-fee-info-cell__value {
+  background: var(--ln-surface-strong, #f1f5f9);
+  color: var(--ln-body, #334155);
+}
+
+.vm-page.lc-page .lc-fee-info-cell__side--hydrogen.is-prepay .lc-fee-info-cell__value {
+  background: color-mix(in srgb, var(--ln-warning, #d97706) 12%, transparent);
+  color: var(--ln-warning, #d97706);
+}
+
+.vm-page.lc-page .lc-fee-info-cell__sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 8px 0;
+  background: var(--ln-hairline, #e2e8f0);
+}
+
+/* 列表「交车安排」列 */
+.vm-page.lc-page .vm-list-table .lc-delivery-col {
+  white-space: normal !important;
+}
+
+.vm-page.lc-page .lc-delivery-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.vm-page.lc-page .lc-delivery-cell__region {
+  font-size: 13px;
+  color: var(--ln-body, #1e293b);
+  line-height: 1.35;
+}
+
+.vm-page.lc-page .lc-delivery-cell__date-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.vm-page.lc-page .lc-delivery-cell__date {
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-delivery-cell__date--tbd {
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-delivery-cell__edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--ln-radius-xs, 4px);
+  background: transparent;
+  color: var(--ln-primary, #32a06e);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-delivery-cell__edit-btn:hover {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 10%, transparent);
+  color: var(--ln-primary-hover, #278a5c);
+}
+
+.vm-page.lc-page .lc-delivery-cell__edit-btn:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 1px;
+}
+
+/* 交车时间变更 Popover */
+.lc-delivery-change-popover .ant-popover-inner {
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+.lc-delivery-change-popover .ant-popover-title {
+  display: none;
+}
+
+.lc-delivery-change__panel {
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(480px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+}
+
+.lc-delivery-change__header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-delivery-change__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ln-body, #1e293b);
+  line-height: 1.3;
+}
+
+.lc-delivery-change__sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+}
+
+.lc-delivery-change__form {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-delivery-change__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lc-delivery-change__label {
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delivery-change__mode-toggle {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.lc-delivery-change__mode-btn {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ln-body, #334155);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.lc-delivery-change__mode-btn.is-active {
+  border-color: rgba(50, 160, 110, 0.45);
+  background: rgba(50, 160, 110, 0.08);
+  color: #166534;
+}
+
+.lc-delivery-change__readonly {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--ln-muted, #64748b);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.vm-page.lc-page .lc-delivery-cell__region--tbd,
+.vm-page.lc-page .lc-delivery-cell__date--tbd {
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delivery-change__tbd {
+  display: flex;
+  align-items: center;
+  margin: 8px 0 0;
+  cursor: pointer;
+}
+
+.lc-delivery-change__hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delivery-change__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.lc-delivery-change__history {
+  padding: 12px 16px 14px;
+  overflow: auto;
+}
+
+.lc-delivery-change__history-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-body, #1e293b);
+  margin-bottom: 8px;
+}
+
+.lc-delivery-change__empty {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delivery-change__history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lc-delivery-change__history-item {
+  padding: 10px 12px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ln-surface, #f8fafc) 80%, #fff);
+}
+
+.lc-delivery-change__history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.lc-delivery-change__history-row + .lc-delivery-change__history-row {
+  margin-top: 6px;
+}
+
+.lc-delivery-change__history-field-label {
+  flex-shrink: 0;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delivery-change__history-field-value {
+  color: var(--ln-body, #1e293b);
+  text-align: right;
+}
+
+.lc-delivery-change__date-compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.lc-delivery-change__date-before {
+  color: var(--ln-muted, #64748b);
+  text-decoration: line-through;
+}
+
+.lc-delivery-change__date-arrow {
+  color: var(--ln-muted, #94a3b8);
+  font-size: 11px;
+}
+
+.lc-delivery-change__date-after {
+  color: var(--ln-primary, #32a06e);
+  font-weight: 600;
+}
+
+.vm-page.lc-page .lc-approval-type-label {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--ln-body, #1e293b);
+  line-height: 1.35;
+}
+
+.vm-page.lc-page .lc-approval-type-label--nonstandard {
+  color: #b45309;
+  font-weight: 500;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 44px;
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs, 4px);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__btn:hover,
+.vm-page.lc-page .lc-signing-method-cell__btn:focus-visible {
+  color: var(--ln-link, var(--ln-primary, #32a06e));
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+  outline: none;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__btn:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ln-primary, #32a06e) 35%, transparent);
+}
+
+.vm-page.lc-page .lc-signing-method-cell__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ln-body, #1e293b);
+  line-height: 1.35;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__btn:hover .lc-signing-method-cell__label,
+.vm-page.lc-page .lc-signing-method-cell__btn:focus-visible .lc-signing-method-cell__label {
+  color: var(--ln-link, var(--ln-primary, #32a06e));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__sub {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+  max-width: 148px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__sub.is-pending,
+.vm-page.lc-page .lc-signing-method-cell__btn.is-offline.is-pending .lc-signing-method-cell__sub {
+  color: #b45309;
+  font-weight: 500;
+}
+
+.vm-page.lc-page .lc-signing-method-cell__btn.is-offline.is-uploaded .lc-signing-method-cell__sub,
+.vm-page.lc-page .lc-signing-method-cell__btn.is-online.is-completed .lc-signing-method-cell__sub {
+  color: var(--ln-body, #475569);
+}
+
+.vm-page.lc-page .lc-signing-method-cell__static {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 44px;
+  padding: 4px 0;
+}
+
+.lc-signing-method-popover-wrap .ant-popover-inner {
+  padding: 10px 12px;
+}
+
+.lc-signing-method-popover {
+  width: min(360px, calc(100vw - 48px));
+}
+
+.lc-signing-method-popover__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-ink, #0f172a);
+}
+
+.lc-signing-method-popover__sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-signing-method-popover__list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lc-signing-method-popover__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 8px;
+  background: var(--ln-surface-strong, #f8fafc);
+}
+
+.lc-signing-method-popover__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--ln-body, #334155);
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.lc-signing-method-popover__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.lc-signing-method-popover__action {
+  min-height: 28px;
+  padding: 0 6px;
+  border: none;
+  background: transparent;
+  color: var(--ln-link, var(--ln-primary, #32a06e));
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs, 4px);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.lc-signing-method-popover__action:hover,
+.lc-signing-method-popover__action:focus-visible {
+  color: var(--ln-primary-hover, #278a5c);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+  outline: none;
+}
+
+.lc-signing-method-popover__list li + li {
+  margin-top: 8px;
+}
+
+.lc-signing-method-popover__empty {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-delegate-count-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  color: var(--ln-link, var(--ln-primary, #32a06e));
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs, 4px);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-delegate-count-btn:hover {
+  color: var(--ln-primary-hover, #278a5c);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-delegate-count-btn:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 1px;
+}
+
+.vm-page.lc-page .lc-delegate-supplement-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  color: #b45309;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs, 4px);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-delegate-supplement-btn:hover {
+  color: #92400e;
+  background: color-mix(in srgb, #f59e0b 12%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-delegate-supplement-btn:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+.lc-delegate-popover .ant-popover-inner {
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+.lc-delegate-popover .ant-popover-title {
+  display: none;
+}
+
+.lc-delegate-popover__panel {
+  width: min(340px, calc(100vw - 32px));
+  max-height: min(420px, calc(100vh - 120px));
+  overflow: auto;
+}
+
+.lc-delegate-popover__header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-delegate-popover__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ln-body, #1e293b);
+}
+
+.lc-delegate-popover__sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delegate-popover__empty {
+  margin: 0;
+  padding: 16px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delegate-popover__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px 14px;
+}
+
+.lc-delegate-popover__card {
+  padding: 10px 12px;
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ln-surface, #f8fafc) 80%, #fff);
+}
+
+.lc-delegate-popover__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.lc-delegate-popover__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ln-body, #1e293b);
+}
+
+.lc-delegate-popover__index {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delegate-popover__field {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.lc-delegate-popover__field + .lc-delegate-popover__field {
+  margin-top: 6px;
+}
+
+.lc-delegate-popover__label {
+  flex-shrink: 0;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-delegate-popover__value {
+  color: var(--ln-body, #1e293b);
+  text-align: right;
+  word-break: break-all;
+}
+
+.vm-page.lc-page .vm-list-table .lc-approval-status-col,
+.vm-page.lc-page .vm-list-table .lc-contract-status-col {
+  white-space: normal !important;
+}
+
+.vm-page.lc-page .lc-approval-status-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.35;
+  max-width: 100%;
+}
+
+.vm-page.lc-page .lc-approval-status-cell--inline {
+  flex-wrap: nowrap;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__inline-approver {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__inline-approver--multi {
+  cursor: help;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__inline-name {
+  font-size: 12px;
+  color: var(--ln-body, #475569);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 5em;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ln-primary, #32a06e);
+  background: var(--ln-primary-soft, #e8f5ee);
+  border: 1px solid color-mix(in srgb, var(--ln-primary, #32a06e) 28%, transparent);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__tag-wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__tag-wrap--interactive {
+  cursor: help;
+}
+
+.vm-page.lc-page .lc-signing-company-col {
+  max-width: 220px;
+}
+
+.vm-page.lc-page .lc-signing-company-cell {
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* 租赁/已交车 Popover 卡片 */
+.lc-vehicle-popover .ant-popover-inner {
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+.lc-vehicle-popover .ant-popover-title {
+  display: none;
+}
+
+.lc-vehicle-popover__panel {
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(420px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  background: var(--ln-surface-card, #fff);
+}
+
+.lc-vehicle-popover__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ln-primary, #32a06e) 6%, #fff), #fff);
+}
+
+.lc-vehicle-popover__header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: var(--ln-primary, #32a06e);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--ln-primary, #32a06e) 18%, transparent);
+}
+
+.lc-vehicle-popover__header-icon.is-delivered {
+  color: #0f766e;
+  background: color-mix(in srgb, #0f766e 10%, #fff);
+  border-color: color-mix(in srgb, #0f766e 18%, transparent);
+}
+
+.lc-vehicle-popover__header-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.lc-vehicle-popover__header-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ln-ink, #0f172a);
+  line-height: 1.3;
+}
+
+.lc-vehicle-popover__header-sub {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-vehicle-popover__count {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ln-primary, #32a06e);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 10%, #fff);
+  border: 1px solid color-mix(in srgb, var(--ln-primary, #32a06e) 16%, transparent);
+}
+
+.lc-vehicle-popover__summary-wrap {
+  padding: 12px 16px 16px;
+  overflow: auto;
+}
+
+.lc-vehicle-popover__summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.lc-vehicle-popover__summary-table th,
+.lc-vehicle-popover__summary-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+  vertical-align: middle;
+}
+
+.lc-vehicle-popover__summary-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ln-muted, #64748b);
+  background: color-mix(in srgb, var(--ln-surface-muted, #f8fafc) 80%, #fff);
+}
+
+.lc-vehicle-popover__summary-table th.is-count,
+.lc-vehicle-popover__summary-table td.is-count {
+  width: 72px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.lc-vehicle-popover__summary-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lc-vehicle-popover__summary-table td {
+  color: var(--ln-ink, #0f172a);
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lc-vehicle-popover__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.lc-vehicle-popover__empty {
+  padding: 28px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+}
+
+.lc-vehicle-popover-card {
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: 10px;
+  background: var(--ln-surface-card, #fff);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.lc-vehicle-popover-card:hover {
+  border-color: color-mix(in srgb, var(--ln-primary, #32a06e) 28%, var(--ln-hairline, #e2e8f0));
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.lc-vehicle-popover-card--delivered {
+  border-left: 3px solid #0f766e;
+}
+
+.lc-vehicle-popover-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--ln-surface-strong, #f8fafc);
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.lc-vehicle-popover-card__type {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ln-body, #334155);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lc-vehicle-popover-card__plate {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ln-primary, #32a06e);
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, #fff);
+  border: 1px solid color-mix(in srgb, var(--ln-primary, #32a06e) 20%, transparent);
+}
+
+.lc-vehicle-popover-card__plate--pending {
+  color: var(--ln-muted, #64748b);
+  background: var(--ln-surface-strong, #f8fafc);
+  border-color: var(--ln-hairline, #e2e8f0);
+  font-weight: 500;
+}
+
+.lc-vehicle-popover-card__body {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lc-vehicle-popover-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lc-vehicle-popover-card__label {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+}
+
+.lc-vehicle-popover-card__value {
+  font-size: 13px;
+  color: var(--ln-body, #334155);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.lc-vehicle-popover-card__delivery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding-top: 4px;
+  margin-top: 2px;
+  border-top: 1px dashed var(--ln-hairline, #e2e8f0);
+}
+
+.lc-vehicle-popover-card__delivery-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ln-body, #334155);
+}
+
+.lc-vehicle-popover-card__delivery-item svg {
+  flex-shrink: 0;
+  color: #0f766e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-vehicle-popover-card {
+    transition: none;
+  }
+}
+
+/* 列表嵌套：项目信息列内嵌展开按钮（单列合并，左冻结） */
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-merged-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-merged-cell .ant-table-row-expand-icon {
+  flex-shrink: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.vm-page.lc-page .lc-list-table--nested .lc-project-info-merged-cell .lc-project-info-cell {
+  flex: 1;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-tbody > tr:hover > td.lc-project-info-col.ant-table-cell-fix-start {
+  background: var(--ln-canvas-soft) !important;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-expanded-row > td.lc-project-info-col.ant-table-cell-fix-start {
+  background: var(--ln-canvas-soft, #f8fafc);
+  z-index: 4;
+}
+
+.vm-page.lc-page .lc-list-table--nested .ant-table-expanded-row > td:not(.ant-table-cell-fix-start) {
+  padding: 8px 8px 12px;
+  background: var(--ln-canvas-soft, #f8fafc);
+  overflow: visible;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table {
+  width: 100%;
+  min-width: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: var(--ln-surface-card, #fff);
+  border: 1px solid var(--ln-hairline, #e2e8f0);
+  border-radius: var(--ln-radius-control, 8px);
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table th,
+.vm-page.lc-page .lc-contract-vehicle-native-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--ln-hairline, #e2e8f0);
+  font-size: 12px;
+  color: var(--ln-body, #334155);
+  vertical-align: middle;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table thead th {
+  background: var(--ln-surface-strong, #f1f5f9);
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+  vertical-align: middle;
+  white-space: nowrap;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__info {
+  width: 13%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__pickup {
+  width: 8%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__handover {
+  width: 8%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__lease-bill {
+  width: 7%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__return-settlement {
+  width: 10%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__delivery-plan {
+  width: 11%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__mileage-req {
+  width: 16%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__mileage-completion {
+  width: 20%;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__action {
+  width: 6%;
+  text-align: left;
+}
+
+/* 子表单元格：垂直居中 + 主体左对齐 */
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-vehicle-info,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-pickup-payment,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-return-settlement,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-approval-status-cell,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-lease-bill,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-handover-situation,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-delivery-cell,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-mileage-req-row,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-mileage-completion,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-vehicle-action-empty,
+.vm-page.lc-page .lc-contract-vehicle-native-table tbody td > .lc-contract-vehicle-action-btn {
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-info-cell {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-info-cell__status {
+  align-self: center;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-pickup-payment,
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-return-settlement {
+  min-height: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-approval-status-cell {
+  min-height: 0;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-approval-status-cell__tag-wrap .lc-contract-status-tag-btn {
+  line-height: 1;
+  align-items: center;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-handover-situation--clickable,
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-handover-situation--empty {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-delivery-cell {
+  min-width: 0;
+  gap: 2px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-delivery-cell__region {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-delivery-cell__date {
+  font-size: 10px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-delivery-cell__edit-btn {
+  width: 22px;
+  height: 22px;
+}
+
+.vm-page.lc-page .lc-delivery-change__subtitle {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+}
+
+/* 子表里程要求列：左右两栏（里程要求 | 当前里程） */
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row--dual {
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row--dual .lc-contract-mileage-req-row__requirement,
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row--dual .lc-contract-mileage-req-row__current {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row--dual .lc-contract-mileage-req-row__current {
+  border-left: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row--dual .lc-contract-mileage-req-row__current--empty {
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.35;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row__section-label {
+  font-size: 10px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-req-row__requirement--empty {
+  font-size: 12px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .vm-tag {
+  font-size: 10px;
+  line-height: 1.25;
+  padding: 1px 5px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__remaining {
+  font-size: 11px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__remaining-row .vm-status {
+  font-size: 10px;
+  line-height: 1.2;
+  padding: 1px 6px;
+  max-width: 100%;
+  white-space: normal;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__bar-row .lc-vehicle-mileage-progress__track {
+  min-width: 72px;
+  height: 8px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__bar-row .lc-vehicle-mileage-progress__label {
+  font-size: 12px;
+  min-width: 36px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-handover-situation__line {
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-handover-situation__line--time {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-info__line--primary {
+  font-size: 12px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-info__line--secondary {
+  font-size: 11px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-info__line--vin {
+  font-size: 10px;
+  color: var(--ln-muted, #64748b);
+  word-break: break-all;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-vehicle-action-btn {
+  font-size: 12px;
+  padding: 0 2px;
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row--triple {
+  gap: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row--dual {
+  gap: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row--dual .lc-contract-mileage-req-row__current {
+  border-left: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__requirement,
+.vm-page.lc-page .lc-contract-mileage-req-row__period,
+.vm-page.lc-page .lc-contract-mileage-req-row__current {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row--triple .lc-contract-mileage-req-row__period {
+  border-left: 1px solid var(--ln-hairline, #e2e8f0);
+  border-right: 1px solid var(--ln-hairline, #e2e8f0);
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__section-label {
+  font-size: 11px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.2;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__requirement--empty,
+.vm-page.lc-page .lc-contract-mileage-req-row__period--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.35;
+  padding-top: 2px;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__period-mile {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ln-body, #334155);
+  line-height: 1.3;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__period-date {
+  font-size: 12px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.3;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__period-date-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-period-days-tag {
+  flex-shrink: 0;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 1px 6px;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__completed {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__completed-label {
+  color: var(--ln-muted, #64748b);
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__completed-value {
+  font-weight: 500;
+  color: var(--ln-body, #334155);
+}
+
+.vm-page.lc-page .lc-contract-mileage-req-row__km-line,
+.vm-page.lc-page .lc-contract-mileage-req-row__current-line {
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-period-tag {
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-contract-return-settlement,
+.vm-page.lc-page .lc-contract-pickup-payment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+}
+
+.vm-page.lc-page .lc-contract-return-settlement--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  min-height: 0;
+}
+
+.vm-page.lc-page .lc-approval-status-cell__tag-wrap .lc-contract-status-tag-btn {
+  line-height: 1;
+  align-items: center;
+}
+
+.vm-page.lc-page .lc-contract-lease-bill {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 32px;
+}
+
+.vm-page.lc-page .lc-contract-lease-bill--empty {
+  min-height: 0;
+}
+
+.vm-page.lc-page .lc-contract-pickup-payment--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-contract-status-tag-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--ln-radius-pill, 999px);
+  font: inherit;
+  line-height: 1;
+}
+
+.vm-page.lc-page .lc-contract-status-tag-btn:hover {
+  filter: brightness(0.96);
+}
+
+.vm-page.lc-page .lc-contract-status-tag-btn:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress__bar-row .lc-vehicle-mileage-progress__track {
+  flex: 1;
+  min-width: 72px;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress__forecast {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress__forecast .vm-status {
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-overall-mileage-progress .lc-vehicle-mileage-progress__track {
+  flex: 1;
+  min-width: 72px;
+}
+
+.vm-page.lc-page .lc-contract-type-label {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--ln-body, #334155);
+  vertical-align: middle;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__remaining {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ln-body, #334155);
+  line-height: 1.3;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__remaining-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__remaining-row .vm-status {
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__bar-row .lc-vehicle-mileage-progress__track {
+  flex: 1;
+  min-width: 72px;
+  height: 8px;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__bar-row .lc-vehicle-mileage-progress__label {
+  flex-shrink: 0;
+  font-size: 12px;
+  min-width: 36px;
+  text-align: right;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-side {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-side--start {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-side--end {
+  flex: 0 0 auto;
+  align-items: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-date {
+  font-size: 10px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.25;
+}
+
+.vm-page.lc-page .lc-contract-mileage-completion__range-mile {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ln-body, #334155);
+  line-height: 1.25;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__range-date {
+  font-size: 10px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table .lc-contract-mileage-completion__range-mile {
+  font-size: 10px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-action-btn {
+  padding: 0;
+  height: auto;
+  font-size: 13px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-action-empty {
+  color: var(--ln-muted, #64748b);
+  font-size: 13px;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation--empty {
+  font-size: 13px;
+  color: var(--ln-muted, #64748b);
+  line-height: 1.35;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation--clickable {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  border-radius: var(--ln-radius-xs, 4px);
+  transition: background-color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation--clickable:hover {
+  background: color-mix(in srgb, var(--ln-primary, #32a06e) 8%, transparent);
+}
+
+.vm-page.lc-page .lc-contract-handover-situation--clickable:focus-visible {
+  outline: 2px solid var(--ln-primary, #32a06e);
+  outline-offset: 1px;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation__line {
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ln-primary, #32a06e);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation__line--mile {
+  font-weight: 500;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation__line--person {
+  font-weight: 500;
+}
+
+.vm-page.lc-page .lc-contract-handover-situation__line--time {
+  font-weight: 400;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-info__line {
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-info__line--primary {
+  color: var(--ln-primary, #32a06e);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-info__line--secondary {
+  color: var(--ln-body, #334155);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-native-table__progress {
+  width: 168px;
+}
+
+.vm-page.lc-page .lc-contract-vehicle-expand__empty {
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--ln-muted);
+}
+
+.vm-page.lc-page .lc-contract-vehicle-expand__title {
+  padding: 4px 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ln-muted, #64748b);
+}
+
+.vm-page.lc-page .lc-vehicle-mileage-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-vehicle-mileage-progress__track {
+  flex: 1;
+  min-width: 72px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ln-hairline) 65%, #fff);
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-vehicle-mileage-progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ln-primary, #32a06e), color-mix(in srgb, var(--ln-primary) 72%, #22c55e));
+  transition: width 0.2s ease;
+}
+
+.vm-page.lc-page .lc-vehicle-mileage-progress__label {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--ln-muted);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* —— 在租车辆概览 —— */
+.vm-page.lc-page .lc-fleet-summary.is-embedded {
+  margin-bottom: 16px;
+}
+
+.vm-page.lc-page .lc-fleet-summary.is-embedded .lc-fleet-summary__body {
+  padding: 14px 16px 16px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__body-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__body-toolbar .lc-fleet-summary__brands {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-fleet-summary__hide-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: var(--ln-radius-control, 8px);
+  background: var(--ln-canvas);
+  color: var(--ln-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.vm-page.lc-page .lc-fleet-summary__hide-btn:hover {
+  border-color: var(--ln-hairline-strong);
+  color: var(--ln-ink);
+  background: var(--ln-surface-pearl);
+}
+
+.vm-page.lc-page .lc-fleet-summary__grid--quick {
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card--compact {
+  padding: 12px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card--compact .lc-fleet-summary__card-model {
+  font-size: 0.8125rem;
+  -webkit-line-clamp: 2;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card--compact .lc-fleet-summary__card-hint {
+  font-size: 0.6875rem;
+}
+
+.lc-fleet-quick-modal__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lc-fleet-quick-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--ln-primary-soft);
+  color: var(--ln-primary-focus);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.lc-fleet-quick-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+}
+
+.vm-page.lc-page .lc-fleet-summary {
+  margin-bottom: 16px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: var(--ln-radius-card, 12px);
+  background: var(--ln-surface-card);
+  box-shadow: var(--ln-shadow-soft);
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-fleet-summary__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--ln-divider-soft, #f4f4f5);
+}
+
+.vm-page.lc-page .lc-fleet-summary.is-collapsed .lc-fleet-summary__header {
+  border-bottom: none;
+  padding-bottom: 16px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.vm-page.lc-page .lc-fleet-summary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--ln-primary-soft);
+  color: var(--ln-primary);
+  flex-shrink: 0;
+}
+
+.vm-page.lc-page .lc-fleet-summary__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ln-ink);
+  letter-spacing: -0.02em;
+}
+
+.vm-page.lc-page .lc-fleet-summary__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--ln-primary-soft);
+  color: var(--ln-primary-focus);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.vm-page.lc-page .lc-fleet-summary__subtitle {
+  margin: 6px 0 0 44px;
+  font-size: 0.8125rem;
+  color: var(--ln-muted);
+}
+
+.vm-page.lc-page .lc-fleet-summary.is-collapsed .lc-fleet-summary__subtitle {
+  margin-left: 0;
+}
+
+.vm-page.lc-page .lc-fleet-summary__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 280px;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-fleet-summary__search {
+  flex: 1 1 220px;
+  max-width: 320px;
+  min-width: 160px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__search .ant-input {
+  min-height: 36px;
+  border-radius: var(--ln-radius-control, 8px);
+}
+
+.vm-page.lc-page .lc-fleet-summary__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: var(--ln-radius-control, 8px);
+  background: var(--ln-canvas);
+  color: var(--ln-body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.vm-page.lc-page .lc-fleet-summary__toggle:hover {
+  border-color: var(--ln-hairline-strong);
+  color: var(--ln-ink);
+  background: var(--ln-surface-pearl);
+}
+
+.vm-page.lc-page .lc-fleet-summary__toggle:focus-visible {
+  outline: 2px solid var(--ln-primary);
+  outline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__body {
+  padding: 12px 16px 16px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__brand-chip {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: 999px;
+  background: var(--ln-canvas);
+  color: var(--ln-body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.vm-page.lc-page .lc-fleet-summary__brand-chip:hover {
+  border-color: var(--ln-primary);
+  color: var(--ln-primary-focus);
+}
+
+.vm-page.lc-page .lc-fleet-summary__brand-chip.is-active {
+  border-color: var(--ln-primary);
+  background: var(--ln-primary-soft);
+  color: var(--ln-primary-focus);
+  font-weight: 600;
+}
+
+.vm-page.lc-page .lc-fleet-summary__brand-chip:focus-visible {
+  outline: 2px solid var(--ln-primary);
+  outline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--ln-canvas) 0%, var(--ln-surface-pearl) 100%);
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card:hover {
+  border-color: color-mix(in srgb, var(--ln-primary) 35%, var(--ln-hairline));
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.vm-page.lc-page .lc-fleet-summary__card:focus-visible {
+  outline: 2px solid var(--ln-primary);
+  outline-offset: 2px;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-brand {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ln-primary-focus);
+  letter-spacing: 0.02em;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-type {
+  flex-shrink: 0;
+  max-width: 52%;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ln-surface-strong);
+  color: var(--ln-muted);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-model {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ln-ink);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-metrics {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ln-ink);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-unit {
+  font-size: 0.8125rem;
+  color: var(--ln-muted);
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-share {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--ln-muted);
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ln-hairline) 70%, #fff);
+  overflow: hidden;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ln-primary), color-mix(in srgb, var(--ln-primary) 75%, #22c55e));
+  transition: width 0.25s ease;
+}
+
+.vm-page.lc-page .lc-fleet-summary__card-hint {
+  font-size: 0.6875rem;
+  color: var(--ln-muted-soft);
+}
+
+.vm-page.lc-page .lc-fleet-summary__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--ln-muted);
+  font-size: 0.875rem;
+}
+
+.vm-page.lc-page .lc-fleet-summary__empty-reset {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--ln-hairline);
+  border-radius: var(--ln-radius-control, 8px);
+  background: var(--ln-canvas);
+  color: var(--ln-primary);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.vm-page.lc-page .lc-fleet-summary__empty-reset:hover {
+  border-color: var(--ln-primary);
+  background: var(--ln-primary-soft);
+}
+
+/* 在租车辆明细弹窗 — Modal 挂载在 body，样式不可依赖 .vm-page 祖先 */
+.lc-fleet-detail-modal .ant-modal-content {
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.14);
+}
+
+.lc-fleet-detail-modal .ant-modal-header {
+  margin: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(180deg, rgba(50, 160, 110, 0.06), #fff);
+}
+
+.lc-fleet-detail-modal .ant-modal-body {
+  padding: 0;
+}
+
+.lc-fleet-detail-modal .ant-modal-footer {
+  margin: 0;
+  padding: 12px 20px 16px;
+  border-top: 1px solid #f4f4f5;
+  background: #f6f7f7;
+}
+
+.lc-fleet-detail-modal__title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  padding-right: 28px;
+}
+
+.lc-fleet-detail-modal__title-main {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #18181b;
+  letter-spacing: -0.02em;
+}
+
+.lc-fleet-detail-modal__title-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(50, 160, 110, 0.1);
+  color: #2b9260;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.lc-fleet-detail-modal__title-type {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #f4f4f5;
+  color: #71717a;
+  font-size: 0.75rem;
+}
+
+.lc-fleet-detail-modal__body {
+  max-height: min(62vh, 540px);
+  overflow: auto;
+}
+
+.lc-fleet-detail-modal .lc-fleet-detail-modal__table-host.vm-page.lc-page {
+  padding: 0;
+  min-height: 0;
+  background: transparent;
+}
+
+.lc-fleet-detail-modal .lc-fleet-detail-modal__table-host .lc-contract-vehicle-table-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+
+.lc-fleet-detail-modal .lc-fleet-detail-modal__vehicle-table {
+  min-width: 880px;
+}
+
+.lc-fleet-detail-modal__empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #71717a;
+  font-size: 0.875rem;
+}
+
+.lc-fleet-detail-modal__close {
+  min-width: 88px;
+}
+
+@media (max-width: 768px) {
+  .vm-page.lc-page .lc-fleet-summary__subtitle {
+    margin-left: 0;
+  }
+
+  .vm-page.lc-page .lc-fleet-summary__toolbar {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .vm-page.lc-page .lc-fleet-summary__search {
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
+  .vm-page.lc-page .lc-fleet-summary__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vm-page.lc-page .lc-fleet-summary__card,
+  .vm-page.lc-page .lc-fleet-summary__card-bar-fill,
+  .vm-page.lc-page .lc-fleet-summary__toggle,
+  .vm-page.lc-page .lc-fleet-summary__brand-chip {
+    transition: none;
+  }
+
+  .vm-page.lc-page .lc-fleet-summary__card:hover {
+    transform: none;
+  }
+}

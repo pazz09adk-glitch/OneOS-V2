@@ -1,0 +1,185 @@
+/**
+ * ONE-OS 全局设计令牌
+ * 来源：web端/车辆管理.jsx + web端/styles/vm-tokens.css
+ * 所有中后台模块应优先引用本文件，而非页面内硬编码色值
+ */
+:root {
+  /* Brand — Emerald 主色（与车辆管理、加氢站站点信息一致） */
+  --oneos-color-primary: #10b981;
+  --oneos-color-primary-hover: #059669;
+  --oneos-color-primary-light: #ecfdf5;
+  --oneos-color-primary-border: #bbf7d0;
+  --oneos-color-primary-shadow: rgba(16, 185, 129, 0.45);
+  --oneos-color-primary-gradient-start: #0d7a63;
+  --oneos-color-primary-gradient-end: #065f4a;
+
+  /* Semantic */
+  --oneos-color-success: #10b981;
+  --oneos-color-success-bg: #ecfdf5;
+  --oneos-color-success-text: #047857;
+  --oneos-color-warning: #f59e0b;
+  --oneos-color-error: #ef4444;
+  --oneos-color-error-bg: #fef2f2;
+  --oneos-color-error-border: #fecaca;
+  --oneos-color-info: #2563eb;
+
+  /* Business dimension colors（车辆状态说明等业务维度，非 UI 主色） */
+  --oneos-dim-ops: #0f766e;
+  --oneos-dim-vehicle: #2563eb;
+  --oneos-dim-outbound: #7c3aed;
+  --oneos-dim-license: #d97706;
+  --oneos-dim-insurance: #e11d48;
+
+  /* Neutral */
+  --oneos-color-bg-page: #f8fafc;
+  --oneos-color-bg-page-alt: #f1f5f9;
+  --oneos-color-bg-card: #ffffff;
+  --oneos-color-bg-muted: #f8fafc;
+  --oneos-color-bg-hover: #f1f5f9;
+  --oneos-color-border: #e2e8f0;
+  --oneos-color-border-light: #f1f5f9;
+  --oneos-color-border-strong: #cbd5e1;
+  --oneos-color-text: #0f172a;
+  --oneos-color-text-secondary: #475569;
+  --oneos-color-text-muted: #64748b;
+  --oneos-color-text-placeholder: #94a3b8;
+
+  /* Typography */
+  --oneos-font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --oneos-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --oneos-font-size-xs: 12px;
+  --oneos-font-size-sm: 13px;
+  --oneos-font-size-base: 14px;
+  --oneos-font-size-md: 15px;
+  --oneos-font-size-lg: 16px;
+  --oneos-font-size-xl: 22px;
+  --oneos-font-size-kpi: 24px;
+  --oneos-font-weight-medium: 500;
+  --oneos-font-weight-semibold: 600;
+  --oneos-font-weight-bold: 700;
+  --oneos-font-weight-extrabold: 800;
+  --oneos-line-height-tight: 1.35;
+  --oneos-line-height-normal: 1.5;
+  --oneos-line-height-relaxed: 1.65;
+
+  /* Spacing（4px 基准网格） */
+  --oneos-space-1: 4px;
+  --oneos-space-2: 8px;
+  --oneos-space-3: 12px;
+  --oneos-space-4: 16px;
+  --oneos-space-5: 20px;
+  --oneos-space-6: 24px;
+  --oneos-space-8: 32px;
+
+  /* Radius */
+  --oneos-radius-sm: 6px;
+  --oneos-radius-md: 8px;
+  --oneos-radius-lg: 10px;
+  --oneos-radius-xl: 12px;
+  --oneos-radius-2xl: 16px;
+  --oneos-radius-pill: 999px;
+
+  /* Shadow */
+  --oneos-shadow-card: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+  --oneos-shadow-card-hover: 0 8px 28px -6px rgba(15, 23, 42, 0.08);
+  --oneos-shadow-kpi: 0 1px 3px rgba(15, 23, 42, 0.04);
+  --oneos-shadow-btn-primary: 0 2px 8px -2px var(--oneos-color-primary-shadow);
+  --oneos-shadow-kpi-icon: 0 4px 12px rgba(6, 95, 74, 0.28);
+  --oneos-shadow-popover: 0 8px 28px rgba(15, 23, 42, 0.12);
+
+  /* Layout */
+  --oneos-page-padding-x: 24px;
+  --oneos-page-padding-y: 24px;
+  --oneos-page-padding-bottom: 32px;
+  --oneos-filter-label-width: 88px;
+  --oneos-filter-columns: 4;
+  --oneos-control-height: 32px;
+  --oneos-control-height-lg: 44px;
+  --oneos-table-toolbar-search-width: 240px;
+  --oneos-kv-label-width: 100px;
+
+  /* Motion */
+  --oneos-duration-fast: 150ms;
+  --oneos-duration-normal: 200ms;
+  --oneos-ease-default: ease;
+
+  /* Z-index */
+  --oneos-z-dropdown: 1050;
+  --oneos-z-modal: 1100;
+
+  /* Focus ring（全局统一） */
+  --oneos-focus-ring: 2px solid var(--oneos-color-primary);
+  --oneos-focus-offset: 2px;
+}
+
+/* 车辆管理模块向后兼容别名 */
+:root {
+  --vm-color-primary: var(--oneos-color-primary);
+  --vm-color-primary-hover: var(--oneos-color-primary-hover);
+  --vm-color-primary-light: var(--oneos-color-primary-light);
+  --vm-color-primary-border: var(--oneos-color-primary-border);
+  --vm-color-primary-shadow: var(--oneos-color-primary-shadow);
+  --vm-color-success: var(--oneos-color-success);
+  --vm-color-success-bg: var(--oneos-color-success-bg);
+  --vm-color-success-text: var(--oneos-color-success-text);
+  --vm-color-warning: var(--oneos-color-warning);
+  --vm-color-error: var(--oneos-color-error);
+  --vm-color-error-bg: var(--oneos-color-error-bg);
+  --vm-color-error-border: var(--oneos-color-error-border);
+  --vm-color-bg-page: var(--oneos-color-bg-page);
+  --vm-color-bg-page-alt: var(--oneos-color-bg-page-alt);
+  --vm-color-bg-card: var(--oneos-color-bg-card);
+  --vm-color-bg-muted: var(--oneos-color-bg-muted);
+  --vm-color-bg-hover: var(--oneos-color-bg-hover);
+  --vm-color-border: var(--oneos-color-border);
+  --vm-color-border-light: var(--oneos-color-border-light);
+  --vm-color-text: var(--oneos-color-text);
+  --vm-color-text-secondary: var(--oneos-color-text-secondary);
+  --vm-color-text-muted: var(--oneos-color-text-muted);
+  --vm-color-text-placeholder: var(--oneos-color-text-placeholder);
+  --vm-font-family: var(--oneos-font-family);
+  --vm-font-mono: var(--oneos-font-mono);
+  --vm-font-size-xs: var(--oneos-font-size-xs);
+  --vm-font-size-sm: var(--oneos-font-size-sm);
+  --vm-font-size-base: var(--oneos-font-size-base);
+  --vm-font-size-md: var(--oneos-font-size-md);
+  --vm-font-size-lg: var(--oneos-font-size-lg);
+  --vm-font-size-xl: var(--oneos-font-size-xl);
+  --vm-font-weight-medium: var(--oneos-font-weight-medium);
+  --vm-font-weight-semibold: var(--oneos-font-weight-semibold);
+  --vm-font-weight-bold: var(--oneos-font-weight-bold);
+  --vm-font-weight-extrabold: var(--oneos-font-weight-extrabold);
+  --vm-line-height-tight: var(--oneos-line-height-tight);
+  --vm-line-height-normal: var(--oneos-line-height-normal);
+  --vm-line-height-relaxed: var(--oneos-line-height-relaxed);
+  --vm-space-1: var(--oneos-space-1);
+  --vm-space-2: var(--oneos-space-2);
+  --vm-space-3: var(--oneos-space-3);
+  --vm-space-4: var(--oneos-space-4);
+  --vm-space-5: var(--oneos-space-5);
+  --vm-space-6: var(--oneos-space-6);
+  --vm-space-8: var(--oneos-space-8);
+  --vm-radius-sm: var(--oneos-radius-sm);
+  --vm-radius-md: var(--oneos-radius-md);
+  --vm-radius-lg: var(--oneos-radius-lg);
+  --vm-radius-xl: var(--oneos-radius-xl);
+  --vm-radius-2xl: var(--oneos-radius-2xl);
+  --vm-radius-pill: var(--oneos-radius-pill);
+  --vm-shadow-card: var(--oneos-shadow-card);
+  --vm-shadow-card-hover: var(--oneos-shadow-card-hover);
+  --vm-shadow-btn-primary: var(--oneos-shadow-btn-primary);
+  --vm-page-padding-x: var(--oneos-page-padding-x);
+  --vm-page-padding-y: var(--oneos-page-padding-y);
+  --vm-page-padding-bottom: var(--oneos-page-padding-bottom);
+  --vm-filter-label-width: var(--oneos-filter-label-width);
+  --vm-filter-columns: var(--oneos-filter-columns);
+  --vm-table-toolbar-search-width: var(--oneos-table-toolbar-search-width);
+  --vm-action-btn-min-height: var(--oneos-control-height);
+  --vm-action-more-size: var(--oneos-control-height);
+  --vm-kv-label-width: var(--oneos-kv-label-width);
+  --vm-duration-fast: var(--oneos-duration-fast);
+  --vm-duration-normal: var(--oneos-duration-normal);
+  --vm-ease-default: var(--oneos-ease-default);
+  --vm-z-dropdown: var(--oneos-z-dropdown);
+  --vm-z-modal: var(--oneos-z-modal);
+}

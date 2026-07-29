@@ -1,0 +1,50 @@
+{
+  "id": "ops-vehicle-transfer",
+  "line": "ops",
+  "name": "调拨管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维",
+    "业务"
+  ],
+  "pages": [
+    {
+      "name": "调拨管理",
+      "purpose": "调出方/接收方确认，权限接棒"
+    }
+  ],
+  "preconditions": [
+    "车辆可调拨"
+  ],
+  "forward": [
+    "发起调拨",
+    "运输信息",
+    "接收确认"
+  ],
+  "reverse": [
+    {
+      "case": "接收未确认",
+      "behavior": "权限不接棒"
+    }
+  ],
+  "rules": [
+    "接收确认后运维区域交棒"
+  ],
+  "forbidden": [
+    "断头办结无状态回写"
+  ],
+  "closedLoop": "调拨完成车辆归属新区域",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态/事件回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/调拨管理-新增.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/调拨管理-新增.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/调拨管理-新增.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/调拨管理-新增.jsx"
+}

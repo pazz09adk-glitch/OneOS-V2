@@ -1,0 +1,50 @@
+{
+  "id": "vehicle-maintenance-ledger",
+  "line": "ops",
+  "name": "车辆维修明细",
+  "confidence": "architecture",
+  "roles": [
+    "运维",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "维保明细台账",
+      "purpose": "维修保养费用录入与单车盈亏分摊"
+    }
+  ],
+  "preconditions": [
+    "车辆档案存在"
+  ],
+  "forward": [
+    "录入费用与项目",
+    "关联车辆",
+    "成本计入单车/条线盈亏"
+  ],
+  "reverse": [
+    {
+      "case": "无车辆",
+      "behavior": "不可入账"
+    }
+  ],
+  "rules": [
+    "成本可追溯到车"
+  ],
+  "forbidden": [
+    "费用进盈亏无车辆归属"
+  ],
+  "closedLoop": "维保费用已入账并回填盈亏",
+  "triggers": [
+    {
+      "to": "business-dept-ledger",
+      "when": "成本回填"
+    },
+    {
+      "to": "vehicle-management",
+      "when": "生命周期（上线后）"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "ledger-h2-procurement-summary",
+  "line": "energy",
+  "name": "氢费采购端汇总报表",
+  "confidence": "legacy",
+  "roles": [
+    "能源",
+    "财务"
+  ],
+  "pages": [
+    {
+      "name": "氢费采购端汇总",
+      "purpose": "采购端氢费汇总与对账辅助"
+    }
+  ],
+  "preconditions": [
+    "氢费明细存在"
+  ],
+  "forward": [
+    "筛选周期",
+    "汇总查看",
+    "导出",
+    "支撑结算"
+  ],
+  "reverse": [
+    {
+      "case": "明细未核对",
+      "behavior": "汇总仅作参考并提示"
+    }
+  ],
+  "rules": [
+    "与车辆氢费明细、站点对账单联动"
+  ],
+  "forbidden": [
+    "仅看汇总不核对明细长期结算"
+  ],
+  "closedLoop": "汇总可支撑站点/采购结算决策",
+  "triggers": [
+    {
+      "to": "vehicle-h2-fee-ledger",
+      "when": "下钻明细"
+    },
+    {
+      "to": "oneos-web-h2-station-site",
+      "when": "站点结算"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/台账数据/氢费采购端汇总报表-需求文档.md"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/台账数据/氢费采购端汇总报表.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/台账数据/氢费采购端汇总报表.jsx"
+}

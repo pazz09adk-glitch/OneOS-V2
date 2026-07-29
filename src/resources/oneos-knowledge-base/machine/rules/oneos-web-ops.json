@@ -1,0 +1,70 @@
+{
+  "id": "oneos-web-ops",
+  "line": "ops",
+  "name": "车辆运维综合",
+  "confidence": "architecture",
+  "roles": [
+    "运维",
+    "区域运维"
+  ],
+  "pages": [
+    {
+      "name": "运维工作台/任务",
+      "purpose": "上牌、证照、备车、交还车、替换、年审、调拨等"
+    }
+  ],
+  "preconditions": [
+    "车辆已入库或处于对应任务态"
+  ],
+  "forward": [
+    "上牌录入车牌",
+    "证照维护与临期待办",
+    "备车整备",
+    "交车（派单/培训/电子签）",
+    "还车现场对比",
+    "异动调拨替换"
+  ],
+  "reverse": [
+    {
+      "case": "未备车",
+      "behavior": "不可按可交付交车"
+    },
+    {
+      "case": "提车款未对齐",
+      "behavior": "交车任务不可办结（租赁路径）"
+    },
+    {
+      "case": "未交车",
+      "behavior": "物流调度不可办结出车"
+    }
+  ],
+  "rules": [
+    "区域权限流转见跨切规则",
+    "交还车关键节点可要求电子签",
+    "临期证照自动推送待办"
+  ],
+  "forbidden": [
+    "履约中按实时地理位置改运维区域"
+  ],
+  "closedLoop": "任务办结并回写车辆状态与生命周期事件",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态与事件回写"
+    },
+    {
+      "to": "lease-business-ledger",
+      "when": "交车成功生成台账"
+    },
+    {
+      "to": "vehicle-return-settlement",
+      "when": "还车后发起应结"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/",
+    "见 ops-vehicle-* 拆分卡"
+  ],
+  "legacyMerged": true
+}

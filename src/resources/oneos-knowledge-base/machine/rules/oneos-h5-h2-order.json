@@ -1,0 +1,55 @@
+{
+  "id": "oneos-h5-h2-order",
+  "line": "energy",
+  "name": "加氢订单（H5）",
+  "confidence": "architecture",
+  "roles": [
+    "加氢站操作员",
+    "能源"
+  ],
+  "pages": [
+    {
+      "name": "H5 加氢订单",
+      "purpose": "签约站主动上报、预约；PLC 自动采集入库"
+    }
+  ],
+  "preconditions": [
+    "签约站与账号有效"
+  ],
+  "forward": [
+    "录入/上报加氢量与车辆",
+    "生成加氢记录",
+    "进入能源对账池"
+  ],
+  "reverse": [
+    {
+      "case": "账号无效",
+      "behavior": "不可上报"
+    },
+    {
+      "case": "PLC 失败",
+      "behavior": "可人工补报或告警"
+    }
+  ],
+  "rules": [
+    "主动上报与 PLC 均可入库",
+    "记录需可对账"
+  ],
+  "forbidden": [
+    "无车辆关联的孤儿流水长期悬挂"
+  ],
+  "closedLoop": "加氢记录进入可对账状态",
+  "triggers": [
+    {
+      "to": "vehicle-h2-fee-ledger",
+      "when": "记录汇入明细"
+    },
+    {
+      "to": "payment-records",
+      "when": "对账后核销"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

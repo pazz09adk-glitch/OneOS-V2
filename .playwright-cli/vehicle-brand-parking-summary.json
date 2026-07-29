@@ -1,0 +1,761 @@
+{
+  "fetchedAt": "2026-07-24T11:42:53.939Z",
+  "sourceUrl": "https://lnoneos.com/operations/vehicle",
+  "menuPath": "运维管理 → 车辆管理",
+  "vehicleTotal": 1024,
+  "emptyParkingCount": 624,
+  "inParkingCount": 400,
+  "brandCount": 16,
+  "brandModelCount": 21,
+  "parkingCount": 24,
+  "brandSummary": [
+    {
+      "brand": "现代",
+      "count": 514,
+      "models": 3
+    },
+    {
+      "brand": "苏龙",
+      "count": 197,
+      "models": 1
+    },
+    {
+      "brand": "飞驰",
+      "count": 194,
+      "models": 2
+    },
+    {
+      "brand": "宇通",
+      "count": 49,
+      "models": 1
+    },
+    {
+      "brand": "跃进",
+      "count": 36,
+      "models": 1
+    },
+    {
+      "brand": "楚风",
+      "count": 13,
+      "models": 2
+    },
+    {
+      "brand": "通华",
+      "count": 7,
+      "models": 1
+    },
+    {
+      "brand": "其他",
+      "count": 3,
+      "models": 2
+    },
+    {
+      "brand": "明威",
+      "count": 2,
+      "models": 1
+    },
+    {
+      "brand": "舒捷",
+      "count": 2,
+      "models": 1
+    },
+    {
+      "brand": "腾势",
+      "count": 2,
+      "models": 1
+    },
+    {
+      "brand": "东风",
+      "count": 1,
+      "models": 1
+    },
+    {
+      "brand": "红岩",
+      "count": 1,
+      "models": 1
+    },
+    {
+      "brand": "鲁郸万通牌",
+      "count": 1,
+      "models": 1
+    },
+    {
+      "brand": "万风",
+      "count": 1,
+      "models": 1
+    },
+    {
+      "brand": "远程牌",
+      "count": 1,
+      "models": 1
+    }
+  ],
+  "byBrandModel": [
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "count": 326,
+      "inParking": 123,
+      "withCustomer": 203
+    },
+    {
+      "brand": "苏龙",
+      "model": "海格牌18吨双飞翼货车",
+      "count": 197,
+      "inParking": 66,
+      "withCustomer": 131
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "count": 166,
+      "inParking": 67,
+      "withCustomer": 99
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌18吨双飞翼货车",
+      "count": 102,
+      "inParking": 11,
+      "withCustomer": 91
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "count": 86,
+      "inParking": 41,
+      "withCustomer": 45
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "count": 49,
+      "inParking": 29,
+      "withCustomer": 20
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "count": 36,
+      "inParking": 35,
+      "withCustomer": 1
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "count": 28,
+      "inParking": 15,
+      "withCustomer": 13
+    },
+    {
+      "brand": "楚风",
+      "model": "18吨厢式货车",
+      "count": 10,
+      "inParking": 8,
+      "withCustomer": 2
+    },
+    {
+      "brand": "通华",
+      "model": "重型集装箱半挂车",
+      "count": 7,
+      "inParking": 0,
+      "withCustomer": 7
+    },
+    {
+      "brand": "楚风",
+      "model": "49吨牵引车头",
+      "count": 3,
+      "inParking": 0,
+      "withCustomer": 3
+    },
+    {
+      "brand": "明威",
+      "model": "重型集装箱半挂车",
+      "count": 2,
+      "inParking": 2,
+      "withCustomer": 0
+    },
+    {
+      "brand": "其他",
+      "model": "公务用车/小客车",
+      "count": 2,
+      "inParking": 0,
+      "withCustomer": 2
+    },
+    {
+      "brand": "舒捷",
+      "model": "SJ型蓄电池观光车",
+      "count": 2,
+      "inParking": 0,
+      "withCustomer": 2
+    },
+    {
+      "brand": "腾势",
+      "model": "公务用车/小客车",
+      "count": 2,
+      "inParking": 0,
+      "withCustomer": 2
+    },
+    {
+      "brand": "东风",
+      "model": "挂靠油车",
+      "count": 1,
+      "inParking": 1,
+      "withCustomer": 0
+    },
+    {
+      "brand": "红岩",
+      "model": "35吨牵引车头",
+      "count": 1,
+      "inParking": 0,
+      "withCustomer": 1
+    },
+    {
+      "brand": "鲁郸万通牌",
+      "model": "重型集装箱半挂车",
+      "count": 1,
+      "inParking": 0,
+      "withCustomer": 1
+    },
+    {
+      "brand": "其他",
+      "model": "氢能叉车",
+      "count": 1,
+      "inParking": 1,
+      "withCustomer": 0
+    },
+    {
+      "brand": "万风",
+      "model": "重型平板半挂车",
+      "count": 1,
+      "inParking": 1,
+      "withCustomer": 0
+    },
+    {
+      "brand": "远程牌",
+      "model": "公务用车/小客车",
+      "count": 1,
+      "inParking": 0,
+      "withCustomer": 1
+    }
+  ],
+  "byParking": [
+    {
+      "parking": "（已交客户/不在停车场）",
+      "count": 624
+    },
+    {
+      "parking": "平湖停车场",
+      "count": 175
+    },
+    {
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 65
+    },
+    {
+      "parking": "广州开创大道停车场",
+      "count": 55
+    },
+    {
+      "parking": "开创大道云埔宏仁便民停车场",
+      "count": 26
+    },
+    {
+      "parking": "独山港停车场",
+      "count": 18
+    },
+    {
+      "parking": "汇通检测站停车场",
+      "count": 10
+    },
+    {
+      "parking": "龙王路停车场",
+      "count": 10
+    },
+    {
+      "parking": "北京一汽宏特停车场",
+      "count": 8
+    },
+    {
+      "parking": "乌鲁木齐隆盛达停车场",
+      "count": 6
+    },
+    {
+      "parking": "佛山汽车运输集团公交分公司塱沙充电站",
+      "count": 4
+    },
+    {
+      "parking": "温州乐清客户停车场",
+      "count": 4
+    },
+    {
+      "parking": "欧亚停车场",
+      "count": 3
+    },
+    {
+      "parking": "成都宇通服务站停车场",
+      "count": 3
+    },
+    {
+      "parking": "韶关宝氢科技停车场",
+      "count": 2
+    },
+    {
+      "parking": "广州现代停车场",
+      "count": 2
+    },
+    {
+      "parking": "中铁黑豹停车场",
+      "count": 1
+    },
+    {
+      "parking": "佛山盛图服务站",
+      "count": 1
+    },
+    {
+      "parking": "嘉兴华昱维修站停车场",
+      "count": 1
+    },
+    {
+      "parking": "韶关铁运作业区东南86米停车场",
+      "count": 1
+    },
+    {
+      "parking": "北京一汽宏特修理厂停车场",
+      "count": 1
+    },
+    {
+      "parking": "飞驰停车场",
+      "count": 1
+    },
+    {
+      "parking": "佛山盛图新能源服务站",
+      "count": 1
+    },
+    {
+      "parking": "乍浦码头停车场",
+      "count": 1
+    },
+    {
+      "parking": "嘉兴秀洲加氢站停车场",
+      "count": 1
+    }
+  ],
+  "matrix": [
+    {
+      "brand": "楚风",
+      "model": "18吨厢式货车",
+      "parking": "北京一汽宏特停车场",
+      "count": 8
+    },
+    {
+      "brand": "楚风",
+      "model": "18吨厢式货车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 2
+    },
+    {
+      "brand": "楚风",
+      "model": "49吨牵引车头",
+      "parking": "（已交客户/不在停车场）",
+      "count": 3
+    },
+    {
+      "brand": "东风",
+      "model": "挂靠油车",
+      "parking": "北京一汽宏特修理厂停车场",
+      "count": 1
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 13
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "parking": "平湖停车场",
+      "count": 11
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "parking": "汇通检测站停车场",
+      "count": 2
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "parking": "嘉兴华昱维修站停车场",
+      "count": 1
+    },
+    {
+      "brand": "飞驰",
+      "model": "18吨厢式货车",
+      "parking": "欧亚停车场",
+      "count": 1
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "（已交客户/不在停车场）",
+      "count": 99
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "独山港停车场",
+      "count": 18
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 17
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "平湖停车场",
+      "count": 16
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "龙王路停车场",
+      "count": 7
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "汇通检测站停车场",
+      "count": 4
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "温州乐清客户停车场",
+      "count": 4
+    },
+    {
+      "brand": "飞驰",
+      "model": "49吨牵引车头",
+      "parking": "乍浦码头停车场",
+      "count": 1
+    },
+    {
+      "brand": "红岩",
+      "model": "35吨牵引车头",
+      "parking": "（已交客户/不在停车场）",
+      "count": 1
+    },
+    {
+      "brand": "鲁郸万通牌",
+      "model": "重型集装箱半挂车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 1
+    },
+    {
+      "brand": "明威",
+      "model": "重型集装箱半挂车",
+      "parking": "龙王路停车场",
+      "count": 1
+    },
+    {
+      "brand": "明威",
+      "model": "重型集装箱半挂车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 1
+    },
+    {
+      "brand": "其他",
+      "model": "公务用车/小客车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 2
+    },
+    {
+      "brand": "其他",
+      "model": "氢能叉车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 1
+    },
+    {
+      "brand": "舒捷",
+      "model": "SJ型蓄电池观光车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 2
+    },
+    {
+      "brand": "苏龙",
+      "model": "海格牌18吨双飞翼货车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 131
+    },
+    {
+      "brand": "苏龙",
+      "model": "海格牌18吨双飞翼货车",
+      "parking": "平湖停车场",
+      "count": 62
+    },
+    {
+      "brand": "苏龙",
+      "model": "海格牌18吨双飞翼货车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 3
+    },
+    {
+      "brand": "苏龙",
+      "model": "海格牌18吨双飞翼货车",
+      "parking": "飞驰停车场",
+      "count": 1
+    },
+    {
+      "brand": "腾势",
+      "model": "公务用车/小客车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 2
+    },
+    {
+      "brand": "通华",
+      "model": "重型集装箱半挂车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 7
+    },
+    {
+      "brand": "万风",
+      "model": "重型平板半挂车",
+      "parking": "汇通检测站停车场",
+      "count": 1
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 45
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "parking": "开创大道云埔宏仁便民停车场",
+      "count": 17
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "parking": "广州开创大道停车场",
+      "count": 11
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 7
+    },
+    {
+      "brand": "现代",
+      "model": "4.5吨货车",
+      "parking": "平湖停车场",
+      "count": 6
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌18吨双飞翼货车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 91
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌18吨双飞翼货车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 5
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌18吨双飞翼货车",
+      "parking": "平湖停车场",
+      "count": 4
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌18吨双飞翼货车",
+      "parking": "开创大道云埔宏仁便民停车场",
+      "count": 2
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 203
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "广州开创大道停车场",
+      "count": 44
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "平湖停车场",
+      "count": 34
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 24
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "开创大道云埔宏仁便民停车场",
+      "count": 7
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "佛山汽车运输集团公交分公司塱沙充电站",
+      "count": 4
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "乌鲁木齐隆盛达停车场",
+      "count": 3
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "广州现代停车场",
+      "count": 2
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "中铁黑豹停车场",
+      "count": 1
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "欧亚停车场",
+      "count": 1
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "佛山盛图服务站",
+      "count": 1
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "佛山盛图新能源服务站",
+      "count": 1
+    },
+    {
+      "brand": "现代",
+      "model": "帕力安牌4.5吨冷链车",
+      "parking": "嘉兴秀洲加氢站停车场",
+      "count": 1
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "（已交客户/不在停车场）",
+      "count": 20
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "平湖停车场",
+      "count": 14
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 5
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "成都宇通服务站停车场",
+      "count": 3
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "汇通检测站停车场",
+      "count": 2
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "乌鲁木齐隆盛达停车场",
+      "count": 2
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "龙王路停车场",
+      "count": 2
+    },
+    {
+      "brand": "宇通",
+      "model": "49吨牵引车头",
+      "parking": "欧亚停车场",
+      "count": 1
+    },
+    {
+      "brand": "远程牌",
+      "model": "公务用车/小客车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 1
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "平湖停车场",
+      "count": 28
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "韶关宝氢科技停车场",
+      "count": 2
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "嘉兴公司楼下氢能展厅",
+      "count": 2
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "韶关铁运作业区东南86米停车场",
+      "count": 1
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "（已交客户/不在停车场）",
+      "count": 1
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "乌鲁木齐隆盛达停车场",
+      "count": 1
+    },
+    {
+      "brand": "跃进",
+      "model": "4.5吨冷链车",
+      "parking": "汇通检测站停车场",
+      "count": 1
+    }
+  ],
+  "note": "归属停车场为空（含空白/破折号）计为「已交客户/不在停车场」"
+}

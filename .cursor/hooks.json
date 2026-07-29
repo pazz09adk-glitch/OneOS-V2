@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python3 .cursor/hooks/token_budget_session.py",
+        "timeout": 10
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "python3 .cursor/hooks/token_budget_prompt.py",
+        "timeout": 10
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "command": "python3 .cursor/hooks/token_budget_turn.py",
+        "timeout": 10
+      }
+    ],
+    "subagentStart": [
+      {
+        "command": "python3 .cursor/hooks/token_budget_subagent.py",
+        "timeout": 10
+      }
+    ]
+  }
+}

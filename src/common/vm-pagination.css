@@ -1,0 +1,181 @@
+/**
+ * ONE-OS vm-page 列表分页 — 全局样式
+ * 规范：src/prototypes/vm-shared/DESIGN.md
+ * 组件：src/common/TablePagination.tsx
+ * 元素顺序：共 x 条 → 页码 → 每页 N 条
+ */
+
+.vm-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  width: auto;
+  flex: 0 1 auto;
+  margin-left: auto;
+  padding: 0;
+}
+
+.vm-pagination-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--ln-muted);
+  flex-shrink: 0;
+}
+
+.vm-pagination-total {
+  font-size: 0.875rem;
+  color: var(--ln-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.vm-pagination-total-num {
+  color: var(--ln-ink);
+  font-weight: 600;
+}
+
+.vm-pagination-size-label {
+  white-space: nowrap;
+}
+
+.vm-pagination-select {
+  min-width: 72px;
+  height: var(--vm-control-height);
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--ln-hairline-strong);
+  border-radius: var(--ln-radius-control);
+  background: var(--ln-surface-card);
+  color: var(--ln-ink);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.vm-pagination-select:focus {
+  outline: none;
+  border-color: var(--vm-focus-border-color);
+}
+
+.vm-pagination-pages {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.vm-pagination-nav,
+.vm-pagination-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--vm-control-height);
+  height: var(--vm-control-height);
+  padding: 0 8px;
+  border: 1px solid var(--ln-hairline-strong);
+  border-radius: var(--ln-radius-control);
+  background: var(--ln-surface-card);
+  color: var(--ln-ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+}
+
+.vm-pagination-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--ln-canvas-soft);
+}
+
+.vm-pagination-nav:hover:not(:disabled),
+.vm-pagination-page:hover:not(.active) {
+  background: var(--ln-canvas-soft);
+  border-color: var(--ln-primary);
+  color: var(--ln-primary-focus);
+}
+
+.vm-pagination-nav:active:not(:disabled),
+.vm-pagination-page:active:not(.active) {
+  transform: scale(0.96);
+}
+
+.vm-pagination-page.active {
+  background: var(--ln-primary);
+  border-color: var(--ln-primary);
+  color: var(--ln-on-primary);
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.28);
+}
+
+.vm-pagination-nav:focus-visible,
+.vm-pagination-page:focus-visible {
+  outline: none;
+  border-color: var(--vm-focus-border-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.vm-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: var(--vm-control-height);
+  color: var(--ln-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vm-pagination-nav,
+  .vm-pagination-page {
+    transition: none;
+  }
+
+  .vm-pagination-nav:active:not(:disabled),
+  .vm-pagination-page:active:not(.active) {
+    transform: none;
+  }
+}
+
+/* 详情 Tab 等紧凑场景：vm-table-footer--split vm-table-footer--compact */
+.vm-table-footer--compact .vm-pagination {
+  width: auto;
+  flex: 0 1 auto;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.vm-table-footer--compact .vm-pagination-size {
+  gap: 4px;
+  font-size: 0.8125rem;
+}
+
+.vm-table-footer--compact .vm-pagination-select {
+  min-width: 52px;
+  height: 28px;
+  padding: 0 22px 0 8px;
+  font-size: 0.8125rem;
+}
+
+.vm-table-footer--compact .vm-pagination-nav,
+.vm-table-footer--compact .vm-pagination-page {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  font-size: 0.8125rem;
+}
+
+.vm-table-footer--compact .vm-pagination-ellipsis {
+  min-width: 20px;
+  height: 28px;
+  font-size: 0.8125rem;
+}
+
+.vm-table-footer--compact .vm-pagination-total {
+  font-size: 0.8125rem;
+}

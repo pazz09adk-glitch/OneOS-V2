@@ -1,0 +1,40 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "oneos-v2-form-kit",
+    "pageId": "main",
+    "updatedAt": 1784800000000,
+    "nodes": [
+      {
+        "id": "oneos-v2-form-kit",
+        "index": 1,
+        "title": "OneOS V2 表单控件套件",
+        "pageId": "main",
+        "locator": {
+          "selectors": ["[data-annotation-id=\"oneos-v2-form-kit\"]"],
+          "fingerprint": "oneos-v2-form-kit",
+          "path": []
+        },
+        "aiPrompt": "OneOS V2 统一表单控件预览：输入、单选、多选、单日、区间、时间。",
+        "annotationText": "主色 Stripe Violet；尺寸 sm=32 / md=36；圆角 8；支持浅深色与错误态演示。",
+        "hasMarkdown": true,
+        "color": "#533afd",
+        "images": [],
+        "createdAt": 1784800000000,
+        "updatedAt": 1784800000000
+      }
+    ],
+    "directory": {
+      "nodes": [
+        {
+          "id": "oneos-v2-form-kit-prd",
+          "title": "产品需求说明（PRD）",
+          "markdownPath": ".spec/requirements-prd.md",
+          "markdown": "# OneOS V2 表单控件套件 · 产品需求说明\n\n## 1. 总览\n\n为 OneOS V2 提供统一的表单控件皮肤与交互（输入、单选、多选、单日日期、区间日期、时间），视觉母版为租赁合同 `LeaseContractHub`，主色 Stripe Violet `#533AFD`。\n\n## 2. 目标用户与任务\n\n| 角色 | 任务 |\n|------|------|\n| 产品 / 设计 | 一眼对比六类控件在浅/深色下的尺寸与状态 |\n| 前端迁页 | 新 V2 页直接引用 `src/common/oneos-v2-form`，不再各自写皮肤 |\n\n## 3. 范围\n\n- **在范围**：`O2Input` / `O2Select` / `O2MultiSelect` / `O2DatePicker` / `O2DateRangePicker` / `O2TimePicker` + 本预览页\n- **不在范围**：大改业务页；旧 vm 页强制替换（可暂留 `FilterPickerField` / `DateRangeFilterField`）\n\n## 4. 用户故事（闭环）\n\n1. **起点**：打开本原型或 `/prototypes/oneos-v2?view=form-kit`\n2. **运作**：切换浅/深色；操作筛选尺寸与表单尺寸控件；可开「演示错误态」\n3. **闭环**：确认规格后，迁页按 README 引用 `O2*` 组件\n\n## 5. 验收\n\n- [ ] 六类控件外观一致（圆角 8、主色 Violet、聚焦 soft 环）\n- [ ] 浅色 / 深色均可操作\n- [ ] 区间日期展示「至」，双月历\n- [ ] 文档写清尺寸与引用路径\n"
+        }
+      ]
+    }
+  }
+}

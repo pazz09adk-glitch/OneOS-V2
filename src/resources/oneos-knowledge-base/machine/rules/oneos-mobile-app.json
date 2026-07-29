@@ -1,0 +1,66 @@
+{
+  "id": "oneos-mobile-app",
+  "line": "platform",
+  "name": "ONE-OS 移动端运管",
+  "confidence": "legacy",
+  "roles": [
+    "内部运营/管理人员"
+  ],
+  "pages": [
+    {
+      "name": "登录",
+      "purpose": "账号密码/手机号授权/游客"
+    },
+    {
+      "name": "待办",
+      "purpose": "待办任务列表"
+    },
+    {
+      "name": "业务",
+      "purpose": "运维管理等入口：车辆/备交还/替换调拨年审异动故障/司机培训；审批；数据可视化"
+    },
+    {
+      "name": "地图 / 我的",
+      "purpose": "导航模块（细节待补充）"
+    }
+  ],
+  "preconditions": [
+    "账号有效"
+  ],
+  "forward": [
+    "登录",
+    "看待办",
+    "进业务管理办理或查车"
+  ],
+  "reverse": [
+    {
+      "case": "手册未覆盖模块",
+      "behavior": "标注待补充，以线上为准"
+    }
+  ],
+  "rules": [
+    "底栏：待办、业务、地图、我的",
+    "车辆筛选含运营状态/省/市"
+  ],
+  "forbidden": [
+    "仅移动端点完成但无回写 Web 源单"
+  ],
+  "closedLoop": "待办/现场操作回写对应业务模块",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "车辆管理"
+    },
+    {
+      "to": "oneos-web-ops",
+      "when": "运维任务"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/docs/ONE-OS-用户使用手册-初稿.md",
+    "~/Desktop/CURSOR/ONE-OS/工作台.jsx"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/docs/ONE-OS-用户使用手册-初稿.md",
+  "legacyPath": null
+}

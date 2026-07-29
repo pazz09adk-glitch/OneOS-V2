@@ -1,0 +1,7 @@
+/**
+ * 租赁合同管理 — 模块样式（基于 vehicle-management vm-*）
+ */
+@import url('../../ledger-shared/styles/ledger-page.css');
+@import url('../../contract-template-management/styles/contract-template.css');
+@import url('./lease-contract.css');
+@import url('./lease-contract-create.css');

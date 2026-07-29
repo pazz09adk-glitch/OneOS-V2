@@ -1,0 +1,53 @@
+{
+  "id": "xiaolingling-delivery",
+  "line": "external",
+  "name": "小羚羚 · 交车",
+  "confidence": "legacy",
+  "roles": [
+    "外部交车相关方",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "小羚羚交车",
+      "purpose": "外部交车数字化与用户手册"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "按小羚羚交车 PRD/手册完成交车节点",
+    "留痕"
+  ],
+  "reverse": [
+    {
+      "case": "与 ONE-OS 主站状态冲突",
+      "behavior": "以主站车辆状态与交车门禁为准对齐"
+    }
+  ],
+  "rules": [
+    "有独立 PRD 与用户手册",
+    "需与 ONE-OS 车辆/交车状态协同"
+  ],
+  "forbidden": [
+    "外部办结但主站仍未交车"
+  ],
+  "closedLoop": "交车结果回写 ONE-OS 可验证",
+  "triggers": [
+    {
+      "to": "ops-vehicle-delivery",
+      "when": "交车结果同步"
+    },
+    {
+      "to": "vehicle-management",
+      "when": "状态回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/docs/小羚羚-交车-产品需求文档.md",
+    "~/Desktop/CURSOR/ONE-OS/docs/小羚羚-交车-用户使用手册.html",
+    "~/Desktop/CURSOR/ONE-OS/小羚羚/"
+  ],
+  "era": "ONE-OS",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/docs/小羚羚-交车-产品需求文档.md",
+  "legacyPath": null
+}

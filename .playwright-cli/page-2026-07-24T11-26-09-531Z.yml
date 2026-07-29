@@ -1,0 +1,5 @@
+- generic [active] [ref=f2e1]:
+  - generic: 羚牛OneOS
+  - generic [ref=f2e5]:
+    - img "loading" [ref=f2e6]
+    - text: 加载菜单中...

@@ -1,0 +1,58 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "biz-finance-line-briefing",
+    "pageId": "briefing",
+    "updatedAt": 1785547200000,
+    "nodes": [
+      {
+        "id": "bfbf-formula",
+        "index": 1,
+        "title": "业财公式与纪律",
+        "pageId": "briefing",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfbf-formula']"],
+          "fingerprint": "div|bfbf-formula",
+          "path": []
+        },
+        "aiPrompt": "业务单据关联财务收付款后回写并放行",
+        "annotationText": "该收/该付 ↔ 实收/实付；无关联不得假性结清、已充值、已付款、可交车。",
+        "hasMarkdown": false,
+        "color": "#60A5FA",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfbf-gates",
+        "index": 2,
+        "title": "关键门禁与拍板",
+        "pageId": "briefing",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfbf-gates']"],
+          "fingerprint": "section|bfbf-gates",
+          "path": []
+        },
+        "aiPrompt": "交车签章能源保单等门禁",
+        "annotationText": "七项门禁 + 四项会上待拍板；演示模式可逐步翻模块。",
+        "hasMarkdown": false,
+        "color": "#FBBF24",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
+      }
+    ]
+  },
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "id": "bfbf-prd",
+        "title": "产品需求说明（PRD）",
+        "markdownPath": ".spec/requirements-prd.md"
+      }
+    ]
+  }
+}

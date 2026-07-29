@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>加氢站站点信息 - 预览</title>
+  <link rel="stylesheet" href="https://unpkg.com/antd@5/dist/reset.css" />
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1/dayjs.min.js"></script>
+  <script src="https://unpkg.com/antd@5/dist/antd.min.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #e5e7eb; min-height: 100vh; }
+    #root { min-height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    window.__CAPTURE_READY__ = false;
+    window.__CAPTURE_ERROR__ = '';
+    (async function bootstrap() {
+      try {
+        const res = await fetch('./source/站点信息.jsx');
+        if (!res.ok) throw new Error('加载 JSX 失败: ' + res.status);
+        let code = await res.text();
+        const transformed = Babel.transform(code, {
+          presets: ['react'],
+          filename: '站点信息.jsx',
+        }).code;
+        // eslint-disable-next-line no-eval
+        eval(transformed);
+        if (!window.Component) throw new Error('未找到 Component');
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(window.Component));
+        window.__CAPTURE_READY__ = true;
+      } catch (err) {
+        window.__CAPTURE_ERROR__ = String(err && err.stack || err);
+        document.getElementById('root').innerHTML = '<pre style="color:red;padding:16px;white-space:pre-wrap">' + window.__CAPTURE_ERROR__ + '</pre>';
+      }
+    })();
+  </script>
+</body>
+</html>

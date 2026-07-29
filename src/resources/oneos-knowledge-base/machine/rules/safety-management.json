@@ -1,0 +1,59 @@
+{
+  "id": "safety-management",
+  "line": "safety",
+  "name": "安全管理（综合）",
+  "confidence": "building",
+  "roles": [
+    "安全",
+    "司机管理相关角色"
+  ],
+  "pages": [
+    {
+      "name": "司机与培训",
+      "purpose": "档案证照、培训证据链、资料库学习"
+    },
+    {
+      "name": "违章/事故",
+      "purpose": "分值罚款、定责、保险理赔与费用归集"
+    }
+  ],
+  "preconditions": [
+    "司机或事故/违章事实发生"
+  ],
+  "forward": [
+    "维护司机与培训留痕",
+    "登记违章/事故定责",
+    "费用进入还车应结会签"
+  ],
+  "reverse": [
+    {
+      "case": "证据不足",
+      "behavior": "不可随意定责闭环"
+    },
+    {
+      "case": "费用未进应结",
+      "behavior": "还车结算缺项风险"
+    }
+  ],
+  "rules": [
+    "责任费用必须可进入还车应结",
+    "培训与学习需证据链"
+  ],
+  "forbidden": [
+    "安全费用体外循环导致结算断头"
+  ],
+  "closedLoop": "定责费用进入还车应结并可归档结算",
+  "triggers": [
+    {
+      "to": "vehicle-return-settlement",
+      "when": "费用会签"
+    },
+    {
+      "to": "vehicle-management",
+      "when": "违章事故事件上链"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

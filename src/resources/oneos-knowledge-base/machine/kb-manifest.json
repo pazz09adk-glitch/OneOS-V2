@@ -1,0 +1,803 @@
+{
+  "name": "OneOS 全产品线知识库",
+  "version": "1.2.0",
+  "generatedFor": "enterprise-and-digital-employees",
+  "moduleCount": 58,
+  "confidenceDistribution": {
+    "legacy": 26,
+    "architecture": 16,
+    "confirmed": 13,
+    "building": 3
+  },
+  "sources": {
+    "v2": "src/resources/prd + src/prototypes",
+    "legacyMirror": "src/resources/oneos-web-legacy",
+    "desktopOneOS": "~/Desktop/CURSOR/ONE-OS",
+    "bizFinanceBaseline": "src/resources/业财一体化全链条方案-汇报稿.md"
+  },
+  "entrypoints": {
+    "human": "README.md",
+    "overview": "00-product-overview.md",
+    "crossCutting": "00-cross-cutting-rules.md",
+    "bizFinanceIntegration": "foundations/biz-finance-integration.md",
+    "sourceCorpus": "00-source-corpus.md",
+    "v12Mapping": "00-v12-oneos-mapping.md",
+    "machineIndex": "machine/kb-manifest.json",
+    "digitalEmployeeVoice": "00-digital-employee-voice.md"
+  },
+  "lines": [
+    {
+      "id": "lease",
+      "title": "租赁",
+      "doc": "lines/lease.md",
+      "modules": [
+        {
+          "id": "contract-template-management",
+          "name": "标准合同模板",
+          "confidence": "architecture",
+          "md": "modules/contract-template-management.md",
+          "json": "machine/rules/contract-template-management.json"
+        },
+        {
+          "id": "customer-management",
+          "name": "客户管理",
+          "confidence": "architecture",
+          "md": "modules/customer-management.md",
+          "json": "machine/rules/customer-management.json"
+        },
+        {
+          "id": "lease-business-ledger",
+          "name": "租赁业务台账",
+          "confidence": "architecture",
+          "md": "modules/lease-business-ledger.md",
+          "json": "machine/rules/lease-business-ledger.json"
+        },
+        {
+          "id": "lease-contract-management",
+          "name": "租赁合同",
+          "confidence": "confirmed",
+          "md": "modules/lease-contract-management.md",
+          "json": "machine/rules/lease-contract-management.json"
+        },
+        {
+          "id": "vehicle-pickup-receivable",
+          "name": "提车应收款",
+          "confidence": "architecture",
+          "md": "modules/vehicle-pickup-receivable.md",
+          "json": "machine/rules/vehicle-pickup-receivable.json"
+        },
+        {
+          "id": "vehicle-return-settlement",
+          "name": "还车应结款",
+          "confidence": "confirmed",
+          "md": "modules/vehicle-return-settlement.md",
+          "json": "machine/rules/vehicle-return-settlement.json"
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "title": "能源",
+      "doc": "lines/energy.md",
+      "modules": [
+        {
+          "id": "h2-station-dashboard",
+          "name": "加氢站大屏",
+          "confidence": "legacy",
+          "md": "modules/h2-station-dashboard.md",
+          "json": "machine/rules/h2-station-dashboard.json"
+        },
+        {
+          "id": "ledger-h2-procurement-summary",
+          "name": "氢费采购端汇总报表",
+          "confidence": "legacy",
+          "md": "modules/ledger-h2-procurement-summary.md",
+          "json": "machine/rules/ledger-h2-procurement-summary.json"
+        },
+        {
+          "id": "oneos-h5-h2-order",
+          "name": "加氢订单（H5）",
+          "confidence": "architecture",
+          "md": "modules/oneos-h5-h2-order.md",
+          "json": "machine/rules/oneos-h5-h2-order.json"
+        },
+        {
+          "id": "oneos-web-h2-station-site",
+          "name": "加氢站管理",
+          "confidence": "architecture",
+          "md": "modules/oneos-web-h2-station-site.md",
+          "json": "machine/rules/oneos-web-h2-station-site.json"
+        },
+        {
+          "id": "payment-records",
+          "name": "收款记录 / 氢费账户",
+          "confidence": "architecture",
+          "md": "modules/payment-records.md",
+          "json": "machine/rules/payment-records.json"
+        },
+        {
+          "id": "supplier-management",
+          "name": "供应商管理",
+          "confidence": "architecture",
+          "md": "modules/supplier-management.md",
+          "json": "machine/rules/supplier-management.json"
+        },
+        {
+          "id": "vehicle-h2-fee-ledger",
+          "name": "车辆氢费明细",
+          "confidence": "architecture",
+          "md": "modules/vehicle-h2-fee-ledger.md",
+          "json": "machine/rules/vehicle-h2-fee-ledger.json"
+        }
+      ]
+    },
+    {
+      "id": "ops",
+      "title": "运维",
+      "doc": "lines/ops.md",
+      "modules": [
+        {
+          "id": "biz-vehicle-cost",
+          "name": "车辆成本维护",
+          "confidence": "legacy",
+          "md": "modules/biz-vehicle-cost.md",
+          "json": "machine/rules/biz-vehicle-cost.json"
+        },
+        {
+          "id": "insurance-procurement",
+          "name": "保险采购",
+          "confidence": "confirmed",
+          "md": "modules/insurance-procurement.md",
+          "json": "machine/rules/insurance-procurement.json"
+        },
+        {
+          "id": "ledger-insurance-allocation",
+          "name": "保险分摊明细",
+          "confidence": "legacy",
+          "md": "modules/ledger-insurance-allocation.md",
+          "json": "machine/rules/ledger-insurance-allocation.json"
+        },
+        {
+          "id": "oneos-v2-h5-vehicle-fault-handling",
+          "name": "故障处置（H5）",
+          "confidence": "confirmed",
+          "md": "modules/oneos-v2-h5-vehicle-fault-handling.md",
+          "json": "machine/rules/oneos-v2-h5-vehicle-fault-handling.json"
+        },
+        {
+          "id": "oneos-web-ops",
+          "name": "车辆运维综合",
+          "confidence": "architecture",
+          "md": "modules/oneos-web-ops.md",
+          "json": "machine/rules/oneos-web-ops.json"
+        },
+        {
+          "id": "ops-aftermarket-device",
+          "name": "后装设备",
+          "confidence": "legacy",
+          "md": "modules/ops-aftermarket-device.md",
+          "json": "machine/rules/ops-aftermarket-device.json"
+        },
+        {
+          "id": "ops-certificates",
+          "name": "证照管理",
+          "confidence": "legacy",
+          "md": "modules/ops-certificates.md",
+          "json": "machine/rules/ops-certificates.json"
+        },
+        {
+          "id": "ops-license-plate",
+          "name": "上牌管理",
+          "confidence": "legacy",
+          "md": "modules/ops-license-plate.md",
+          "json": "machine/rules/ops-license-plate.json"
+        },
+        {
+          "id": "ops-parking-lot",
+          "name": "停车场管理",
+          "confidence": "legacy",
+          "md": "modules/ops-parking-lot.md",
+          "json": "machine/rules/ops-parking-lot.json"
+        },
+        {
+          "id": "ops-parts-warehouse",
+          "name": "备件库存 / 仓库管理",
+          "confidence": "legacy",
+          "md": "modules/ops-parts-warehouse.md",
+          "json": "machine/rules/ops-parts-warehouse.json"
+        },
+        {
+          "id": "ops-vehicle-annual-review",
+          "name": "年审管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-annual-review.md",
+          "json": "machine/rules/ops-vehicle-annual-review.json"
+        },
+        {
+          "id": "ops-vehicle-delivery",
+          "name": "交车管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-delivery.md",
+          "json": "machine/rules/ops-vehicle-delivery.json"
+        },
+        {
+          "id": "ops-vehicle-model",
+          "name": "型号参数",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-model.md",
+          "json": "machine/rules/ops-vehicle-model.json"
+        },
+        {
+          "id": "ops-vehicle-prepare",
+          "name": "备车管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-prepare.md",
+          "json": "machine/rules/ops-vehicle-prepare.json"
+        },
+        {
+          "id": "ops-vehicle-relocation",
+          "name": "异动管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-relocation.md",
+          "json": "machine/rules/ops-vehicle-relocation.json"
+        },
+        {
+          "id": "ops-vehicle-replace",
+          "name": "替换车管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-replace.md",
+          "json": "machine/rules/ops-vehicle-replace.json"
+        },
+        {
+          "id": "ops-vehicle-return",
+          "name": "还车管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-return.md",
+          "json": "machine/rules/ops-vehicle-return.json"
+        },
+        {
+          "id": "ops-vehicle-transfer",
+          "name": "调拨管理",
+          "confidence": "legacy",
+          "md": "modules/ops-vehicle-transfer.md",
+          "json": "machine/rules/ops-vehicle-transfer.json"
+        },
+        {
+          "id": "procurement-third-party-exit",
+          "name": "三方退租车管理",
+          "confidence": "legacy",
+          "md": "modules/procurement-third-party-exit.md",
+          "json": "machine/rules/procurement-third-party-exit.json"
+        },
+        {
+          "id": "vehicle-fault-handling",
+          "name": "故障处置（PC）",
+          "confidence": "confirmed",
+          "md": "modules/vehicle-fault-handling.md",
+          "json": "machine/rules/vehicle-fault-handling.json"
+        },
+        {
+          "id": "vehicle-inspection",
+          "name": "验车入库",
+          "confidence": "confirmed",
+          "md": "modules/vehicle-inspection.md",
+          "json": "machine/rules/vehicle-inspection.json"
+        },
+        {
+          "id": "vehicle-maintenance-ledger",
+          "name": "车辆维修明细",
+          "confidence": "architecture",
+          "md": "modules/vehicle-maintenance-ledger.md",
+          "json": "machine/rules/vehicle-maintenance-ledger.json"
+        },
+        {
+          "id": "vehicle-management",
+          "name": "车辆资产",
+          "confidence": "confirmed",
+          "md": "modules/vehicle-management.md",
+          "json": "machine/rules/vehicle-management.json"
+        },
+        {
+          "id": "vehicle-purchase-contract",
+          "name": "车辆采购合同",
+          "confidence": "confirmed",
+          "md": "modules/vehicle-purchase-contract.md",
+          "json": "machine/rules/vehicle-purchase-contract.json"
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "title": "安全",
+      "doc": "lines/safety.md",
+      "modules": [
+        {
+          "id": "safety-management",
+          "name": "安全管理（综合）",
+          "confidence": "building",
+          "md": "modules/safety-management.md",
+          "json": "machine/rules/safety-management.json"
+        },
+        {
+          "id": "safety-training-scan",
+          "name": "安全培训扫码",
+          "confidence": "legacy",
+          "md": "modules/safety-training-scan.md",
+          "json": "machine/rules/safety-training-scan.json"
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "title": "物流",
+      "doc": "lines/logistics.md",
+      "modules": [
+        {
+          "id": "biz-etc-management",
+          "name": "ETC 管理",
+          "confidence": "legacy",
+          "md": "modules/biz-etc-management.md",
+          "json": "machine/rules/biz-etc-management.json"
+        },
+        {
+          "id": "self-operated-business-ledger",
+          "name": "物流业务明细 / 项目盈亏",
+          "confidence": "architecture",
+          "md": "modules/self-operated-business-ledger.md",
+          "json": "machine/rules/self-operated-business-ledger.json"
+        },
+        {
+          "id": "self-operated-contract",
+          "name": "物流合同",
+          "confidence": "architecture",
+          "md": "modules/self-operated-contract.md",
+          "json": "machine/rules/self-operated-contract.json"
+        },
+        {
+          "id": "self-operated-dispatch-task",
+          "name": "调度任务",
+          "confidence": "architecture",
+          "md": "modules/self-operated-dispatch-task.md",
+          "json": "machine/rules/self-operated-dispatch-task.json"
+        }
+      ]
+    }
+  ],
+  "foundations": {
+    "docs": [
+      "foundations/vehicle-assets.md",
+      "foundations/p-and-l.md",
+      "foundations/mileage-fulfillment.md",
+      "foundations/biz-finance-integration.md"
+    ],
+    "modules": [
+      {
+        "id": "biz-finance-integration",
+        "name": "业财一体化全链条",
+        "confidence": "architecture",
+        "md": "foundations/biz-finance-integration.md",
+        "json": "machine/rules/biz-finance-integration.json",
+        "planningBaseline": true,
+        "digitalTwinOwner": "王冕"
+      },
+      {
+        "id": "analytics-business-ledgers",
+        "name": "数据分析 / 业务台账报表",
+        "confidence": "legacy",
+        "md": "modules/analytics-business-ledgers.md",
+        "json": "machine/rules/analytics-business-ledgers.json"
+      },
+      {
+        "id": "business-dept-ledger",
+        "name": "项目盈亏情况",
+        "confidence": "architecture",
+        "md": "modules/business-dept-ledger.md",
+        "json": "machine/rules/business-dept-ledger.json"
+      },
+      {
+        "id": "oneos-h5-vehicle-assets",
+        "name": "车辆资产 H5",
+        "confidence": "confirmed",
+        "md": "modules/oneos-h5-vehicle-assets.md",
+        "json": "machine/rules/oneos-h5-vehicle-assets.json"
+      },
+      {
+        "id": "vehicle-status-handbook",
+        "name": "车辆状态说明（五维）",
+        "confidence": "legacy",
+        "md": "modules/vehicle-status-handbook.md",
+        "json": "machine/rules/vehicle-status-handbook.json"
+      }
+    ]
+  },
+  "platform": {
+    "docs": [
+      "platform/workbench.md",
+      "platform/approval.md",
+      "platform/message-center.md",
+      "platform/task-work-order.md"
+    ],
+    "modules": [
+      {
+        "id": "help-center",
+        "name": "帮助中心",
+        "confidence": "legacy",
+        "md": "modules/help-center.md",
+        "json": "machine/rules/help-center.json"
+      },
+      {
+        "id": "message-center",
+        "name": "消息中心",
+        "confidence": "confirmed",
+        "md": "modules/message-center.md",
+        "json": "machine/rules/message-center.json"
+      },
+      {
+        "id": "oneos-miniprogram",
+        "name": "ONE-OS 小程序",
+        "confidence": "building",
+        "md": "modules/oneos-miniprogram.md",
+        "json": "machine/rules/oneos-miniprogram.json"
+      },
+      {
+        "id": "oneos-mobile-app",
+        "name": "ONE-OS 移动端运管",
+        "confidence": "legacy",
+        "md": "modules/oneos-mobile-app.md",
+        "json": "machine/rules/oneos-mobile-app.json"
+      },
+      {
+        "id": "oneos-web-approval",
+        "name": "审批中心",
+        "confidence": "confirmed",
+        "md": "modules/oneos-web-approval.md",
+        "json": "machine/rules/oneos-web-approval.json"
+      },
+      {
+        "id": "oneos-web-crm-erp-sandbox",
+        "name": "ONEOS-web CRM/ERP 试验",
+        "confidence": "building",
+        "md": "modules/oneos-web-crm-erp-sandbox.md",
+        "json": "machine/rules/oneos-web-crm-erp-sandbox.json"
+      },
+      {
+        "id": "oneos-web-workbench-new",
+        "name": "全新工作台",
+        "confidence": "confirmed",
+        "md": "modules/oneos-web-workbench-new.md",
+        "json": "machine/rules/oneos-web-workbench-new.json"
+      },
+      {
+        "id": "task-work-order",
+        "name": "任务工单",
+        "confidence": "confirmed",
+        "md": "modules/task-work-order.md",
+        "json": "machine/rules/task-work-order.json"
+      },
+      {
+        "id": "version-roadmap",
+        "name": "版本完成情况与未来规划",
+        "confidence": "legacy",
+        "md": "modules/version-roadmap.md",
+        "json": "machine/rules/version-roadmap.json"
+      }
+    ]
+  },
+  "external": {
+    "modules": [
+      {
+        "id": "xiaolingling-delivery",
+        "name": "小羚羚 · 交车",
+        "confidence": "legacy",
+        "md": "modules/xiaolingling-delivery.md",
+        "json": "machine/rules/xiaolingling-delivery.json"
+      }
+    ]
+  },
+  "allModules": [
+    {
+      "id": "analytics-business-ledgers",
+      "line": "foundation",
+      "confidence": "legacy"
+    },
+    {
+      "id": "biz-etc-management",
+      "line": "logistics",
+      "confidence": "legacy"
+    },
+    {
+      "id": "biz-finance-integration",
+      "line": "foundation",
+      "confidence": "architecture",
+      "planningBaseline": true,
+      "digitalTwinOwner": "王冕"
+    },
+    {
+      "id": "biz-vehicle-cost",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "business-dept-ledger",
+      "line": "foundation",
+      "confidence": "architecture"
+    },
+    {
+      "id": "contract-template-management",
+      "line": "lease",
+      "confidence": "architecture"
+    },
+    {
+      "id": "customer-management",
+      "line": "lease",
+      "confidence": "architecture"
+    },
+    {
+      "id": "h2-station-dashboard",
+      "line": "energy",
+      "confidence": "legacy"
+    },
+    {
+      "id": "help-center",
+      "line": "platform",
+      "confidence": "legacy"
+    },
+    {
+      "id": "insurance-procurement",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "lease-business-ledger",
+      "line": "lease",
+      "confidence": "architecture"
+    },
+    {
+      "id": "lease-contract-management",
+      "line": "lease",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "ledger-h2-procurement-summary",
+      "line": "energy",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ledger-insurance-allocation",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "message-center",
+      "line": "platform",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "oneos-h5-h2-order",
+      "line": "energy",
+      "confidence": "architecture"
+    },
+    {
+      "id": "oneos-h5-vehicle-assets",
+      "line": "foundation",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "oneos-miniprogram",
+      "line": "platform",
+      "confidence": "building"
+    },
+    {
+      "id": "oneos-mobile-app",
+      "line": "platform",
+      "confidence": "legacy"
+    },
+    {
+      "id": "oneos-v2-h5-vehicle-fault-handling",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "oneos-web-approval",
+      "line": "platform",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "oneos-web-crm-erp-sandbox",
+      "line": "platform",
+      "confidence": "building"
+    },
+    {
+      "id": "oneos-web-h2-station-site",
+      "line": "energy",
+      "confidence": "architecture"
+    },
+    {
+      "id": "oneos-web-ops",
+      "line": "ops",
+      "confidence": "architecture"
+    },
+    {
+      "id": "oneos-web-workbench-new",
+      "line": "platform",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "ops-aftermarket-device",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-certificates",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-license-plate",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-parking-lot",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-parts-warehouse",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-annual-review",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-delivery",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-model",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-prepare",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-relocation",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-replace",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-return",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "ops-vehicle-transfer",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "payment-records",
+      "line": "energy",
+      "confidence": "architecture"
+    },
+    {
+      "id": "procurement-third-party-exit",
+      "line": "ops",
+      "confidence": "legacy"
+    },
+    {
+      "id": "safety-management",
+      "line": "safety",
+      "confidence": "building"
+    },
+    {
+      "id": "safety-training-scan",
+      "line": "safety",
+      "confidence": "legacy"
+    },
+    {
+      "id": "self-operated-business-ledger",
+      "line": "logistics",
+      "confidence": "architecture"
+    },
+    {
+      "id": "self-operated-contract",
+      "line": "logistics",
+      "confidence": "architecture"
+    },
+    {
+      "id": "self-operated-dispatch-task",
+      "line": "logistics",
+      "confidence": "architecture"
+    },
+    {
+      "id": "supplier-management",
+      "line": "energy",
+      "confidence": "architecture"
+    },
+    {
+      "id": "task-work-order",
+      "line": "platform",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-fault-handling",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-h2-fee-ledger",
+      "line": "energy",
+      "confidence": "architecture"
+    },
+    {
+      "id": "vehicle-inspection",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-maintenance-ledger",
+      "line": "ops",
+      "confidence": "architecture"
+    },
+    {
+      "id": "vehicle-management",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-pickup-receivable",
+      "line": "lease",
+      "confidence": "architecture"
+    },
+    {
+      "id": "vehicle-purchase-contract",
+      "line": "ops",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-return-settlement",
+      "line": "lease",
+      "confidence": "confirmed"
+    },
+    {
+      "id": "vehicle-status-handbook",
+      "line": "foundation",
+      "confidence": "legacy"
+    },
+    {
+      "id": "version-roadmap",
+      "line": "platform",
+      "confidence": "legacy"
+    },
+    {
+      "id": "xiaolingling-delivery",
+      "line": "external",
+      "confidence": "legacy"
+    }
+  ],
+  "answeringPolicy": {
+    "forbidWords": [
+      "原型",
+      "演示",
+      "示意",
+      "本地种子",
+      "Axhub",
+      "未接API"
+    ],
+    "voice": "formal-business-system",
+    "doc": "00-digital-employee-voice.md"
+  }
+}

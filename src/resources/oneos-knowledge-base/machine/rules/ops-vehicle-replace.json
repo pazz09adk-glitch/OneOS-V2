@@ -1,0 +1,50 @@
+{
+  "id": "ops-vehicle-replace",
+  "line": "ops",
+  "name": "替换车管理",
+  "confidence": "legacy",
+  "roles": [
+    "运维",
+    "业务"
+  ],
+  "pages": [
+    {
+      "name": "替换车管理",
+      "purpose": "替换期间车辆置换与费用差额"
+    }
+  ],
+  "preconditions": [
+    "原车在履约中"
+  ],
+  "forward": [
+    "发起替换",
+    "指定替换车",
+    "办结并核算差额"
+  ],
+  "reverse": [
+    {
+      "case": "替换车不可用",
+      "behavior": "拦截"
+    }
+  ],
+  "rules": [
+    "费用差额可进入结算"
+  ],
+  "forbidden": [
+    "断头办结无状态回写"
+  ],
+  "closedLoop": "替换完成状态回写",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "状态/事件回写"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/替换车管理.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/替换车管理.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/替换车管理.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/替换车管理.jsx"
+}

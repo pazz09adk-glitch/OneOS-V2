@@ -1,0 +1,61 @@
+{
+  "id": "self-operated-business-ledger",
+  "line": "logistics",
+  "name": "物流业务明细 / 项目盈亏",
+  "confidence": "architecture",
+  "roles": [
+    "业务员",
+    "财务",
+    "能源"
+  ],
+  "pages": [
+    {
+      "name": "物流台账",
+      "purpose": "办结落账、氢费/ETC 补录"
+    },
+    {
+      "name": "项目盈亏",
+      "purpose": "收入成本汇总与钻取"
+    }
+  ],
+  "preconditions": [
+    "调度办结或成本补录发生"
+  ],
+  "forward": [
+    "查看业务明细",
+    "补录氢费/ETC",
+    "计算项目盈亏",
+    "关联收款核销"
+  ],
+  "reverse": [
+    {
+      "case": "缺成本补录",
+      "behavior": "盈亏不完整提示"
+    },
+    {
+      "case": "未关联收款",
+      "behavior": "营收未闭环"
+    }
+  ],
+  "rules": [
+    "氢费/ETC 可补录进成本",
+    "关联财务收款"
+  ],
+  "forbidden": [
+    "盈亏与台账脱节长期不核销"
+  ],
+  "closedLoop": "明细落账、盈亏可解释、收款可核销",
+  "triggers": [
+    {
+      "to": "business-dept-ledger",
+      "when": "汇总盈亏"
+    },
+    {
+      "to": "payment-records",
+      "when": "关联收款"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md"
+  ]
+}

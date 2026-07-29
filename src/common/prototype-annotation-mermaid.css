@@ -1,0 +1,19 @@
+.axhub-mermaid-diagram {
+  display: block;
+  max-width: 100%;
+  margin: 8px 0;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 8px;
+}
+
+.axhub-mermaid-diagram svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.axhub-annotation-directory-reader .axhub-mermaid-diagram {
+  padding: 12px;
+}

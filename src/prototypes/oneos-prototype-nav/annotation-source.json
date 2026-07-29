@@ -1,0 +1,56 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "oneos-prototype-nav",
+    "pageId": "nav",
+    "updatedAt": 1783800844967,
+    "nodes": [
+      {
+        "id": "opn-hero",
+        "index": 1,
+        "title": "导航首页",
+        "pageId": "nav",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"opn-hero\"]"
+          ],
+          "fingerprint": "opn-hero",
+          "path": []
+        },
+        "aiPrompt": "ONE-OS 原型导航首页说明与搜索。",
+        "annotationText": "按系统菜单分组展示全部原型入口，支持关键词搜索；左侧可快速跳转到各一级分组。",
+        "hasMarkdown": false,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1783600000000,
+        "updatedAt": 1783600000000
+      },
+      {
+        "id": "opn-search",
+        "index": 2,
+        "title": "搜索",
+        "pageId": "nav",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"opn-search\"]"
+          ],
+          "fingerprint": "opn-search",
+          "path": []
+        },
+        "aiPrompt": "原型导航搜索框。",
+        "annotationText": "可按菜单名、原型名称或原型 ID 过滤；清空后恢复完整分组目录。",
+        "hasMarkdown": false,
+        "color": "#3B82F6",
+        "images": [],
+        "createdAt": 1783600000000,
+        "updatedAt": 1783600000000
+      }
+    ]
+  },
+  "markdownMap": {},
+  "directory": {
+    "nodes": []
+  }
+}

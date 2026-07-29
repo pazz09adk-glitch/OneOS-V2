@@ -1,0 +1,53 @@
+{
+  "id": "ledger-insurance-allocation",
+  "line": "ops",
+  "name": "保险分摊明细",
+  "confidence": "legacy",
+  "roles": [
+    "财务",
+    "采购"
+  ],
+  "pages": [
+    {
+      "name": "保险分摊明细",
+      "purpose": "保费按车/期分摊明细"
+    }
+  ],
+  "preconditions": [
+    "保单存在"
+  ],
+  "forward": [
+    "生成/查看分摊",
+    "按车归属",
+    "进成本"
+  ],
+  "reverse": [
+    {
+      "case": "保单变更",
+      "behavior": "分摊重算或留痕调整"
+    }
+  ],
+  "rules": [
+    "分摊结果应可追溯保单"
+  ],
+  "forbidden": [
+    "分摊无保单来源"
+  ],
+  "closedLoop": "分摊进入单车/项目成本可查",
+  "triggers": [
+    {
+      "to": "insurance-procurement",
+      "when": "来源保单"
+    },
+    {
+      "to": "biz-vehicle-cost",
+      "when": "成本归集"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/台账数据/保险分摊明细.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/台账数据/保险分摊明细.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/台账数据/保险分摊明细.jsx"
+}

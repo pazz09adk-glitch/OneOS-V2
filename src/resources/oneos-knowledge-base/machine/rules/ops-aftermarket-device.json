@@ -1,0 +1,50 @@
+{
+  "id": "ops-aftermarket-device",
+  "line": "ops",
+  "name": "后装设备",
+  "confidence": "legacy",
+  "roles": [
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "后装设备",
+      "purpose": "车辆后装/加装设备台账与绑定"
+    }
+  ],
+  "preconditions": [
+    "车辆档案存在"
+  ],
+  "forward": [
+    "录入设备",
+    "绑定车辆/VIN",
+    "变更留痕"
+  ],
+  "reverse": [
+    {
+      "case": "设备未绑定 VIN",
+      "behavior": "成本难归集到单车"
+    }
+  ],
+  "rules": [
+    "加装费用宜绑定车架号入账（版本规划口径）"
+  ],
+  "forbidden": [
+    "费用无车归属"
+  ],
+  "closedLoop": "设备与车辆绑定可查",
+  "triggers": [
+    {
+      "to": "biz-vehicle-cost",
+      "when": "成本归集"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/后装设备.jsx",
+    "src/resources/oneos-web-legacy/运维管理/车辆业务/后装设备.jsx",
+    "~/Desktop/CURSOR/ONE-OS/web端/需求说明/后装设备管理"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/车辆业务/后装设备.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/车辆业务/后装设备.jsx"
+}

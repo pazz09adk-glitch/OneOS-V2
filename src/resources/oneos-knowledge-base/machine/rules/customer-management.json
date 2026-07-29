@@ -1,0 +1,62 @@
+{
+  "id": "customer-management",
+  "line": "lease",
+  "name": "客户管理",
+  "confidence": "architecture",
+  "roles": [
+    "业务员",
+    "法务",
+    "财务",
+    "安全"
+  ],
+  "pages": [
+    {
+      "name": "客户台账",
+      "purpose": "维护客户基础信息与准入状态"
+    },
+    {
+      "name": "准入评级",
+      "purpose": "多部门综合形成标准/非标/禁止签约策略"
+    }
+  ],
+  "preconditions": [
+    "具备客户主数据维护权限"
+  ],
+  "forward": [
+    "录入客户主体与联系信息",
+    "法务/财务/安全评估风险",
+    "形成准入策略并回写客户档案",
+    "签约引用时校验准入"
+  ],
+  "reverse": [
+    {
+      "case": "禁止签约客户发起合同",
+      "behavior": "拦截并提示准入结论"
+    },
+    {
+      "case": "评级未完成",
+      "behavior": "合同仅可草稿或提示待准入"
+    }
+  ],
+  "rules": [
+    "准入三档：标准 / 非标 / 禁止",
+    "非标路径必须可触发法务/董事长审批口径"
+  ],
+  "forbidden": [
+    "无准入结论直接视为可签约",
+    "断头客户（无评级责任人）"
+  ],
+  "closedLoop": "客户档案具备有效准入策略，可供合同引用",
+  "triggers": [
+    {
+      "to": "lease-contract-management",
+      "when": "发起租赁合同时读取准入"
+    }
+  ],
+  "sourceRefs": [
+    "src/resources/prd/oneos-midterm-architecture-and-requirements-autoprd.md",
+    "~/Desktop/CURSOR/ONE-OS/web端/业务管理/客户管理.jsx",
+    "src/resources/oneos-web-legacy/业务管理/客户管理.jsx"
+  ],
+  "legacyMerged": true
+}

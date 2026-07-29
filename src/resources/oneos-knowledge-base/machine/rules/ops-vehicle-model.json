@@ -1,0 +1,46 @@
+{
+  "id": "ops-vehicle-model",
+  "line": "ops",
+  "name": "型号参数",
+  "confidence": "legacy",
+  "roles": [
+    "车管",
+    "运维"
+  ],
+  "pages": [
+    {
+      "name": "型号参数",
+      "purpose": "车型主数据，供档案与采购引用"
+    }
+  ],
+  "preconditions": [],
+  "forward": [
+    "新增/编辑型号",
+    "档案引用"
+  ],
+  "reverse": [
+    {
+      "case": "型号停用仍被引用",
+      "behavior": "只读历史，禁止新选"
+    }
+  ],
+  "rules": [
+    "型号变更不影响历史档案快照口径"
+  ],
+  "forbidden": [
+    "无型号直接入库（按采购规则）"
+  ],
+  "closedLoop": "有效型号可供新车引用",
+  "triggers": [
+    {
+      "to": "vehicle-management",
+      "when": "档案展示型号参数"
+    }
+  ],
+  "sourceRefs": [
+    "~/Desktop/CURSOR/ONE-OS/web端/运维管理/基本数据维护/型号参数.jsx"
+  ],
+  "era": "v1.2",
+  "desktopPath": "~/Desktop/CURSOR/ONE-OS/web端/运维管理/基本数据维护/型号参数.jsx",
+  "legacyPath": "src/resources/oneos-web-legacy/运维管理/基本数据维护/型号参数.jsx"
+}
