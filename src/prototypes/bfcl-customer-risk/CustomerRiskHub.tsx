@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { Filter, RotateCcw, ShieldAlert } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -373,8 +376,14 @@ export function CustomerRiskHub() {
                 {pageRows.map((r) => (
                   <tr key={r.id}>
                     <td>
-                      <div className="bfcl-risk-primary">{r.name}</div>
-                      <div className="bfcl-risk-muted">
+                      <DetailEntryLink
+                        variant="title"
+                        ariaLabel={`${r.name}，点击进入客户风险评估详情`}
+                        onClick={() => openDetail(r.id)}
+                      >
+                        {r.name}
+                      </DetailEntryLink>
+                      <div className="bfcl-risk-muted bfcl-risk-mono">
                         {r.code} · {r.owner}
                       </div>
                     </td>

@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { Filter, RotateCcw } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import { V2Button, V2Empty, V2FilterMoreButton, V2FilterSearch, V2Pagination, V2Select, V2StatusTabs } from '../../resources/design-system/components/UIComponents';
 import { V2Badge, type V2BadgeStatus } from '../../resources/design-system/components/V2Badge';
@@ -50,6 +53,7 @@ export function ContractHub() {
   if (mode==='detail' && active) {
     return (
       <div className="bfcl-detail">
+      <BfclChainNav current="contract" />
         <header className="bfcl-form-header">
           <V2Button variant="back" size="sm" onClick={()=>{setMode('ledger'); setActiveId(null);}}>返回列表</V2Button>
           <span className="bfcl-form-header__divider" />
@@ -107,6 +111,7 @@ export function ContractHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="contract" />
       <div className="bfcl-toolbar">
         <V2StatusTabs value={tab} onChange={(v)=>{setTab(v); setPage(1);}} options={[
           {key:'all',label:'全部'},{key:'草稿',label:'草稿'},{key:'非标审批中',label:'非标'},{key:'待签章',label:'待签章'},{key:'催办中',label:'催办'},{key:'已闭环',label:'已闭环'},
@@ -129,7 +134,15 @@ export function ContractHub() {
           <table className="bfcl-table"><thead><tr><th>合同号</th><th>客户</th><th>模板</th><th>签章</th><th>非标</th><th>状态</th><th>操作</th></tr></thead>
           <tbody>{pageRows.map(r=>(
             <tr key={r.id}>
-              <td><div className="bfcl-primary bfcl-mono">{r.contractNo}</div></td>
+              <td>
+                <DetailEntryLink
+                  variant="code"
+                  ariaLabel={`${r.contractNo}，点击进入合同详情`}
+                  onClick={() => { setActiveId(r.id); setMode('detail'); }}
+                >
+                  {r.contractNo}
+                </DetailEntryLink>
+              </td>
               <td>{r.customer}</td><td>{r.templateName}</td><td>{r.signPath}</td>
               <td>{r.nonStandard?'是':'否'}</td>
               <td><V2Badge status={badge(r.status)} label={r.status} /></td>

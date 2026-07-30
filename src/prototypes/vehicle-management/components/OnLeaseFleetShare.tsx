@@ -11,6 +11,7 @@ import {
   type FleetStatusMix,
   type OnLeaseFleetBucket,
 } from '../utils/onLeaseFleet';
+import { V2Button } from '../../../resources/design-system/components/UIComponents';
 import { FleetBrandIcon } from './FleetBrandLogos';
 
 /** 主区 TOP3 热门车型；第 4 卡为 TOP4 及以后归并的「其他」 */
@@ -129,7 +130,7 @@ function FleetModelCard({
       </div>
       <div className="va-fleet-card__body">
         <div className="va-fleet-card__value-row">
-          <span className="va-fleet-card__value tabular-nums">{item.count}</span>
+          <span className="va-fleet-card__value ln-kpi__value ln-kpi-tone-normal tabular-nums">{item.count}</span>
           <span className="va-fleet-card__aux">辆在租</span>
           <span className="va-fleet-card__aux va-fleet-card__aux--muted tabular-nums">
             占在租 {sharePct}%
@@ -266,7 +267,7 @@ function FleetOverviewModal({
           )}
         </div>
         <footer className="va-modal-footer">
-          <button type="button" className="va-btn va-btn-primary" onClick={onClose}>关闭</button>
+          <V2Button variant="primary" size="md" onClick={onClose}>关闭</V2Button>
         </footer>
       </div>
     </div>
@@ -333,13 +334,14 @@ export function OnLeaseFleetShare({
           <div className="va-fleet-share__head-actions">
             <FleetMixLegend />
             {hasMore ? (
-              <button
-                type="button"
-                className="va-btn va-btn-secondary va-fleet-share__all"
+              <V2Button
+                variant="secondary"
+                size="md"
+                className="va-fleet-share__all"
                 onClick={() => setOverviewOpen(true)}
               >
                 查看全部车型
-              </button>
+              </V2Button>
             ) : null}
           </div>
         </div>

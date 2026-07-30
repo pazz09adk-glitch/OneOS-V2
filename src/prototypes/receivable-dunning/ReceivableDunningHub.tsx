@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Columns, Filter, LayoutGrid, List, RotateCcw, Search } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -327,7 +328,13 @@ export function ReceivableDunningHub() {
                     return (
                       <tr key={r.key}>
                         <td>
-                          <div className="rd-main-title">{r.customerName}</div>
+                          <DetailEntryLink
+                            variant="title"
+                            ariaLabel={`${r.customerName}，点击进入应收催款详情`}
+                            onClick={() => openDetail(r.key)}
+                          >
+                            {r.customerName}
+                          </DetailEntryLink>
                           <div className="rd-mono">{r.key}</div>
                         </td>
                         <td>

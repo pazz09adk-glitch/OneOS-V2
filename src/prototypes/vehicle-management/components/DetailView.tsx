@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { useProtoDevState } from '@axhub/annotation';
 import {
   AlertTriangle,
-  ArrowLeft,
   CheckCircle2,
   ChevronDown,
   History,
@@ -35,6 +34,7 @@ import {
   resolveThirdPartyLeaseCompany,
 } from '../utils/vehicle';
 import {
+  V2Button,
   V2Empty,
   V2Tag,
 } from '../../../resources/design-system/components/UIComponents';
@@ -236,17 +236,34 @@ export function DetailView({
     : '无运维负责人 · 去设置';
 
   return (
-    <div className="va-shell va-detail-page" data-annotation-id="va-feat-detail-overview">
+    <div className="va-shell va-detail-page" data-layout="sidebar" data-annotation-id="va-feat-detail-overview">
       <header className="va-form-header">
         <div className="va-form-header__left">
-          <button type="button" className="va-btn va-btn-secondary va-detail-back" onClick={onBack}>
-            <ArrowLeft size={14} aria-hidden />
+          <V2Button variant="back" size="md" onClick={onBack}>
             返回列表
-          </button>
+          </V2Button>
           <div className="va-form-header__divider" aria-hidden />
           <div className="va-form-header__titles">
-            <h1>车辆档案工作台</h1>
+            <div className="va-form-header__title-row">
+              <h1>车辆档案工作台</h1>
+              <span className="va-form-header__pill tabular-nums" title="车牌号">
+                {record.plateNo}
+              </span>
+            </div>
+            <p className="va-form-header__sub">
+              {formatBrandModel(record, '未填车型')}
+            </p>
           </div>
+        </div>
+        <div className="va-form-header__actions">
+          <V2Button
+            variant="secondary"
+            size="md"
+            icon={<Pencil size={14} aria-hidden />}
+            onClick={onOps}
+          >
+            {managers.length ? '调整运维负责人' : '去设置运维负责人'}
+          </V2Button>
         </div>
       </header>
 
@@ -510,10 +527,16 @@ export function DetailView({
                 <span className="va-form-assignee-empty">{opsEmptyLabel}</span>
               )}
             </div>
-            <button type="button" className="va-btn va-btn-secondary va-form-aside-btn" onClick={onOps}>
-              <Pencil size={14} aria-hidden />
+            <V2Button
+              variant="secondary"
+              size="md"
+              block
+              className="va-form-aside-btn"
+              icon={<Pencil size={14} aria-hidden />}
+              onClick={onOps}
+            >
               {managers.length ? '调整运维负责人' : '去设置运维负责人'}
-            </button>
+            </V2Button>
             <div className="va-form-ops-log" aria-label="运维指派操作记录">
               <div className="va-form-ops-log__head">
                 <History size={14} aria-hidden />

@@ -5,7 +5,11 @@
  * 完全支持 Light / Dark 双色模式无缝切换
  */
 
+/* 等宽数字：自托管 JetBrains Mono（DESIGN §2.2），禁止 Google Fonts CDN */
+@import './fonts/jetbrains-mono/jetbrains-mono.css';
 @import './oneos-ds-filter-affordance.css';
+@import './oneos-ds-form-feedback.css';
+@import './oneos-ds-kpi.css';
 
 :root {
   /* Brand & RuoYi Dynamic Theme Color Bridge */
@@ -77,8 +81,25 @@
   --ln-table-th-padding-x: 20px;
 
   /* Typography */
-  --vm-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
-  --vm-font-mono: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+  /*
+   * 正文字体（系统栈 · DESIGN §2.2 A 档）：
+   * - 不自托管中文（接受 Mac 苹方 / Win 雅黑平台差）
+   * - 英文 UI：系统 UI → Segoe UI → Roboto
+   * - 汉字：PingFang SC（Mac）→ Microsoft YaHei（Win）→ 浏览器默认
+   * - 禁止写未加载的 Inter 冒充主栈
+   */
+  --vm-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --ln-font: var(--vm-font);
+  /*
+   * 等宽数字栈（跨端统一 · DESIGN §2.2）：
+   * 1) JetBrains Mono — 自托管 woff2，主路径（Mac/Win/内网一致）
+   * 2) Cascadia Mono / Cascadia Code — Windows 11+ 失败态（本机有则用）
+   * 3) Consolas — Windows 经典失败态
+   * 4) SF Mono / Menlo — macOS 失败态
+   * 禁止把 ui-monospace 写在 JetBrains 前面。
+   */
+  --vm-font-mono: "JetBrains Mono", "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", SFMono-Regular, Menlo, "Courier New", monospace;
+  --ln-font-mono: var(--vm-font-mono);
 }
 
 /* 原生 <table> 台账行高标准（可直接挂 class） */

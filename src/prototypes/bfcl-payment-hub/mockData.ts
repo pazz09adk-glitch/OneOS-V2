@@ -26,7 +26,7 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '未关联',
     linkedAmount: 0,
     linkedDocs: [],
-    remark: '客户备注：提车款',
+    remark: '银行摘要：提车款 浙A88888F',
   },
   {
     id: 'r2',
@@ -39,6 +39,7 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '已闭环',
     linkedAmount: 45200,
     linkedDocs: [{ type: '租赁账单', docNo: 'LB-202607-0042', amount: 45200 }],
+    remark: '银行摘要：7月租金 LB-202607-0042',
   },
   {
     id: 'r3',
@@ -51,6 +52,7 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '部分关联',
     linkedAmount: 30000,
     linkedDocs: [{ type: '能源充值/氢气预付', docNo: 'EA-202607-0011', amount: 30000 }],
+    remark: '银行摘要：氢气预付充值',
   },
   {
     id: 'r4',
@@ -63,6 +65,7 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '未关联',
     linkedAmount: 0,
     linkedDocs: [],
+    remark: '银行摘要：加氢站月结对账 H2S-202607-0005',
   },
   {
     id: 'r5',
@@ -75,6 +78,7 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '已闭环',
     linkedAmount: 168000,
     linkedDocs: [{ type: '保险付款单', docNo: 'INS-PAY-202607-02', amount: 168000 }],
+    remark: '银行摘要：保费 INS-PAY-202607-02',
   },
   {
     id: 'r6',
@@ -87,6 +91,19 @@ export const MOCK_RECORDS: FinanceRecord[] = [
     status: '未关联',
     linkedAmount: 0,
     linkedDocs: [],
-    remark: '保证金退还',
+    remark: '银行摘要：保证金退还 浙C66666',
+  },
+  {
+    id: 'r7',
+    flow: '收款',
+    voucherNo: 'RC-20260712-020',
+    counterparty: '杭州博众物流',
+    amount: 8600,
+    paidAt: '2026-07-12',
+    channel: '对公转账',
+    status: '已闭环',
+    linkedAmount: 8600,
+    linkedDocs: [{ type: '还车应结（应收）', docNo: 'RS-202607-0011', amount: 8600 }],
+    remark: '银行摘要：还车应结 RS-202607-0011',
   },
 ];

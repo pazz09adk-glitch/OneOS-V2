@@ -71,21 +71,25 @@
 
 | 角色 | Web / H5 | iOS | Android | 小程序 |
 |------|----------|-----|---------|--------|
-| Body | `Inter, -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif` | 系统 SF Pro + 苹方 | `sans-serif`（Roboto / 思源） | 系统默认中英栈 |
-| Mono | `ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, Consolas, monospace` | 系统等宽 | `monospace` | 系统等宽 |
+| Body | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif`（`--ln-font`；**不自托管中文**；Mac→苹方 / Win→雅黑，允许平台差；禁止未加载的 Inter） | 系统 SF Pro + 苹方 | `sans-serif`（Roboto / 系统中文） | 系统默认中英栈 |
+| Mono | `"JetBrains Mono", "Cascadia Mono", "Cascadia Code", Consolas, …`（自托管 JetBrains；Win 失败态 Cascadia→Consolas；禁止 CDN / `ui-monospace` 置前） | 系统等宽 | `monospace` | 系统等宽 |
 
 ### 3.2 字号阶梯与语义角色
 
 | 角色 | Web PC | App / 小程序 | 字重 | 行高 |
 |------|--------|--------------|------|------|
 | 角标 / 辅助 | 12px | 12px | 400–500 | 1.33 |
-| 表头 / 筛选标签 | 12px | 12–13px | 500 | 1.33 |
-| 表格单元格 | 13px | —（改用列表行） | 400 | 1.4 |
+| 表头 / 筛选标签 | 12px | 12–13px | 500–600 | 1.33 |
+| 表内等宽单号 / 「查看 ›」入口 | 12px | — | 600 | 1.35 |
+| 台账首列只读标题（双行叠单号） | **13px** | — | **600** | **1.35** |
+| 表格次要单元格 | 12–13px | —（改用列表行） | 400–500 | 1.4 |
 | 正文 | 14px | ≥16px（输入与正文） | 400 | 1.5 |
-| 区块标题 | 16px | 16–17px | 600 | 1.4 |
+| 区块标题 / 卡片子标题 | 14–16px | 16–17px | 600–700 | 1.4 |
 | 筛选/页内标题 | 18px | 18px | 600 | 1.3 |
-| 页面大标题（详情等） | 20px | 20px | 600 | 1.25 |
-| KPI 数字 | 20–24px | 22–28px | 600 | 1.2 |
+| 页面大标题（详情等） | 20px | 20px | 600–800 | 1.25 |
+| KPI 数字 | 20–24px | 22–28px | 600–800 | 1.2 |
+
+台账双行首列：**禁止**默认用 `14px / 700` 做表内标题（易抢过下方详情单号）；详见主规范 `DESIGN.md` §2.2 / §5.1。
 
 数字/金额：`--vm-font-mono` + `font-variant-numeric: tabular-nums`。金额格式见 `src/common/format-number.js`。
 

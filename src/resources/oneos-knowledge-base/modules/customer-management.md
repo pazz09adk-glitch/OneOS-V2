@@ -66,6 +66,7 @@
 
 ## 关联与触发
 
+- → **customer-engagement**：签约前对接认领与过程；建合同前校验归属
 - → **lease-contract-management**：发起租赁合同时读取准入
 - → **lease-business-ledger**：宽限与逾期
 - → **biz-finance-integration**：全链条业财门禁

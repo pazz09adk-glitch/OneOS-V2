@@ -82,7 +82,7 @@ export const BentoKpiGrid: React.FC<BentoKpiGridProps> = ({
                 <IconComponent size={16} />
               </span>
             </div>
-            <div className="v2-two-kpi-val">{card.count}</div>
+            <div className={`v2-two-kpi-val ${card.tone}`}>{card.count}</div>
             <div className="v2-two-kpi-desc">{card.desc}</div>
           </button>
         );

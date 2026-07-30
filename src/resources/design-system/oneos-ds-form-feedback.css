@@ -1,0 +1,118 @@
+/**
+ * OneOS V2 · 表单校验反馈（全局）
+ * 对齐 DESIGN.md §3.1.1 Error：边框 #EF4444 + 外晕 0 0 0 3px rgba(239,68,68,0.15)
+ * 用法：控件加 class `is-invalid`（或 V2Select / V2DatePicker 的 invalid prop）
+ */
+
+.v2-field-error,
+.v2-two-field-error {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ln-error, #ef4444);
+}
+
+/* 原生 / 原型文本框、文本域 */
+.v2-text-input.is-invalid,
+.v2-two-text-input.is-invalid,
+.v2-textarea.is-invalid,
+.v2-two-textarea.is-invalid,
+input.v2-two-text-input.is-invalid,
+textarea.v2-two-textarea.is-invalid {
+  border-color: var(--ln-error, #ef4444) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.v2-text-input.is-invalid:focus,
+.v2-two-text-input.is-invalid:focus,
+.v2-textarea.is-invalid:focus,
+.v2-two-textarea.is-invalid:focus,
+input.v2-two-text-input.is-invalid:focus,
+textarea.v2-two-textarea.is-invalid:focus {
+  border-color: var(--ln-error, #ef4444) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22) !important;
+  outline: none;
+}
+
+/* 复合面板（如绑车） */
+.v2-vehicle-pick-panel.is-invalid,
+.v2-two-vehicle-pick-panel.is-invalid {
+  border-color: var(--ln-error, #ef4444);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* Toast · 中央上方（勿贴右上，避免遮挡页头操作） */
+.v2-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  z-index: 4000;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+  pointer-events: none;
+}
+
+.v2-toast.is-success {
+  background: var(--ln-success, #10b981);
+}
+
+.v2-toast.is-error {
+  background: var(--ln-error, #ef4444);
+}
+
+.v2-toast.is-warning {
+  background: var(--ln-warning, #d97706);
+}
+
+.v2-toast.is-info {
+  background: var(--ln-info, #3b82f6);
+}
+
+.v2-toast__icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.v2-toast__body {
+  min-width: 0;
+}
+
+.v2-toast__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.v2-toast__desc {
+  margin: 2px 0 0;
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+@media (max-width: 767px) {
+  .v2-toast {
+    top: 12px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100vw - 24px);
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-toast {
+    transition: none;
+  }
+}

@@ -30,6 +30,7 @@ function countActiveMoreFilters(filters: TaskFilters): number {
   if (filters.taskType && filters.taskType !== 'all') n += 1;
   if (filters.status && filters.status !== 'all') n += 1;
   if (filters.relatedBizType && filters.relatedBizType !== 'all') n += 1;
+  if (filters.relatedBizCode?.trim()) n += 1;
   if (filters.ownerId) n += 1;
   if (filters.startDate || filters.endDate) n += 1;
   return n;
@@ -95,13 +96,13 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             <input
               type="text"
               className="v2-two-toolbar-search"
-              placeholder="工单号 / 任务名称 / 关联单号"
+              placeholder="搜工单号或任务名"
               value={filters.keyword}
               onChange={(e) => onFilterChange({ ...filters, keyword: e.target.value })}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') onSearch();
               }}
-              aria-label="关键词搜索"
+              aria-label="搜索工单号或任务名称"
             />
           </V2FilterSearch>
           <V2FilterMoreButton
@@ -149,6 +150,23 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
                   })
                 }
                 options={relatedTypeOptions}
+              />
+            </div>
+
+            <div className="v2-two-filter-field">
+              <label className="v2-two-filter-label">关联单号</label>
+              <input
+                type="text"
+                className="v2-two-text-input"
+                placeholder="如采购合同号 HT-CG…"
+                value={filters.relatedBizCode || ''}
+                onChange={(e) =>
+                  onFilterChange({ ...filters, relatedBizCode: e.target.value })
+                }
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') onSearch();
+                }}
+                aria-label="关联业务单号"
               />
             </div>
 

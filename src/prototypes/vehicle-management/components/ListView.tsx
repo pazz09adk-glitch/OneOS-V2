@@ -18,6 +18,7 @@ import {
   ParkingSquare,
   PencilLine,
   Radio,
+  RotateCcw,
   Search,
   Settings,
   Shield,
@@ -37,7 +38,6 @@ import {
   KPI_CARDS,
   AREA_REGION_OPTIONS,
   INSURANCE_STATUS_OPTIONS,
-  OPERATE_STATUS_OPTIONS,
   VEHICLE_SOURCE_OPTIONS,
   canEditOperateCity,
   canOpenLocationMap,
@@ -77,10 +77,12 @@ import { DEFAULT_PAGE_SIZE } from '../../../common/TablePagination';
 import { OperationActions } from '../../../common/OperationActions';
 import { LnSelect } from '../../../common/ln-select';
 import {
+  V2Button,
   V2Empty,
   V2FilterMoreButton,
   V2FilterSearch,
   V2Pagination,
+  V2Select,
 } from '../../../resources/design-system/components/UIComponents';
 import { OnLeaseFleetShare } from './OnLeaseFleetShare';
 import {
@@ -98,6 +100,19 @@ const PILL_LABELS: Record<string, string> = {
   nonOperating: '非运营',
   exit: '退出运营',
 };
+
+function toV2Options(values: readonly string[]) {
+  return values.map((value) => ({ value, label: value }));
+}
+
+function asStringArray(next: unknown): string[] {
+  if (Array.isArray(next)) return next.filter(Boolean).map(String);
+  if (next == null || next === '') return [];
+  return [String(next)];
+}
+
+/** 更多筛选「在库细档」：与分类 Pill 租赁/物流/库存/退出去重，仅保留可交付/不可交付 */
+const STOCK_DETAIL_STATUS_OPTIONS = ['在库-可交付', '在库-不可交付'] as const;
 
 /** 「更多筛选」面板内字段（不含始终可见的车牌） */
 const MORE_FILTER_KEYS: (keyof VehicleFilters)[] = [
@@ -615,7 +630,7 @@ export const DEFAULT_COLUMN_WIDTHS: Record<string, number> = {
   mile: 132,
   mileTask: 240,
   ops: 280,
-  actions: 184,
+  actions: 220,
 };
 
 const DEFAULT_VISIBLE_COLS: Record<string, boolean> = ALL_COLUMNS.reduce((acc, col) => {
@@ -834,6 +849,12 @@ export function ListView(props: ListViewProps) {
     setMoreFilters(false);
   };
 
+  const runReset = () => {
+    onPendingChange(EMPTY_FILTERS);
+    onReset();
+    setMoreFilters(false);
+  };
+
   const patchFilters = (patch: Partial<VehicleFilters>) => {
     const next = { ...pendingFilters, ...patch };
     /* 手动改品牌 / 型号时，清掉车型占比卡挂起的隐藏键，避免双重过滤 */
@@ -869,7 +890,7 @@ export function ListView(props: ListViewProps) {
         data-annotation-id="va-feat-list-filter"
       >
         <div className="va-ledger-toolbar">
-          <div className="va-pills" role="tablist" aria-label="车辆分类">
+          <div className="va-pills" role="tablist" aria-label="运营状态分类（台账）">
             {KPI_CARDS.map((card) => (
               <button
                 key={card.key}
@@ -910,15 +931,29 @@ export function ListView(props: ListViewProps) {
               activeCount={activeMoreFilterCount}
               onClick={() => setMoreFilters((v) => !v)}
             />
+            <V2Button
+              variant="primary"
+              size="md"
+              icon={<Search size={14} aria-hidden />}
+              onClick={runSearch}
+            >
+              查询
+            </V2Button>
+            <V2Button
+              variant="secondary"
+              size="md"
+              icon={<RotateCcw size={14} aria-hidden />}
+              onClick={runReset}
+            >
+              重置
+            </V2Button>
             <div className="va-ledger-io" data-annotation-id="va-feat-list-import-export">
-            <button type="button" className="va-btn va-btn-secondary" onClick={onExport}>
-              <Download size={14} aria-hidden />
+            <V2Button variant="secondary" size="md" icon={<Download size={14} aria-hidden />} onClick={onExport}>
               导出
-            </button>
-            <button type="button" className="va-btn va-btn-secondary" onClick={onImportOpen}>
-              <FileUp size={16} aria-hidden />
+            </V2Button>
+            <V2Button variant="secondary" size="md" icon={<FileUp size={16} aria-hidden />} onClick={onImportOpen}>
               批量导入
-            </button>
+            </V2Button>
 
             {!isBoard ? (
               <>
@@ -1059,9 +1094,9 @@ export function ListView(props: ListViewProps) {
                           })}
                         </div>
                         <div className="va-col-settings-footer">
-                          <button
-                            type="button"
-                            className="va-btn va-btn-ghost va-btn-sm"
+                          <V2Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => {
                               setDragColKey(null);
                               setDragOverKey(null);
@@ -1069,10 +1104,10 @@ export function ListView(props: ListViewProps) {
                             }}
                           >
                             取消
-                          </button>
-                          <button
-                            type="button"
-                            className="va-btn va-btn-primary va-btn-sm"
+                          </V2Button>
+                          <V2Button
+                            variant="primary"
+                            size="sm"
                             onClick={() => {
                               setVisibleCols(tempVisibleCols);
                               setColumnOrder(normalizeColumnOrder(tempColumnOrder));
@@ -1083,7 +1118,7 @@ export function ListView(props: ListViewProps) {
                             }}
                           >
                             确认
-                          </button>
+                          </V2Button>
                         </div>
                       </div>
                     ) : null}
@@ -1114,19 +1149,18 @@ export function ListView(props: ListViewProps) {
                 </div>
                 <div className="va-more-filters-header-actions">
                   {activeMoreFilterCount > 0 ? (
-                    <button
-                      type="button"
-                      className="va-btn-text-danger"
+                    <V2Button
+                      variant="link"
+                      size="sm"
+                      icon={<Trash2 size={13} aria-hidden />}
                       onClick={() => {
-                        onPendingChange(EMPTY_FILTERS);
-                        onReset();
-                        setMoreFilters(false);
+                        runReset();
                         onToast('已清空全部筛选条件');
                       }}
+                      style={{ color: 'var(--ln-error)' }}
                     >
-                      <Trash2 size={13} aria-hidden />
-                      <span>清空条件草稿</span>
-                    </button>
+                      清空条件草稿
+                    </V2Button>
                   ) : null}
                 </div>
               </div>
@@ -1142,41 +1176,40 @@ export function ListView(props: ListViewProps) {
                   <div className="va-filter-group-grid">
                     <div className="va-field">
                       <label htmlFor="va-city">运营城市</label>
-                      <LnSelect
-                        id="va-city"
+                      <V2Select
                         multiple
-                        options={cities}
+                        searchable
+                        options={toV2Options(cities)}
                         value={pendingFilters.operateCities}
-                        ariaLabel="运营城市"
+                        placeholder="运营城市"
                         onChange={(next) => patchFilters({
-                          operateCities: Array.isArray(next) ? next : (next ? [next] : []),
+                          operateCities: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-region">区域（大区）</label>
-                      <LnSelect
-                        id="va-region"
+                      <V2Select
                         multiple
-                        options={[...AREA_REGION_OPTIONS]}
+                        searchable
+                        options={toV2Options([...AREA_REGION_OPTIONS])}
                         value={pendingFilters.areaRegion}
-                        ariaLabel="区域大区"
-                        emptyLabel="请选择中国大区"
+                        placeholder="请选择中国大区"
                         onChange={(next) => patchFilters({
-                          areaRegion: Array.isArray(next) ? next : (next ? [next] : []),
+                          areaRegion: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-parking">停车场</label>
-                      <LnSelect
-                        id="va-parking"
+                      <V2Select
                         multiple
-                        options={parkings}
+                        searchable
+                        options={toV2Options(parkings)}
                         value={pendingFilters.parking}
-                        ariaLabel="停车场"
+                        placeholder="停车场"
                         onChange={(next) => patchFilters({
-                          parking: Array.isArray(next) ? next : (next ? [next] : []),
+                          parking: asStringArray(next),
                         })}
                       />
                     </div>
@@ -1193,79 +1226,79 @@ export function ListView(props: ListViewProps) {
                   <div className="va-filter-group-grid">
                     <div className="va-field">
                       <label htmlFor="va-brand">品牌</label>
-                      <LnSelect
-                        id="va-brand"
+                      <V2Select
                         multiple
-                        options={brands}
+                        searchable
+                        options={toV2Options(brands)}
                         value={pendingFilters.brand}
-                        ariaLabel="品牌"
+                        placeholder="品牌"
                         onChange={(next) => patchFilters({
-                          brand: Array.isArray(next) ? next : (next ? [next] : []),
+                          brand: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-model">型号</label>
-                      <LnSelect
-                        id="va-model"
+                      <V2Select
                         multiple
-                        options={models}
+                        searchable
+                        options={toV2Options(models)}
                         value={pendingFilters.model}
-                        ariaLabel="型号"
+                        placeholder="型号"
                         onChange={(next) => patchFilters({
-                          model: Array.isArray(next) ? next : (next ? [next] : []),
+                          model: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-source">车辆来源</label>
-                      <LnSelect
-                        id="va-source"
+                      <V2Select
                         multiple
-                        options={[...VEHICLE_SOURCE_OPTIONS]}
+                        searchable
+                        options={toV2Options([...VEHICLE_SOURCE_OPTIONS])}
                         value={pendingFilters.vehicleSource}
-                        ariaLabel="车辆来源"
+                        placeholder="车辆来源"
                         onChange={(next) => patchFilters({
-                          vehicleSource: Array.isArray(next) ? next : (next ? [next] : []),
+                          vehicleSource: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-ownership">登记所有权</label>
-                      <LnSelect
-                        id="va-ownership"
+                      <V2Select
                         multiple
-                        options={ownerships}
+                        searchable
+                        options={toV2Options(ownerships)}
                         value={pendingFilters.ownership}
-                        ariaLabel="登记所有权"
+                        placeholder="登记所有权"
                         onChange={(next) => patchFilters({
-                          ownership: Array.isArray(next) ? next : (next ? [next] : []),
+                          ownership: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-op-company">运营公司</label>
-                      <LnSelect
-                        id="va-op-company"
+                      <V2Select
                         multiple
-                        options={operateCompanies}
+                        searchable
+                        options={toV2Options(operateCompanies)}
                         value={pendingFilters.operateCompany}
-                        ariaLabel="运营公司"
+                        placeholder="运营公司"
                         onChange={(next) => patchFilters({
-                          operateCompany: Array.isArray(next) ? next : (next ? [next] : []),
+                          operateCompany: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-lease-company">租赁公司</label>
-                      <LnSelect
-                        id="va-lease-company"
+                      <V2Select
                         multiple
-                        options={leaseCompanies}
+                        searchable
+                        options={toV2Options(leaseCompanies)}
                         value={pendingFilters.leaseCompany}
-                        ariaLabel="租赁公司"
+                        placeholder="租赁公司"
                         onChange={(next) => patchFilters({
-                          leaseCompany: Array.isArray(next) ? next : (next ? [next] : []),
+                          leaseCompany: asStringArray(next),
                         })}
                       />
                     </div>
@@ -1282,68 +1315,66 @@ export function ListView(props: ListViewProps) {
                   <div className="va-filter-group-grid">
                     <div className="va-field">
                       <label htmlFor="va-customer">客户名称</label>
-                      <LnSelect
-                        id="va-customer"
+                      <V2Select
                         multiple
-                        options={customers}
+                        searchable
+                        options={toV2Options(customers)}
                         value={pendingFilters.customer}
-                        ariaLabel="客户名称"
+                        placeholder="客户名称"
                         onChange={(next) => patchFilters({
-                          customer: Array.isArray(next) ? next : (next ? [next] : []),
+                          customer: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-dept">归属业务部门</label>
-                      <LnSelect
-                        id="va-dept"
+                      <V2Select
                         multiple
-                        options={departments}
+                        searchable
+                        options={toV2Options(departments)}
                         value={pendingFilters.department}
-                        ariaLabel="归属业务部门"
-                        emptyLabel="请选择归属业务部门"
+                        placeholder="请选择归属业务部门"
                         onChange={(next) => patchFilters({
-                          department: Array.isArray(next) ? next : (next ? [next] : []),
+                          department: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-project">项目名称</label>
-                      <LnSelect
-                        id="va-project"
+                      <V2Select
                         multiple
-                        options={projects}
+                        searchable
+                        options={toV2Options(projects)}
                         value={pendingFilters.projectName}
-                        ariaLabel="项目名称"
+                        placeholder="项目名称"
                         onChange={(next) => patchFilters({
-                          projectName: Array.isArray(next) ? next : (next ? [next] : []),
+                          projectName: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-biz-type">业务类型</label>
-                      <LnSelect
-                        id="va-biz-type"
+                      <V2Select
                         multiple
-                        options={['租赁', '物流']}
+                        searchable
+                        options={toV2Options(['租赁', '物流'])}
                         value={pendingFilters.projectType}
-                        ariaLabel="业务类型"
-                        emptyLabel="界定租赁或物流"
+                        placeholder="界定租赁或物流"
                         onChange={(next) => patchFilters({
-                          projectType: Array.isArray(next) ? next : (next ? [next] : []),
+                          projectType: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-contract">合同编码</label>
-                      <LnSelect
-                        id="va-contract"
+                      <V2Select
                         multiple
-                        options={contractNos}
+                        searchable
+                        options={toV2Options(contractNos)}
                         value={pendingFilters.contractNo}
-                        ariaLabel="合同编码"
+                        placeholder="合同编码"
                         onChange={(next) => patchFilters({
-                          contractNo: Array.isArray(next) ? next : (next ? [next] : []),
+                          contractNo: asStringArray(next),
                         })}
                       />
                     </div>
@@ -1359,41 +1390,45 @@ export function ListView(props: ListViewProps) {
                   </div>
                   <div className="va-filter-group-grid">
                     <div className="va-field">
-                      <label htmlFor="va-status">运营状态</label>
-                      <LnSelect
-                        id="va-status"
+                      <label htmlFor="va-status">在库细档</label>
+                      <V2Select
                         multiple
-                        options={[...OPERATE_STATUS_OPTIONS]}
-                        value={pendingFilters.operateStatus}
-                        ariaLabel="运营状态"
+                        searchable
+                        options={toV2Options([...STOCK_DETAIL_STATUS_OPTIONS])}
+                        value={pendingFilters.operateStatus.filter((s) =>
+                          (STOCK_DETAIL_STATUS_OPTIONS as readonly string[]).includes(s),
+                        )}
+                        placeholder="可交付 / 不可交付"
                         onChange={(next) => patchFilters({
-                          operateStatus: Array.isArray(next) ? next : (next ? [next] : []),
+                          operateStatus: asStringArray(next).filter((s) =>
+                            (STOCK_DETAIL_STATUS_OPTIONS as readonly string[]).includes(s),
+                          ),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-license">证照状态</label>
-                      <LnSelect
-                        id="va-license"
+                      <V2Select
                         multiple
-                        options={['正常', '异常']}
+                        searchable
+                        options={toV2Options(['正常', '异常'])}
                         value={pendingFilters.licenseStatus}
-                        ariaLabel="证照状态"
+                        placeholder="证照状态"
                         onChange={(next) => patchFilters({
-                          licenseStatus: Array.isArray(next) ? next : (next ? [next] : []),
+                          licenseStatus: asStringArray(next),
                         })}
                       />
                     </div>
                     <div className="va-field">
                       <label htmlFor="va-ins">保险状态</label>
-                      <LnSelect
-                        id="va-ins"
+                      <V2Select
                         multiple
-                        options={INSURANCE_STATUS_OPTIONS}
+                        searchable
+                        options={toV2Options(INSURANCE_STATUS_OPTIONS)}
                         value={pendingFilters.insuranceStatus}
-                        ariaLabel="保险状态"
+                        placeholder="保险状态"
                         onChange={(next) => patchFilters({
-                          insuranceStatus: Array.isArray(next) ? next : (next ? [next] : []),
+                          insuranceStatus: asStringArray(next),
                         })}
                       />
                     </div>
@@ -1414,32 +1449,24 @@ export function ListView(props: ListViewProps) {
                 </div>
 
                 <div className="va-more-filters-btns">
-                  <button
-                    type="button"
-                    className="va-btn va-btn-secondary"
-                    onClick={() => {
-                      onPendingChange(EMPTY_FILTERS);
-                      onReset();
-                      setMoreFilters(false);
-                    }}
+                  <V2Button
+                    variant="secondary"
+                    size="md"
+                    onClick={runReset}
                   >
                     重置
-                  </button>
-                  <button
-                    type="button"
-                    className="va-btn va-btn-ghost"
-                    onClick={() => setMoreFilters(false)}
-                  >
+                  </V2Button>
+                  <V2Button variant="ghost" size="md" onClick={() => setMoreFilters(false)}>
                     收起面板
-                  </button>
-                  <button
-                    type="button"
-                    className="va-btn va-btn-primary"
+                  </V2Button>
+                  <V2Button
+                    variant="primary"
+                    size="md"
+                    icon={<Search size={14} aria-hidden />}
                     onClick={runSearch}
                   >
-                    <Search size={14} aria-hidden />
-                    <span>查询（{liveMatchCount} 辆）</span>
-                  </button>
+                    {`查询（${liveMatchCount} 辆）`}
+                  </V2Button>
                 </div>
               </div>
             </div>
@@ -1491,17 +1518,15 @@ export function ListView(props: ListViewProps) {
                   </button>
                   <div className="va-mobile-card__actions">
                     <OperationActions
+                      view={{
+                        label: '查看详情',
+                        onClick: () => onOpenDetail(row),
+                      }}
+                      edit={{
+                        label: '设置运维',
+                        onClick: () => onOps(row),
+                      }}
                       more={[
-                        {
-                          key: 'view',
-                          label: '查看详情',
-                          onClick: () => onOpenDetail(row),
-                        },
-                        {
-                          key: 'owner',
-                          label: '设置运维负责人',
-                          onClick: () => onOps(row),
-                        },
                         {
                           key: 'edit',
                           label: '编辑档案',
@@ -2084,17 +2109,15 @@ export function ListView(props: ListViewProps) {
                           style={{ width: colWidths.actions, minWidth: colWidths.actions, maxWidth: colWidths.actions }}
                         >
                           <OperationActions
+                            view={{
+                              label: '查看详情',
+                              onClick: () => onOpenDetail(row),
+                            }}
+                            edit={{
+                              label: '设置运维',
+                              onClick: () => onOps(row),
+                            }}
                             more={[
-                              {
-                                key: 'view',
-                                label: '查看详情',
-                                onClick: () => onOpenDetail(row),
-                              },
-                              {
-                                key: 'owner',
-                                label: '设置运维负责人',
-                                onClick: () => onOps(row),
-                              },
                               {
                                 key: 'edit',
                                 label: '编辑档案',

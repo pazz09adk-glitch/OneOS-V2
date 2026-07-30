@@ -166,6 +166,7 @@ const base001 = {
   },
   ops: {
     submitBy: '运维-陈涛',
+    handler: '运维-陈涛',
     status: '待提交' as const,
     feeRows: defaultOpsRows({
       清洗费: { amount: '80.00' },
@@ -225,6 +226,7 @@ export const MOCK_SETTLEMENTS: SettlementRecord[] = [
     bizService: emptyDept('业务-刘洋', '待提交'),
     ops: {
       submitBy: '运维-陈涛',
+      handler: '运维-陈涛',
       status: '待提交',
       feeRows: defaultOpsRows({
         未结算保养费: { amount: '920.00', waiver: '0.00' },
@@ -302,6 +304,7 @@ export const MOCK_SETTLEMENTS: SettlementRecord[] = [
       },
       ops: {
         submitBy: '运维-陈涛',
+        handler: '运维-陈涛',
         status: '已提交' as const,
         feeRows: defaultOpsRows({
           车损费: { amount: '3200.00' },
@@ -384,6 +387,7 @@ export const MOCK_SETTLEMENTS: SettlementRecord[] = [
     },
     ops: {
       submitBy: '运维-陈涛',
+      handler: '运维-陈涛',
       status: '已提交',
       feeRows: defaultOpsRows({
         未结算维修费: { amount: '1200.00', waiver: '1200.00' },
@@ -409,10 +413,17 @@ export const APPROVAL_OPTIONS = [
 ];
 
 export const ROLE_OPTIONS = [
-  { value: 'biz', label: '业管（只读看安全）' },
+  { value: 'biz', label: '业管（只读看安全 / 可代转运维）' },
   { value: 'safety', label: '安全员（可提交）' },
-  { value: 'ops', label: '运维（无忧包减免）' },
+  { value: 'ops', label: '运维（无忧包减免 / 转交）' },
   { value: 'energy', label: '能源' },
+];
+
+/** 运维办理人候选（演示）；转交不可选当前人 */
+export const OPS_HANDLER_OPTIONS = [
+  { value: '运维-陈涛', label: '运维-陈涛' },
+  { value: '运维-李娜', label: '运维-李娜' },
+  { value: '运维-周凯', label: '运维-周凯' },
 ];
 
 export { recomputeTotals, withPackageBizFees };

@@ -23,6 +23,8 @@ export type VehicleLine = {
 
 export type ReceiptChild = {
   id: string;
+  /** 与收付款中枢业务单据号对齐，如 PR-202607-0018 */
+  receiptNo: string;
   seq: number;
   auditStatus: AuditStatus;
   creator: string;

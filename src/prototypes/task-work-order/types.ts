@@ -12,7 +12,7 @@ export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'overdue' | '
 
 export type ViewTab = 'all' | 'published' | 'supervise';
 
-export type ViewMode = 'list' | 'kanban' | 'split';
+export type ViewMode = 'list' | 'kanban';
 
 export type MileageMode = 'period_avg' | 'cumulative';
 
@@ -119,6 +119,8 @@ export interface TaskWorkOrder {
   vehicleIds: string[];
   periodStart?: string;
   periodEnd?: string;
+  /** 计划完成「不限」· 长期跟进；为 true 时不计算超时 */
+  periodUnlimited?: boolean;
   mileageTarget?: number;
   mileageMode?: MileageMode;
   initiatorId: string;
@@ -136,6 +138,8 @@ export interface TaskFilters {
   taskType?: TaskType | 'all';
   status?: TaskStatus | 'all';
   relatedBizType?: RelatedBizType | 'all';
+  /** 更多筛选 · 关联业务单号（如采购合同号） */
+  relatedBizCode?: string;
   ownerId?: string;
   keyword: string;
   startDate: string;
@@ -151,4 +155,9 @@ export interface KpiCardData {
   tone: 'primary' | 'warning' | 'danger' | 'info' | 'success';
 }
 
-export type HubPage = 'ledger' | 'create' | 'detail';
+export type HubPage = 'ledger' | 'create' | 'detail' | 'edit';
+
+/** 待处理 / 进行中 / 已超时可编辑；已办结、已关闭不可编辑 */
+export function canEditTask(task: Pick<TaskWorkOrder, 'status'>): boolean {
+  return task.status !== 'completed' && task.status !== 'closed';
+}

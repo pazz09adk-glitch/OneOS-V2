@@ -1,0 +1,84 @@
+/**
+ * OneOS V2 · Bento KPI 数字语义色（DESIGN §2.4.2.1）
+ *
+ * 硬规则：只给「数量 / 金额」上色（.ln-kpi__value / .ln-kpi__sub 或等价节点），
+ * 禁止给卡片外壳刷语义底色/描边冒充实义色。
+ *
+ * 档位：normal | info | warning | danger | success
+ */
+
+.ln-kpi__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ln-muted, #627d98);
+  margin-bottom: 8px;
+}
+
+.ln-kpi__value,
+.ln-kpi__sub {
+  font-family: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', monospace));
+  font-variant-numeric: tabular-nums;
+}
+
+.ln-kpi__value {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ln-ink, #0a2540);
+}
+
+.ln-kpi__sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ln-muted, #627d98);
+}
+
+/* —— 语义色：仅作用于数字/金额节点（可同时挂在 value 与 sub） —— */
+
+.ln-kpi-tone-normal {
+  color: var(--ln-ink, #0a2540) !important;
+}
+
+.ln-kpi-tone-info {
+  color: var(--ln-info, #3b82f6) !important;
+}
+
+.ln-kpi-tone-warning {
+  color: var(--ln-warning, #d97706) !important;
+}
+
+.ln-kpi-tone-danger {
+  color: var(--ln-error, #ef4444) !important;
+}
+
+.ln-kpi-tone-success {
+  color: var(--ln-success, #10b981) !important;
+}
+
+/* 副文案挂语义色时可略降纯度：仍同色相，避免与主数字抢层级时可改用同色 */
+.ln-kpi__sub.ln-kpi-tone-normal {
+  color: var(--ln-muted, #627d98) !important;
+}
+
+.ln-kpi__sub.ln-kpi-tone-info,
+.ln-kpi__sub.ln-kpi-tone-warning,
+.ln-kpi__sub.ln-kpi-tone-danger,
+.ln-kpi__sub.ln-kpi-tone-success {
+  /* 副金额与主数字同色相，表示同一语义；字号/字重已更轻 */
+  opacity: 0.92;
+}
+
+[data-ds-mode='dark'] .ln-kpi__value,
+[data-oneos-theme='dark'] .ln-kpi__value,
+.dark .ln-kpi__value {
+  color: var(--ln-ink, #f7fafc);
+}
+
+[data-ds-mode='dark'] .ln-kpi__sub.ln-kpi-tone-normal,
+[data-oneos-theme='dark'] .ln-kpi__sub.ln-kpi-tone-normal,
+.dark .ln-kpi__sub.ln-kpi-tone-normal {
+  color: var(--ln-muted, #718096) !important;
+}

@@ -346,7 +346,7 @@ export function H5VehicleAssetsApp() {
               gap: '6px',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              boxShadow: viewMode === 'list' ? '0 2px 8px rgba(83, 58, 253, 0.3)' : 'none'
+              boxShadow: viewMode === 'list' ? '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 30%, transparent)' : 'none'
             }}
           >
             <List size={16} />
@@ -371,7 +371,7 @@ export function H5VehicleAssetsApp() {
               gap: '6px',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              boxShadow: viewMode === 'kanban' ? '0 2px 8px rgba(83, 58, 253, 0.3)' : 'none'
+              boxShadow: viewMode === 'kanban' ? '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 30%, transparent)' : 'none'
             }}
           >
             <Kanban size={16} />
@@ -396,7 +396,7 @@ export function H5VehicleAssetsApp() {
               gap: '6px',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              boxShadow: viewMode === 'split' ? '0 2px 8px rgba(83, 58, 253, 0.3)' : 'none'
+              boxShadow: viewMode === 'split' ? '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 30%, transparent)' : 'none'
             }}
           >
             <Columns size={16} />
@@ -592,7 +592,7 @@ export function H5VehicleAssetsApp() {
                 padding: '0 14px',
                 borderRadius: '10px',
                 border: activeFilterCount > 0 ? '1px solid var(--oneos-primary, #533AFD)' : '1px solid var(--ln-hairline)',
-                background: activeFilterCount > 0 ? 'rgba(83, 58, 253, 0.08)' : 'var(--ln-surface-card)',
+                background: activeFilterCount > 0 ? 'color-mix(in srgb, var(--oneos-primary, #533afd) 8%, transparent)' : 'var(--ln-surface-card)',
                 color: activeFilterCount > 0 ? 'var(--oneos-primary, #533AFD)' : 'var(--ln-ink)',
                 fontSize: '13px',
                 fontWeight: 600,
@@ -617,7 +617,7 @@ export function H5VehicleAssetsApp() {
                     fontSize: '11px',
                     padding: '4px 8px',
                     borderRadius: '9999px',
-                    background: 'rgba(83, 58, 253, 0.12)',
+                    background: 'color-mix(in srgb, var(--oneos-primary, #533afd) 12%, transparent)',
                     color: 'var(--oneos-primary, #533AFD)',
                     fontWeight: 600,
                     display: 'inline-flex',
@@ -1166,7 +1166,7 @@ export function H5VehicleAssetsApp() {
                   <div><span style={{ color: 'var(--ln-muted)' }}>车辆颜色:</span> {activeVehicle.color || '白色'}</div>
                   <div><span style={{ color: 'var(--ln-muted)' }}>产权归属:</span> {activeVehicle.ownership || '羚牛氢能'}</div>
                   <div><span style={{ color: 'var(--ln-muted)' }}>运营城市:</span> {activeVehicle.operateCity || '嘉兴市'}</div>
-                  <div><span style={{ color: 'var(--ln-muted)' }}>实时里程:</span> <span style={{ color: '#533AFD', fontWeight: 700 }}>{activeVehicle.mileage || '7504.0'} km</span></div>
+                  <div><span style={{ color: 'var(--ln-muted)' }}>实时里程:</span> <span style={{ color: 'var(--oneos-primary, var(--ln-primary, #533AFD))', fontWeight: 700 }}>{activeVehicle.mileage || '7504.0'} km</span></div>
                   <div><span style={{ color: 'var(--ln-muted)' }}>车联网状态:</span> <span style={{ color: '#10B981', fontWeight: 600 }}>在线 🟢</span></div>
                 </div>
               )}
@@ -1174,7 +1174,7 @@ export function H5VehicleAssetsApp() {
               {detailSubTab === 'contract' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div>• 关联客户: <strong>{activeVehicle.customer || '武汉洛安供应链有限公司'}</strong></div>
-                  <div>• 合同编号: <span style={{ fontFamily: 'monospace', color: '#533AFD' }}>{activeVehicle.contractNo || 'LNZLHT2026040301-042'}</span></div>
+                  <div>• 合同编号: <span style={{ fontFamily: 'monospace', color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' }}>{activeVehicle.contractNo || 'LNZLHT2026040301-042'}</span></div>
                   <div>• 责任经理: {activeVehicle.manager || '金可鹏'}</div>
                   <div>• 押金缴存: <span style={{ color: '#10B981', fontWeight: 600 }}>¥ 30,000.00 (已结清)</span></div>
                 </div>
@@ -1382,7 +1382,7 @@ export function H5VehicleAssetsApp() {
                   fontSize: '14px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(83, 58, 253, 0.3)'
+                  boxShadow: '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 30%, transparent)'
                 }}
               >
                 确认查询 ({filteredVehicles.length} 台)
@@ -1427,7 +1427,7 @@ export function H5VehicleAssetsApp() {
             </div>
 
             <div style={{ fontSize: '12px', color: 'var(--ln-muted)' }}>
-              目标车辆: <strong style={{ color: '#533AFD' }}>{(actionModal.vehicle?.plateNo || '').replace(/·/g, '')}</strong> ({actionModal.vehicle?.brand})
+              目标车辆: <strong style={{ color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' }}>{(actionModal.vehicle?.plateNo || '').replace(/·/g, '')}</strong> ({actionModal.vehicle?.brand})
             </div>
 
             {actionModal.type === 'mileage' ? (
@@ -1584,7 +1584,7 @@ export function H5VehicleAssetsApp() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(83, 58, 253, 0.1)', color: '#533AFD', fontSize: '13px', fontWeight: 800 }}>
+          <div style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(83, 58, 253, 0.1)', color: 'var(--oneos-primary, var(--ln-primary, #533AFD))', fontSize: '13px', fontWeight: 800 }}>
             H5 移动端
           </div>
           <div>
@@ -1678,7 +1678,7 @@ export function H5VehicleAssetsApp() {
               gap: '6px'
             }}
           >
-            {isDark ? <Sun size={14} style={{ color: '#F59E0B' }} /> : <Moon size={14} style={{ color: '#533AFD' }} />}
+            {isDark ? <Sun size={14} style={{ color: '#F59E0B' }} /> : <Moon size={14} style={{ color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' }} />}
             {isDark ? '浅色' : '深色'}
           </button>
         </div>

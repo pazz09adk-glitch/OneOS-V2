@@ -8,7 +8,7 @@
   min-height: calc(100vh - 48px);
   background-color: var(--ln-canvas, #F6F9FC);
   color: var(--ln-ink, #0A2540);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--ln-font, var(--vm-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif));
   box-sizing: border-box;
   padding: 20px 24px 40px 24px;
   display: flex;
@@ -71,7 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(83, 58, 253, 0.25);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--oneos-primary, #533afd) 25%, transparent);
   flex-shrink: 0;
 }
 
@@ -208,7 +208,7 @@
 .v2-wb-kpi-tile:hover {
   border-color: var(--oneos-primary, #533AFD);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(83, 58, 253, 0.08);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--oneos-primary, #533afd) 8%, transparent);
 }
 
 .v2-wb-kpi-tile__header {
@@ -380,7 +380,7 @@
 .v2-wb-fleet-card {
   gap: 14px;
   background:
-    linear-gradient(180deg, rgba(83, 58, 253, 0.06) 0%, transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--oneos-primary, #533afd) 6%, transparent) 0%, transparent 42%),
     var(--ln-surface-pearl, #F8FAFC);
 }
 

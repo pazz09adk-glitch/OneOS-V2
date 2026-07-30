@@ -40,6 +40,7 @@
   "directory": {
     "nodes": [
       { "type": "markdown", "id": "prd", "title": "产品需求说明（PRD）", "markdownPath": ".spec/requirements-prd.md" },
+      { "type": "markdown", "id": "biz-review", "title": "业务逻辑评审报告", "markdownPath": ".spec/business-logic-review.md" },
       { "type": "link", "id": "hub", "title": "返回业财闭环总览", "href": "/prototypes/biz-finance-closed-loop/", "target": "self" }
     ]
   }

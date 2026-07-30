@@ -148,8 +148,8 @@ function tokens(isDark: boolean) {
     border: isDark ? '#23272f' : '#e3e8ee',
     textPrimary: isDark ? '#f7fafc' : '#0a2540',
     textSecondary: isDark ? '#a0aec0' : '#425466',
-    accent: '#533afd',
-    accentSoft: isDark ? 'rgba(83, 58, 253, 0.18)' : '#e0e7ff',
+    accent: 'var(--oneos-primary, var(--ln-primary, #533afd))',
+    accentSoft: isDark ? 'color-mix(in srgb, var(--oneos-primary, #533afd) 18%, transparent)' : 'var(--ln-primary-soft, #e0e7ff)',
   };
 }
 
@@ -439,7 +439,7 @@ function FaultDetail({
     border: 'none',
     background: t.accent,
     color: '#fff',
-    boxShadow: '0 2px 8px rgba(83, 58, 253, 0.35)',
+    boxShadow: '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 35%, transparent)',
   };
 
   return (
@@ -1652,7 +1652,7 @@ export default function FaultHandlingApp() {
                       style={{
                         background: isSelected
                           ? isDark
-                            ? 'rgba(83, 58, 253, 0.15)'
+                            ? 'color-mix(in srgb, var(--oneos-primary, #533afd) 15%, transparent)'
                             : '#e0e7ff'
                           : isDark
                             ? '#181b22'

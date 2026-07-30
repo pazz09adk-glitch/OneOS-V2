@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { V2Button, V2Empty, V2StatusTabs } from '../../resources/design-system/components/UIComponents';
 import { V2Badge } from '../../resources/design-system/components/V2Badge';
 import { ACCOUNTS, RECHARGES, CUST_BILLS, STATION_BILLS, H2_RECORDS } from './mockData';
@@ -15,7 +17,7 @@ export function EnergyHub() {
 
   const kpi = useMemo(()=>[
     {label:'能源账户', value:String(ACCOUNTS.length)},
-    {label:'待入账充值', value:String(recharges.filter(r=>r.status==='未关联').length)},
+    {label:'待入账充值', value:String(recharges.filter(r=>r.status!=='已入账').length)},
     {label:'客户待收', value:String(cust.filter(c=>c.status!=='已付清').length)},
     {label:'加氢站待付', value:String(station.filter(s=>s.status==='待付款').length)},
   ],[recharges,cust,station]);
@@ -33,6 +35,7 @@ export function EnergyHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="energy" />
       <div className="bfcl-toolbar">
         <V2StatusTabs value={tab} onChange={setTab} options={[
           {key:'账户',label:'能源账户'},{key:'充值单',label:'充值/预付'},{key:'客户对账',label:'客户氢费'},{key:'加氢站对账',label:'加氢站'},
@@ -63,10 +66,12 @@ export function EnergyHub() {
                 <td className="bfcl-mono bfcl-primary">{r.docNo}</td><td>{r.customer}</td>
                 <td className="bfcl-mono">¥{formatMoney(r.amount)}</td>
                 <td className="bfcl-mono">¥{formatMoney(r.linked)}</td>
-                <td><V2Badge status={r.status==='已入账'?'success':'error'} label={r.status} /></td>
+                <td><V2Badge status={r.status==='已入账'?'success':r.status==='部分入账'?'warning':'error'} label={r.status} /></td>
                 <td><V2Button variant="outline" size="sm" onClick={()=>{
                   if(r.status==='已入账'){ showToast('已入账'); return; }
-                  linkRecharge(r);
+                  const nextLinked = r.amount;
+                  setRecharges(list=>list.map(x=>x.id===r.id?{...x, linked:nextLinked, status:'已入账'}:x));
+                  showToast(`关联收款入账完成 · ${r.docNo}（对照中枢 RC-20260720-008）`);
                 }}>关联收款入账</V2Button></td>
               </tr>
             ))}</tbody></table>
@@ -97,7 +102,7 @@ export function EnergyHub() {
               <td><V2Button variant="outline" size="sm" onClick={()=>{
                 if(c.status==='已付清'){ showToast('已付清'); return; }
                 setCust(list=>list.map(x=>x.id===c.id?{...x,linked:x.amount,status:'已付清'}:x));
-                showToast('客户氢费对账单已关联收款');
+                showToast(`客户氢费对账单 ${c.docNo} 已关联收款（对照中枢）`);
               }}>关联收款</V2Button></td>
             </tr>
           ))}</tbody></table>
@@ -116,7 +121,7 @@ export function EnergyHub() {
               <td><V2Button variant="outline" size="sm" onClick={()=>{
                 if(s.status==='已付款'){ showToast('已付款'); return; }
                 setStation(list=>list.map(x=>x.id===s.id?{...x,linked:x.amount,status:'已付款'}:x));
-                showToast('已关联付款明细 → 标记已付款');
+                showToast(`已关联付款明细 ${s.docNo === 'H2S-202607-0005' ? 'PY-20260727-003' : ''} → 标记已付款`);
               }}>关联付款</V2Button></td>
             </tr>
           ))}</tbody></table>

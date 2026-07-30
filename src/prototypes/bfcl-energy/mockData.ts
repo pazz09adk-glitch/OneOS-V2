@@ -5,7 +5,7 @@ export const ACCOUNTS: AccountRow[] = [
   { id:'a3', customer:'宁波港运通', project:'北仑港区', balance:45600, status:'正常' },
 ];
 export const RECHARGES: RechargeRow[] = [
-  { id:'r1', docNo:'EA-202607-0011', customer:'嘉兴氢途科技', amount:50000, linked:30000, status:'未关联' },
+  { id:'r1', docNo:'EA-202607-0011', customer:'嘉兴氢途科技', amount:50000, linked:30000, status:'部分入账' },
   { id:'r2', docNo:'EA-202607-0008', customer:'杭州博众物流', amount:20000, linked:20000, status:'已入账' },
 ];
 export const CUST_BILLS: CustBillRow[] = [

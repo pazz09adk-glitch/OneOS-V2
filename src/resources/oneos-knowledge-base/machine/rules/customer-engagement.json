@@ -1,0 +1,59 @@
+{
+  "id": "customer-engagement",
+  "line": "lease",
+  "name": "客户对接过程管理",
+  "confidence": "architecture",
+  "roles": ["业务员", "业务主管", "业管"],
+  "pages": [
+    {
+      "name": "对接台账",
+      "purpose": "按状态管理签约前对接单"
+    },
+    {
+      "name": "对接详情",
+      "purpose": "跟进、准入衔接、转让延期、建合同门禁"
+    }
+  ],
+  "preconditions": [
+    "企业客户具备统一社会信用代码或个人客户具备证件号"
+  ],
+  "forward": [
+    "按主体发起对接认领",
+    "登记跟进并推进客户准入",
+    "准入允许后由归属人发起租赁合同",
+    "合同生效后对接单已转化并快照业绩归属"
+  ],
+  "reverse": [
+    {
+      "case": "同主体二次认领",
+      "behavior": "拦截并展示现归属人与保护截止日"
+    },
+    {
+      "case": "非归属人或无有效对接单建合同",
+      "behavior": "拦截"
+    },
+    {
+      "case": "准入禁止",
+      "behavior": "不可建合同；可关单失败"
+    },
+    {
+      "case": "保护期到期未转化",
+      "behavior": "自动释放，可被再认领"
+    }
+  ],
+  "gates": [
+    "一主体同时仅一名主对接人",
+    "建合同：准入允许 AND 对接有效且操作人为主对接人",
+    "保护期默认30自然日，延期一次需主管批"
+  ],
+  "closedLoop": "合同生效转化归档，或释放/失败后可再认领",
+  "links": [
+    { "to": "customer-management", "relation": "bind-and-admission" },
+    { "to": "lease-contract-management", "relation": "create-gate" },
+    { "to": "analytics-business-ledgers", "relation": "owner-snapshot" }
+  ],
+  "sources": [
+    "src/prototypes/customer-engagement/.spec/requirements-prd.md",
+    "src/resources/prd/customer-engagement-autoprd.md"
+  ]
+}

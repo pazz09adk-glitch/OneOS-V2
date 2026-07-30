@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Block pushes that still contain Alibaba Cloud AccessKeys in axhub.config.json.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+CONFIG=".axhub/make/axhub.config.json"
+SCRUB="$ROOT/scripts/scrub-axhub-s3-secrets.py"
+
+zero=0000000000000000000000000000000000000000
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [[ -z "${local_sha:-}" ]] && continue
+  if [[ "$local_sha" == "$zero" ]]; then
+    continue
+  fi
+  if [[ "$remote_sha" == "$zero" ]]; then
+    range="$local_sha"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+
+  while IFS= read -r commit; do
+    [[ -z "$commit" ]] && continue
+    if git cat-file -e "$commit:$CONFIG" 2>/dev/null; then
+      if ! git show "$commit:$CONFIG" | python3 "$SCRUB" --stdin --check; then
+        echo "pre-push: blocked — $commit still contains S3 AccessKeys in $CONFIG" >&2
+        echo "Run: python3 scripts/scrub-axhub-s3-secrets.py && amend/rebuild that commit." >&2
+        exit 1
+      fi
+    fi
+  done < <(git rev-list "$range")
+done
+
+exit 0

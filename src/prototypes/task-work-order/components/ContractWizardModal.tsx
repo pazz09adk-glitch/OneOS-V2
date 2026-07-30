@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, X, Lock, ChevronRight, ChevronLeft } from 'lucide-react';
 import { V2Button, V2DatePicker, V2Select, V2Steps } from '../../../resources/design-system/components/UIComponents';
-import { MOCK_OWNERS, MOCK_PURCHASE_CONTRACTS, MOCK_VEHICLES } from '../mockData';
+import { DEFAULT_EXECUTOR_ID, MOCK_OWNERS, MOCK_PURCHASE_CONTRACTS, MOCK_VEHICLES } from '../mockData';
 import { TaskType, TaskWorkOrder } from '../types';
 
 interface ContractWizardModalProps {
@@ -36,7 +36,7 @@ export const ContractWizardModal: React.FC<ContractWizardModalProps> = ({
   const [vehicleIds, setVehicleIds] = useState<string[]>(['v1', 'v2']);
   const [mileageTarget, setMileageTarget] = useState<string>('6000');
   const [mileageMode, setMileageMode] = useState<'period_avg' | 'cumulative'>('period_avg');
-  const [currentOwnerId, setCurrentOwnerId] = useState<string>('u_zhang');
+  const [currentOwnerId, setCurrentOwnerId] = useState<string>(DEFAULT_EXECUTOR_ID);
   const [accountableOwnerId, setAccountableOwnerId] = useState<string>('u_chen');
 
   if (!open) return null;
@@ -269,7 +269,7 @@ export const ContractWizardModal: React.FC<ContractWizardModalProps> = ({
                           fontWeight: isChecked ? 600 : 400,
                         }}
                       >
-                        {v.plateNo} ({v.model})
+                        <span className="v2-two-mono">{v.plateNo}</span> ({v.model})
                       </button>
                     );
                   })}

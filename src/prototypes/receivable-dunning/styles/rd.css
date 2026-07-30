@@ -11,14 +11,13 @@
   --rd-body: var(--ln-body, #425466);
   --rd-muted: var(--ln-muted, #627d98);
   --rd-pearl: var(--ln-surface-pearl, #f8fafc);
-  --rd-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --rd-mono: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', 'Cascadia Mono', Consolas, 'SF Mono', SFMono-Regular, Menlo, monospace));
 
   width: 100%;
   min-height: calc(100vh - 48px);
   background: var(--rd-canvas);
   color: var(--rd-ink);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei',
-    sans-serif;
+  font-family: var(--ln-font, var(--vm-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif));
   font-size: 14px;
   line-height: 1.5;
   font-variant-numeric: tabular-nums;

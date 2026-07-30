@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
-import { BellRing, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import {
+  BellRing,
+  Check,
+  Mail,
+  MessageSquare,
+  MonitorSmartphone,
+  Smartphone,
+  X,
+} from 'lucide-react';
 import {
   V2Button,
-  V2CheckboxGroup,
+  V2FieldLabel,
 } from '../../../resources/design-system/components/UIComponents';
 import { ownerName } from '../mockData';
 import { TaskWorkOrder } from '../types';
@@ -14,6 +22,42 @@ interface UrgeModalProps {
   onSubmitUrge: (taskId: string, remark: string, channels: string[]) => void;
 }
 
+const CHANNELS: {
+  value: string;
+  label: string;
+  desc: string;
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
+}[] = [
+  {
+    value: 'system',
+    label: '工作台待办',
+    desc: '系统待办强提醒',
+    Icon: MonitorSmartphone,
+  },
+  {
+    value: 'sms',
+    label: '短信通知',
+    desc: '手机短信触达',
+    Icon: Smartphone,
+  },
+  {
+    value: 'email',
+    label: '邮件通知',
+    desc: '发送至注册邮箱',
+    Icon: Mail,
+  },
+  {
+    value: 'wechat',
+    label: '小程序推送',
+    desc: '小羚羚 / 微信',
+    Icon: MessageSquare,
+  },
+];
+
+/** 催办文案固定模板（不开放编辑） */
+export const URGE_REMARK_TEMPLATE =
+  '该协同任务已接近节点/超期，请尽快核对并录入执行反馈。';
+
 export const UrgeModal: React.FC<UrgeModalProps> = ({
   task,
   open,
@@ -21,22 +65,65 @@ export const UrgeModal: React.FC<UrgeModalProps> = ({
   onSubmitUrge,
 }) => {
   const [selectedChannels, setSelectedChannels] = useState<string[]>(['system', 'sms']);
-  const [remark, setRemark] = useState(
-    '该协同任务已接近节点/超期，请尽快核对并录入执行反馈。'
-  );
+  const [channelError, setChannelError] = useState('');
+
+  useEffect(() => {
+    if (!open) return;
+    setSelectedChannels(['system', 'sms']);
+    setChannelError('');
+  }, [open, task?.id]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCancel();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, onCancel]);
 
   if (!open || !task) return null;
 
+  const toggleChannel = (value: string) => {
+    setSelectedChannels((prev) => {
+      const next = prev.includes(value)
+        ? prev.filter((v) => v !== value)
+        : [...prev, value];
+      if (next.length) setChannelError('');
+      return next;
+    });
+  };
+
   const handleOk = () => {
-    onSubmitUrge(task.id, remark || '请尽快核对并反馈任务执行进度。', selectedChannels);
+    if (!selectedChannels.length) {
+      setChannelError('请至少选择一种催办方式');
+      return;
+    }
+    onSubmitUrge(task.id, URGE_REMARK_TEMPLATE, selectedChannels);
   };
 
   return (
-    <div className="v2-two-modal-mask">
-      <div className="v2-two-modal" role="dialog" aria-modal="true" aria-labelledby="urge-title">
+    <div
+      className="v2-two-modal-mask"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onCancel();
+      }}
+    >
+      <div
+        className="v2-two-modal v2-two-urge-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="urge-title"
+      >
         <div className="v2-two-modal-header">
-          <div id="urge-title" className="v2-two-modal-title">
-            <BellRing size={16} className="v2-two-text-danger" /> 工单催办督办
+          <div className="v2-two-urge-header-text">
+            <div id="urge-title" className="v2-two-modal-title">
+              <span className="v2-two-urge-title-icon" aria-hidden>
+                <BellRing size={16} strokeWidth={2.25} />
+              </span>
+              催办督办
+            </div>
+            <p className="v2-two-urge-subtitle">向执行人发送提醒，可多选催办方式</p>
           </div>
           <button
             type="button"
@@ -49,43 +136,57 @@ export const UrgeModal: React.FC<UrgeModalProps> = ({
         </div>
 
         <div className="v2-two-modal-body">
-          <div className="v2-two-detail-section" style={{ marginBottom: 0 }}>
-            <div className="v2-two-row-title" style={{ marginBottom: 4 }}>
-              {task.code} · {task.title}
-            </div>
-            <div className="v2-two-detail-muted">
-              接收执行人: <strong>{ownerName(task.currentOwnerId)}</strong>（归口:{' '}
-              {ownerName(task.accountableOwnerId)}）
+          <div className="v2-two-urge-summary">
+            <div className="v2-two-urge-summary__code">{task.code}</div>
+            <div className="v2-two-urge-summary__title">{task.title}</div>
+            <div className="v2-two-urge-summary__meta">
+              <span>
+                执行人 <strong>{ownerName(task.currentOwnerId)}</strong>
+              </span>
+              <span className="v2-two-urge-summary__dot" aria-hidden>
+                ·
+              </span>
+              <span>
+                归口 <strong>{ownerName(task.accountableOwnerId)}</strong>
+              </span>
             </div>
           </div>
 
-          <div>
-            <label className="v2-two-filter-label">催办发送通道</label>
-            <V2CheckboxGroup
-              options={[
-                { value: 'system', label: '工作台系统待办强提醒' },
-                { value: 'sms', label: '短信通知' },
-                { value: 'email', label: '邮件通知' },
-                { value: 'wechat', label: '小羚羚小程序/微信推送' },
-              ]}
-              value={selectedChannels}
-              onChange={(vals) => setSelectedChannels(vals as string[])}
-            />
-          </div>
-
-          <div>
-            <label className="v2-two-filter-label">催办提醒备注</label>
-            <textarea
-              rows={3}
-              value={remark}
-              onChange={(e) => setRemark(e.target.value)}
-              className="v2-two-textarea"
-            />
+          <div className="v2-two-urge-field">
+            <V2FieldLabel required>催办方式</V2FieldLabel>
+            <div className="v2-two-urge-channels" role="group" aria-label="催办方式">
+              {CHANNELS.map(({ value, label, desc, Icon }) => {
+                const checked = selectedChannels.includes(value);
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`v2-two-urge-channel ${checked ? 'is-on' : ''}`}
+                    aria-pressed={checked}
+                    onClick={() => toggleChannel(value)}
+                  >
+                    <span className="v2-two-urge-channel__ico" aria-hidden>
+                      <Icon size={16} strokeWidth={2.25} />
+                    </span>
+                    <span className="v2-two-urge-channel__copy">
+                      <span className="v2-two-urge-channel__label">{label}</span>
+                      <span className="v2-two-urge-channel__desc">{desc}</span>
+                    </span>
+                    <span className="v2-two-urge-channel__check" aria-hidden>
+                      {checked ? <Check size={14} strokeWidth={2.5} /> : null}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {channelError ? (
+              <div className="v2-two-field-error">{channelError}</div>
+            ) : null}
           </div>
         </div>
 
         <div className="v2-two-modal-footer">
-          <V2Button variant="ghost" size="md" onClick={onCancel}>
+          <V2Button variant="secondary" size="md" onClick={onCancel}>
             取消
           </V2Button>
           <V2Button variant="danger" size="md" onClick={handleOk}>

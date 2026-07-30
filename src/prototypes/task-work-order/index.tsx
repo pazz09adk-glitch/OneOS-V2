@@ -5,7 +5,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import * as dayjsModule from 'dayjs';
-import { Plus, CheckCircle2, List, LayoutGrid, Columns } from 'lucide-react';
+import { Plus, CheckCircle2, List, LayoutGrid } from 'lucide-react';
 import {
   AnnotationSourceDocument,
   AnnotationViewerOptions,
@@ -18,23 +18,33 @@ import {
 import {
   V2Button,
   V2SegmentedControl,
+  V2Select,
 } from '../../resources/design-system/components/UIComponents';
 import { BentoKpiGrid } from './components/BentoKpiGrid';
 import { ContractWizardModal } from './components/ContractWizardModal';
 import { FilterPanel } from './components/FilterPanel';
 import { KanbanViewBoard } from './components/KanbanViewBoard';
 import { ListViewTable } from './components/ListViewTable';
-import { SplitMasterDetail } from './components/SplitMasterDetail';
 import { TaskCreatePage } from './components/TaskCreatePage';
 import { TaskDetailPage } from './components/TaskDetailPage';
 import { UrgeModal } from './components/UrgeModal';
 import {
   buildInitialTasks,
   CURRENT_USER,
+  DEFAULT_EXECUTOR_ID,
   MOCK_OWNERS,
   MOCK_PURCHASE_CONTRACTS,
   MOCK_VEHICLES,
 } from './mockData';
+import {
+  DEMO_VIEWER_OPTIONS,
+  DemoViewerPreset,
+  canCompleteTask,
+  canEditTaskContent,
+  canUrgeTask,
+  completeBlockedReason,
+  resolveViewerUserId,
+} from './permissions';
 import {
   findMileageRuleConflictVehicleIds,
   formatMileageConflictMessage,
@@ -48,6 +58,7 @@ import {
   TaskWorkOrder,
   ViewMode,
   ViewTab,
+  canEditTask,
 } from './types';
 
 import '../../resources/design-system/oneos-ds-tokens.css';
@@ -60,6 +71,7 @@ const EMPTY_FILTERS: TaskFilters = {
   taskType: 'all',
   status: 'all',
   relatedBizType: 'all',
+  relatedBizCode: '',
   ownerId: '',
   keyword: '',
   startDate: '',
@@ -76,9 +88,14 @@ export function TaskWorkOrderHub() {
   const [hubPage, setHubPage] = useState<HubPage>('ledger');
 
   const [detailTaskId, setDetailTaskId] = useState<string | null>(null);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [contractWizardOpen, setContractWizardOpen] = useState(false);
   const [urgeTask, setUrgeTask] = useState<TaskWorkOrder | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [demoViewer, setDemoViewer] = useState<DemoViewerPreset>('as_initiator');
+
+  const viewerName = (userId: string) =>
+    MOCK_OWNERS.find((o) => o.id === userId)?.name || CURRENT_USER.name;
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -143,7 +160,7 @@ export function TaskWorkOrderHub() {
             periodEnd: dayjsFn().add(30, 'day').format('YYYY-MM-DD'),
             initiatorId: CURRENT_USER.id,
             accountableOwnerId: row.accountableOwnerId || 'u_chen',
-            currentOwnerId: row.currentOwnerId || 'u_zhang',
+            currentOwnerId: row.currentOwnerId || DEFAULT_EXECUTOR_ID,
             status: 'pending' as const,
             createdAt: now,
             feedbacks: [],
@@ -192,6 +209,11 @@ export function TaskWorkOrderHub() {
         const related = resolveRelatedBiz(t);
         if (related.type !== filters.relatedBizType) return false;
       }
+      if (filters.relatedBizCode?.trim()) {
+        const related = resolveRelatedBiz(t);
+        const codeKw = filters.relatedBizCode.trim().toLowerCase();
+        if (!(related.code || '').toLowerCase().includes(codeKw)) return false;
+      }
       if (filters.ownerId && t.currentOwnerId !== filters.ownerId) return false;
 
       if (filters.startDate && (t.createdAt || '').slice(0, 10) < filters.startDate) return false;
@@ -199,11 +221,9 @@ export function TaskWorkOrderHub() {
 
       if (filters.keyword) {
         const kw = filters.keyword.trim().toLowerCase();
-        const related = resolveRelatedBiz(t);
         const matchTitle = t.title.toLowerCase().includes(kw);
         const matchCode = t.code.toLowerCase().includes(kw);
-        const matchRelated = (related.code || '').toLowerCase().includes(kw);
-        if (!matchTitle && !matchCode && !matchRelated) return false;
+        if (!matchTitle && !matchCode) return false;
       }
 
       return true;
@@ -213,6 +233,11 @@ export function TaskWorkOrderHub() {
   const detailTask = useMemo(
     () => (detailTaskId ? tasks.find((t) => t.id === detailTaskId) || null : null),
     [detailTaskId, tasks]
+  );
+
+  const editingTask = useMemo(
+    () => (editingTaskId ? tasks.find((t) => t.id === editingTaskId) || null : null),
+    [editingTaskId, tasks]
   );
 
   const tabCounts = useMemo(
@@ -304,6 +329,7 @@ export function TaskWorkOrderHub() {
       vehicleIds,
       periodStart: taskData.periodStart,
       periodEnd: taskData.periodEnd,
+      periodUnlimited: Boolean(taskData.periodUnlimited) || taskData.periodEnd === 'UNLIMITED',
       mileageTarget: taskData.mileageTarget,
       mileageMode: taskData.mileageMode || 'period_avg',
       initiatorId: CURRENT_USER.id,
@@ -337,7 +363,151 @@ export function TaskWorkOrderHub() {
     return true;
   };
 
+  const handleUpdateTask = (
+    taskData: Partial<TaskWorkOrder> & { editChangeRemark?: string }
+  ): boolean => {
+    if (!editingTaskId || !editingTask) return false;
+    const viewerId = resolveViewerUserId(demoViewer, editingTask);
+    if (!canEditTaskContent(editingTask, viewerId)) {
+      showToast('当前身份无权编辑此工单，或工单已办结/关闭');
+      return false;
+    }
+
+    const vehicleIds = taskData.vehicleIds ?? editingTask.vehicleIds;
+    if ((taskData.taskType || editingTask.taskType) === 'mileage' && vehicleIds.length) {
+      const conflictIds = findMileageRuleConflictVehicleIds(vehicleIds, tasks, {
+        excludeTaskId: editingTaskId,
+      });
+      if (conflictIds.length) {
+        showToast(
+          formatMileageConflictMessage(platesOfVehicles(conflictIds, MOCK_VEHICLES))
+        );
+        return false;
+      }
+    }
+
+    const now = dayjsFn().format('YYYY-MM-DD HH:mm');
+    const unlimited =
+      taskData.periodUnlimited !== undefined
+        ? Boolean(taskData.periodUnlimited) || taskData.periodEnd === 'UNLIMITED'
+        : editingTask.periodUnlimited || editingTask.periodEnd === 'UNLIMITED';
+    const changeRemark =
+      taskData.editChangeRemark?.trim() ||
+      '更新任务内容（类型与关联单据未变更）';
+
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id !== editingTaskId) return t;
+        return {
+          ...t,
+          title: taskData.title ?? t.title,
+          requirement: taskData.requirement ?? t.requirement,
+          vehicleIds: taskData.vehicleIds ?? t.vehicleIds,
+          periodStart: taskData.periodStart ?? t.periodStart,
+          periodEnd: taskData.periodEnd ?? t.periodEnd,
+          periodUnlimited: unlimited,
+          mileageTarget: taskData.mileageTarget ?? t.mileageTarget,
+          mileageMode: taskData.mileageMode ?? t.mileageMode,
+          currentOwnerId: taskData.currentOwnerId ?? t.currentOwnerId,
+          accountableOwnerId: taskData.accountableOwnerId ?? t.accountableOwnerId,
+          dataAdjustItems: taskData.dataAdjustItems ?? t.dataAdjustItems,
+          timeline: [
+            ...t.timeline,
+            {
+              at: now,
+              action: '编辑保存',
+              operator: viewerName(viewerId),
+              remark: changeRemark,
+            },
+          ],
+        };
+      })
+    );
+
+    setEditingTaskId(null);
+    setHubPage('ledger');
+    showToast(`工单 ${editingTask.code} 已保存修改`);
+    return true;
+  };
+
+  const handleSubmitFeedback = (taskId: string, note: string, files: string[]) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+    const viewerId = resolveViewerUserId(demoViewer, task);
+    const now = dayjsFn().format('YYYY-MM-DD HH:mm');
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id !== taskId) return t;
+        const nextStatus = t.status === 'pending' ? 'in_progress' : t.status;
+        return {
+          ...t,
+          status: nextStatus,
+          feedbacks: [
+            ...t.feedbacks,
+            {
+              at: now,
+              by: viewerName(viewerId),
+              note,
+              attachments: files.length ? files : undefined,
+            },
+          ],
+          timeline: [
+            ...t.timeline,
+            {
+              at: now,
+              action: '执行反馈',
+              operator: viewerName(viewerId),
+              remark: note,
+            },
+          ],
+        };
+      })
+    );
+  };
+
+  const handleCompleteTask = (taskId: string) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+    const viewerId = resolveViewerUserId(demoViewer, task);
+    const block = completeBlockedReason(task, viewerId);
+    if (block) {
+      showToast(block);
+      return;
+    }
+    if (!canCompleteTask(task, viewerId)) {
+      showToast('当前身份无权办结此工单');
+      return;
+    }
+    const now = dayjsFn().format('YYYY-MM-DD HH:mm');
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id !== taskId) return t;
+        return {
+          ...t,
+          status: 'completed',
+          timeline: [
+            ...t.timeline,
+            {
+              at: now,
+              action: '办结',
+              operator: viewerName(viewerId),
+              remark: '任务已办结',
+            },
+          ],
+        };
+      })
+    );
+    showToast(`工单 ${task.code} 已办结`);
+  };
+
   const handleSubmitUrge = (taskId: string, remark: string, channels: string[]) => {
+    const task = tasks.find((t) => t.id === taskId);
+    const viewerId = resolveViewerUserId(demoViewer, task);
+    if (task && !canUrgeTask(task, viewerId)) {
+      showToast('当前身份无权催办');
+      setUrgeTask(null);
+      return;
+    }
     const now = dayjsFn().format('YYYY-MM-DD HH:mm');
     setTasks((prev) =>
       prev.map((t) => {
@@ -349,7 +519,7 @@ export function TaskWorkOrderHub() {
             {
               at: now,
               action: `催办 (${channels.join('/')})`,
-              operator: CURRENT_USER.name,
+              operator: viewerName(viewerId),
               remark,
             },
           ],
@@ -376,20 +546,55 @@ export function TaskWorkOrderHub() {
       emptyWhenNoData: false,
       toolbarEdge: 'right',
       currentPageId:
-        hubPage === 'create' ? 'create' : hubPage === 'detail' ? 'detail' : 'list',
+        hubPage === 'create'
+          ? 'create'
+          : hubPage === 'edit'
+            ? 'edit'
+            : hubPage === 'detail'
+              ? 'detail'
+              : 'list',
     }),
     [hubPage]
   );
 
   const openDetail = (task: TaskWorkOrder) => {
     setDetailTaskId(task.id);
+    setEditingTaskId(null);
     setHubPage('detail');
+  };
+
+  const openEdit = (task: TaskWorkOrder) => {
+    const viewerId = resolveViewerUserId(demoViewer, task);
+    if (!canEditTaskContent(task, viewerId)) {
+      showToast(
+        !canEditTask(task)
+          ? '已办结或已关闭的工单不可再编辑'
+          : '仅发起人可编辑任务内容'
+      );
+      return;
+    }
+    setEditingTaskId(task.id);
+    setDetailTaskId(null);
+    setHubPage('edit');
+  };
+
+  const openUrge = (task: TaskWorkOrder) => {
+    const viewerId = resolveViewerUserId(demoViewer, task);
+    if (!canUrgeTask(task, viewerId)) {
+      showToast('当前身份无权催办（仅发起人/归口）');
+      return;
+    }
+    setUrgeTask(task);
   };
 
   const backToLedger = () => {
     setHubPage('ledger');
     setDetailTaskId(null);
+    setEditingTaskId(null);
   };
+
+  const demoViewerHint =
+    DEMO_VIEWER_OPTIONS.find((o) => o.id === demoViewer)?.hint || '';
 
   return (
     <div className="v2-two-container">
@@ -399,13 +604,41 @@ export function TaskWorkOrderHub() {
         </div>
       )}
 
+      {hubPage !== 'create' && hubPage !== 'edit' ? (
+        <div className="v2-two-viewer-bar" role="region" aria-label="演示角色视角">
+          <span className="v2-two-viewer-bar__label">演示视角</span>
+          <div style={{ minWidth: 200, flex: '0 1 240px' }}>
+            <V2Select
+              value={demoViewer}
+              onChange={(val) => setDemoViewer(val as DemoViewerPreset)}
+              options={DEMO_VIEWER_OPTIONS.map((o) => ({
+                value: o.id,
+                label: o.label,
+              }))}
+              allowClear={false}
+            />
+          </div>
+          <span className="v2-two-detail-muted">{demoViewerHint}</span>
+        </div>
+      ) : null}
+
       {hubPage === 'create' ? (
         <TaskCreatePage onBack={backToLedger} onSubmit={handleCreateTask} />
+      ) : hubPage === 'edit' && editingTask ? (
+        <TaskCreatePage
+          mode="edit"
+          initialTask={editingTask}
+          onBack={backToLedger}
+          onSubmit={handleUpdateTask}
+        />
       ) : hubPage === 'detail' && detailTask ? (
         <TaskDetailPage
           task={detailTask}
+          viewerId={resolveViewerUserId(demoViewer, detailTask)}
           onBack={backToLedger}
-          onUrge={(task) => setUrgeTask(task)}
+          onUrge={openUrge}
+          onSubmitFeedback={handleSubmitFeedback}
+          onComplete={handleCompleteTask}
         />
       ) : (
         <>
@@ -414,9 +647,8 @@ export function TaskWorkOrderHub() {
               value={viewMode}
               onChange={setViewMode}
               options={[
-                { key: 'list', label: '列表视图', icon: <List size={14} /> },
-                { key: 'kanban', label: '看板视图', icon: <LayoutGrid size={14} /> },
-                { key: 'split', label: '主从工作台', icon: <Columns size={14} /> },
+                { key: 'list', label: '列表模式', icon: <List size={14} /> },
+                { key: 'kanban', label: '看板模式', icon: <LayoutGrid size={14} /> },
               ]}
             />
             <div className="v2-two-topbar-actions">
@@ -431,64 +663,55 @@ export function TaskWorkOrderHub() {
             </div>
           </div>
 
-          {viewMode !== 'split' && (
-            <BentoKpiGrid
-              tasks={tasks}
+          <BentoKpiGrid
+            tasks={tasks}
+            viewTab={viewTab}
+            currentKpiFilter={kpiFilter}
+            onKpiSelect={setKpiFilter}
+          />
+
+          <div
+            className={[
+              'v2-two-ledger-stack',
+              viewMode === 'kanban' ? 'is-board' : '',
+              showMoreFilters ? 'is-filters-open' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            <FilterPanel
               viewTab={viewTab}
-              currentKpiFilter={kpiFilter}
-              onKpiSelect={setKpiFilter}
+              onViewTabChange={setViewTab}
+              tabCounts={tabCounts}
+              filters={filters}
+              onFilterChange={setFilters}
+              onSearch={handleSearch}
+              onReset={resetFilters}
+              showMoreFilters={showMoreFilters}
+              onToggleMoreFilters={() => setShowMoreFilters((v) => !v)}
+              connected={viewMode === 'list' && !showMoreFilters}
             />
-          )}
 
-          {viewMode !== 'split' && (
-            <div
-              className={[
-                'v2-two-ledger-stack',
-                viewMode === 'kanban' ? 'is-board' : '',
-                showMoreFilters ? 'is-filters-open' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-            >
-              <FilterPanel
-                viewTab={viewTab}
-                onViewTabChange={setViewTab}
-                tabCounts={tabCounts}
-                filters={filters}
-                onFilterChange={setFilters}
-                onSearch={handleSearch}
-                onReset={resetFilters}
-                showMoreFilters={showMoreFilters}
-                onToggleMoreFilters={() => setShowMoreFilters((v) => !v)}
-                connected={viewMode === 'list' && !showMoreFilters}
+            {viewMode === 'list' && (
+              <ListViewTable
+                tasks={filteredTasks}
+                viewerPreset={demoViewer}
+                onViewDetail={openDetail}
+                onEdit={openEdit}
+                onUrge={openUrge}
+                connected={!showMoreFilters}
               />
+            )}
 
-              {viewMode === 'list' && (
-                <ListViewTable
-                  tasks={filteredTasks}
-                  onViewDetail={openDetail}
-                  onUrge={(task) => setUrgeTask(task)}
-                  connected={!showMoreFilters}
-                />
-              )}
-
-              {viewMode === 'kanban' && (
-                <KanbanViewBoard
-                  tasks={filteredTasks}
-                  onViewDetail={openDetail}
-                  onUrge={(task) => setUrgeTask(task)}
-                />
-              )}
-            </div>
-          )}
-
-          {viewMode === 'split' && (
-            <SplitMasterDetail
-              tasks={filteredTasks}
-              onUrge={(task) => setUrgeTask(task)}
-              onOpenFullDetail={openDetail}
-            />
-          )}
+            {viewMode === 'kanban' && (
+              <KanbanViewBoard
+                tasks={filteredTasks}
+                viewerPreset={demoViewer}
+                onViewDetail={openDetail}
+                onUrge={openUrge}
+              />
+            )}
+          </div>
         </>
       )}
 

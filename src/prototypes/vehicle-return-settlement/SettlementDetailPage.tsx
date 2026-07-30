@@ -22,7 +22,7 @@ import {
   formatMoney,
   opsNetAmount,
 } from './carePackageRates';
-import { ROLE_OPTIONS, recomputeTotals } from './mockData';
+import { ROLE_OPTIONS, OPS_HANDLER_OPTIONS, recomputeTotals } from './mockData';
 import type { FeeRow, PreviewRole, SettlementRecord } from './types';
 
 export type SettlementDetailPageProps = {
@@ -52,6 +52,10 @@ function YesNoPill({ yes, tip }: { yes: boolean; tip: string }) {
   );
 }
 
+function personShort(name: string): string {
+  return name.replace(/^(安全|业务|运维|能源)-/, '').trim() || '—';
+}
+
 /**
  * layout: fullBleed（B1）
  * 无忧包：业管谈妥是否购买 → 系统按《各车型收费方案》自动核算；运维无忧包减免挂钩
@@ -66,11 +70,27 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
   const [openOps, setOpenOps] = useState(true);
   const [openBiz, setOpenBiz] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
+  const [transferOpen, setTransferOpen] = useState(false);
+  const [transferTo, setTransferTo] = useState('');
+  const [transferReason, setTransferReason] = useState('');
+  const [transferError, setTransferError] = useState('');
 
-  const canEditSafety = role === 'safety' && record.safety.status !== '已提交';
-  const canRevokeSafety = role === 'safety' && record.safety.status === '已提交';
-  const canEditOps = role === 'ops' && record.ops.status !== '已提交';
-  const canRevokeOps = role === 'ops' && record.ops.status === '已提交';
+  const feeLockedByApproval =
+    record.approvalStatus === '待审批' ||
+    record.approvalStatus === '审批中' ||
+    record.approvalStatus === '审批完成';
+
+  const canEditSafety =
+    role === 'safety' && record.safety.status !== '已提交' && !feeLockedByApproval;
+  const canRevokeSafety =
+    role === 'safety' && record.safety.status === '已提交' && !feeLockedByApproval;
+  const canEditOps = role === 'ops' && record.ops.status !== '已提交' && !feeLockedByApproval;
+  const canRevokeOps = role === 'ops' && record.ops.status === '已提交' && !feeLockedByApproval;
+  /** 审批完成后不可转交；审批中费用只读仍可转交；业管可代转 */
+  const canTransferOps =
+    (role === 'ops' || role === 'biz') && record.approvalStatus !== '审批完成';
+
+  const currentOpsHandler = record.ops.handler || record.ops.submitBy || '运维-陈涛';
 
   const pkg = useMemo(() => calcCarePackages(record), [record]);
 
@@ -91,6 +111,51 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
 
   const commit = (next: SettlementRecord) => {
     onUpdateRecord(recomputeTotals(next));
+  };
+
+  const openTransfer = () => {
+    setTransferTo('');
+    setTransferReason('');
+    setTransferError('');
+    setTransferOpen(true);
+  };
+
+  const confirmTransfer = () => {
+    if (!transferTo) {
+      setTransferError('请选择办理人');
+      return;
+    }
+    if (transferTo === currentOpsHandler) {
+      setTransferError('不可转交给当前办理人本人');
+      return;
+    }
+    if (!OPS_HANDLER_OPTIONS.some((o) => o.value === transferTo)) {
+      setTransferError('只能转交给运维人员');
+      return;
+    }
+    if (!transferReason.trim()) {
+      setTransferError('转交原因必填');
+      return;
+    }
+    const by = role === 'biz' ? '业管-代转' : currentOpsHandler;
+    const log = {
+      at: '2026-07-30 00:30',
+      from: currentOpsHandler,
+      to: transferTo,
+      reason: transferReason.trim(),
+      by,
+    };
+    commit({
+      ...record,
+      ops: {
+        ...record.ops,
+        handler: transferTo,
+        submitBy: record.ops.status === '已提交' ? record.ops.submitBy : transferTo,
+      },
+      opsTransferLogs: [...(record.opsTransferLogs || []), log],
+    });
+    setTransferOpen(false);
+    showToast(`已转交至 ${personShort(transferTo)}（费用与审批流不变）`);
   };
 
   const handleSafetySubmit = () => {
@@ -186,7 +251,7 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
           </V2Button>
           <div className="vrs-form-header__divider" aria-hidden />
           <div className="vrs-form-header__meta">
-            <span className="vrs-form-header__path">财务管理 · 还车应结款</span>
+            <h1 className="vrs-form-header__title">还车应结费用明细</h1>
             <span className="vrs-bill-pill">{record.billNo}</span>
           </div>
         </div>
@@ -200,6 +265,11 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
               style={{ minWidth: 200 }}
             />
           </div>
+          {canTransferOps ? (
+            <V2Button variant="secondary" size="sm" onClick={openTransfer}>
+              转交办理人
+            </V2Button>
+          ) : null}
           {canEditSafety ? (
             <>
               <V2Button variant="secondary" size="sm" onClick={handleSafetySave}>
@@ -419,6 +489,7 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
             <DeptSubmitPill status={record.ops.status} />
           </div>
           <div className="vrs-dept-card__meta">
+            <span>办理人：{record.ops.handler || record.ops.submitBy || '—'}</span>
             <span>提交人：{record.ops.submitBy || '—'}</span>
             <span className="tabular-nums">
               净额 {formatMoney(opsNet)} 元
@@ -430,7 +501,19 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
           <div className="vrs-dept-card__body">
             <p className="vrs-hint vrs-hint--inline">
               无忧包减免计入业务成本、不列入运维成本。未购买对应无忧包时，减免输入禁用。
+              转交只换办理人，不改费用与审批流；审批完成后不可转交。
             </p>
+            {(record.opsTransferLogs?.length ?? 0) > 0 ? (
+              <ul className="vrs-transfer-log">
+                {record.opsTransferLogs!.map((log, i) => (
+                  <li key={`${log.at}-${i}`}>
+                    <span className="tabular-nums">{log.at}</span>
+                    {personShort(log.from)} → {personShort(log.to)}
+                    <em>原因：{log.reason}</em>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <div className="vrs-table-wrap">
               <table className="vrs-table">
                 <thead>
@@ -619,7 +702,7 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
               <V2Empty
                 type="empty"
                 size="compact"
-                title="暂无违章记录"
+                title="暂无事故记录"
                 description="本段租期内暂无事故信息。"
               />
             ) : (
@@ -697,6 +780,63 @@ export const SettlementDetailPage: React.FC<SettlementDetailPageProps> = ({
       {toast ? (
         <div className="vrs-toast" role="status">
           {toast}
+        </div>
+      ) : null}
+
+      {transferOpen ? (
+        <div className="vrs-modal-mask" role="presentation" onClick={() => setTransferOpen(false)}>
+          <div
+            className="vrs-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="vrs-transfer-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="vrs-modal__head">
+              <h2 id="vrs-transfer-title">转交运维办理人</h2>
+              <p className="vrs-muted">只换办理人，不改费用明细与审批流</p>
+            </header>
+            <div className="vrs-modal__body">
+              <label className="vrs-field">
+                <span>当前办理人</span>
+                <strong>{currentOpsHandler}</strong>
+              </label>
+              <label className="vrs-field">
+                <span>转交给</span>
+                <V2Select
+                  value={transferTo}
+                  options={[
+                    { value: '', label: '请选择运维人员' },
+                    ...OPS_HANDLER_OPTIONS.filter((o) => o.value !== currentOpsHandler),
+                  ]}
+                  onChange={setTransferTo}
+                />
+              </label>
+              <label className="vrs-field">
+                <span>转交原因（必填）</span>
+                <textarea
+                  className="vrs-textarea"
+                  rows={3}
+                  value={transferReason}
+                  onChange={(e) => setTransferReason(e.target.value)}
+                  placeholder="请填写转交原因"
+                />
+              </label>
+              {transferError ? (
+                <p className="vrs-field-error" role="alert">
+                  {transferError}
+                </p>
+              ) : null}
+            </div>
+            <footer className="vrs-modal__foot">
+              <V2Button variant="ghost" onClick={() => setTransferOpen(false)}>
+                取消
+              </V2Button>
+              <V2Button variant="primary" onClick={confirmTransfer}>
+                确认转交
+              </V2Button>
+            </footer>
+          </div>
         </div>
       ) : null}
     </div>

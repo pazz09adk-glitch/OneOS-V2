@@ -23,7 +23,7 @@
 - `grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))`。
 - Gap: `16px 12px`（行距 16px，列距 12px），`align-items: end` 底部对齐。
 - **主入口强化**：列表工具栏主搜索与「更多筛选」必须用 `.v2-filter-search` / `.v2-filter-more-btn`（或 `V2FilterSearch` / `V2FilterMoreButton`）。
-- **尺寸统一（强制）**：PC 高度 **36px**、圆角 **8px**（`--v2-filter-entry-height` / `--v2-filter-entry-radius`），与 `V2Button md` 及旁侧导出同高；H5 **44px**。引导靠主色浅底+描边+外晕，禁止私自改高度造成高低不一。详见 `DESIGN.md` §2.4.3.2。
+- **尺寸统一（强制）**：PC 高度 **36px**、圆角 **8px**（`--v2-filter-entry-height` / `--v2-filter-entry-radius`），与 `V2Button md` 及旁侧导出同高；H5 **44px**。默认克制（白底 + hairline），交互态再强化；禁止私自改高度造成高低不一。详见 `DESIGN.md` §2.4.3.2。
 - **工具栏单行（PC）**：右侧操作链（搜索 + 更多筛选 + 导出/导入/列设置）≥1024 保持同一行；主搜索可 flex 收缩，不得硬 `min-width` 挤掉后续按钮。
 
 #### 响应式多列布局网格

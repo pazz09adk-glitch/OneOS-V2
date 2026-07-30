@@ -61,8 +61,18 @@ export type FeeRow = {
 
 export type DeptBlock = {
   submitBy: string;
+  /** 当前办理人（运维转交换人，不改费用与审批流） */
+  handler?: string;
   status: DeptSubmitStatus;
   feeRows: FeeRow[];
+};
+
+export type OpsTransferLog = {
+  at: string;
+  from: string;
+  to: string;
+  reason: string;
+  by: string;
 };
 
 export type SettlementRecord = {
@@ -96,6 +106,8 @@ export type SettlementRecord = {
   bizService: DeptBlock;
   ops: DeptBlock;
   energy: DeptBlock;
+  /** 运维办理人转交记录（演示） */
+  opsTransferLogs?: OpsTransferLog[];
   depositTotal: string;
   pendingTotal: string;
   refundTotal: string;

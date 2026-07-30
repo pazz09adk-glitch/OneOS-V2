@@ -11,14 +11,14 @@
   --v2-fh-view-track: #e2e8ee;
   --v2-fh-segment-active-bg: var(--ln-surface-card, #ffffff);
   --v2-fh-segment-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --v2-fh-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --v2-fh-font-mono: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', 'Cascadia Mono', Consolas, 'SF Mono', SFMono-Regular, Menlo, monospace));
 
   width: 100%;
   min-height: calc(100vh - 48px);
   min-height: calc(100dvh - 48px);
   background: var(--ln-canvas, #f6f9fc);
   color: var(--ln-ink, #0a2540);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--ln-font, var(--vm-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif));
   font-size: 14px;
   line-height: 1.5;
   font-variant-numeric: tabular-nums;

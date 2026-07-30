@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Keep Alibaba Cloud AccessKeys out of commits; restore them in the working tree.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+CONFIG=".axhub/make/axhub.config.json"
+SCRUB="$ROOT/scripts/scrub-axhub-s3-secrets.py"
+APPLY="$ROOT/scripts/apply-local-s3-secrets.py"
+
+if ! git diff --cached --name-only --diff-filter=ACM | grep -qx "$CONFIG"; then
+  exit 0
+fi
+
+if [[ ! -f "$SCRUB" ]]; then
+  echo "pre-commit: missing $SCRUB" >&2
+  exit 1
+fi
+
+TMP_WORK="$(mktemp)"
+TMP_STAGED="$(mktemp)"
+trap 'rm -f "$TMP_WORK" "$TMP_STAGED"' EXIT
+
+# Preserve working-tree secrets (for Make object-storage publish).
+cp "$ROOT/$CONFIG" "$TMP_WORK"
+
+# Scrub the staged version that will enter the commit.
+git show ":$CONFIG" > "$TMP_STAGED"
+python3 "$SCRUB" --stdin < "$TMP_STAGED" > "$ROOT/$CONFIG"
+git add "$CONFIG"
+
+# Put local secrets back so publishing still works after commit.
+if [[ -f "$APPLY" ]]; then
+  # Prefer local secrets file when present.
+  cp "$TMP_WORK" "$ROOT/$CONFIG"
+  python3 "$APPLY" >/dev/null || true
+else
+  cp "$TMP_WORK" "$ROOT/$CONFIG"
+fi
+
+echo "pre-commit: stripped S3 AccessKeys from $CONFIG for commit"
+exit 0

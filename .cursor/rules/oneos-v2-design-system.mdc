@@ -15,7 +15,7 @@ alwaysApply: true
 1. **强前置步骤**：在创建或修改 `OneOS V2` 下的任何页面前，必须读取 `src/resources/design-system/DESIGN.md`，确认最新的 Token、UI 控件用法、3 视图模板和响应式规范。
 2. **禁止使用原生 HTML 控件**：严禁直接使用原生 `<select>`、`<input type="date">` 或未经过 V2 封装的第三方组件。必须统一导入并使用 `UIComponents.tsx` 导出的封装控件：
    - `V2Button`（主/次/描边/幽灵/危险/返回；详见 `DESIGN.md` §3.0）
-   - `V2Select`
+   - `V2Select`（**默认 allowClear**；禁止「请选择」假选项，见 DESIGN §3.2）
    - `V2DatePicker`
    - `V2DateRangePicker`
    - `V2SingleInputDateRangePicker`（单输入框双日历，默认推荐）
@@ -77,10 +77,12 @@ alwaysApply: true
 
 ## 3. 统一的三视角页面架构 (Three Core Views)
 
-任何台账、列表、审批与履约管理页面必须提供或集成 3 视角模板（`V2SegmentedControl`）：
+台账/列表类页面以 **列表 / 看板 / 主从** 为默认能力菜单（`V2SegmentedControl`），**按业务实用性取舍，禁止机械全页三块都上**（详见 `.cursor/rules/oneos-v2-three-views-by-need.mdc`；PRD 须写「视图决策」）。
+
+可选视角含义：
 1. **列表模式 (List View)**：Bento KPI + Pill Tabs（带 count）+ 高阶筛选（查询/重置后自动收起）+ **可含主表+嵌套子表**（合同/项目主行 + 车辆期账单等子行；见 `DESIGN.md` §5.0 / §5.1）。**禁止**把嵌套子表叫成「主从工作台」。
-2. **看板模式 (Kanban View)**：通常 4 列 Pipeline（列名按业务域定制，如账单：待收款/部分/逾期/已结清）。
-3. **主从工作台 (Split)**：左侧 320–340px 搜索单据列表 + 右侧深度工作台。
+2. **看板模式 (Kanban View)**：通常 4 列 Pipeline（列名按业务域定制，如账单：待收款/部分/逾期/已结清）——仅当列是真实业务阶段且存在推进语义时启用。
+3. **主从工作台 (Split)**：左侧 320–340px 搜索单据列表 + 右侧深度工作台——仅当右栏能完成主要办理且不与重详情全页重复时启用。
 
 单单据填报页（非台账三视角）须按 `DESIGN.md` §4.9 二选一：**A 侧栏** 或 **B 横向整屏 B1**，生成前声明 `layout`。
 

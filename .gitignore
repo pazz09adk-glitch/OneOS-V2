@@ -31,6 +31,8 @@ vite.config.*.timestamp-*
 .env.development
 
 # Local configuration (runtime-generated)
+# Never commit Alibaba Cloud AccessKeys — keep them only in:
+.axhub/make/s3.secrets.local.json
 .axhub/make/*
 !.axhub/make/client.json
 !.axhub/make/axhub.config.json

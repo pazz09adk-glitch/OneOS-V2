@@ -42,6 +42,24 @@
         "images": [],
         "createdAt": 1785547200000,
         "updatedAt": 1785547200000
+      },
+      {
+        "id": "bfcl-pay-smart-match",
+        "index": 3,
+        "title": "智能匹配建议",
+        "pageId": "detail",
+        "locator": {
+          "selectors": ["[data-annotation-id='bfcl-pay-smart-match']"],
+          "fingerprint": "section|bfcl-pay-smart-match",
+          "path": []
+        },
+        "aiPrompt": "客户名称/金额/摘要规则匹配",
+        "annotationText": "打开流水后按客户名称、金额、银行摘要（单号/车牌/业务关键词）打分，给出高/中/低置信建议；可单条采纳或一键关联高置信，仍需人工确认门禁。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785547200000,
+        "updatedAt": 1785547200000
       }
     ]
   },

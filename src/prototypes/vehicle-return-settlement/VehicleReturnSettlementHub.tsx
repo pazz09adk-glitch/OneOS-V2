@@ -10,6 +10,7 @@ import {
   RotateCcw,
   Search,
 } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -56,21 +57,26 @@ function submitPersonLabel(submitBy: string): string {
   return name || '—';
 }
 
-function SubmitSituationItem({ label, block }: { label: string; block: DeptBlock }) {
+/** 合并表头子列：图标=状态，主文案=姓名（对齐现网 + 批注「人+状态」） */
+function SubmitDeptCell({ block }: { block: DeptBlock }) {
+  const done = block.status === '已提交';
+  const name = submitPersonLabel(block.handler || block.submitBy);
   return (
-    <span className="vrs-submit-item">
-      <SubmitIcon done={block.status === '已提交'} />
-      <span className="vrs-submit-item__body">
-        <span className="vrs-submit-item__dept">{label}</span>
-        <span className="vrs-submit-item__meta">
-          {submitPersonLabel(block.submitBy)} · {block.status}
-        </span>
-      </span>
+    <span
+      className={`vrs-submit-cell${done ? ' vrs-submit-cell--done' : ''}`}
+      title={`${name} · ${block.status}`}
+      aria-label={`${name}，${block.status}`}
+    >
+      <SubmitIcon done={done} />
+      <span className="vrs-submit-cell__name">{name}</span>
+      <span className="vrs-submit-cell__status">{block.status}</span>
     </span>
   );
 }
 
 const KANBAN_COLS: ApprovalStatus[] = ['待提交', '待审批', '审批中', '审批完成'];
+const FEE_DETAIL_STATUSES: ApprovalStatus[] = ['待提交', '撤回', '审批驳回'];
+const REVOKE_STATUSES: ApprovalStatus[] = ['待审批', '审批中'];
 
 export function VehicleReturnSettlementHub() {
   const [records, setRecords] = useState<SettlementRecord[]>(MOCK_SETTLEMENTS);
@@ -142,6 +148,14 @@ export function VehicleReturnSettlementHub() {
   const openDetail = (row: SettlementRecord) => {
     setActiveId(row.key);
     setPageMode('detail');
+  };
+
+  const handleRevoke = (row: SettlementRecord) => {
+    const ok = window.confirm(`是否确认撤回 ${row.billNo}？`);
+    if (!ok) return;
+    setRecords((list) =>
+      list.map((r) => (r.key === row.key ? { ...r, approvalStatus: '撤回' as const } : r)),
+    );
   };
 
   const applyFilters = () => {
@@ -288,34 +302,54 @@ export function VehicleReturnSettlementHub() {
                   <table className="vrs-table vrs-table--ledger">
                     <thead>
                       <tr>
-                        <th>应结单号</th>
-                        <th>提交情况</th>
-                        <th>审批状态</th>
-                        <th>客户 / 项目</th>
-                        <th>车牌 / 车型</th>
-                        <th>养护保</th>
-                        <th>易损保</th>
-                        <th>业务部门</th>
-                        <th>交还车时间</th>
-                        <th>操作</th>
+                        <th rowSpan={2} className="vrs-sticky-left">
+                          应结单号
+                        </th>
+                        <th colSpan={4} className="vrs-th-group">
+                          提交情况
+                        </th>
+                        <th rowSpan={2}>审批状态</th>
+                        <th rowSpan={2}>客户 / 项目</th>
+                        <th rowSpan={2}>车牌 / 车型</th>
+                        <th rowSpan={2}>养护保</th>
+                        <th rowSpan={2}>易损保</th>
+                        <th rowSpan={2}>业务部门</th>
+                        <th rowSpan={2}>交还车时间</th>
+                        <th rowSpan={2} className="vrs-sticky-right">
+                          操作
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="vrs-th-sub">安全组</th>
+                        <th className="vrs-th-sub">业务服务组</th>
+                        <th className="vrs-th-sub">运维组</th>
+                        <th className="vrs-th-sub">能源组</th>
                       </tr>
                     </thead>
                     <tbody>
                       {pageRows.map((row) => (
                         <tr key={row.key}>
-                          <td>
-                            <button type="button" className="vrs-link-title" onClick={() => openDetail(row)}>
+                          <td className="vrs-sticky-left">
+                            <DetailEntryLink
+                              variant="code"
+                              ariaLabel={`${row.billNo}，点击进入还车应结详情`}
+                              onClick={() => openDetail(row)}
+                            >
                               {row.billNo}
-                            </button>
+                            </DetailEntryLink>
                             <div className="vrs-sub tabular-nums">{row.contractCode}</div>
                           </td>
                           <td>
-                            <div className="vrs-submit-grid">
-                              <SubmitSituationItem label="安全" block={row.safety} />
-                              <SubmitSituationItem label="业务" block={row.bizService} />
-                              <SubmitSituationItem label="运维" block={row.ops} />
-                              <SubmitSituationItem label="能源" block={row.energy} />
-                            </div>
+                            <SubmitDeptCell block={row.safety} />
+                          </td>
+                          <td>
+                            <SubmitDeptCell block={row.bizService} />
+                          </td>
+                          <td>
+                            <SubmitDeptCell block={row.ops} />
+                          </td>
+                          <td>
+                            <SubmitDeptCell block={row.energy} />
                           </td>
                           <td>
                             <V2Badge status={approvalBadge(row.approvalStatus)} label={row.approvalStatus} />
@@ -348,15 +382,22 @@ export function VehicleReturnSettlementHub() {
                             <div>{row.deliveryTime}</div>
                             <div className="vrs-sub">{row.returnTime}</div>
                           </td>
-                          <td>
+                          <td className="vrs-sticky-right">
                             <OperationActions
                               view={{ label: '查看', onClick: () => openDetail(row) }}
                               process={
-                                row.approvalStatus === '待提交' || row.approvalStatus === '撤回'
+                                FEE_DETAIL_STATUSES.includes(row.approvalStatus)
                                   ? { label: '费用明细', onClick: () => openDetail(row) }
                                   : undefined
                               }
                               more={[
+                                {
+                                  key: 'withdraw',
+                                  label: '撤回',
+                                  danger: true,
+                                  hidden: !REVOKE_STATUSES.includes(row.approvalStatus),
+                                  onClick: () => handleRevoke(row),
+                                },
                                 {
                                   key: 'history',
                                   label: '操作记录',
@@ -411,7 +452,9 @@ export function VehicleReturnSettlementHub() {
                         </div>
                         <div className="vrs-strong">{card.customerName}</div>
                         <div className="vrs-sub">
-                          安全 {card.safety.status} · 违章 {card.violations.length} 条
+                          安全 {submitPersonLabel(card.safety.handler || card.safety.submitBy)} ·{' '}
+                          {card.safety.status}
+                          {card.violations.length > 0 ? ` · 违章 ${card.violations.length}` : ''}
                         </div>
                       </button>
                     ))}

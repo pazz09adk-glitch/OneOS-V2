@@ -36,11 +36,10 @@
       "bucket": "model-lnoneos",
       "prefix": "",
       "baseUrl": "https://prototype.lnoneos.com/v2",
-      "endpoint": "https://model-lnoneos.oss-cn-hangzhou.aliyuncs.com",
-      "pathAliases": {}
+      "endpoint": "https://model-lnoneos.oss-cn-hangzhou.aliyuncs.com"
     },
     "githubPages": {
-      "repository": "",
+      "repository": "15810879921-coder/OneOS-V2",
       "branch": "gh-pages",
       "sourceDirectory": "/",
       "pathPrefix": ""
