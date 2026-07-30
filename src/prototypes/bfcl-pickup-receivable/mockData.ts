@@ -52,6 +52,7 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
     children: [
       {
         id: 'r1-1',
+        receiptNo: 'PR-202607-0001',
         seq: 1,
         auditStatus: '审批通过',
         creator: '张三',
@@ -80,6 +81,7 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
       },
       {
         id: 'r1-2',
+        receiptNo: 'PR-202607-0002',
         seq: 2,
         auditStatus: '审批通过',
         creator: '李四',
@@ -114,6 +116,7 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
       },
       {
         id: 'r1-3',
+        receiptNo: 'PR-202607-0003',
         seq: 3,
         auditStatus: '待审批',
         creator: '王五',
@@ -161,6 +164,7 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
     children: [
       {
         id: 'r2-1',
+        receiptNo: 'PR-202607-0010',
         seq: 1,
         auditStatus: '审批通过',
         creator: '王业管',
@@ -189,6 +193,7 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
       },
       {
         id: 'r2-2',
+        receiptNo: 'PR-202607-0011',
         seq: 2,
         auditStatus: '已驳回',
         creator: '王业管',
@@ -214,6 +219,34 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
         alignStatus: '特批放行',
         specialApproved: true,
       },
+      {
+        id: 'r2-3',
+        receiptNo: 'PR-202607-0018',
+        seq: 3,
+        auditStatus: '审批通过',
+        creator: '王业管',
+        chargeTime: '2026-07-27 15:00',
+        deliveryCount: 1,
+        vehicles: [
+          v(4, '江淮', '帅铃H330', '浙A88888F', { rentReceivable: 8600, deposit: 15000, serviceReceivable: 5000 }),
+        ],
+        receivableTotal: 28600,
+        actualTotal: 28600,
+        discountTotal: 0,
+        financeReceived: 0,
+        arrivalAmount: 0,
+        arrivalTime: '-',
+        invoiceMethod: '先付款后开票',
+        invoiceStatus: '未开票',
+        invoicedAmount: 0,
+        invoiceNote: '对照收付款中枢 RC-20260728-001',
+        h2PrepaidReceivable: 0,
+        h2PrepaidActual: 0,
+        before15: true,
+        pickupDate: '2026-07-28',
+        alignStatus: '待收款',
+        specialApproved: false,
+      },
     ],
   },
   {
@@ -236,13 +269,14 @@ export const MOCK_CONTRACTS: ContractMaster[] = [
     children: [
       {
         id: 'r3-1',
+        receiptNo: 'PR-202607-0020',
         seq: 1,
         auditStatus: '审批通过',
         creator: '李业管',
         chargeTime: '2026-07-05 09:15',
         deliveryCount: 1,
         vehicles: [
-          v(1, '东风', 'DFH1180', '浙B55555D', { rentReceivable: 9200, deposit: 18000, serviceReceivable: 4800, locked: true }),
+          v(1, '东风', 'DFH1180', '浙B12345D', { rentReceivable: 9200, deposit: 18000, serviceReceivable: 4800, locked: true }),
         ],
         receivableTotal: 32000,
         actualTotal: 32000,

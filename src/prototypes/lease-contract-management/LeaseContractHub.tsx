@@ -9,13 +9,10 @@ import {
   type AnnotationViewerOptions,
 } from '@axhub/annotation';
 import {
-  AlertTriangle,
-  ArrowUpRight,
   Building,
   Calendar,
   CheckCircle2,
   Columns,
-  CreditCard,
   Download,
   FileCheck2,
   LayoutGrid,
@@ -37,6 +34,7 @@ import {
   XSquare,
 } from 'lucide-react';
 import { PrototypeAnnotationHost } from '../../common/prototype-annotation-host';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions, type OperationActionItem } from '../../common/OperationActions';
 import {
   V2Button,
@@ -90,8 +88,8 @@ function tokens(isDark: boolean) {
     border: isDark ? '#23272f' : '#e3e8ee',
     textPrimary: isDark ? '#f7fafc' : '#0a2540',
     textSecondary: isDark ? '#a0aec0' : '#425466',
-    accent: '#533afd',
-    accentSoft: isDark ? 'rgba(83, 58, 253, 0.18)' : '#e0e7ff',
+    accent: 'var(--oneos-primary, var(--ln-primary, #533afd))',
+    accentSoft: isDark ? 'color-mix(in srgb, var(--oneos-primary, #533afd) 18%, transparent)' : 'var(--ln-primary-soft, #e0e7ff)',
   };
 }
 
@@ -106,7 +104,7 @@ function stageLabel(r: LeaseContractRecord) {
   const map = {
     draft: '草稿',
     in_approval: '审批中',
-    active: '履约中',
+    active: '进行中',
     terminated: '已终止',
   } as const;
   return map[stageOf(r)];
@@ -135,7 +133,7 @@ export default function LeaseContractHub() {
 
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [contracts, setContracts] = useState(MOCK_LEASE_CONTRACTS);
-  const [statusTab, setStatusTab] = useState<'all' | 'approval' | 'active' | 'draft'>('all');
+  const [statusTab, setStatusTab] = useState<'all' | 'draft' | 'active' | 'approval' | 'terminated'>('all');
   const [search, setSearch] = useState('');
   const [showMoreFilters, setShowMoreFilters] = useState(false);
   const [filterState, setFilterState] = useState<ContractFilterState>({ ...EMPTY_CONTRACT_FILTERS });
@@ -201,30 +199,21 @@ export default function LeaseContractHub() {
     const inApproval = contracts.filter((c) => stageOf(c) === 'in_approval').length;
     const active = contracts.filter((c) => stageOf(c) === 'active').length;
     const terminated = contracts.filter((c) => stageOf(c) === 'terminated').length;
-    const vehiclesInProgress = contracts
-      .filter((c) => c.contractStatus === 'active')
-      .reduce((s, c) => s + (c.totalVehicles - c.returnedVehiclesCount), 0);
-    const delivered = contracts.reduce((s, c) => s + c.deliveredVehiclesCount, 0);
-    const amount = contracts
-      .filter((c) => c.contractStatus === 'active' || c.contractStatus === 'submitted')
-      .reduce((s, c) => s + contractAmount(c), 0);
     return {
       total: contracts.length,
       draft,
       inApproval,
       active,
       terminated,
-      vehiclesInProgress,
-      delivered,
-      amount,
     };
   }, [contracts]);
 
   const filtered = useMemo(() => {
     return contracts.filter((r) => {
-      if (statusTab === 'approval' && stageOf(r) !== 'in_approval') return false;
-      if (statusTab === 'active' && stageOf(r) !== 'active') return false;
       if (statusTab === 'draft' && stageOf(r) !== 'draft') return false;
+      if (statusTab === 'active' && stageOf(r) !== 'active') return false;
+      if (statusTab === 'approval' && stageOf(r) !== 'in_approval') return false;
+      if (statusTab === 'terminated' && stageOf(r) !== 'terminated') return false;
 
       if (search) {
         const q = search.toLowerCase();
@@ -355,7 +344,7 @@ export default function LeaseContractHub() {
     display: 'inline-flex',
     alignItems: 'center',
     gap: 6,
-    boxShadow: '0 2px 8px rgba(83, 58, 253, 0.35)',
+    boxShadow: '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 35%, transparent)',
   };
 
   const viewBtn = (mode: ViewMode, label: string, Icon: React.ComponentType<{ size?: number }>) => (
@@ -383,38 +372,36 @@ export default function LeaseContractHub() {
 
   const kpiCards = [
     {
-      title: '在计租赁合同金额',
-      value: `¥ ${counts.amount.toLocaleString()}`,
-      sub: '↗ +12.5% 较上月增长',
-      icon: CreditCard,
-      color: t.accent,
-      up: true,
+      id: 'draft' as const,
+      title: '草稿',
+      value: String(counts.draft),
+      sub: '未提交或撤回后的可编辑合同',
+      icon: FileCheck,
+      color: '#94a3b8',
     },
     {
-      title: '进行中履约车辆',
-      value: `${counts.vehiclesInProgress} 辆`,
-      sub: `↗ 已交付 ${counts.delivered} 辆 / 履约率 ${
-        counts.vehiclesInProgress ? Math.round((counts.delivered / Math.max(counts.vehiclesInProgress, 1)) * 100) : 0
-      }%`,
+      id: 'active' as const,
+      title: '进行中',
+      value: String(counts.active),
+      sub: '审批通过后履约执行',
       icon: TrendingUp,
       color: '#10b981',
-      up: true,
     },
     {
-      title: '待我审批与盖章',
-      value: `${counts.inApproval} 份`,
-      sub: '最高 SLA 剩余 4 小时',
+      id: 'approval' as const,
+      title: '审批中',
+      value: String(counts.inApproval),
+      sub: '已提交、待审或流转中',
       icon: FileCheck2,
       color: '#d97706',
-      up: false,
     },
     {
-      title: '草稿待提交',
-      value: `${counts.draft} 份`,
-      sub: '涵盖嘉兴、上海等重点项目',
-      icon: AlertTriangle,
+      id: 'terminated' as const,
+      title: '已终止',
+      value: String(counts.terminated),
+      sub: '终止或到期归档',
+      icon: XSquare,
       color: '#ef4444',
-      up: false,
     },
   ];
 
@@ -540,6 +527,29 @@ export default function LeaseContractHub() {
     };
   };
 
+  /* 新增/编辑：同页全页表单（非抽屉） */
+  if (formOpen) {
+    return (
+      <>
+        <ContractFormDrawer
+          key={editing?.id || 'create'}
+          open
+          onClose={() => {
+            setFormOpen(false);
+            setEditing(null);
+          }}
+          record={editing}
+          onSave={saveContract}
+          isDark={isDark}
+        />
+        <PrototypeAnnotationHost
+          source={annotationSourceDocument as AnnotationSourceDocument}
+          options={annotationOptions}
+        />
+      </>
+    );
+  }
+
   return (
     <div
       style={{
@@ -622,20 +632,35 @@ export default function LeaseContractHub() {
         </div>
       </div>
 
-      {/* 2. KPI Bento（主从模式收起，避免挤占表单区） */}
+      {/* 2. 阶段 KPI Bento（点击 = 切换阶段 Pill；与轨 A 同桶） */}
       {viewMode !== 'split' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 20 }}>
+        <div
+          data-annotation-id="lc-list-kpi"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 20 }}
+        >
           {kpiCards.map((card) => {
             const Icon = card.icon;
+            const selected = statusTab === card.id;
             return (
-              <div
-                key={card.title}
+              <button
+                key={card.id}
+                type="button"
+                onClick={() => setStatusTab(selected ? 'all' : card.id)}
+                aria-pressed={selected}
                 style={{
                   background: t.surface,
-                  border: `1px solid ${t.border}`,
+                  border: `1px solid ${selected ? t.accent : t.border}`,
+                  boxShadow: selected
+                    ? `0 0 0 3px color-mix(in srgb, ${t.accent} 18%, transparent)`
+                    : isDark
+                      ? 'none'
+                      : '0 2px 6px rgba(0,0,0,0.02)',
                   borderRadius: 12,
                   padding: '18px 20px',
-                  boxShadow: isDark ? 'none' : '0 2px 6px rgba(0,0,0,0.02)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  color: 'inherit',
+                  font: 'inherit',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -652,29 +677,32 @@ export default function LeaseContractHub() {
                       color: card.color,
                     }}
                   >
-                    <Icon size={18} />
+                    <Icon size={18} aria-hidden />
                   </div>
                 </div>
                 <div style={{ marginTop: 12 }}>
-                  <div style={{ fontSize: 24, fontWeight: 800, fontFamily: 'JetBrains Mono, monospace' }}>
+                  <div
+                    style={{
+                      fontSize: 24,
+                      fontWeight: 800,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      color: t.textPrimary,
+                    }}
+                  >
                     {card.value}
                   </div>
                   <div
                     style={{
                       fontSize: 11,
                       fontWeight: 500,
-                      color: card.up ? '#10b981' : t.textSecondary,
+                      color: t.textSecondary,
                       marginTop: 4,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 4,
                     }}
                   >
-                    {card.up && <ArrowUpRight size={12} />}
                     {card.sub}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -709,9 +737,10 @@ export default function LeaseContractHub() {
             {(
               [
                 { id: 'all' as const, label: `全部合同 (${counts.total})` },
-                { id: 'approval' as const, label: `待我审批 (${counts.inApproval})` },
-                { id: 'active' as const, label: `履约执行中 (${counts.active})` },
-                { id: 'draft' as const, label: `草稿箱 (${counts.draft})` },
+                { id: 'draft' as const, label: `草稿 (${counts.draft})` },
+                { id: 'active' as const, label: `进行中 (${counts.active})` },
+                { id: 'approval' as const, label: `审批中 (${counts.inApproval})` },
+                { id: 'terminated' as const, label: `已终止 (${counts.terminated})` },
               ] as const
             ).map((tab) => (
               <button
@@ -801,7 +830,7 @@ export default function LeaseContractHub() {
                 <th style={{ padding: '14px 20px', fontWeight: 600, minWidth: 280 }}>项目信息</th>
                 <th style={{ padding: '14px 16px', fontWeight: 600, width: 140 }}>租赁订单</th>
                 <th style={{ padding: '14px 20px', fontWeight: 600 }}>客户与签约公司</th>
-                <th style={{ padding: '14px 20px', fontWeight: 600 }}>履约与审批状态</th>
+                <th style={{ padding: '14px 20px', fontWeight: 600, minWidth: 168 }}>履约与审批状态</th>
                 <th style={{ padding: '14px 20px', fontWeight: 600 }}>签署方式</th>
                 <th style={{ padding: '14px 20px', fontWeight: 600 }}>合同金额</th>
                 <th style={{ padding: '14px 20px', fontWeight: 600, textAlign: 'right' }}>操作</th>
@@ -857,26 +886,15 @@ export default function LeaseContractHub() {
                             <span style={{ width: 16, flexShrink: 0 }} />
                           )}
                           <div style={{ minWidth: 0 }}>
-                            <div
-                              style={{ fontWeight: 700, color: t.textPrimary, fontSize: 14, cursor: 'pointer' }}
-                              onClick={() => openSplit(row)}
-                              title="查看合同详情"
-                            >
-                              {row.projectName}
-                            </div>
+                            <div style={{ color: t.textPrimary, fontWeight: 500 }}>{row.projectName}</div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4, flexWrap: 'wrap' }}>
-                              <span
-                                style={{
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: t.accent,
-                                  fontWeight: 700,
-                                  cursor: 'pointer',
-                                }}
+                              <DetailEntryLink
+                                variant="code"
+                                ariaLabel={`${row.code}，点击进入合同详情`}
                                 onClick={() => openSplit(row)}
                               >
                                 {row.code}
-                              </span>
+                              </DetailEntryLink>
                               <span
                                 style={{
                                   fontSize: 11,
@@ -889,7 +907,6 @@ export default function LeaseContractHub() {
                                 <Calendar size={11} /> {row.createdAt.slice(0, 10)}
                               </span>
                             </div>
-                            <div style={{ fontSize: 11, color: t.textSecondary, marginTop: 2 }}>{row.customerName}</div>
                           </div>
                         </div>
                       </td>
@@ -1090,41 +1107,49 @@ export default function LeaseContractHub() {
                             borderRadius: 20,
                             fontSize: 11,
                             fontWeight: 600,
+                            whiteSpace: 'nowrap',
+                            maxWidth: 'none',
                             background:
-                              stageOf(row) === 'active'
+                              row.approvalStatus === 'approved'
                                 ? isDark
                                   ? 'rgba(16,185,129,0.15)'
                                   : '#ecfdf5'
-                                : stageOf(row) === 'in_approval'
+                                : row.approvalStatus === 'approving' || row.approvalStatus === 'pending'
                                   ? isDark
                                     ? 'rgba(217,119,6,0.15)'
                                     : '#fefce8'
-                                  : isDark
-                                    ? '#23272f'
-                                    : '#f1f5f9',
+                                  : row.approvalStatus === 'rejected' || row.approvalStatus === 'terminated'
+                                    ? isDark
+                                      ? 'rgba(239,68,68,0.15)'
+                                      : '#fef2f2'
+                                    : isDark
+                                      ? '#23272f'
+                                      : '#f1f5f9',
                             color:
-                              stageOf(row) === 'active'
+                              row.approvalStatus === 'approved'
                                 ? '#10b981'
-                                : stageOf(row) === 'in_approval'
+                                : row.approvalStatus === 'approving' || row.approvalStatus === 'pending'
                                   ? '#d97706'
-                                  : t.textSecondary,
+                                  : row.approvalStatus === 'rejected' || row.approvalStatus === 'terminated'
+                                    ? '#ef4444'
+                                    : t.textSecondary,
                           }}
                         >
                           <CheckCircle2 size={12} />
-                          {stageLabel(row)} · {approvalLabel(row.approvalStatus)}
+                          {approvalLabel(row.approvalStatus)} ·{' '}
+                          {row.approvalType === 'standard' ? '标准合同' : '非标准合同'}
                         </span>
-                        {row.currentApprover && (
-                          <div style={{ fontSize: 10, color: t.textSecondary, marginTop: 4 }}>
-                            {row.currentApprover}
-                          </div>
-                        )}
+                        <div style={{ fontSize: 10, color: t.textSecondary, marginTop: 4 }}>
+                          {stageLabel(row)}
+                          {(row.approvalStatus === 'approving' || row.approvalStatus === 'pending') &&
+                          row.currentApprover
+                            ? ` · ${row.currentApprover}`
+                            : ''}
+                        </div>
                       </td>
                       <td style={{ padding: '16px 20px' }}>
                         <div style={{ fontSize: 12, color: t.textPrimary, fontWeight: 500 }}>
                           {row.signingMethod === 'online_esign' ? '线上电子签章' : '线下人工签署'}
-                        </div>
-                        <div style={{ fontSize: 11, color: t.textSecondary, marginTop: 2 }}>
-                          {row.approvalType === 'standard' ? '标准合同' : '非标准合同'}
                         </div>
                       </td>
                       <td style={{ padding: '16px 20px' }}>
@@ -1195,10 +1220,10 @@ export default function LeaseContractHub() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, alignItems: 'start' }}>
           {(
             [
-              { id: 'draft' as const, title: '草稿阶段', color: '#94a3b8' },
-              { id: 'in_approval' as const, title: '待我审批/盖章中', color: '#d97706' },
-              { id: 'active' as const, title: '履约执行中', color: '#10b981' },
-              { id: 'terminated' as const, title: '已终止/归档', color: '#ef4444' },
+              { id: 'draft' as const, title: '草稿', color: '#94a3b8' },
+              { id: 'in_approval' as const, title: '审批中', color: '#d97706' },
+              { id: 'active' as const, title: '进行中', color: '#10b981' },
+              { id: 'terminated' as const, title: '已终止', color: '#ef4444' },
             ] as const
           ).map((col) => {
             const rows = filtered.filter((r) => stageOf(r) === col.id);
@@ -1827,13 +1852,6 @@ export default function LeaseContractHub() {
         </div>
       )}
 
-      <ContractFormDrawer
-        open={formOpen}
-        onClose={() => setFormOpen(false)}
-        record={editing}
-        onSave={saveContract}
-        isDark={isDark}
-      />
       <DelegateModal open={modal === 'delegate'} onClose={() => setModal(null)} record={target} isDark={isDark} />
       <ExtraFeeModal open={modal === 'extraFee'} onClose={() => setModal(null)} record={target} isDark={isDark} />
       <TrialToFormalModal

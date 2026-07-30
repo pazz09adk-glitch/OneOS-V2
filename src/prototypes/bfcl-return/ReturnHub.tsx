@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { Filter, RotateCcw } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -92,6 +95,7 @@ export function ReturnHub() {
     };
     return (
       <div className="bfcl-detail">
+      <BfclChainNav current="return" />
         <header className="bfcl-form-header">
           <V2Button variant="back" size="sm" onClick={() => { setMode('ledger'); setActiveId(null); }}>返回列表</V2Button>
           <span className="bfcl-form-header__divider" />
@@ -102,12 +106,26 @@ export function ReturnHub() {
           </div>
           <div className="bfcl-form-header__actions">
             <V2Button variant="outline" size="sm" onClick={() => {
-              patch({ ...active, linked: active.amount, status: '已闭环' });
-              showToast(active.direction === '应收' ? '已关联收款闭环' : '已关联付款（保证金退还）闭环');
+              if (active.status === '已闭环') {
+                showToast('已闭环');
+                return;
+              }
+              const ref = active.direction === '应收'
+                ? `RC-202607-${active.docNo.slice(-4)}`
+                : (active.docNo === 'RS-202607-0009' ? 'PY-20260718-006' : `PY-202607-${active.docNo.slice(-4)}`);
+              patch({ ...active, linked: active.amount, status: '已闭环', paymentRef: ref });
+              showToast(
+                active.direction === '应收'
+                  ? `已关联收款 ${ref} 闭环`
+                  : `已关联付款 ${ref}（保证金退还）闭环`,
+              );
             }}>{active.direction === '应收' ? '关联收款' : '关联付款'}</V2Button>
             <V2Button variant="primary" size="sm" onClick={() => {
-              if (active.status !== '已闭环') { showToast('门禁：未关联收/付款不得闭环'); return; }
-              showToast('还车应结业财闭环完成');
+              if (active.status !== '已闭环' || active.linked < active.amount) {
+                showToast('门禁：未关联收/付款至齐平，不得闭环确认');
+                return;
+              }
+              showToast(`还车应结业财闭环完成${active.paymentRef ? ` · ${active.paymentRef}` : ''}`);
             }}>确认闭环</V2Button>
           </div>
         </header>
@@ -115,6 +133,7 @@ export function ReturnHub() {
         <div className="bfcl-callout" data-annotation-id="bfcl-rt-date">
           E 签宝用户签字日 = 实际退租日 <strong>{active.returnSignDate}</strong>；方向 <strong>{active.direction}</strong>；
           已关联 ¥{formatMoney(active.linked)} / 剩余 <span className={remain > 0 ? 'is-danger' : 'is-ok'}>¥{formatMoney(remain)}</span>
+          {active.paymentRef ? <> · 流水 <code className="bfcl-mono">{active.paymentRef}</code></> : null}
         </div>
 
         <section className="bfcl-panel">
@@ -170,6 +189,7 @@ export function ReturnHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="return" />
       <div className="bfcl-toolbar">
         <V2StatusTabs value={tab} onChange={(v) => { setTab(v); setPage(1); }} options={[
           { key: 'all', label: '全部' }, { key: '结算中', label: '结算中' }, { key: '客户应付', label: '客户应付' },
@@ -218,8 +238,15 @@ export function ReturnHub() {
               {pageRows.map((r) => (
                 <tr key={r.id}>
                   <td>
-                    <div className="bfcl-primary bfcl-mono">{r.docNo}</div>
-                    <div className="bfcl-muted">{r.contractNo}</div>
+                    <DetailEntryLink
+                      variant="code"
+                      stopPropagation
+                      ariaLabel={`${r.docNo}，点击进入还车应结详情`}
+                      onClick={() => { setActiveId(r.id); setMode('detail'); }}
+                    >
+                      {r.docNo}
+                    </DetailEntryLink>
+                    <div className="bfcl-muted bfcl-mono">{r.contractNo}</div>
                   </td>
                   <td>
                     <div className="bfcl-primary">{r.customer}</div>

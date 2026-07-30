@@ -30,7 +30,9 @@ import {
 } from '../utils/vehicle';
 import { buildChinaOperateCityTree, operateCityValueToLocation, toOperateCityValue } from '../utils/filters';
 import { downloadVehicleImportTemplate } from '../utils/importTemplate';
-import { V2DatePicker, V2RadioGroup, V2Select, V2Tag } from '../../../resources/design-system/components/UIComponents';
+import {V2DatePicker, V2RadioGroup, V2Select, V2Tag,
+  V2Button,
+} from '../../../resources/design-system/components/UIComponents';
 
 function toSelectOptions(items: readonly string[]) {
   return items.map((item) => ({ value: item, label: item }));
@@ -202,10 +204,10 @@ export function OpsManagerModal({
         </div>
 
         <footer className="va-modal-footer">
-          <button type="button" className="va-btn va-btn-secondary" onClick={onClose}>取消</button>
-          <button type="button" className="va-btn va-btn-primary" onClick={() => onSave(selected)}>
+          <V2Button variant="secondary" size="md" onClick={onClose}>取消</V2Button>
+          <V2Button variant="primary" size="md" onClick={() => onSave(selected)}>
             保存
-          </button>
+          </V2Button>
         </footer>
       </div>
     </div>
@@ -259,14 +261,14 @@ export function OperateCityModal({
           </div>
         </div>
         <div className="va-modal-actions">
-          <button type="button" className="va-btn va-btn-secondary" onClick={onClose}>取消</button>
-          <button
-            type="button"
-            className="va-btn va-btn-primary"
+          <V2Button variant="secondary" size="md" onClick={onClose}>取消</V2Button>
+          <V2Button
+            variant="primary"
+            size="md"
             onClick={() => onSave(operateCityValueToLocation(toOperateCityValue(province, city)))}
           >
             保存
-          </button>
+          </V2Button>
         </div>
       </div>
     </div>
@@ -345,15 +347,15 @@ export function VehicleEditModal({
           </div>
         </div>
         <div className="va-modal-actions">
-          <button type="button" className="va-btn va-btn-secondary" onClick={onClose}>取消</button>
-          <button
-            type="button"
-            className="va-btn va-btn-primary"
+          <V2Button variant="secondary" size="md" onClick={onClose}>取消</V2Button>
+          <V2Button
+            variant="primary"
+            size="md"
             disabled={!canSave}
             onClick={() => onSave(applyVehicleEditForm(record, form))}
           >
             保存
-          </button>
+          </V2Button>
         </div>
       </div>
     </div>
@@ -429,15 +431,15 @@ export function ArchiveFieldModal({
           )}
         </div>
         <div className="va-modal-actions">
-          <button type="button" className="va-btn va-btn-secondary" onClick={onClose}>取消</button>
-          <button
-            type="button"
-            className="va-btn va-btn-primary"
+          <V2Button variant="secondary" size="md" onClick={onClose}>取消</V2Button>
+          <V2Button
+            variant="primary"
+            size="md"
             disabled={!canSave}
             onClick={() => onSave({ [field]: draft }, meta.toast)}
           >
             保存
-          </button>
+          </V2Button>
         </div>
       </div>
     </div>
@@ -545,15 +547,15 @@ export function ImportModal({
                     <div className="va-template-meta">「车辆来源」已设 Excel 下拉：自有 / 外租 / 挂靠，请勿自行填写</div>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="va-btn va-btn-secondary va-btn-sm"
+                <V2Button
+                  variant="secondary"
+                  size="sm"
+                  icon={<Download size={14} aria-hidden />}
                   onClick={handleDownloadTemplate}
                   title="下载 Excel 模板；车辆来源列为数据有效性下拉"
                 >
-                  <Download size={14} />
                   下载模板
-                </button>
+                </V2Button>
               </div>
 
               <div
@@ -710,19 +712,19 @@ export function ImportModal({
         </div>
 
         <div className="va-modal-footer">
-          <button type="button" className="va-btn va-btn-ghost" onClick={onClose}>
+          <V2Button variant="ghost" size="md" onClick={onClose}>
             取消
-          </button>
-          <button
-            type="button"
-            className="va-btn va-btn-primary"
+          </V2Button>
+          <V2Button
+            variant="primary"
+            size="md"
             disabled={!selectedFile}
             onClick={() => {
               if (selectedFile) onImport(selectedFile, duplicateMode);
             }}
           >
             {selectedFile ? '确认导入并入库 (12条)' : '请先选择上传文件'}
-          </button>
+          </V2Button>
         </div>
       </div>
     </div>

@@ -1,0 +1,398 @@
+{
+  "generated_at": "2026-07-30T12:48:09",
+  "period": "2026-07-01 ~ 2026-07-30",
+  "disclaimer": "基于本机 ~/.cursor/projects/*/agent-transcripts 启发式估算，≠ Cursor 官方 Token/账单。文本：CJK÷1.5+其它÷4；每会话去重图片×1500。",
+  "totals": {
+    "parent_chats": 153,
+    "subagents": 124,
+    "tokens_est": 17486019,
+    "tokens_M": 17.49,
+    "parent_tokens_M": 16.67,
+    "avg_tokens_per_chat": 108935
+  },
+  "by_day": [
+    {
+      "day": "2026-07-05",
+      "chats": 0,
+      "tokens_est": 23356,
+      "bytes": 0,
+      "unique_images": 0,
+      "user_turns": 0,
+      "tool_calls": 0,
+      "tokens_M": 0.02
+    },
+    {
+      "day": "2026-07-06",
+      "chats": 1,
+      "tokens_est": 878498,
+      "bytes": 3493795,
+      "unique_images": 20,
+      "user_turns": 180,
+      "tool_calls": 3810,
+      "tokens_M": 0.88
+    },
+    {
+      "day": "2026-07-07",
+      "chats": 4,
+      "tokens_est": 1146380,
+      "bytes": 4556209,
+      "unique_images": 27,
+      "user_turns": 256,
+      "tool_calls": 5562,
+      "tokens_M": 1.15
+    },
+    {
+      "day": "2026-07-09",
+      "chats": 2,
+      "tokens_est": 120880,
+      "bytes": 478638,
+      "unique_images": 0,
+      "user_turns": 28,
+      "tool_calls": 492,
+      "tokens_M": 0.12
+    },
+    {
+      "day": "2026-07-10",
+      "chats": 0,
+      "tokens_est": 13550,
+      "bytes": 0,
+      "unique_images": 0,
+      "user_turns": 0,
+      "tool_calls": 0,
+      "tokens_M": 0.01
+    },
+    {
+      "day": "2026-07-11",
+      "chats": 1,
+      "tokens_est": 1521,
+      "bytes": 6458,
+      "unique_images": 0,
+      "user_turns": 1,
+      "tool_calls": 4,
+      "tokens_M": 0.0
+    },
+    {
+      "day": "2026-07-12",
+      "chats": 3,
+      "tokens_est": 1216947,
+      "bytes": 4201306,
+      "unique_images": 64,
+      "user_turns": 193,
+      "tool_calls": 5443,
+      "tokens_M": 1.22
+    },
+    {
+      "day": "2026-07-13",
+      "chats": 7,
+      "tokens_est": 1738888,
+      "bytes": 6857569,
+      "unique_images": 52,
+      "user_turns": 352,
+      "tool_calls": 8521,
+      "tokens_M": 1.74
+    },
+    {
+      "day": "2026-07-14",
+      "chats": 0,
+      "tokens_est": 7133,
+      "bytes": 0,
+      "unique_images": 0,
+      "user_turns": 0,
+      "tool_calls": 0,
+      "tokens_M": 0.01
+    },
+    {
+      "day": "2026-07-16",
+      "chats": 0,
+      "tokens_est": 9372,
+      "bytes": 0,
+      "unique_images": 0,
+      "user_turns": 0,
+      "tool_calls": 0,
+      "tokens_M": 0.01
+    },
+    {
+      "day": "2026-07-17",
+      "chats": 3,
+      "tokens_est": 415073,
+      "bytes": 1655597,
+      "unique_images": 9,
+      "user_turns": 96,
+      "tool_calls": 2209,
+      "tokens_M": 0.42
+    },
+    {
+      "day": "2026-07-18",
+      "chats": 7,
+      "tokens_est": 672035,
+      "bytes": 2452805,
+      "unique_images": 19,
+      "user_turns": 151,
+      "tool_calls": 3284,
+      "tokens_M": 0.67
+    },
+    {
+      "day": "2026-07-19",
+      "chats": 0,
+      "tokens_est": 17269,
+      "bytes": 0,
+      "unique_images": 0,
+      "user_turns": 0,
+      "tool_calls": 0,
+      "tokens_M": 0.02
+    },
+    {
+      "day": "2026-07-20",
+      "chats": 5,
+      "tokens_est": 851228,
+      "bytes": 3387226,
+      "unique_images": 12,
+      "user_turns": 177,
+      "tool_calls": 3538,
+      "tokens_M": 0.85
+    },
+    {
+      "day": "2026-07-21",
+      "chats": 7,
+      "tokens_est": 913280,
+      "bytes": 3502255,
+      "unique_images": 29,
+      "user_turns": 223,
+      "tool_calls": 3570,
+      "tokens_M": 0.91
+    },
+    {
+      "day": "2026-07-22",
+      "chats": 5,
+      "tokens_est": 947674,
+      "bytes": 3170805,
+      "unique_images": 12,
+      "user_turns": 167,
+      "tool_calls": 2576,
+      "tokens_M": 0.95
+    },
+    {
+      "day": "2026-07-23",
+      "chats": 15,
+      "tokens_est": 1784663,
+      "bytes": 6139192,
+      "unique_images": 32,
+      "user_turns": 289,
+      "tool_calls": 4384,
+      "tokens_M": 1.78
+    },
+    {
+      "day": "2026-07-24",
+      "chats": 12,
+      "tokens_est": 271779,
+      "bytes": 1098296,
+      "unique_images": 1,
+      "user_turns": 62,
+      "tool_calls": 695,
+      "tokens_M": 0.27
+    },
+    {
+      "day": "2026-07-25",
+      "chats": 9,
+      "tokens_est": 281179,
+      "bytes": 727380,
+      "unique_images": 2,
+      "user_turns": 59,
+      "tool_calls": 476,
+      "tokens_M": 0.28
+    },
+    {
+      "day": "2026-07-26",
+      "chats": 4,
+      "tokens_est": 116174,
+      "bytes": 392290,
+      "unique_images": 7,
+      "user_turns": 33,
+      "tool_calls": 353,
+      "tokens_M": 0.12
+    },
+    {
+      "day": "2026-07-27",
+      "chats": 7,
+      "tokens_est": 252814,
+      "bytes": 1018408,
+      "unique_images": 2,
+      "user_turns": 64,
+      "tool_calls": 647,
+      "tokens_M": 0.25
+    },
+    {
+      "day": "2026-07-28",
+      "chats": 25,
+      "tokens_est": 1470323,
+      "bytes": 5999894,
+      "unique_images": 23,
+      "user_turns": 344,
+      "tool_calls": 4094,
+      "tokens_M": 1.47
+    },
+    {
+      "day": "2026-07-29",
+      "chats": 28,
+      "tokens_est": 2358276,
+      "bytes": 9611357,
+      "unique_images": 29,
+      "user_turns": 557,
+      "tool_calls": 7342,
+      "tokens_M": 2.36
+    },
+    {
+      "day": "2026-07-30",
+      "chats": 8,
+      "tokens_est": 1977727,
+      "bytes": 7850450,
+      "unique_images": 55,
+      "user_turns": 476,
+      "tool_calls": 8492,
+      "tokens_M": 1.98
+    }
+  ],
+  "by_project": [
+    {
+      "project": "oneos1-2",
+      "chats": 58,
+      "tokens_est": 8764646,
+      "tokens_M": 8.76
+    },
+    {
+      "project": "oneos-v2",
+      "chats": 76,
+      "tokens_est": 4439732,
+      "tokens_M": 4.44
+    },
+    {
+      "project": "make-project-20260629",
+      "chats": 9,
+      "tokens_est": 2495300,
+      "tokens_M": 2.5
+    },
+    {
+      "project": "empty-window",
+      "chats": 7,
+      "tokens_est": 1766214,
+      "tokens_M": 1.77
+    },
+    {
+      "project": "Projects-oneos-certificate-batch-export",
+      "chats": 1,
+      "tokens_est": 12698,
+      "tokens_M": 0.01
+    },
+    {
+      "project": "Finance-Business-Integration",
+      "chats": 1,
+      "tokens_est": 5168,
+      "tokens_M": 0.01
+    },
+    {
+      "project": "Users-sylvawong",
+      "chats": 1,
+      "tokens_est": 2261,
+      "tokens_M": 0.0
+    }
+  ],
+  "top5": [
+    {
+      "short_id": "c1d8b0bc",
+      "id": "c1d8b0bc-b76c-4bc6-81fd-58cc4d8129a9",
+      "project": "oneos-v2",
+      "day": "2026-07-30",
+      "mb": 6.77,
+      "tokens_est": 1709594,
+      "text_tokens_est": 1634594,
+      "vision_tokens_est": 75000,
+      "unique_images": 50,
+      "user_turns": 387,
+      "tool_calls": 7491,
+      "tags": [
+        "原型/UI",
+        "截图多",
+        "超长会话"
+      ],
+      "title": "超长连刷：原型 UI 批注 / 字体规范 / 车辆资产对照租赁（387 轮）",
+      "tokens_M": 1.71,
+      "share_pct": 9.8
+    },
+    {
+      "short_id": "52ee7e65",
+      "id": "52ee7e65-74e8-4d18-a82e-5d149e7ff2de",
+      "project": "oneos1-2",
+      "day": "2026-07-07",
+      "mb": 4.34,
+      "tokens_est": 1093598,
+      "text_tokens_est": 1053098,
+      "vision_tokens_est": 40500,
+      "unique_images": 27,
+      "user_turns": 245,
+      "tool_calls": 5242,
+      "tags": [
+        "报表系统"
+      ],
+      "title": "报表系统探活与排查（report.dsyun.online）",
+      "tokens_M": 1.09,
+      "share_pct": 6.3
+    },
+    {
+      "short_id": "20291b87",
+      "id": "20291b87-e123-4348-9570-eee13fadaedd",
+      "project": "make-project-20260629",
+      "day": "2026-07-13",
+      "mb": 4.29,
+      "tokens_est": 1087763,
+      "text_tokens_est": 1029263,
+      "vision_tokens_est": 58500,
+      "unique_images": 39,
+      "user_turns": 236,
+      "tool_calls": 5532,
+      "tags": [
+        "小程序/小羚羚"
+      ],
+      "title": "小羚羚小程序复刻（Desktop ONE-OS）",
+      "tokens_M": 1.09,
+      "share_pct": 6.2
+    },
+    {
+      "short_id": "e919e3e5",
+      "id": "e919e3e5-321d-4f51-9859-c9e0467d6af5",
+      "project": "oneos1-2",
+      "day": "2026-07-28",
+      "mb": 3.71,
+      "tokens_est": 908056,
+      "text_tokens_est": 884056,
+      "vision_tokens_est": 24000,
+      "unique_images": 16,
+      "user_turns": 198,
+      "tool_calls": 2684,
+      "tags": [
+        "综合开发"
+      ],
+      "title": "微信本地目录相关长会话（路径探查/素材）",
+      "tokens_M": 0.91,
+      "share_pct": 5.2
+    },
+    {
+      "short_id": "52ee7e65",
+      "id": "52ee7e65-74e8-4d18-a82e-5d149e7ff2de",
+      "project": "empty-window",
+      "day": "2026-07-06",
+      "mb": 3.49,
+      "tokens_est": 878498,
+      "text_tokens_est": 848498,
+      "vision_tokens_est": 30000,
+      "unique_images": 20,
+      "user_turns": 180,
+      "tool_calls": 3810,
+      "tags": [
+        "报表系统"
+      ],
+      "title": "报表系统探活与排查（report.dsyun.online）",
+      "tokens_M": 0.88,
+      "share_pct": 5.0
+    }
+  ]
+}

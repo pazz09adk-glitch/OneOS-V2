@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { ChevronDown, ChevronRight, Columns, Filter, LayoutGrid, List, RotateCcw } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -21,6 +24,7 @@ import {
   type BillStatus,
   type ContractBillMaster,
   type Filters,
+  type LedgerTab,
   type Tier,
 } from './types';
 
@@ -29,16 +33,14 @@ type ViewMode = 'list' | 'kanban' | 'split';
 const EMPTY_FILTERS: Filters = {
   keyword: '',
   tier: 'all',
-  bizDept: 'all',
-  contractType: 'all',
   periodStart: '',
   periodEnd: '',
 };
 
 const badge = (s: BillStatus): V2BadgeStatus => {
   if (s === '已结清') return 'success';
-  if (s === '逾期') return 'error';
-  if (s === '部分收款') return 'warning';
+  if (s === '逾期') return 'warning';
+  if (s === '部分收款') return 'processing';
   return 'default';
 };
 
@@ -75,11 +77,11 @@ function groupByContract(bills: BillRow[]): ContractBillMaster[] {
   });
 }
 
-function matchBillFilters(r: BillRow, tab: BillStatus | 'all', filters: Filters): boolean {
-  if (tab !== 'all' && r.status !== tab) return false;
+function matchBillFilters(r: BillRow, tab: LedgerTab, filters: Filters): boolean {
+  if (tab === 'pending' && r.status !== '待收款' && r.status !== '部分收款') return false;
+  if (tab === '逾期' && r.status !== '逾期') return false;
+  if (tab === '已结清' && r.status !== '已结清') return false;
   if (filters.tier !== 'all' && r.tier !== filters.tier) return false;
-  if (filters.bizDept !== 'all' && r.bizDept !== filters.bizDept) return false;
-  if (filters.contractType !== 'all' && r.contractType !== filters.contractType) return false;
   if (filters.periodStart && r.billEnd < filters.periodStart) return false;
   if (filters.periodEnd && r.billStart > filters.periodEnd) return false;
   if (filters.keyword) {
@@ -92,19 +94,14 @@ function matchBillFilters(r: BillRow, tab: BillStatus | 'all', filters: Filters)
 }
 
 function moreActiveCount(d: Filters): number {
-  return (
-    (d.tier !== 'all' ? 1 : 0) +
-    (d.bizDept !== 'all' ? 1 : 0) +
-    (d.contractType !== 'all' ? 1 : 0) +
-    (d.periodStart || d.periodEnd ? 1 : 0)
-  );
+  return (d.tier !== 'all' ? 1 : 0) + (d.periodStart || d.periodEnd ? 1 : 0);
 }
 
 export function LeaseBillHub() {
   const [rows, setRows] = useState<BillRow[]>(MOCK);
   const [mode, setMode] = useState<'ledger' | 'detail'>('ledger');
   const [viewMode, setViewMode] = useState<ViewMode>('list');
-  const [tab, setTab] = useState<BillStatus | 'all'>('all');
+  const [tab, setTab] = useState<LedgerTab>('all');
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [draft, setDraft] = useState(EMPTY_FILTERS);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -155,8 +152,7 @@ export function LeaseBillHub() {
     const base = rows.filter((r) => matchBillFilters(r, 'all', filters));
     return {
       all: base.length,
-      待收款: base.filter((r) => r.status === '待收款').length,
-      部分收款: base.filter((r) => r.status === '部分收款').length,
+      pending: base.filter((r) => r.status === '待收款' || r.status === '部分收款').length,
       逾期: base.filter((r) => r.status === '逾期').length,
       已结清: base.filter((r) => r.status === '已结清').length,
     };
@@ -166,12 +162,31 @@ export function LeaseBillHub() {
     const overdue = rows.filter((r) => r.status === '逾期');
     const pending = rows.filter((r) => r.status === '待收款' || r.status === '部分收款');
     const debt = overdue.reduce((s, r) => s + r.unreceived, 0);
+    const pendingAmt = pending.reduce((s, r) => s + r.unreceived, 0);
     const recv = rows.reduce((s, r) => s + r.received, 0);
     return [
-      { label: '逾期账单', value: String(overdue.length), tab: '逾期' as const, sub: `待收 ¥${formatMoney(debt)}` },
-      { label: '待收/部分', value: String(pending.length), tab: '待收款' as const, sub: '宽限内+部分' },
-      { label: '本期已收', value: `¥${formatMoney(recv)}`, tab: null, sub: '台账实收合计' },
-      { label: '已结清', value: String(rows.filter((r) => r.status === '已结清').length), tab: '已结清' as const, sub: '收款闭环' },
+      {
+        label: '逾期账单',
+        value: String(overdue.length),
+        tab: '逾期' as LedgerTab,
+        sub: `待收 ¥${formatMoney(debt)}`,
+        tone: 'warning' as const,
+      },
+      {
+        label: '待收/部分',
+        value: String(pending.length),
+        tab: 'pending' as LedgerTab,
+        sub: `待收 ¥${formatMoney(pendingAmt)}`,
+        tone: 'info' as const,
+      },
+      { label: '本期已收', value: `¥${formatMoney(recv)}`, tab: null as LedgerTab | null, sub: '台账实收合计', tone: 'normal' as const },
+      {
+        label: '已结清',
+        value: String(rows.filter((r) => r.status === '已结清').length),
+        tab: '已结清' as LedgerTab,
+        sub: '收款闭环',
+        tone: 'success' as const,
+      },
     ];
   }, [rows]);
 
@@ -202,6 +217,7 @@ export function LeaseBillHub() {
     const remain = Math.max(0, active.amount - active.received);
     return (
       <div className="bfcl-detail">
+      <BfclChainNav current="bill" />
         <header className="bfcl-form-header">
           <V2Button
             variant="back"
@@ -226,6 +242,7 @@ export function LeaseBillHub() {
                 const received = active.received + (remain > 0 ? Math.max(1, Math.round(remain / 2)) : 0);
                 const unreceived = Math.max(0, active.amount - received);
                 const status: BillStatus = unreceived <= 0 ? '已结清' : '部分收款';
+                const ref = active.paymentRef || `RC-202607-${String(8800 + Number(active.id) * 11).padStart(4, '0')}`;
                 patch({
                   ...active,
                   received,
@@ -233,8 +250,10 @@ export function LeaseBillHub() {
                   status,
                   paymentDate: '2026-07-29',
                   paymentMethod: '对公转账',
+                  paymentLinked: true,
+                  paymentRef: ref,
                 });
-                showToast('已关联收款，账单状态回写');
+                showToast(`已关联收款 ${ref}，账单实收已回写`);
               }}
             >
               关联收款
@@ -243,11 +262,18 @@ export function LeaseBillHub() {
               variant="primary"
               size="md"
               onClick={() => {
-                if (active.status !== '已结清') {
-                  showToast('门禁：未关联结清不得假性结清');
+                if (!active.paymentLinked) {
+                  showToast('门禁：未关联收款记录，不得假性结清');
                   return;
                 }
-                showToast('账单业财闭环完成');
+                if (active.unreceived > 0) {
+                  showToast('门禁：仍有未收余额，请继续关联收款至结清');
+                  return;
+                }
+                if (active.status !== '已结清') {
+                  patch({ ...active, status: '已结清' });
+                }
+                showToast('账单业财闭环完成（已关联 + 实收齐平）');
               }}
             >
               确认结清
@@ -261,6 +287,14 @@ export function LeaseBillHub() {
             <V2Badge status={badge(active.status)} label={active.status} />
           </div>
           <div>
+            <span className="bfcl-muted">收款关联</span>
+            {active.paymentLinked ? (
+              <strong className="bfcl-mono">{active.paymentRef || '已关联'}</strong>
+            ) : (
+              <V2Badge status="warning" label="未关联" />
+            )}
+          </div>
+          <div>
             <span className="bfcl-muted">合同</span>
             <strong className="bfcl-mono">{active.contractNo}</strong>
           </div>
@@ -272,19 +306,33 @@ export function LeaseBillHub() {
           </div>
           <div>
             <span className="bfcl-muted">账期</span>
-            <strong>
+            <strong className="bfcl-mono">
               {active.period} · 第{active.periodNo}期
             </strong>
           </div>
         </section>
 
         <div
-          className={`bfcl-callout ${active.status === '逾期' ? 'is-danger' : ''}`}
+          className={`bfcl-callout ${active.status === '逾期' ? 'is-warn' : !active.paymentLinked && active.unreceived > 0 ? 'is-warn' : ''}`}
           data-annotation-id="bfcl-lb-grace"
         >
-          宽限：{active.tier} {active.graceDays} 日（自生成日 {active.genDay} 起算）· 到期 {active.dueDate}
+          宽限：{active.tier}{' '}
+          <span className="bfcl-mono">
+            {active.graceDays} 日（自生成日 {active.genDay} 起算）· 到期 {active.dueDate}
+          </span>
           {active.status === '逾期' ? ' · 已逾期，可联动应收催款' : ''}
+          {!active.paymentLinked && active.unreceived > 0 ? ' · 尚未关联收款，不可确认结清' : ''}
         </div>
+
+        {active.opsFee > 0 || active.insuranceSurcharge > 0 || active.discount > 0 ? (
+          <div className="bfcl-callout" data-annotation-id="bfcl-lb-rollover">
+            本期附加：
+            {active.insuranceSurcharge > 0 ? ` 保险上浮 ¥${formatMoney(active.insuranceSurcharge)}` : ''}
+            {active.opsFee > 0 ? ` · 运维客户承担 ¥${formatMoney(active.opsFee)}（可滚下期）` : ''}
+            {active.discount > 0 ? ` · 减免 ¥${formatMoney(active.discount)}` : ''}
+            {active.remark ? ` · ${active.remark}` : ''}
+          </div>
+        ) : null}
 
         <section className="bfcl-panel">
           <h2>合同与车辆（V1.2 台账字段）</h2>
@@ -310,14 +358,14 @@ export function LeaseBillHub() {
               <dd className="bfcl-mono">{active.plate}</dd>
             </div>
             <div>
-              <dt>提车日</dt>
-              <dd>{active.pickupDate}</dd>
-            </div>
-            <div>
               <dt>合同起止</dt>
-              <dd>
+              <dd className="bfcl-mono">
                 {active.contractStart} ~ {active.contractEnd}
               </dd>
+            </div>
+            <div>
+              <dt>提车日</dt>
+              <dd className="bfcl-mono">{active.pickupDate}</dd>
             </div>
             <div>
               <dt>业务</dt>
@@ -398,12 +446,20 @@ export function LeaseBillHub() {
             <h2>收款 / 开票</h2>
             <dl className="bfcl-info-grid">
               <div>
+                <dt>关联状态</dt>
+                <dd>{active.paymentLinked ? '已关联收款' : '未关联'}</dd>
+              </div>
+              <div>
+                <dt>收款单号</dt>
+                <dd className="bfcl-mono">{active.paymentRef || '—'}</dd>
+              </div>
+              <div>
                 <dt>开票日期</dt>
-                <dd>{active.invoiceDate}</dd>
+                <dd className="bfcl-mono">{active.invoiceDate}</dd>
               </div>
               <div>
                 <dt>实际付款日</dt>
-                <dd>{active.paymentDate}</dd>
+                <dd className="bfcl-mono">{active.paymentDate}</dd>
               </div>
               <div>
                 <dt>付款方式</dt>
@@ -469,8 +525,7 @@ export function LeaseBillHub() {
           }}
           options={[
             { key: 'all', label: '全部', count: tabCounts.all },
-            { key: '待收款', label: '待收款', count: tabCounts.待收款 },
-            { key: '部分收款', label: '部分', count: tabCounts.部分收款 },
+            { key: 'pending', label: '待收/部分', count: tabCounts.pending },
             { key: '逾期', label: '逾期', count: tabCounts.逾期 },
             { key: '已结清', label: '已结清', count: tabCounts.已结清 },
           ]}
@@ -512,18 +567,6 @@ export function LeaseBillHub() {
             />
           </div>
           <div className="bfcl-field">
-            <label>合同类型</label>
-            <V2Select
-              value={draft.contractType}
-              onChange={(v) => setDraft((d) => ({ ...d, contractType: v }))}
-              options={[
-                { value: 'all', label: '全部' },
-                { value: '正式合同', label: '正式合同' },
-                { value: '框架协议', label: '框架协议' },
-              ]}
-            />
-          </div>
-          <div className="bfcl-field">
             <label>客户分级</label>
             <V2Select
               value={draft.tier}
@@ -533,19 +576,6 @@ export function LeaseBillHub() {
                 { value: 'KA', label: 'KA' },
                 { value: 'LA', label: 'LA' },
                 { value: 'SMB', label: 'SMB' },
-              ]}
-            />
-          </div>
-          <div className="bfcl-field">
-            <label>业务部门</label>
-            <V2Select
-              value={draft.bizDept}
-              onChange={(v) => setDraft((d) => ({ ...d, bizDept: v }))}
-              options={[
-                { value: 'all', label: '全部' },
-                { value: '业务1部', label: '业务1部' },
-                { value: '业务2部', label: '业务2部' },
-                { value: '业务3部', label: '业务3部' },
               ]}
             />
           </div>
@@ -574,10 +604,16 @@ export function LeaseBillHub() {
         {bills.map((r) => (
           <tr key={r.id}>
             <td>
-              <div className="bfcl-primary bfcl-mono">{r.billNo}</div>
-              <div className="bfcl-muted">第{r.periodNo}期</div>
+              <DetailEntryLink
+                variant="code"
+                ariaLabel={`${r.billNo}，点击进入账单详情`}
+                onClick={() => openDetail(r.id)}
+              >
+                {r.billNo}
+              </DetailEntryLink>
+              <div className="bfcl-muted bfcl-mono">第{r.periodNo}期</div>
             </td>
-            <td>
+            <td className="bfcl-mono">
               {r.period}
               <div className="bfcl-muted">
                 {r.billStart}~{r.billEnd}
@@ -588,7 +624,7 @@ export function LeaseBillHub() {
             <td className="bfcl-mono">¥{formatMoney(r.insuranceSurcharge + r.opsFee)}</td>
             <td className="bfcl-mono">¥{formatMoney(r.received)}</td>
             <td className={`bfcl-mono ${r.unreceived > 0 ? 'is-danger' : ''}`}>¥{formatMoney(r.unreceived)}</td>
-            <td>
+            <td className="bfcl-mono">
               {r.tier}/{r.graceDays}日
             </td>
             <td>
@@ -610,6 +646,7 @@ export function LeaseBillHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="bill" />
       <div className="bfcl-viewbar">
         <V2SegmentedControl
           value={viewMode}
@@ -637,9 +674,15 @@ export function LeaseBillHub() {
                 }
               }}
             >
-              <span className="bfcl-kpi__label">{k.label}</span>
-              <strong className="bfcl-kpi__value">{k.value}</strong>
-              <span className="bfcl-kpi__sub">{k.sub}</span>
+              <span className="bfcl-kpi__label ln-kpi__label">{k.label}</span>
+              <strong className={`bfcl-kpi__value ln-kpi__value ln-kpi-tone-${k.tone}`}>{k.value}</strong>
+              <span
+                className={`bfcl-kpi__sub ln-kpi__sub ${
+                  /¥|￥/.test(k.sub) ? `ln-kpi-tone-${k.tone}` : 'ln-kpi-tone-normal'
+                }`}
+              >
+                {k.sub}
+              </span>
             </button>
           ))}
         </div>
@@ -674,8 +717,19 @@ export function LeaseBillHub() {
                       <React.Fragment key={c.contractNo}>
                         <tr className="is-expandable" onClick={() => toggleExpand(c.contractNo)}>
                           <td>{open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}</td>
-                          <td>
-                            <div className="bfcl-primary bfcl-mono">{c.contractNo}</div>
+                          <td onClick={(e) => e.stopPropagation()}>
+                            <DetailEntryLink
+                              variant="code"
+                              stopPropagation
+                              ariaLabel={`${c.contractNo}，点击进入该合同账单`}
+                              onClick={() => {
+                                setSplitContractNo(c.contractNo);
+                                const first = c.bills[0];
+                                if (first) openDetail(first.id);
+                              }}
+                            >
+                              {c.contractNo}
+                            </DetailEntryLink>
                             <div className="bfcl-muted">{c.contractType}</div>
                           </td>
                           <td>
@@ -683,7 +737,7 @@ export function LeaseBillHub() {
                             <div className="bfcl-muted">{c.customer}</div>
                           </td>
                           <td className="bfcl-mono">{c.plate}</td>
-                          <td>
+                          <td className="bfcl-mono">
                             <div>{c.contractStart}</div>
                             <div className="bfcl-muted">~ {c.contractEnd}</div>
                           </td>
@@ -694,7 +748,7 @@ export function LeaseBillHub() {
                           <td>
                             <div className="bfcl-tag-row">
                               <V2Badge status="processing" label={`${c.billCount} 期`} />
-                              <span className="bfcl-muted">
+                              <span className="bfcl-muted bfcl-mono">
                                 {c.tier}/{c.graceDays}日
                               </span>
                             </div>
@@ -754,7 +808,7 @@ export function LeaseBillHub() {
               [
                 { key: '待收款' as const, title: '待收款', color: 'var(--ln-info, #3B82F6)' },
                 { key: '部分收款' as const, title: '部分收款', color: 'var(--ln-warning, #D97706)' },
-                { key: '逾期' as const, title: '逾期', color: 'var(--ln-error, #EF4444)' },
+                { key: '逾期' as const, title: '逾期', color: 'var(--ln-warning, #D97706)' },
                 { key: '已结清' as const, title: '已结清', color: 'var(--ln-success, #10B981)' },
               ] as const
             ).map((col) => {
@@ -789,7 +843,7 @@ export function LeaseBillHub() {
                         >
                           <div className="bfcl-kanban__card-top">
                             <span className="bfcl-mono bfcl-kanban__code">{r.billNo}</span>
-                            <span className="bfcl-muted">第{r.periodNo}期</span>
+                            <span className="bfcl-muted bfcl-mono">第{r.periodNo}期</span>
                           </div>
                           <div className="bfcl-primary">{r.customer}</div>
                           <div className="bfcl-muted bfcl-mono">

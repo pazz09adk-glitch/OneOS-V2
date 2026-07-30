@@ -1,6 +1,9 @@
 /**
- * OneOS V2 — 筛选主入口视觉强化（Filter Affordance）
+ * OneOS V2 — 筛选主入口视觉（Filter Affordance）
  * 事实源：DESIGN.md §2.4.3 / §2.4.3.2 / chapters/02-layout.md
+ *
+ * 策略：默认克制（白底 + 细描边），hover / focus / 展开·有条件 再强化。
+ * 避免默认态主色浅底 + 外晕抢过 Pill Tabs 与表格。
  *
  * 类名：
  * - .v2-filter-search          关键词 / 车牌等主搜索壳
@@ -11,13 +14,13 @@
  * - .v2-filter-toolbar-tools   搜索+更多筛选+查询+重置工具链（PC 单行 · §2.4.3.1）
  *
  * 尺寸硬约束（PC）：与 V2Button size=md 对齐 — 高度 36px、圆角 8px。
- * 随 oneos-ds-tokens.css 全局引入，各台账页必须使用；禁止页面私自改高度/弱化主入口。
+ * 随 oneos-ds-tokens.css 全局引入；禁止页面私自改高度。
  */
 
 :root {
   --v2-filter-entry-height: 36px;
   --v2-filter-entry-radius: var(--ln-radius-control, 8px);
-  --v2-filter-entry-border: 1.5px;
+  --v2-filter-entry-border: 1px;
 }
 
 .v2-filter-search {
@@ -33,25 +36,28 @@
   height: var(--v2-filter-entry-height);
   min-height: var(--v2-filter-entry-height);
   border-radius: var(--v2-filter-entry-radius);
-  background: color-mix(in srgb, var(--ln-primary-soft, #e0e7ff) 62%, #fff);
-  border: var(--v2-filter-entry-border) solid
-    color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 42%, var(--ln-hairline, #e3e8ee));
-  box-shadow:
-    0 1px 2px rgba(83, 58, 253, 0.1),
-    0 0 0 3px color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 12%, transparent);
+  background: var(--ln-surface-card, #ffffff);
+  border: var(--v2-filter-entry-border) solid var(--ln-hairline, #e3e8ee);
+  box-shadow: none;
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
     background 0.18s ease;
 }
 
-.v2-filter-search:hover,
+.v2-filter-search:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--oneos-primary, var(--ln-primary, #533afd)) 35%,
+    var(--ln-hairline, #e3e8ee)
+  );
+  background: color-mix(in srgb, var(--ln-primary-soft, #e0e7ff) 28%, #fff);
+}
+
 .v2-filter-search:focus-within {
   border-color: var(--oneos-primary, var(--ln-primary, #533afd));
-  background: color-mix(in srgb, var(--ln-primary-soft, #e0e7ff) 78%, #fff);
-  box-shadow:
-    0 2px 8px rgba(83, 58, 253, 0.16),
-    0 0 0 3px color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 18%, transparent);
+  background: var(--ln-surface-card, #ffffff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 16%, transparent);
 }
 
 .v2-filter-search__ico {
@@ -60,8 +66,18 @@
   justify-content: center;
   flex-shrink: 0;
   width: 34px;
+  color: var(--ln-muted, #627d98);
+  border-right: 1px solid var(--ln-hairline, #e3e8ee);
+}
+
+.v2-filter-search:hover .v2-filter-search__ico,
+.v2-filter-search:focus-within .v2-filter-search__ico {
   color: var(--oneos-primary, var(--ln-primary, #533afd));
-  border-right: 1px solid color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 20%, transparent);
+  border-right-color: color-mix(
+    in srgb,
+    var(--oneos-primary, var(--ln-primary, #533afd)) 22%,
+    transparent
+  );
 }
 
 .v2-filter-search > :not(.v2-filter-search__ico) {
@@ -130,13 +146,10 @@
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  color: var(--oneos-primary, var(--ln-primary, #533afd));
-  background: color-mix(in srgb, var(--ln-primary-soft, #e0e7ff) 70%, #fff);
-  border: var(--v2-filter-entry-border) solid
-    color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 42%, var(--ln-hairline, #e3e8ee));
-  box-shadow:
-    0 1px 2px rgba(83, 58, 253, 0.1),
-    0 0 0 3px color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 12%, transparent);
+  color: var(--ln-body, #425466);
+  background: var(--ln-surface-card, #ffffff);
+  border: var(--v2-filter-entry-border) solid var(--ln-hairline, #e3e8ee);
+  box-shadow: none;
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
@@ -145,12 +158,13 @@
 }
 
 .v2-filter-more-btn:hover {
-  color: var(--oneos-primary-hover, #6346ff);
-  background: var(--ln-primary-soft, #e0e7ff);
-  border-color: var(--oneos-primary, var(--ln-primary, #533afd));
-  box-shadow:
-    0 2px 8px rgba(83, 58, 253, 0.16),
-    0 0 0 3px color-mix(in srgb, var(--oneos-primary, var(--ln-primary, #533afd)) 18%, transparent);
+  color: var(--oneos-primary, var(--ln-primary, #533afd));
+  background: color-mix(in srgb, var(--ln-primary-soft, #e0e7ff) 35%, #fff);
+  border-color: color-mix(
+    in srgb,
+    var(--oneos-primary, var(--ln-primary, #533afd)) 40%,
+    var(--ln-hairline, #e3e8ee)
+  );
 }
 
 .v2-filter-more-btn:focus-visible {
@@ -164,7 +178,7 @@
   color: #fff;
   background: var(--oneos-primary, var(--ln-primary, #533afd));
   border-color: var(--oneos-primary, var(--ln-primary, #533afd));
-  box-shadow: 0 2px 10px rgba(83, 58, 253, 0.28);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--oneos-primary, #533afd) 28%, transparent);
 }
 
 .v2-filter-more-btn.is-open:hover,
@@ -277,9 +291,21 @@
 
 [data-ds-mode='dark'] .v2-filter-search,
 [data-oneos-theme='dark'] .v2-filter-search {
-  background: rgba(83, 58, 253, 0.16);
-  border-color: rgba(83, 58, 253, 0.45);
-  box-shadow: 0 0 0 3px rgba(83, 58, 253, 0.18);
+  background: var(--ln-surface-card, #121418);
+  border-color: var(--ln-hairline, #23272f);
+  box-shadow: none;
+}
+
+[data-ds-mode='dark'] .v2-filter-search:hover,
+[data-oneos-theme='dark'] .v2-filter-search:hover {
+  background: rgba(83, 58, 253, 0.12);
+  border-color: rgba(83, 58, 253, 0.4);
+}
+
+[data-ds-mode='dark'] .v2-filter-search:focus-within,
+[data-oneos-theme='dark'] .v2-filter-search:focus-within {
+  border-color: var(--oneos-primary, var(--ln-primary, #533afd));
+  box-shadow: 0 0 0 3px rgba(83, 58, 253, 0.22);
 }
 
 [data-ds-mode='dark'] .v2-filter-search .ln-select-trigger,
@@ -291,9 +317,16 @@
 
 [data-ds-mode='dark'] .v2-filter-more-btn,
 [data-oneos-theme='dark'] .v2-filter-more-btn {
-  background: rgba(83, 58, 253, 0.2);
-  border-color: rgba(83, 58, 253, 0.5);
+  background: var(--ln-surface-card, #121418);
+  border-color: var(--ln-hairline, #23272f);
+  color: var(--ln-body, #a0aec0);
+}
+
+[data-ds-mode='dark'] .v2-filter-more-btn:hover,
+[data-oneos-theme='dark'] .v2-filter-more-btn:hover {
   color: #c7d2fe;
+  background: rgba(83, 58, 253, 0.16);
+  border-color: rgba(83, 58, 253, 0.45);
 }
 
 [data-ds-mode='dark'] .v2-filter-more-btn.is-open,

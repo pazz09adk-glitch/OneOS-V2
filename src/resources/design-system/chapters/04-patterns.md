@@ -30,7 +30,7 @@
 - 操作右对齐：「重置」「查询」（查询为主按钮）
 - 日期区间：`DateRangeFilterField` +「至」
 - 折叠：`vm-filter-expand` + `splitFilterFields()`；禁止首行 5 项、展开末行仅 1 项
-- **主入口视觉（强制）**：工具栏主搜索 +「更多筛选」使用 `V2FilterSearch` / `V2FilterMoreButton`（`.v2-filter-search` / `.v2-filter-more-btn`）；PC 高度 36px、圆角 8px 与旁侧按钮同高，靠主色浅底/描边/外晕引导点击；不得用弱 ghost 与导出同级，也不得私自改高度；PC 操作链单行（搜索可收缩，勿挤掉导入/列设置）；详见 `DESIGN.md` §2.4.3 / §2.4.3.2
+- **主入口视觉（强制）**：工具栏主搜索 +「更多筛选」使用 `V2FilterSearch` / `V2FilterMoreButton`（`.v2-filter-search` / `.v2-filter-more-btn`）；PC 高度 36px、圆角 8px 与旁侧按钮同高；**默认白底细描边（克制）**，hover / focus / 展开·有条件再强化，禁止默认态主色浅底+常驻外晕抢戏；也不得私自改高度；PC 操作链单行（搜索可收缩，勿挤掉导入/列设置）；详见 `DESIGN.md` §2.4.3 / §2.4.3.2
 
 ### 1.3 工具栏
 

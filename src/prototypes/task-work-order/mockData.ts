@@ -158,15 +158,23 @@ export function vehiclesOfPurchaseContract(
 export const MOCK_OWNERS: OwnerUser[] = [
   { id: 'u_wang', name: '王业管', dept: '业务管理部' },
   { id: 'u_dept_lead', name: '周主管', dept: '业务管理部' },
-  { id: 'u_wangmian', name: '王冕', dept: '业务数据组' },
-  { id: 'u_zhang', name: '张三', dept: '运维一部' },
-  { id: 'u_li', name: '李四', dept: '运维二部' },
-  { id: 'u_zhao', name: '赵敏', dept: '客户服务部' },
   { id: 'u_chen', name: '陈高伟', dept: '运维主管' },
+  /** 执行人样例（台账 / 新建 / 筛选共用） */
+  { id: 'u_tong', name: '童军林', dept: '运维一部' },
+  { id: 'u_yao', name: '姚守涛', dept: '运维一部' },
+  { id: 'u_wei', name: '魏山', dept: '运维二部' },
+  { id: 'u_wangmian', name: '王冕', dept: '业务数据组' },
+  { id: 'u_shi', name: '时生亮', dept: '运维二部' },
+  { id: 'u_he', name: '何斐', dept: '客户服务部' },
+  { id: 'u_wangyh', name: '王雨昊', dept: '客户服务部' },
+  { id: 'u_leader_ro', name: '领导视角', dept: '管理层（只读演示）' },
 ];
 
 /** 业务数据调整类 · 数智中心处理人（原型锁定王冕） */
 export const DATA_ADJUST_EXECUTOR_ID = 'u_wangmian';
+
+/** 新建履约类默认执行人 */
+export const DEFAULT_EXECUTOR_ID = 'u_tong';
 
 /** 各部门默认主管（按部门名） */
 export const DEPT_SUPERVISOR_ID: Record<string, string> = {
@@ -184,10 +192,25 @@ export function getDeptSupervisorId(userId: string, owners = MOCK_OWNERS): strin
   return DEPT_SUPERVISOR_ID[user.dept] || 'u_dept_lead';
 }
 
-function daysBetween(start: string, end: string, today = '2026-07-24'): number {
+function daysBetween(start: string, end: string, today = '2026-07-29'): number {
   const e = new Date(end).getTime();
   const t = new Date(today).getTime();
   return Math.max(0, Math.ceil((e - t) / 86400000));
+}
+
+/** 今天晚于周期结束日 → 超时天数；否则 null（样例「今天」与原型演示日对齐） */
+export function periodOverdueDays(
+  periodEnd?: string,
+  today = '2026-07-29',
+  periodUnlimited?: boolean
+): number | null {
+  if (periodUnlimited || periodEnd === 'UNLIMITED') return null;
+  if (!periodEnd) return null;
+  const endMs = new Date(`${periodEnd}T00:00:00`).getTime();
+  const todayMs = new Date(`${today}T00:00:00`).getTime();
+  if (Number.isNaN(endMs) || Number.isNaN(todayMs)) return null;
+  const days = Math.floor((todayMs - endMs) / 86400000);
+  return days > 0 ? days : null;
 }
 
 export function computeMileageProgress(task: TaskWorkOrder, vehicles = MOCK_VEHICLES): MileageProgressInfo | null {
@@ -254,17 +277,28 @@ export function buildInitialTasks(): TaskWorkOrder[] {
         mileageTarget: 6000,
         mileageMode: 'period_avg',
         initiatorId: 'u_wang',
-        accountableOwnerId: 'u_chen',
-        currentOwnerId: 'u_zhang',
+        accountableOwnerId: 'u_tong',
+        currentOwnerId: 'u_tong',
         status: 'in_progress',
         createdAt: '2026-07-01 09:00',
         feedbacks: [
-          { at: '2026-07-08 14:20', by: '张三', note: '浙A10003 雨天停运 3 天', attachments: ['停运说明.pdf'] },
+          {
+            at: '2026-07-08 14:20',
+            by: '童军林',
+            note: '浙A10003 雨天停运 3 天',
+            attachments: ['停运说明.pdf', '现场照片.jpg', '停运台账.xlsx'],
+          },
+          {
+            at: '2026-07-12 09:45',
+            by: '童军林',
+            note: '浙A10003 已恢复运营，今日起按计划执行',
+            attachments: ['复运确认.png'],
+          },
         ],
         timeline: [
           { at: '2026-07-01 09:00', action: '发布任务', operator: '王业管', remark: '自采购合同 HT-CG-2026-0088 发起' },
-          { at: '2026-07-02 10:15', action: '指派执行', operator: '王业管', remark: '执行人：张三' },
-          { at: '2026-07-08 14:20', action: '提交反馈', operator: '张三', remark: '浙A10003 雨天停运 3 天' },
+          { at: '2026-07-02 10:15', action: '指派执行', operator: '王业管', remark: '执行人 / 归口：童军林' },
+          { at: '2026-07-08 14:20', action: '提交反馈', operator: '童军林', remark: '浙A10003 雨天停运 3 天' },
         ],
         syncWorkbench: true,
       },
@@ -284,7 +318,7 @@ export function buildInitialTasks(): TaskWorkOrder[] {
         periodEnd: '2028-03-14',
         initiatorId: 'u_wang',
         accountableOwnerId: 'u_chen',
-        currentOwnerId: 'u_zhang',
+        currentOwnerId: 'u_yao',
         status: 'pending',
         createdAt: '2026-07-05 11:30',
         feedbacks: [],
@@ -309,7 +343,7 @@ export function buildInitialTasks(): TaskWorkOrder[] {
         mileageMode: 'cumulative',
         initiatorId: 'u_wang',
         accountableOwnerId: 'u_chen',
-        currentOwnerId: 'u_li',
+        currentOwnerId: 'u_wei',
         status: 'in_progress',
         createdAt: '2026-04-05 08:00',
         feedbacks: [],
@@ -323,18 +357,19 @@ export function buildInitialTasks(): TaskWorkOrder[] {
       id: 'wo-004',
       code: 'WO-2026-0004',
       taskType: 'general',
-      title: '跨部门协调：加氢证办理加急',
-      requirement: '协调加氢站完成 2 台新车加氢证办理，7 月 20 日前完成。',
+      title: '跨部门协调：加氢证持续跟进',
+      requirement: '协调加氢站完成新车加氢证办理；长期跟进直至办齐，无固定截止日期。',
       source: 'standalone',
       relatedBizType: 'lease_contract' as RelatedBizType,
       relatedBizId: 'lc-001',
       relatedBizCode: 'HT-ZL-2026-0312',
       vehicleIds: ['v2', 'v3'],
       periodStart: '2026-07-10',
-      periodEnd: '2026-07-20',
+      periodEnd: 'UNLIMITED',
+      periodUnlimited: true,
       initiatorId: 'u_wang',
       accountableOwnerId: 'u_wang',
-      currentOwnerId: 'u_zhao',
+      currentOwnerId: 'u_shi',
       status: 'in_progress',
       createdAt: '2026-07-10 08:30',
       feedbacks: [],
@@ -355,10 +390,10 @@ export function buildInitialTasks(): TaskWorkOrder[] {
       relatedBizCode: 'ZD-2026-07-088',
       vehicleIds: [],
       periodStart: '2026-07-01',
-      periodEnd: '2026-07-31',
+      periodEnd: '2026-07-20',
       initiatorId: 'u_wang',
       accountableOwnerId: 'u_chen',
-      currentOwnerId: 'u_li',
+      currentOwnerId: 'u_he',
       status: 'overdue',
       createdAt: '2026-07-01 09:30',
       feedbacks: [],
@@ -383,7 +418,7 @@ export function buildInitialTasks(): TaskWorkOrder[] {
       periodEnd: '2026-07-28',
       initiatorId: 'u_wang',
       accountableOwnerId: 'u_chen',
-      currentOwnerId: 'u_zhao',
+      currentOwnerId: 'u_wangyh',
       status: 'pending',
       createdAt: '2026-07-20 10:00',
       feedbacks: [],

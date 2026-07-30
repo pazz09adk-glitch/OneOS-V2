@@ -49,6 +49,10 @@
   "closedLoop": "客户档案具备有效准入策略，可供合同引用",
   "triggers": [
     {
+      "to": "customer-engagement",
+      "when": "签约前对接认领绑定主体并催办准入"
+    },
+    {
       "to": "lease-contract-management",
       "when": "发起租赁合同时读取准入"
     }

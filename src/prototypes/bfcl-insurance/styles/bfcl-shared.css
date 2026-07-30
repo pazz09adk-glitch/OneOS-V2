@@ -9,9 +9,10 @@
   --body: var(--ln-body, #425466);
   --muted: var(--ln-muted, #627d98);
   --pearl: var(--ln-surface-pearl, #f8fafc);
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* 与 DESIGN / --ln-font-mono 对齐：JetBrains 必须排第一，且由 oneos-ds-tokens.css @import 加载 */
+  --mono: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace));
   width: 100%; min-height: calc(100vh - 48px); background: var(--canvas); color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--ln-font, var(--vm-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif));
   font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; box-sizing: border-box; padding: 20px 24px 32px;
 }
 .bfcl-page *, .bfcl-detail *, .bfcl-page *::before, .bfcl-detail *::before, .bfcl-page *::after, .bfcl-detail *::after { box-sizing: border-box; }
@@ -19,15 +20,37 @@
 .bfcl-page button:focus-visible, .bfcl-detail button:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .bfcl-page *, .bfcl-detail * { transition: none !important; animation: none !important; } }
 
+.bfcl-viewbar { display:flex; align-items:center; justify-content:flex-start; margin-bottom:16px; }
 .bfcl-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
-.bfcl-kpi { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:16px; }
+.bfcl-kpi { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:16px; }
 .bfcl-kpi__card { text-align:left; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
 .bfcl-kpi__card:hover { border-color: color-mix(in srgb, var(--p) 35%, var(--border)); }
 .bfcl-kpi__label { display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:8px; }
+/* KPI 主数字与副文案金额同一字族，禁止副文案落回系统黑体 */
+.bfcl-kpi__value,
+.bfcl-kpi__sub {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
 .bfcl-kpi__value { font-size:24px; font-weight:800; }
-.bfcl-kpi__sub { display:block; margin-top:4px; font-size:12px; color:var(--muted); }
+.bfcl-kpi__sub { display:block; margin-top:4px; font-size:12px; color:var(--muted); font-weight:500; }
 
 .bfcl-shell { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.bfcl-shell--flush .bfcl-kanban { border-top:1px solid var(--border); }
+/* 台账连体顶栏：左 Pill Tabs + 右工具链（DESIGN §2.4.3.1） */
+.bfcl-shell > .bfcl-toolbar {
+  margin-bottom: 0;
+  flex-wrap: nowrap;
+  gap: 12px 16px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+.bfcl-shell > .bfcl-toolbar .bfcl-tools {
+  padding: 0;
+  flex: 0 1 auto;
+  min-width: 0;
+}
 .bfcl-tools { display:flex; align-items:center; gap:8px; flex-wrap:nowrap; padding:12px 14px; overflow-x:auto; }
 .bfcl-more { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px 12px; align-items:end; padding:0 14px 14px; }
 .bfcl-field label { display:block; font-size:12px; font-weight:600; color:var(--body); margin-bottom:6px; }
@@ -37,17 +60,55 @@
 .bfcl-table td { padding:14px; border-bottom:1px solid var(--border); vertical-align:middle; }
 .bfcl-table tr.is-expandable { cursor:pointer; }
 .bfcl-table tr.is-expandable:hover td { background: color-mix(in srgb, var(--p) 4%, white); }
-.bfcl-table tr.is-child td { background: var(--pearl); padding-top:10px; padding-bottom:10px; font-size:13px; }
-.bfcl-nested { width:100%; border-collapse:collapse; margin:8px 0 4px; }
-.bfcl-nested th { font-size:11px; padding:8px 10px; background:#eef2f7; }
-.bfcl-nested td { padding:10px; border-bottom:1px dashed var(--border); }
+.bfcl-table-wrap { overflow-x:auto; }
+.bfcl-table tr.is-child td { background: var(--pearl); padding:12px 14px 16px; font-size:13px; }
+.bfcl-nested { width:100%; border-collapse:collapse; margin:4px 0; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.bfcl-nested th { font-size:11px; font-weight:600; padding:8px 10px; background:var(--pearl); color:var(--muted); border-bottom:1px solid var(--border); white-space:nowrap; }
+.bfcl-nested td { padding:10px; border-bottom:1px dashed var(--border); background:var(--card); }
+.bfcl-nested tr:last-child td { border-bottom:none; }
 
 .bfcl-primary { font-size:14px; font-weight:700; }
-.bfcl-mono { font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:13px; }
+/* 金额 / 日期 / 单号 / 车牌：统一等宽；子级 .bfcl-muted 继承字族，禁止副行掉回黑体 */
+.bfcl-mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+.bfcl-mono .bfcl-muted,
+.bfcl-mono.bfcl-muted {
+  font-family: inherit;
+  font-variant-numeric: inherit;
+}
 .bfcl-muted { font-size:12px; color:var(--muted); }
-.bfcl-pager { margin-top:12px; }
-.is-danger { color:#ef4444; font-weight:700; }
-.is-ok { color:#059669; font-weight:700; }
+.bfcl-pager { padding:12px 14px; border-top:1px solid var(--border); background:var(--card); }
+.is-danger { color:var(--ln-error, #ef4444); font-weight:700; }
+.is-ok { color:var(--ln-success, #10b981); font-weight:700; }
+
+/* 看板 · 账单四态 Pipeline */
+.bfcl-kanban { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; padding:16px; align-items:start; min-height:480px; background:var(--pearl); }
+.bfcl-kanban__col { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; min-height:440px; min-width:0; }
+.bfcl-kanban__head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border); font-size:14px; font-weight:800; }
+.bfcl-kanban__dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+.bfcl-kanban__count { font-family:var(--mono); font-size:11px; font-weight:700; background:var(--pearl); border:1px solid var(--border); padding:2px 8px; border-radius:10px; }
+.bfcl-kanban__list { display:flex; flex-direction:column; gap:10px; }
+.bfcl-kanban__card { text-align:left; width:100%; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+.bfcl-kanban__card:hover { border-color:color-mix(in srgb, var(--p) 40%, var(--border)); }
+.bfcl-kanban__card-top { display:flex; justify-content:space-between; gap:8px; margin-bottom:6px; }
+.bfcl-kanban__code { font-size:11px; font-weight:700; color:var(--p); background:color-mix(in srgb, var(--p) 12%, transparent); padding:2px 6px; border-radius:4px; }
+.bfcl-kanban__amt { margin-top:8px; font-size:12px; color:var(--body); font-family:var(--mono); font-variant-numeric:tabular-nums; }
+.bfcl-kanban__amt strong { font-family:inherit; font-variant-numeric:inherit; }
+
+/* Split 主从工作台 */
+.bfcl-split-view { display:grid; grid-template-columns:340px minmax(0,1fr); gap:20px; align-items:start; min-height:640px; }
+.bfcl-split-view__side { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; max-height:calc(100vh - 140px); overflow:auto; min-width:0; }
+.bfcl-split-view__search { margin-bottom:12px; }
+.bfcl-split-view__list { display:flex; flex-direction:column; gap:8px; }
+.bfcl-split-view__item { text-align:left; width:100%; padding:12px; border-radius:10px; border:1px solid var(--border); background:var(--pearl); }
+.bfcl-split-view__item.is-on { border-color:var(--p); background:color-mix(in srgb, var(--p) 10%, white); }
+.bfcl-split-view__item-top { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:4px; }
+.bfcl-split-view__main { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; min-width:0; }
+.bfcl-split-view__header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+.bfcl-split-view__title { margin:0 0 4px; font-size:18px; font-weight:800; }
 
 .bfcl-form-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
 .bfcl-form-header__divider { width:1px; height:20px; background:var(--border); }
@@ -79,10 +140,26 @@
 .bfcl-callout.is-danger { border-left-color:#ef4444; background:rgba(239,68,68,.08); }
 .bfcl-tag-row { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
 
-@media (max-width:1100px){ .bfcl-split-3{grid-template-columns:1fr;} .bfcl-split{grid-template-columns:1fr;} }
+@media (max-width:1100px){
+  .bfcl-split-3{grid-template-columns:1fr;}
+  .bfcl-split{grid-template-columns:1fr;}
+  .bfcl-kanban{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .bfcl-split-view{grid-template-columns:1fr;}
+  .bfcl-split-view__side{max-height:280px;}
+}
 @media (max-width:900px){ .bfcl-kpi{grid-template-columns:repeat(2,minmax(0,1fr));} }
 @media (max-width:767px){
   .bfcl-page,.bfcl-detail{padding:16px;}
+  .bfcl-kpi{grid-template-columns:1fr; gap:12px;}
+  .bfcl-kanban{grid-template-columns:1fr;}
+  .bfcl-shell > .bfcl-toolbar{flex-wrap:wrap;}
+  .bfcl-shell > .bfcl-toolbar .bfcl-tools{flex:1 1 100%; justify-content:flex-end;}
   .bfcl-tools{flex-wrap:wrap;}
   .bfcl-form-header__actions button{min-height:44px;}
+  .bfcl-kanban__card,.bfcl-split-view__item{min-height:44px;}
+}
+
+[data-ds-mode="dark"] .bfcl-split-view__item.is-on,
+[data-oneos-theme="dark"] .bfcl-split-view__item.is-on {
+  background: color-mix(in srgb, var(--p) 18%, transparent);
 }

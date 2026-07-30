@@ -1,28 +1,32 @@
 import React, { useMemo, useState } from 'react';
-import { Filter, Link2, RotateCcw, Unlink } from 'lucide-react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
+import { Filter, Link2, RotateCcw, Sparkles, Unlink } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
   V2Empty,
-  V2FilterMoreButton,
   V2FilterSearch,
   V2Pagination,
-  V2Select,
   V2StatusTabs,
 } from '../../resources/design-system/components/UIComponents';
 import { V2Badge, type V2BadgeStatus } from '../../resources/design-system/components/V2Badge';
 import { MOCK_RECORDS, PAYMENT_DOC_OPTIONS, RECEIPT_DOC_OPTIONS } from './mockData';
 import {
+  confidenceBadgeStatus,
+  rankSmartMatches,
+  type SmartMatchHit,
+} from './smartMatch';
+import {
   formatMoney,
   type BizDocOption,
-  type Filters,
   type FinanceRecord,
   type FlowType,
   type LinkStatus,
   type PageMode,
+  type StatusTab,
 } from './types';
-
-/* V2Select 无 label 属性，筛选项外包 field */
 
 const statusBadge = (s: LinkStatus): V2BadgeStatus => {
   if (s === '已闭环') return 'success';
@@ -40,29 +44,48 @@ export function PaymentHub() {
   const [rows, setRows] = useState<FinanceRecord[]>(MOCK_RECORDS);
   const [pageMode, setPageMode] = useState<PageMode>('ledger');
   const [flowTab, setFlowTab] = useState<FlowType | 'all'>('all');
-  const [filters, setFilters] = useState<Filters>({ keyword: '', flow: 'all', status: 'all' });
-  const [draft, setDraft] = useState(filters);
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [statusTab, setStatusTab] = useState<StatusTab>('all');
+  const [keyword, setKeyword] = useState('');
+  const [keywordDraft, setKeywordDraft] = useState('');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
+  const flowCounts = useMemo(() => {
+    const all = rows.length;
+    const receipt = rows.filter((r) => r.flow === '收款').length;
+    const payment = rows.filter((r) => r.flow === '付款').length;
+    return { all, receipt, payment };
+  }, [rows]);
+
+  const statusScope = useMemo(
+    () => (flowTab === 'all' ? rows : rows.filter((r) => r.flow === flowTab)),
+    [rows, flowTab],
+  );
+
+  const statusCounts = useMemo(() => {
+    const all = statusScope.length;
+    const unlinked = statusScope.filter((r) => r.status === '未关联').length;
+    const partial = statusScope.filter((r) => r.status === '部分关联').length;
+    const closed = statusScope.filter((r) => r.status === '已闭环').length;
+    return { all, unlinked, partial, closed };
+  }, [statusScope]);
+
   const filtered = useMemo(() => {
     return rows.filter((r) => {
       if (flowTab !== 'all' && r.flow !== flowTab) return false;
-      if (filters.flow !== 'all' && r.flow !== filters.flow) return false;
-      if (filters.status !== 'all' && r.status !== filters.status) return false;
-      if (filters.keyword) {
-        const q = filters.keyword.trim().toLowerCase();
-        const hay = [r.voucherNo, r.counterparty, ...r.linkedDocs.map((d) => d.docNo)]
+      if (statusTab !== 'all' && r.status !== statusTab) return false;
+      if (keyword) {
+        const q = keyword.trim().toLowerCase();
+        const hay = [r.voucherNo, r.counterparty, r.remark ?? '', ...r.linkedDocs.map((d) => d.docNo)]
           .join(' ')
           .toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [rows, filters, flowTab]);
+  }, [rows, flowTab, statusTab, keyword]);
 
   const kpi = useMemo(() => {
     const unlinked = rows.filter((r) => r.status === '未关联').length;
@@ -86,17 +109,15 @@ export function PaymentHub() {
   };
 
   const applyFilters = () => {
-    setFilters(draft);
-    setMoreOpen(false);
+    setKeyword(keywordDraft);
     setPage(1);
   };
 
   const resetFilters = () => {
-    const empty: Filters = { keyword: '', flow: 'all', status: 'all' };
-    setDraft(empty);
-    setFilters(empty);
+    setKeywordDraft('');
+    setKeyword('');
     setFlowTab('all');
-    setMoreOpen(false);
+    setStatusTab('all');
     setPage(1);
   };
 
@@ -105,45 +126,74 @@ export function PaymentHub() {
     setPageMode('detail');
   };
 
-  const linkDoc = (doc: BizDocOption) => {
+  const applyLinks = (docs: BizDocOption[], toastMsg?: string) => {
     if (!active) return;
-    const remain = active.amount - active.linkedAmount;
+    let remain = active.amount - active.linkedAmount;
     if (remain <= 0) {
       showToast('本流水已闭环，不可再关联');
       return;
     }
-    const useAmt = Math.min(remain, doc.amount);
-    const nextDocs = [...active.linkedDocs, { type: doc.type, docNo: doc.docNo, amount: useAmt }];
+    const nextDocs = [...active.linkedDocs];
+    const applied: string[] = [];
+    for (const doc of docs) {
+      if (remain <= 0) break;
+      if (nextDocs.some((d) => d.docNo === doc.docNo)) continue;
+      const useAmt = Math.min(remain, doc.amount);
+      nextDocs.push({ type: doc.type, docNo: doc.docNo, amount: useAmt });
+      remain -= useAmt;
+      applied.push(doc.docNo);
+    }
+    if (applied.length === 0) {
+      showToast('没有可写入的单据');
+      return;
+    }
     const linkedAmount = nextDocs.reduce((s, d) => s + d.amount, 0);
     const status = recomputeStatus(active.amount, linkedAmount);
     const patched: FinanceRecord = { ...active, linkedDocs: nextDocs, linkedAmount, status };
     setRows((list) => list.map((r) => (r.id === patched.id ? patched : r)));
     setActiveId(patched.id);
-    showToast(`已关联 ${doc.docNo}，业务单据回写「实收/实付」`);
+    showToast(toastMsg ?? `已关联 ${applied.join('、')}，业务单据回写「实收/实付」`);
   };
 
-  const clearLinks = () => {
-    if (!active) return;
-    if (active.status === '已闭环') {
-      showToast('门禁：已闭环流水取消关联需财务复核（原型演示拦截）');
+  const linkDoc = (doc: BizDocOption) => {
+    applyLinks([doc]);
+  };
+
+  const applySmartHits = (hits: SmartMatchHit[], onlyHigh = false) => {
+    const picked = onlyHigh ? hits.filter((h) => h.confidence === '高') : hits;
+    if (picked.length === 0) {
+      showToast(onlyHigh ? '暂无高置信建议可一键关联' : '暂无匹配建议');
       return;
     }
-    const patched: FinanceRecord = {
-      ...active,
-      linkedDocs: [],
-      linkedAmount: 0,
-      status: '未关联',
-    };
+    applyLinks(
+      picked.map((h) => h.doc),
+      onlyHigh
+        ? `已按智能匹配写入 ${picked.length} 条高置信单据`
+        : `已关联建议单据 ${picked.map((h) => h.doc.docNo).join('、')}`,
+    );
+  };
+
+  const unlinkDoc = (docNo: string, amount: number) => {
+    if (!active) return;
+    const nextDocs = active.linkedDocs.filter((d) => !(d.docNo === docNo && d.amount === amount));
+    const linkedAmount = nextDocs.reduce((s, d) => s + d.amount, 0);
+    const status = recomputeStatus(active.amount, linkedAmount);
+    const patched: FinanceRecord = { ...active, linkedDocs: nextDocs, linkedAmount, status };
     setRows((list) => list.map((r) => (r.id === patched.id ? patched : r)));
     setActiveId(patched.id);
-    showToast('已取消关联，业务侧不得假性结清');
+    showToast(`已移除 ${docNo}，可重新关联其他单据`);
   };
 
   if (pageMode === 'detail' && active) {
     const options = active.flow === '收款' ? RECEIPT_DOC_OPTIONS : PAYMENT_DOC_OPTIONS;
     const remain = Math.max(0, active.amount - active.linkedAmount);
+    const smartHits = rankSmartMatches(active, options, remain);
+    const highHits = smartHits.filter((h) => h.confidence === '高');
+    const hitByNo = new Map(smartHits.map((h) => [h.doc.docNo, h]));
+
     return (
       <div className="bfcl-pay bfcl-pay-detail">
+        <BfclChainNav current="pay" />
         <header className="bfcl-pay-form-header">
           <V2Button variant="back" size="sm" onClick={() => { setPageMode('ledger'); setActiveId(null); }}>
             返回列表
@@ -154,9 +204,6 @@ export function PaymentHub() {
             <span className="bfcl-pay-form-header__pill">{active.voucherNo}</span>
           </div>
           <div className="bfcl-pay-form-header__actions">
-            <V2Button variant="secondary" size="sm" onClick={clearLinks}>
-              <Unlink size={14} /> 取消关联
-            </V2Button>
             <V2Button
               variant="primary"
               size="sm"
@@ -190,7 +237,11 @@ export function PaymentHub() {
           <div>
             <span className="bfcl-pay-muted">已关联 / 剩余</span>
             <strong className="bfcl-pay-mono">
-              ¥{formatMoney(active.linkedAmount)} / ¥{formatMoney(remain)}
+              ¥{formatMoney(active.linkedAmount)}
+              {' / '}
+              <span className={remain > 0.001 ? 'bfcl-pay-remain-warn' : undefined}>
+                ¥{formatMoney(remain)}
+              </span>
             </strong>
           </div>
           <div>
@@ -199,28 +250,101 @@ export function PaymentHub() {
           </div>
         </section>
 
-        <div className="bfcl-pay-split">
-          <section className="bfcl-pay-panel">
-            <h2>可关联业务单据（{active.flow === '收款' ? '应收' : '应付'}）</h2>
-            <p className="bfcl-pay-hint">点击「关联」写入本流水；金额超出剩余可关联额时按剩余核销。</p>
-            <div className="bfcl-pay-doc-list">
-              {options.map((doc) => (
-                <div key={doc.docNo} className="bfcl-pay-doc-row">
-                  <div>
-                    <div className="bfcl-pay-doc-title">{doc.type}</div>
+        {active.remark ? (
+          <p className="bfcl-pay-summary-line">
+            <span className="bfcl-pay-muted">银行摘要</span>
+            <span>{active.remark}</span>
+          </p>
+        ) : null}
+
+        <section className="bfcl-pay-smart" data-annotation-id="bfcl-pay-smart-match">
+          <div className="bfcl-pay-smart__head">
+            <div className="bfcl-pay-smart__title">
+              <Sparkles size={16} aria-hidden />
+              <h2>智能匹配建议</h2>
+              <span className="bfcl-pay-muted">客户名称 · 金额 · 摘要规则</span>
+            </div>
+            <V2Button
+              variant="outline"
+              size="sm"
+              icon={<Sparkles size={14} />}
+              disabled={remain <= 0 || highHits.length === 0}
+              onClick={() => applySmartHits(smartHits, true)}
+            >
+              一键关联高置信（{highHits.length}）
+            </V2Button>
+          </div>
+          {remain <= 0 ? (
+            <p className="bfcl-pay-hint">本流水已闭环，无需再匹配。</p>
+          ) : smartHits.length === 0 ? (
+            <p className="bfcl-pay-hint">暂无达到阈值的建议，请在下方列表手工点选「关联」。</p>
+          ) : (
+            <ul className="bfcl-pay-smart__list">
+              {smartHits.map((hit) => (
+                <li key={hit.doc.docNo} className="bfcl-pay-smart__row">
+                  <div className="bfcl-pay-smart__main">
+                    <div className="bfcl-pay-smart__line">
+                      <strong>{hit.doc.type}</strong>
+                      <V2Badge status={confidenceBadgeStatus(hit.confidence)} label={`${hit.confidence} · ${hit.score}分`} />
+                    </div>
                     <div className="bfcl-pay-muted">
-                      {doc.docNo} · {doc.customer}
-                      {doc.plate ? ` · ${doc.plate}` : ''}
+                      <code className="bfcl-pay-mono">{hit.doc.docNo}</code>
+                      {' · '}
+                      {hit.doc.customer}
+                      {hit.doc.plate ? ` · ${hit.doc.plate}` : ''}
+                      {' · '}命中：{hit.reasons.join(' / ')}
                     </div>
                   </div>
                   <div className="bfcl-pay-doc-right">
-                    <span className="bfcl-pay-mono">¥{formatMoney(doc.amount)}</span>
-                    <V2Button variant="outline" size="sm" onClick={() => linkDoc(doc)}>
-                      <Link2 size={14} /> 关联
+                    <span className="bfcl-pay-mono">¥{formatMoney(hit.doc.amount)}</span>
+                    <V2Button
+                      variant="outline"
+                      size="sm"
+                      icon={<Link2 size={14} />}
+                      onClick={() => applySmartHits([hit])}
+                    >
+                      采纳
                     </V2Button>
                   </div>
-                </div>
+                </li>
               ))}
+            </ul>
+          )}
+        </section>
+
+        <div className="bfcl-pay-split">
+          <section className="bfcl-pay-panel">
+            <h2>可关联业务单据（{active.flow === '收款' ? '应收' : '应付'}）</h2>
+            <p className="bfcl-pay-hint">点击「关联」写入本流水；金额超出剩余可关联额时按剩余核销。带智能建议角标的优先核验。</p>
+            <div className="bfcl-pay-doc-list">
+              {options.map((doc) => {
+                const hit = hitByNo.get(doc.docNo);
+                return (
+                  <div key={doc.docNo} className={`bfcl-pay-doc-row${hit ? ' is-smart-hit' : ''}`}>
+                    <div>
+                      <div className="bfcl-pay-doc-title">
+                        {doc.type}
+                        {hit ? (
+                          <V2Badge status={confidenceBadgeStatus(hit.confidence)} label={`建议 ${hit.confidence}`} />
+                        ) : null}
+                      </div>
+                      <div className="bfcl-pay-muted">
+                        <code className="bfcl-pay-mono">{doc.docNo}</code>
+                        {' · '}
+                        {doc.customer}
+                        {doc.plate ? ` · ${doc.plate}` : ''}
+                        {hit ? ` · ${hit.reasons.join('/')}` : ''}
+                      </div>
+                    </div>
+                    <div className="bfcl-pay-doc-right">
+                      <span className="bfcl-pay-mono">¥{formatMoney(doc.amount)}</span>
+                      <V2Button variant="outline" size="sm" icon={<Link2 size={14} />} onClick={() => linkDoc(doc)}>
+                        关联
+                      </V2Button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </section>
           <section className="bfcl-pay-panel">
@@ -232,17 +356,24 @@ export function PaymentHub() {
                 {active.linkedDocs.map((d) => (
                   <li key={`${d.docNo}-${d.amount}`}>
                     <span>
-                      {d.type} · <code>{d.docNo}</code>
+                      {d.type} · <code className="bfcl-pay-mono">{d.docNo}</code>
                     </span>
-                    <span className="bfcl-pay-mono">¥{formatMoney(d.amount)}</span>
+                    <div className="bfcl-pay-linked__right">
+                      <span className="bfcl-pay-mono">¥{formatMoney(d.amount)}</span>
+                      <V2Button
+                        variant="ghost"
+                        size="sm"
+                        icon={<Unlink size={14} />}
+                        onClick={() => unlinkDoc(d.docNo, d.amount)}
+                        aria-label={`移除 ${d.docNo}`}
+                      >
+                        移除
+                      </V2Button>
+                    </div>
                   </li>
                 ))}
               </ul>
             )}
-            <div className="bfcl-pay-row" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--bfcl-border, #e3e8ee)' }}>
-              <span>对照 V1.2</span>
-              <span className="bfcl-pay-muted">收款认领 + 业务单据核销；本页强化「无关联不得结清」</span>
-            </div>
           </section>
         </div>
         {toast ? <div className="bfcl-pay-toast" role="status">{toast}</div> : null}
@@ -252,6 +383,7 @@ export function PaymentHub() {
 
   return (
     <div className="bfcl-pay">
+      <BfclChainNav current="pay" />
       <div className="bfcl-pay-toolbar">
         <V2StatusTabs
           value={flowTab}
@@ -260,9 +392,9 @@ export function PaymentHub() {
             setPage(1);
           }}
           options={[
-            { key: 'all', label: '全部' },
-            { key: '收款', label: '收款记录' },
-            { key: '付款', label: '付款记录' },
+            { key: 'all', label: '全部', count: flowCounts.all },
+            { key: '收款', label: '收款记录', count: flowCounts.receipt },
+            { key: '付款', label: '付款记录', count: flowCounts.payment },
           ]}
         />
         <V2Button
@@ -282,8 +414,7 @@ export function PaymentHub() {
             className="bfcl-pay-kpi__card"
             onClick={() => {
               if (!k.tab) return;
-              setDraft((d) => ({ ...d, status: k.tab! }));
-              setFilters((f) => ({ ...f, status: k.tab! }));
+              setStatusTab(k.tab);
               setPage(1);
             }}
           >
@@ -293,24 +424,32 @@ export function PaymentHub() {
         ))}
       </div>
 
-      <div className={`bfcl-pay-shell ${moreOpen ? 'is-expanded' : ''}`}>
+      <div className="bfcl-pay-shell">
         <div className="bfcl-pay-tools v2-filter-toolbar-tools">
+          <V2StatusTabs
+            value={statusTab}
+            onChange={(v) => {
+              setStatusTab(v);
+              setPage(1);
+            }}
+            options={[
+              { key: 'all', label: '全部状态', count: statusCounts.all },
+              { key: '未关联', label: '未关联', count: statusCounts.unlinked },
+              { key: '部分关联', label: '部分关联', count: statusCounts.partial },
+              { key: '已闭环', label: '已闭环', count: statusCounts.closed },
+            ]}
+          />
           <V2FilterSearch aria-label="搜索流水">
             <input
               type="text"
-              placeholder="流水号 / 对方 / 单据号"
-              value={draft.keyword}
-              onChange={(e) => setDraft((d) => ({ ...d, keyword: e.target.value }))}
+              placeholder="流水号 / 对方 / 单据号 / 摘要"
+              value={keywordDraft}
+              onChange={(e) => setKeywordDraft(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') applyFilters();
               }}
             />
           </V2FilterSearch>
-          <V2FilterMoreButton
-            open={moreOpen}
-            activeCount={(draft.flow !== 'all' ? 1 : 0) + (draft.status !== 'all' ? 1 : 0)}
-            onClick={() => setMoreOpen((o) => !o)}
-          />
           <V2Button variant="primary" size="sm" icon={<Filter size={14} />} onClick={applyFilters}>
             查询
           </V2Button>
@@ -318,36 +457,6 @@ export function PaymentHub() {
             重置
           </V2Button>
         </div>
-
-        {moreOpen ? (
-          <div className="bfcl-pay-more">
-            <div className="bfcl-pay-field">
-              <label>流向</label>
-              <V2Select
-                value={draft.flow}
-                onChange={(v) => setDraft((d) => ({ ...d, flow: v as Filters['flow'] }))}
-                options={[
-                  { value: 'all', label: '全部' },
-                  { value: '收款', label: '收款' },
-                  { value: '付款', label: '付款' },
-                ]}
-              />
-            </div>
-            <div className="bfcl-pay-field">
-              <label>关联状态</label>
-              <V2Select
-                value={draft.status}
-                onChange={(v) => setDraft((d) => ({ ...d, status: v as Filters['status'] }))}
-                options={[
-                  { value: 'all', label: '全部' },
-                  { value: '未关联', label: '未关联' },
-                  { value: '部分关联', label: '部分关联' },
-                  { value: '已闭环', label: '已闭环' },
-                ]}
-              />
-            </div>
-          </div>
-        ) : null}
 
         <div className="bfcl-pay-table-wrap">
           {pageRows.length === 0 ? (
@@ -358,10 +467,9 @@ export function PaymentHub() {
                 <tr>
                   <th>流水号</th>
                   <th>流向</th>
-                  <th>对方</th>
                   <th>金额</th>
                   <th>到账/出账日</th>
-                  <th>已关联</th>
+                  <th>已关联 / 剩余</th>
                   <th>状态</th>
                   <th>操作</th>
                 </tr>
@@ -370,21 +478,38 @@ export function PaymentHub() {
                 {pageRows.map((r) => (
                   <tr key={r.id}>
                     <td>
-                      <div className="bfcl-pay-primary">{r.voucherNo}</div>
+                      <div className="bfcl-pay-row-title">{r.counterparty}</div>
+                      <DetailEntryLink
+                        variant="code"
+                        ariaLabel={`${r.voucherNo}，点击进入收付款详情`}
+                        onClick={() => openDetail(r.id)}
+                      >
+                        {r.voucherNo}
+                      </DetailEntryLink>
                       <div className="bfcl-pay-muted">{r.channel}</div>
                     </td>
                     <td>{r.flow}</td>
-                    <td>{r.counterparty}</td>
                     <td className="bfcl-pay-mono">¥{formatMoney(r.amount)}</td>
-                    <td>{r.paidAt}</td>
-                    <td className="bfcl-pay-mono">¥{formatMoney(r.linkedAmount)}</td>
+                    <td className="bfcl-pay-mono">{r.paidAt}</td>
+                    <td className="bfcl-pay-mono">
+                      ¥{formatMoney(r.linkedAmount)}
+                      {' / '}
+                      <span
+                        className={
+                          r.amount - r.linkedAmount > 0.001
+                            ? 'bfcl-pay-remain-warn'
+                            : undefined
+                        }
+                      >
+                        ¥{formatMoney(Math.max(0, r.amount - r.linkedAmount))}
+                      </span>
+                    </td>
                     <td>
                       <V2Badge status={statusBadge(r.status)} label={r.status} />
                     </td>
                     <td>
                       <OperationActions
                         process={{ label: '关联', onClick: () => openDetail(r.id) }}
-                        view={{ label: '查看', onClick: () => openDetail(r.id) }}
                       />
                     </td>
                   </tr>

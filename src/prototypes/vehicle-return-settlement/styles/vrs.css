@@ -9,14 +9,13 @@
   --vrs-ink: var(--ln-ink, #0a2540);
   --vrs-body: var(--ln-body, #425466);
   --vrs-pearl: var(--ln-surface-pearl, #f8fafc);
-  --vrs-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --vrs-mono: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', 'Cascadia Mono', Consolas, 'SF Mono', SFMono-Regular, Menlo, monospace));
 
   width: 100%;
   min-height: calc(100vh - 48px);
   background: var(--vrs-canvas);
   color: var(--vrs-ink);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei',
-    sans-serif;
+  font-family: var(--ln-font, var(--vm-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif));
   font-size: 14px;
   line-height: 1.5;
   font-variant-numeric: tabular-nums;
@@ -168,13 +167,27 @@
 }
 
 .vrs-table-wrap {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .vrs-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   min-width: 720px;
+}
+
+/** 台账宽表：按内容撑开 + 横向滚动，禁止硬挤扁 */
+.vrs-table--ledger {
+  width: max-content;
+  min-width: max(100%, 1920px);
+  table-layout: auto;
 }
 
 .vrs-table th {
@@ -193,10 +206,41 @@
   border-bottom: 1px solid var(--vrs-border);
   vertical-align: top;
   font-size: 13px;
+  background: var(--vrs-card);
 }
 
 .vrs-table--ledger td {
   padding: 14px 16px;
+  white-space: nowrap;
+}
+
+.vrs-table--ledger .vrs-submit-cell {
+  white-space: normal;
+}
+
+.vrs-sticky-left {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  box-shadow: 6px 0 14px -6px rgba(10, 37, 64, 0.14);
+}
+
+.vrs-sticky-right {
+  position: sticky;
+  right: 0;
+  z-index: 5;
+  box-shadow: -6px 0 14px -6px rgba(10, 37, 64, 0.18);
+}
+
+thead .vrs-sticky-left,
+thead .vrs-sticky-right {
+  z-index: 6;
+  background: var(--vrs-pearl);
+}
+
+tbody tr:hover .vrs-sticky-left,
+tbody tr:hover .vrs-sticky-right {
+  background: var(--vrs-pearl);
 }
 
 .vrs-link-title {
@@ -225,44 +269,54 @@
   font-weight: 700;
 }
 
-.vrs-submit-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 12px;
-  font-size: 12px;
-  color: var(--vrs-body);
-  min-width: 200px;
+.vrs-th-group {
+  text-align: center !important;
+  border-bottom: none !important;
 }
 
-.vrs-submit-item {
+.vrs-th-sub {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  padding-top: 6px !important;
+  padding-bottom: 10px !important;
+}
+
+.vrs-submit-cell {
   display: inline-flex;
-  align-items: flex-start;
-  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  font-size: 12px;
   line-height: 1.35;
-}
-
-.vrs-submit-item__body {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-.vrs-submit-item__dept {
-  font-weight: 600;
+  min-width: 72px;
   color: var(--vrs-body);
 }
 
-.vrs-submit-item__meta {
+.vrs-submit-cell__name {
+  font-weight: 600;
+  color: var(--vrs-ink);
+}
+
+.vrs-submit-cell:not(.vrs-submit-cell--done) .vrs-submit-cell__name {
+  font-weight: 500;
+  color: var(--vrs-body);
+}
+
+.vrs-submit-cell__status {
+  flex-basis: 100%;
+  padding-left: 18px;
   font-size: 11px;
-  color: var(--vrs-muted, #64748b);
-  white-space: nowrap;
+  color: #64748b;
+}
+
+.vrs-submit-cell--done .vrs-submit-cell__status {
+  color: #059669;
 }
 
 .vrs-submit-ico {
   color: #94a3b8;
   flex-shrink: 0;
-  margin-top: 1px;
 }
 
 .vrs-submit-ico--done {
@@ -435,9 +489,12 @@
   flex-wrap: wrap;
 }
 
-.vrs-form-header__path {
-  color: var(--vrs-body);
-  font-size: 13px;
+.vrs-form-header__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--vrs-ink);
+  line-height: 1.2;
 }
 
 .vrs-bill-pill {
@@ -789,6 +846,110 @@
   box-shadow: 0 8px 24px rgba(10, 37, 64, 0.2);
 }
 
+.vrs-transfer-log {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  list-style: none;
+  background: var(--vrs-pearl);
+  border: 1px solid var(--vrs-border);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--vrs-body);
+}
+
+.vrs-transfer-log li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 4px 0;
+}
+
+.vrs-transfer-log em {
+  font-style: normal;
+  color: var(--vrs-ink);
+}
+
+.vrs-modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(10, 37, 64, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.vrs-modal {
+  width: min(440px, 100%);
+  background: var(--vrs-card);
+  border: 1px solid var(--vrs-border);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(10, 37, 64, 0.18);
+}
+
+.vrs-modal__head {
+  padding: 16px 20px 8px;
+}
+
+.vrs-modal__head h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--vrs-ink);
+}
+
+.vrs-modal__body {
+  padding: 8px 20px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vrs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--vrs-body);
+}
+
+.vrs-field strong {
+  color: var(--vrs-ink);
+  font-size: 14px;
+}
+
+.vrs-textarea {
+  width: 100%;
+  min-height: 88px;
+  border: 1px solid var(--vrs-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--vrs-ink);
+  background: var(--vrs-card);
+  resize: vertical;
+}
+
+.vrs-textarea:focus {
+  outline: 2px solid var(--vrs-primary);
+  outline-offset: 1px;
+}
+
+.vrs-field-error {
+  margin: 0;
+  color: #ef4444;
+  font-size: 12px;
+}
+
+.vrs-modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px 16px;
+}
+
 [data-ds-mode='dark'] .vrs-page,
 [data-oneos-theme='dark'] .vrs-page,
 [data-ds-mode='dark'] .vrs-detail,
@@ -803,12 +964,12 @@
 
 [data-ds-mode='dark'] .vrs-bill-pill,
 [data-oneos-theme='dark'] .vrs-bill-pill {
-  background: rgba(83, 58, 253, 0.18);
+  background: color-mix(in srgb, var(--oneos-primary, #533afd) 18%, transparent);
 }
 
 [data-ds-mode='dark'] .vrs-split__item.is-active,
 [data-oneos-theme='dark'] .vrs-split__item.is-active {
-  background: rgba(83, 58, 253, 0.18);
+  background: color-mix(in srgb, var(--oneos-primary, #533afd) 18%, transparent);
 }
 
 @media (max-width: 1024px) {

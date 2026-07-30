@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { ChevronDown, ChevronRight, Filter, RotateCcw } from 'lucide-react';
+import { DetailEntryLink } from '../../common/DetailEntryLink';
 import { OperationActions } from '../../common/OperationActions';
 import {
   V2Button,
@@ -142,6 +145,7 @@ export function PickupHub() {
 
     return (
       <div className="bfcl-detail">
+      <BfclChainNav current="pickup" />
         <header className="bfcl-form-header">
           <V2Button variant="back" size="sm" onClick={() => { setMode('ledger'); setActive(null); }}>
             返回列表
@@ -149,7 +153,7 @@ export function PickupHub() {
           <span className="bfcl-form-header__divider" />
           <div className="bfcl-form-header__title-wrap">
             <h1 className="bfcl-form-header__title">提车收款单</h1>
-            <span className="bfcl-form-header__pill">{contract.contractCode}-0{receipt.seq}</span>
+            <span className="bfcl-form-header__pill">{receipt.receiptNo}</span>
             <V2Badge status={auditBadge(receipt.auditStatus)} label={receipt.auditStatus} />
             <V2Badge status={alignBadge(receipt.alignStatus)} label={receipt.alignStatus} />
           </div>
@@ -186,7 +190,7 @@ export function PickupHub() {
                   arrivalTime: '2026-07-29 10:00',
                   alignStatus: receipt.specialApproved && alignStatus !== '已付清' ? '特批放行' : alignStatus,
                 });
-                showToast(`已关联收款 ¥${formatMoney(add)}（对照收付款中枢）`);
+                showToast(`已关联收款 ¥${formatMoney(add)}（对照收付款中枢，单号 ${receipt.receiptNo}）`);
               }}
             >
               关联收款入账
@@ -350,6 +354,7 @@ export function PickupHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="pickup" />
       <div className="bfcl-toolbar">
         <V2StatusTabs
           value={tab}
@@ -503,7 +508,18 @@ export function PickupHub() {
                     >
                       <td>{open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}</td>
                       <td>
-                        <div className="bfcl-primary bfcl-mono">{c.contractCode}</div>
+                        <DetailEntryLink
+                          variant="code"
+                          stopPropagation
+                          ariaLabel={`${c.contractCode}，点击展开或查看提车应收`}
+                          onClick={() =>
+                            setExpanded((keys) =>
+                              keys.includes(c.id) ? keys.filter((k) => k !== c.id) : [...keys, c.id],
+                            )
+                          }
+                        >
+                          {c.contractCode}
+                        </DetailEntryLink>
                         <div className="bfcl-muted">{c.contractType} · {c.payMode}/{c.payCycleMonths}月</div>
                       </td>
                       <td>
@@ -563,7 +579,16 @@ export function PickupHub() {
                             <tbody>
                               {c.children.map((r) => (
                                 <tr key={r.id}>
-                                  <td className="bfcl-mono">#{r.seq}</td>
+                                  <td>
+                                    <DetailEntryLink
+                                      variant="code"
+                                      stopPropagation
+                                      ariaLabel={`${r.receiptNo}，点击进入提车应收详情`}
+                                      onClick={() => openDetail(c.id, r.id)}
+                                    >
+                                      {r.receiptNo}
+                                    </DetailEntryLink>
+                                  </td>
                                   <td><V2Badge status={auditBadge(r.auditStatus)} label={r.auditStatus} /></td>
                                   <td>
                                     <div>{r.creator}</div>

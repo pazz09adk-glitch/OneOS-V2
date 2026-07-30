@@ -1,0 +1,33 @@
+/* 业财条线串通导航 */
+.bfcl-chain-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--ln-hairline, #e3e8ee);
+  border-radius: 10px;
+  background: var(--ln-surface-card, #fff);
+  font-size: 12px;
+}
+.bfcl-chain-nav__label {
+  font-weight: 700;
+  color: var(--ln-muted, #627d98);
+  margin-right: 4px;
+}
+.bfcl-chain-nav a {
+  color: var(--oneos-primary, var(--ln-primary, #533afd));
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.bfcl-chain-nav a:hover {
+  background: color-mix(in srgb, var(--oneos-primary, #533afd) 10%, transparent);
+}
+.bfcl-chain-nav a.is-active {
+  background: color-mix(in srgb, var(--oneos-primary, #533afd) 14%, white);
+  color: var(--ln-ink, #0a2540);
+}

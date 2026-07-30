@@ -1,0 +1,85 @@
+/* DESIGN.md §5.1 · 详情入口：主色下划线 + 「查看 ›」 */
+
+button.bfcl-detail-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--oneos-primary, var(--ln-primary, #533afd));
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--oneos-primary, var(--ln-primary, #533afd)) 45%,
+    transparent
+  );
+  text-align: left;
+}
+
+button.bfcl-detail-entry.is-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+button.bfcl-detail-entry.is-code {
+  font-family: var(--ln-font-mono, var(--vm-font-mono, 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace));
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+button.bfcl-detail-entry:hover,
+button.bfcl-detail-entry:focus-visible {
+  color: var(--ln-link, var(--oneos-primary, var(--ln-primary, #533afd)));
+  text-decoration-color: currentColor;
+  outline: none;
+}
+
+button.bfcl-detail-entry:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--oneos-primary, #533afd) 28%, transparent);
+  border-radius: 4px;
+}
+
+.bfcl-detail-entry__text {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bfcl-detail-entry__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.72;
+  text-decoration: none;
+}
+
+button.bfcl-detail-entry:hover .bfcl-detail-entry__hint,
+button.bfcl-detail-entry:focus-visible .bfcl-detail-entry__hint {
+  opacity: 1;
+}
+
+button.bfcl-detail-entry.is-compact {
+  text-decoration: none;
+}
+
+button.bfcl-detail-entry.is-compact:hover,
+button.bfcl-detail-entry.is-compact:focus-visible {
+  text-decoration: underline;
+}

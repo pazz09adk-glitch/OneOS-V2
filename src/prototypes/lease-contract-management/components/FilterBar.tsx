@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, RotateCcw, Search } from 'lucide-react';
 import { ContractFilterState } from '../types';
-import { V2SingleInputDateRangePicker } from '../../../resources/design-system/components/UIComponents';
+import { V2Select, V2SingleInputDateRangePicker } from '../../../resources/design-system/components/UIComponents';
 
 interface FilterBarProps {
   filterState: ContractFilterState;
@@ -30,14 +30,13 @@ export function FilterBar({
   const border = isDark ? '#23272f' : '#e3e8ee';
   const textPrimary = isDark ? '#f7fafc' : '#0a2540';
   const textSecondary = isDark ? '#a0aec0' : '#425466';
-  const accent = '#533afd';
+  const accent = 'var(--oneos-primary, var(--ln-primary, #533afd))';
 
   const updateField = (key: keyof ContractFilterState, value: any) => {
     onFilterChange({ ...filterState, [key]: value });
   };
 
-  const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
+  const handleTemplateChange = (val: string) => {
     onFilterChange({
       ...filterState,
       contractTemplateCategory: val,
@@ -124,15 +123,17 @@ export function FilterBar({
 
         <div>
           <label style={labelStyle}>签约公司主体</label>
-          <select
+<V2Select
             value={filterState.signingCompany || ''}
-            onChange={(e) => updateField('signingCompany', e.target.value)}
-            style={inputStyle}
-          >
-            <option value="">全部签约主体</option>
-            <option value="羚牛氢能(浙江)供应链管理有限公司">羚牛氢能(浙江)供应链管理有限公司</option>
-            <option value="上海羚牛氢能科技有限公司">上海羚牛氢能科技有限公司</option>
-          </select>
+            onChange={(v) => updateField('signingCompany', v)}
+            options={
+              [
+              { value: '', label: '全部签约主体' },
+              { value: '羚牛氢能(浙江)供应链管理有限公司', label: '羚牛氢能(浙江)供应链管理有限公司' },
+              { value: '上海羚牛氢能科技有限公司', label: '上海羚牛氢能科技有限公司' }
+              ]
+            }
+          />
         </div>
       </div>
 
@@ -150,121 +151,127 @@ export function FilterBar({
         >
           <div>
             <label style={labelStyle}>审批状态</label>
-            <select
-              value={filterState.approvalStatus[0] || '全部'}
-              onChange={(e) => updateField('approvalStatus', [e.target.value])}
-              style={inputStyle}
-            >
-              <option value="全部">全部审批状态</option>
-              <option value="unsubmitted">未提交</option>
-              <option value="pending">待审批</option>
-              <option value="approving">审批中</option>
-              <option value="approved">审批通过</option>
-              <option value="rejected">审批驳回</option>
-              <option value="terminated">审批终止</option>
-              <option value="withdrawn">撤回</option>
-            </select>
+<V2Select
+            value={filterState.approvalStatus[0] || '全部'}
+            onChange={(v) => updateField('approvalStatus', [v])}
+            options={
+              [
+              { value: '全部', label: '全部审批状态' },
+              { value: 'unsubmitted', label: '未提交' },
+              { value: 'pending', label: '待审批' },
+              { value: 'approving', label: '审批中' },
+              { value: 'approved', label: '审批通过' },
+              { value: 'rejected', label: '审批驳回' },
+              { value: 'terminated', label: '审批终止' },
+              { value: 'withdrawn', label: '撤回' }
+              ]
+            }
+          />
           </div>
 
           <div>
             <label style={labelStyle}>合同状态</label>
-            <select
-              value={filterState.contractStatus[0] || '全部'}
-              onChange={(e) => updateField('contractStatus', [e.target.value])}
-              style={inputStyle}
-            >
-              <option value="全部">全部合同状态</option>
-              <option value="draft">草稿</option>
-              <option value="submitted">已提交审批</option>
-              <option value="active">合同进行中</option>
-              <option value="terminated">已终止</option>
-            </select>
+<V2Select
+            value={filterState.contractStatus[0] || '全部'}
+            onChange={(v) => updateField('contractStatus', [v])}
+            options={
+              [
+              { value: '全部', label: '全部合同状态' },
+              { value: 'draft', label: '草稿' },
+              { value: 'submitted', label: '已提交审批' },
+              { value: 'active', label: '合同进行中' },
+              { value: 'terminated', label: '已终止' }
+              ]
+            }
+          />
           </div>
 
           <div>
             <label style={labelStyle}>业务部门</label>
-            <select
-              value={filterState.businessDept[0] || ''}
-              onChange={(e) => updateField('businessDept', e.target.value ? [e.target.value] : [])}
-              style={inputStyle}
-            >
-              <option value="">全部部门</option>
-              <option value="华东业务一部">华东业务一部</option>
-              <option value="华东业务二部">华东业务二部</option>
-              <option value="沪苏业务部">沪苏业务部</option>
-            </select>
+<V2Select
+            value={filterState.businessDept[0] || ''}
+            onChange={(v) => updateField('businessDept', v ? [v] : [])}
+            options={
+              [
+              { value: '', label: '全部部门' },
+              { value: '华东业务一部', label: '华东业务一部' },
+              { value: '华东业务二部', label: '华东业务二部' },
+              { value: '沪苏业务部', label: '沪苏业务部' }
+              ]
+            }
+          />
           </div>
 
           <div>
             <label style={labelStyle}>业务负责人</label>
-            <select
-              value={filterState.businessOwner[0] || ''}
-              onChange={(e) => updateField('businessOwner', e.target.value ? [e.target.value] : [])}
-              style={inputStyle}
-            >
-              <option value="">全部负责人</option>
-              <option value="陈业务">陈业务</option>
-              <option value="林经理">林经理</option>
-              <option value="周专员">周专员</option>
-            </select>
+<V2Select
+            value={filterState.businessOwner[0] || ''}
+            onChange={(v) => updateField('businessOwner', v ? [v] : [])}
+            options={
+              [
+              { value: '', label: '全部负责人' },
+              { value: '陈业务', label: '陈业务' },
+              { value: '林经理', label: '林经理' },
+              { value: '周专员', label: '周专员' }
+              ]
+            }
+          />
           </div>
 
           <div>
             <label style={labelStyle}>合同模板</label>
-            <select
-              value={filterState.contractTemplateCategory || ''}
-              onChange={handleTemplateChange}
-              style={inputStyle}
-            >
-              <option value="">全部模板分类</option>
-              <option value="formal">正式租赁合同模板</option>
-              <option value="trial">试用合同模板</option>
-              <option value="heavy_18t">现代18吨正式合同模板</option>
-            </select>
+<V2Select
+            value={filterState.contractTemplateCategory || ''}
+            onChange={handleTemplateChange}
+            options={
+              [
+              { value: '', label: '全部模板分类' },
+              { value: 'formal', label: '正式租赁合同模板' },
+              { value: 'trial', label: '试用合同模板' },
+              { value: 'heavy_18t', label: '现代18吨正式合同模板' }
+              ]
+            }
+          />
           </div>
 
           <div>
             <label style={labelStyle}>标准合同名称 (模板联动)</label>
-            <select
+            <V2Select
               disabled={!filterState.contractTemplateCategory}
               value={filterState.standardContractName || ''}
-              onChange={(e) => updateField('standardContractName', e.target.value)}
-              style={{
-                ...inputStyle,
-                opacity: !filterState.contractTemplateCategory ? 0.5 : 1,
-                cursor: !filterState.contractTemplateCategory ? 'not-allowed' : 'pointer',
-              }}
-            >
-              {!filterState.contractTemplateCategory ? (
-                <option value="">请先选择合同模板</option>
-              ) : (
-                <>
-                  <option value="">全部标准合同文书</option>
-                  {filterState.contractTemplateCategory === 'formal' && (
-                    <option value="2026年标准商用车租赁合同">2026年标准商用车租赁合同</option>
-                  )}
-                  {filterState.contractTemplateCategory === 'trial' && (
-                    <option value="2026年商用车试用租赁协议">2026年商用车试用租赁协议</option>
-                  )}
-                  {filterState.contractTemplateCategory === 'heavy_18t' && (
-                    <option value="2026年现代18吨氢能厢式货车租赁合同">2026年现代18吨氢能厢式货车租赁合同</option>
-                  )}
-                </>
-              )}
-            </select>
+              onChange={(v) => updateField('standardContractName', v)}
+              options={
+                !filterState.contractTemplateCategory
+                  ? [{ value: '', label: '请先选择合同模板' }]
+                  : [
+                      { value: '', label: '全部标准合同文书' },
+                      ...(filterState.contractTemplateCategory === 'formal'
+                        ? [{ value: '2026年标准商用车租赁合同', label: '2026年标准商用车租赁合同' }]
+                        : []),
+                      ...(filterState.contractTemplateCategory === 'trial'
+                        ? [{ value: '2026年商用车试用租赁协议', label: '2026年商用车试用租赁协议' }]
+                        : []),
+                      ...(filterState.contractTemplateCategory === 'heavy_18t'
+                        ? [{ value: '2026年现代18吨氢能厢式货车租赁合同', label: '2026年现代18吨氢能厢式货车租赁合同' }]
+                        : []),
+                    ]
+              }
+            />
           </div>
 
           <div>
             <label style={labelStyle}>审批类型</label>
-            <select
-              value={filterState.approvalType[0] || '全部'}
-              onChange={(e) => updateField('approvalType', [e.target.value])}
-              style={inputStyle}
-            >
-              <option value="全部">全部类型</option>
-              <option value="standard">标准合同</option>
-              <option value="non_standard">非标准合同 (需要特批)</option>
-            </select>
+<V2Select
+            value={filterState.approvalType[0] || '全部'}
+            onChange={(v) => updateField('approvalType', [v])}
+            options={
+              [
+              { value: '全部', label: '全部类型' },
+              { value: 'standard', label: '标准合同' },
+              { value: 'non_standard', label: '非标准合同 (需要特批)' }
+              ]
+            }
+          />
           </div>
 
           <div>

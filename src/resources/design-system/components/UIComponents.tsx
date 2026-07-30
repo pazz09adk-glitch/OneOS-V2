@@ -131,8 +131,21 @@ export interface V2SelectProps {
   searchable?: boolean;
   multiple?: boolean;
   disabled?: boolean;
+  /**
+   * 是否显示触发器右侧清空按钮（默认 true）。
+   * 有值时可一键清空；禁止再用「请选择…」假选项占位。
+   */
+  allowClear?: boolean;
+  /** 校验失败：红边框 + 错误光环（DESIGN §3.1.1） */
+  invalid?: boolean;
   className?: string;
   style?: React.CSSProperties;
+}
+
+/** 禁止作为下拉候选项的占位文案（应用用 placeholder + allowClear） */
+function isSelectPlaceholderOption(opt: SelectOption): boolean {
+  if (opt.value !== '') return false;
+  return /^(请选择|请先选择)/.test(String(opt.label || '').trim());
 }
 
 export const V2Select: React.FC<V2SelectProps> = ({
@@ -143,6 +156,8 @@ export const V2Select: React.FC<V2SelectProps> = ({
   searchable = false,
   multiple = false,
   disabled = false,
+  allowClear = true,
+  invalid = false,
   className = '',
   style
 }) => {
@@ -153,10 +168,18 @@ export const V2Select: React.FC<V2SelectProps> = ({
 
   useClickOutside(containerRef, () => setOpen(false));
 
-  const filteredOptions = options.filter((opt) =>
+  const selectableOptions = options.filter((opt) => !isSelectPlaceholderOption(opt));
+
+  const filteredOptions = selectableOptions.filter((opt) =>
     opt.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
     opt.value.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const hasValue = multiple
+    ? Array.isArray(value) && value.length > 0
+    : value !== '' && value != null;
+
+  const showClear = allowClear && hasValue && !disabled;
 
   const isSelected = (val: string) => {
     if (multiple && Array.isArray(value)) {
@@ -178,13 +201,20 @@ export const V2Select: React.FC<V2SelectProps> = ({
     }
   };
 
+  const handleClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onChange(multiple ? [] : '');
+    setOpen(false);
+  };
+
   const renderTriggerText = () => {
     if (multiple && Array.isArray(value)) {
       if (value.length === 0) return <span style={{ color: 'var(--ln-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{placeholder}</span>;
       return (
         <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '4px', alignItems: 'center', overflow: 'hidden' }}>
           {value.map((v) => {
-            const found = options.find((o) => o.value === v);
+            const found = selectableOptions.find((o) => o.value === v);
             const label = found ? found.label : v;
             return (
               <span
@@ -225,7 +255,7 @@ export const V2Select: React.FC<V2SelectProps> = ({
       );
     }
 
-    const selectedOpt = options.find((o) => o.value === value);
+    const selectedOpt = selectableOptions.find((o) => o.value === value);
     if (selectedOpt) {
       return (
         <span
@@ -250,7 +280,7 @@ export const V2Select: React.FC<V2SelectProps> = ({
   return (
     <div
       ref={containerRef}
-      className={className}
+      className={['v2-select', invalid ? 'is-invalid' : '', className].filter(Boolean).join(' ')}
       style={{
         position: 'relative',
         width: '100%',
@@ -259,13 +289,23 @@ export const V2Select: React.FC<V2SelectProps> = ({
       }}
     >
       <div
+        className="v2-select__trigger"
         onClick={() => !disabled && setOpen(!open)}
+        aria-invalid={invalid || undefined}
         style={{
           height: isMobile ? '44px' : '36px',
-          minHeight: '44px',
+          minHeight: isMobile ? '44px' : '36px',
           padding: '0 12px',
           borderRadius: '8px',
-          border: `1px solid ${disabled ? 'var(--ln-hairline)' : (open ? '#533AFD' : 'var(--ln-hairline)')}`,
+          border: `1px solid ${
+            disabled
+              ? 'var(--ln-hairline)'
+              : invalid
+                ? 'var(--ln-error, #EF4444)'
+                : open
+                  ? 'var(--oneos-primary, #533AFD)'
+                  : 'var(--ln-hairline)'
+          }`,
           background: disabled ? 'var(--ln-surface-pearl)' : 'var(--ln-surface-card)',
           color: disabled ? 'var(--ln-muted)' : 'var(--ln-ink)',
           fontSize: isMobile ? '14px' : '12px',
@@ -273,7 +313,13 @@ export const V2Select: React.FC<V2SelectProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: disabled ? 'not-allowed' : 'pointer',
-          boxShadow: disabled ? 'none' : (open ? '0 0 0 3px rgba(83, 58, 253, 0.2)' : 'none'),
+          boxShadow: disabled
+            ? 'none'
+            : invalid
+              ? '0 0 0 3px rgba(239, 68, 68, 0.15)'
+              : open
+                ? '0 0 0 3px rgba(83, 58, 253, 0.2)'
+                : 'none',
           opacity: disabled ? 0.75 : 1,
           transition: 'all 0.15s ease',
           boxSizing: 'border-box',
@@ -282,18 +328,62 @@ export const V2Select: React.FC<V2SelectProps> = ({
         }}
       >
         <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>{renderTriggerText()}</div>
-        <ChevronDown
+        <div
           style={{
-            width: '14px',
-            height: '14px',
-            color: 'var(--ln-muted)',
-            opacity: disabled ? 0.55 : 1,
-            transition: 'transform 0.2s',
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '2px',
             marginLeft: '8px',
             flexShrink: 0
           }}
-        />
+        >
+          {showClear && (
+            <button
+              type="button"
+              className="v2-select__clear"
+              aria-label="清空已选"
+              title="清空"
+              onClick={handleClear}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: isMobile ? '28px' : '22px',
+                height: isMobile ? '28px' : '22px',
+                minWidth: isMobile ? '28px' : '22px',
+                minHeight: isMobile ? '28px' : '22px',
+                padding: 0,
+                border: 'none',
+                borderRadius: '50%',
+                background: 'var(--ln-surface-pearl, #F1F5F9)',
+                color: 'var(--ln-muted)',
+                cursor: 'pointer',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--ln-ink)';
+                e.currentTarget.style.background = 'var(--ln-surface-strong, #E2E8F0)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--ln-muted)';
+                e.currentTarget.style.background = 'var(--ln-surface-pearl, #F1F5F9)';
+              }}
+            >
+              <X style={{ width: '12px', height: '12px' }} aria-hidden />
+            </button>
+          )}
+          <ChevronDown
+            style={{
+              width: '14px',
+              height: '14px',
+              color: 'var(--ln-muted)',
+              opacity: disabled ? 0.55 : 1,
+              transition: 'transform 0.2s',
+              transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+              flexShrink: 0
+            }}
+          />
+        </div>
       </div>
 
       {open && isMobile && (
@@ -464,6 +554,8 @@ export interface V2DatePickerProps {
   onChange: (val: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  /** 校验失败：红边框 + 错误光环（DESIGN §3.1.1） */
+  invalid?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -473,6 +565,7 @@ export const V2DatePicker: React.FC<V2DatePickerProps> = ({
   onChange,
   placeholder = '选择日期',
   disabled = false,
+  invalid = false,
   className = '',
   style
 }) => {
@@ -540,15 +633,29 @@ export const V2DatePicker: React.FC<V2DatePickerProps> = ({
   const todayStr = formatDate(new Date());
 
   return (
-    <div ref={containerRef} className={className} style={{ position: 'relative', width: '100%', boxSizing: 'border-box', ...style }}>
+    <div
+      ref={containerRef}
+      className={['v2-datepicker', invalid ? 'is-invalid' : '', className].filter(Boolean).join(' ')}
+      style={{ position: 'relative', width: '100%', boxSizing: 'border-box', ...style }}
+    >
       <div
+        className="v2-datepicker__trigger"
         onClick={() => !disabled && setOpen(!open)}
+        aria-invalid={invalid || undefined}
         style={{
           height: isMobile ? '44px' : '36px',
           minHeight: '44px',
           padding: '0 12px',
           borderRadius: '8px',
-          border: `1px solid ${disabled ? 'var(--ln-hairline)' : (open ? '#533AFD' : 'var(--ln-hairline)')}`,
+          border: `1px solid ${
+            disabled
+              ? 'var(--ln-hairline)'
+              : invalid
+                ? 'var(--ln-error, #EF4444)'
+                : open
+                  ? 'var(--oneos-primary, #533AFD)'
+                  : 'var(--ln-hairline)'
+          }`,
           background: disabled ? 'var(--ln-surface-pearl)' : 'var(--ln-surface-card)',
           color: disabled ? 'var(--ln-muted)' : 'var(--ln-ink)',
           fontSize: isMobile ? '14px' : '12px',
@@ -557,7 +664,13 @@ export const V2DatePicker: React.FC<V2DatePickerProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: disabled ? 'not-allowed' : 'pointer',
-          boxShadow: disabled ? 'none' : (open ? '0 0 0 3px rgba(83, 58, 253, 0.2)' : 'none'),
+          boxShadow: disabled
+            ? 'none'
+            : invalid
+              ? '0 0 0 3px rgba(239, 68, 68, 0.15)'
+              : open
+                ? '0 0 0 3px rgba(83, 58, 253, 0.2)'
+                : 'none',
           opacity: disabled ? 0.75 : 1,
           transition: 'all 0.15s ease',
           boxSizing: 'border-box',
@@ -568,7 +681,7 @@ export const V2DatePicker: React.FC<V2DatePickerProps> = ({
         <span style={{ color: disabled ? 'var(--ln-muted)' : (value ? 'var(--ln-ink)' : 'var(--ln-muted)'), fontWeight: value && !disabled ? 600 : 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {value || placeholder}
         </span>
-        <CalendarIcon style={{ width: '14px', height: '14px', color: disabled ? 'var(--ln-muted)' : '#533AFD', flexShrink: 0, marginLeft: '8px' }} />
+        <CalendarIcon style={{ width: '14px', height: '14px', color: disabled ? 'var(--ln-muted)' : (invalid ? 'var(--ln-error, #EF4444)' : '#533AFD'), flexShrink: 0, marginLeft: '8px' }} />
       </div>
 
       {open && isMobile && (
@@ -4250,17 +4363,15 @@ export const V2Empty: React.FC<V2EmptyProps> = ({
   > = {
     empty: {
       icon: <Inbox size={cfg.iconSize} />,
-      title: '暂无相关数据',
-      description: '当前台账或业务板块下暂无数据，您可以开启第一条记录或调整查询视角。',
-      primaryText: '新建第一条记录',
+      title: '暂无数据',
+      description: '',
       color: 'var(--oneos-primary, var(--ln-primary, #533AFD))',
       bgGlow: 'rgba(83, 58, 253, 0.08)'
     },
     no_search: {
       icon: <SearchX size={cfg.iconSize} />,
-      title: '未找到匹配结果',
-      description: '没有找到符合当前高阶筛选条件的数据，建议您尝试清空或重置筛选条件。',
-      primaryText: '重置筛选条件',
+      title: '暂无数据',
+      description: '',
       color: '#3B82F6',
       bgGlow: 'rgba(59, 130, 246, 0.08)'
     },
@@ -4303,7 +4414,9 @@ export const V2Empty: React.FC<V2EmptyProps> = ({
   const displayTitle = title ?? preset.title;
   const displayDesc = description ?? preset.description;
   const displayIcon = icon ?? preset.icon;
-  const finalPrimaryText = primaryActionText ?? preset.primaryText;
+  /** 默认 CTA：仅当调用方传入 onPrimaryAction 时才带出预设文案，避免空态出现无动作的「新建」钮 */
+  const finalPrimaryText =
+    primaryActionText ?? (onPrimaryAction ? preset.primaryText : undefined);
   const mainColor = preset.color;
 
   return (
@@ -4675,6 +4788,14 @@ export function V2StatusTabs<T extends string = string>({
   );
 }
 
+
+export {
+  V2Toast,
+  firstErrorFieldKey,
+  scrollToFirstInvalidField,
+  type V2ToastProps,
+  type V2ToastTone,
+} from './V2Toast';
 
 export {
   V2Button,

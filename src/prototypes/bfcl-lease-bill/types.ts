@@ -36,15 +36,22 @@ export type BillRow = {
   invoiceDate: string;
   paymentDate: string;
   paymentMethod: string;
+  /** 业财门禁：是否已关联收款记录（无关联不得假性结清） */
+  paymentLinked: boolean;
+  /** 关联收款示意单号 */
+  paymentRef: string;
   h2Cost: number;
   vehicleCost: number;
   remark: string;
 };
+
+/** 列表 Pill：待收/部分合并为一档，与 KPI 对齐 */
+export type LedgerTab = 'all' | 'pending' | '逾期' | '已结清';
+
 export type Filters = {
   keyword: string;
+  /** 更多筛选仅保留两个主要素：账期 + 客户分级 */
   tier: Tier | 'all';
-  bizDept: string | 'all';
-  contractType: string | 'all';
   periodStart: string;
   periodEnd: string;
 };

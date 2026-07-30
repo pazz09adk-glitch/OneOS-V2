@@ -156,7 +156,7 @@ export function MapModal({
         </div>
 
         <div className="va-modal-actions">
-          <button type="button" className="va-btn va-btn-secondary" onClick={onClose}>关闭</button>
+          <V2Button variant="secondary" size="md" onClick={onClose}>关闭</V2Button>
         </div>
       </div>
     </div>

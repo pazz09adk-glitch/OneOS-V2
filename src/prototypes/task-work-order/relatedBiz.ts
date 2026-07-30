@@ -89,8 +89,8 @@ export function relatedBizTypeLabel(type?: RelatedBizType | null): string {
   return RELATED_BIZ_TYPE_META[type]?.label || type;
 }
 
-/** 下拉选项（带分组，可搜索） */
-export function getRelatedBizSelectOptions(includeEmpty = true) {
+/** 下拉选项（带分组，可搜索）。空态用 V2Select placeholder + allowClear，不注入「请选择」假选项。 */
+export function getRelatedBizSelectOptions(_includeEmpty = false) {
   const entries = Object.entries(RELATED_BIZ_TYPE_META)
     .map(([value, meta]) => ({
       value,
@@ -103,8 +103,7 @@ export function getRelatedBizSelectOptions(includeEmpty = true) {
       return a.label.localeCompare(b.label, 'zh-CN');
     });
 
-  if (!includeEmpty) return entries;
-  return [{ value: '', label: '请选择关联业务' }, ...entries];
+  return entries;
 }
 
 /** 统一解析关联业务展示（兼容旧 contractCode） */

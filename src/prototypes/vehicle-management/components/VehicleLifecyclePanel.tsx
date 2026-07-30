@@ -25,12 +25,12 @@ import {
   Wrench,
   X,
 } from 'lucide-react';
-import {
-  V2Empty,
+import {V2Empty,
   V2FilterSearch,
   V2Select,
   V2Tag,
   V2Timeline,
+  V2Button,
 } from '../../../resources/design-system/components/UIComponents';
 import type { VehicleRecord } from '../types';
 import type { VehicleInsuranceExpire } from '../utils/insurance';
@@ -589,26 +589,28 @@ export function VehicleLifecyclePanel({
             ) : null}
           </label>
           {query.trim() ? (
-            <button
-              type="button"
-              className="va-btn va-btn-ghost va-life__reset-btn"
+            <V2Button
+              variant="ghost"
+              size="sm"
+              className="va-life__reset-btn"
               onClick={() => setQuery('')}
             >
               清除搜索
-            </button>
+            </V2Button>
           ) : null}
-          <button
-            type="button"
-            className="va-btn va-btn-secondary va-life__expand-btn"
+          <V2Button
+            variant="secondary"
+            size="sm"
+            className="va-life__expand-btn"
+            icon={<ArrowDownUp size={14} aria-hidden />}
+            disabled={!filtered.some((event) => event.details?.length)}
             onClick={() => {
               setExpandAll((prev) => !prev);
               setExpandedId(null);
             }}
-            disabled={!filtered.some((event) => event.details?.length)}
           >
-            <ArrowDownUp size={14} aria-hidden />
             {expandAll ? '全部收起' : '全部展开'}
-          </button>
+          </V2Button>
         </div>
       ) : null}
 

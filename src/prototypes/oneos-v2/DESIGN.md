@@ -79,9 +79,10 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 - **车牌号格式规范**：统一使用标准中国车牌格式 `浙A88888F` 或 `沪B12345F`，禁止中间添加中圈点 `·` 或短横线，保持真实车辆管理系统权威感知。
 - **字号阶梯**：
   - `Caption (11px~12px / 1.33)`：次要微标、时间戳、次级 Label（H5 下正文提示建议 ≥ 12px）
-  - `Body-Sm (12px / 1.4)`：PC 表格单元格、次要描述
+  - `Body-Sm (12px / 1.4)`：PC 表格单元格次要列、等宽单号（含「查看 ›」链接）、表头 thead
   - `Body-Base (13px~14px / 1.5)`：标准正文、表单输入框文本（H5 移动端输入框字号统一 ≥ 14px，防止 iOS 自动放大）
-  - `Subhead (14px~15px / 1.4)`：小标题、按钮文案、卡片子标题
+  - **台账首列主文案（强制）**：双行「标题 + 单号」结构时，**只读标题用 `13px / 600 / line-height 1.35`**（Body-Base 下限）；**禁止**默认用 `14px / 700`（易抢过下方详情入口单号）。卡片标题、页头仍可用 Subhead / Head。细则与母版见主规范 `src/resources/design-system/DESIGN.md` §2.2 / §5.1。
+  - `Subhead (14px~15px / 1.4)`：小标题、按钮文案、**卡片**子标题（非表内首列）
   - `Head-Sm (16px / 1.4)`：模块标题、Modal 标题
   - `Head-Lg (18px / 1.3)`：页面大标题、 Drawer 标题
   - `Display (24px / 1.2)`：KPI 分析大数字
@@ -138,24 +139,21 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 
 ##### 2.4.3.2 筛选主入口尺寸与视觉（强制 · 防高低不一）
 
-台账工具栏 **主搜索**（`V2FilterSearch` / `.v2-filter-search`）与 **「更多筛选」**（`V2FilterMoreButton` / `.v2-filter-more-btn`）是同一级「优先点击」入口：用主色浅底 + 主色描边 + 外晕引导，**不得**做成弱 ghost 与导出同级。
+台账工具栏 **主搜索**（`V2FilterSearch` / `.v2-filter-search`）与 **「更多筛选」**（`V2FilterMoreButton` / `.v2-filter-more-btn`）是同一级筛选入口，须与导出等同高；视觉采用 **默认克制、交互再强化**，避免默认态主色浅底 + 外晕抢过 Pill Tabs 与表格。细则以主规范 `src/resources/design-system/DESIGN.md` §2.4.3.2 为准。
+
+| 状态 | 视觉 |
+|---|---|
+| **默认** | 白底 + `1px` hairline；无外晕 |
+| **hover / focus** | 浅主色混入 + 弱主色描边 / focus 环 |
+| **展开 / 有条件** | 实心主色（更多筛选） |
 
 | Token / 规则 | PC（≥768px） | H5（≤767px） |
 |---|---|---|
-| `--v2-filter-entry-height` | **36px**（对齐 `V2Button` `size="md"`） | **44px** |
-| `--v2-filter-entry-radius` | `var(--ln-radius-control)` = **8px**（搜索壳与更多筛选必须同圆角） | 同左 |
-| 边框 | `1.5px` 主色混入描边；默认外晕 `0 0 0 3px` 主色约 12% | 同左 |
-| 字号 / 字重 | 13px；搜索字重 500、更多筛选 600 | 同左 |
-| 旁侧导出 / 导入 / 列设置 | 同高 **36px**；视觉保持 secondary/ghost，**不加**主色外晕 | ≥44px |
+| `--v2-filter-entry-height` | **36px** | **44px** |
+| `--v2-filter-entry-radius` | **8px** | 同左 |
+| 默认边框 | `1px` `--ln-hairline` | 同左 |
 
-**禁止**：
-
-1. 页面私有 CSS 改写 `.v2-filter-search` / `.v2-filter-more-btn` 的 `height` / `min-height` / `padding` 垂直值（导致 37px、40px 等漂移）。
-2. 对壳内 `.ln-select-trigger` 再套「紧凑 32px / padding 6px」覆盖，破坏壳内填满。
-3. 搜索圆角 10px、按钮圆角 8px 等成对不一致。
-4. 用放大尺寸代替视觉引导；引导靠描边/浅底/外晕，尺寸锁死 36/44。
-
-**组件**：必须用 `V2FilterSearch` + `V2FilterMoreButton`；样式唯一事实源 `oneos-ds-filter-affordance.css`。
+**组件**：`V2FilterSearch` + `V2FilterMoreButton`；样式事实源 `oneos-ds-filter-affordance.css`。
 
 ---
 
@@ -248,8 +246,39 @@ import { V2Button } from './UIComponents';
 - **状态响应**：
   - **Hover**：边框变为 `#D4D4D8` / 暗色 `#2D3748`；
   - **Focus**：边框变为 Stripe Violet `#533AFD`，同时附加 `0 0 0 3px rgba(83, 58, 253, 0.2)` 光环；
-  - **Error (错误态)**：边框变为 `#EF4444`，附加 `0 0 0 3px rgba(239, 68, 68, 0.15)` 光环；
+  - **Error (错误态)**：边框变为 `#EF4444`，附加 `0 0 0 3px rgba(239, 68, 68, 0.15)` 光环；原生输入/文本域加 `is-invalid`，`V2Select` / `V2DatePicker` 传 `invalid`；
   - **Disabled (禁用态)**：背景变为 `#F1F5F9` / 暗色 `#16181F`，文字变 `#627D98`，光标 `not-allowed`。
+
+#### 3.1.2 表单校验反馈组合（强制）
+
+长表单提交失败时，**同时**提供三层反馈（缺一不可）：
+
+1. **控件 Error 态**：出错字段红边框 + 字段下方红字说明（`v2-field-error`）；
+2. **顶部 Toast**：`V2Toast` `tone="error"`，摘要如「还有 N 项必填未填」；
+3. **锚点定位**：滚到第一个出错字段（`data-field` + `scrollToFirstInvalidField`），并尽量聚焦内部可编辑控件。
+
+> 成功操作仍可用绿色 Toast；校验失败禁止只给红字、不标边框或不给总览提示。
+
+#### 3.1.3 Toast 位置（强制）
+
+`V2Toast` 固定在**视口中央上方**（水平居中，`top ≈ 20px`），**禁止**贴右上角，避免遮挡页头右侧操作（发布 / 暂存 / 催办等）。
+
+---
+
+### 3.2 下拉选择器规范 (`V2Select`)
+
+#### 3.2.1 空态与清空（强制）
+
+1. **禁止「请选择…」假选项**：下拉列表中不得加入 `value=''` 且文案为「请选择 / 请先选择…」的候选项；空态仅通过触发器 `placeholder` 展示（如「请选择采购合同」）。
+2. **清空入口**：`allowClear` **默认开启**。已选值时，在触发器**右侧**（下拉箭头左侧）显示圆形清空按钮（`×`）；点击清空为 `''`（单选）或 `[]`（多选），并关闭面板。
+3. **筛选项例外**：「全部 / 不限」等有业务语义的空值选项可保留（表示不过滤），但不得伪装成「请选择」。
+4. **禁用态**：`disabled` 时隐藏清空按钮；多选 Tag 上的单项 `×` 亦隐藏（见 §3.11）。
+5. **必填清空**：必填字段允许先清空，由发布校验（§3.1.2）拦截并锚点回填。
+
+#### 3.2.2 交互与触控
+
+- 清空按钮需 `cursor-pointer`、可见 focus；移动端触控面积建议 ≥ 28×28px（触发器总高度仍 ≥ 44px）。
+- H5 仍走 Bottom Sheet；清空在 Sheet 打开前于触发器完成，不必依赖 Sheet 内额外「清空」行（可选增强）。
 
 ---
 
@@ -301,7 +330,7 @@ import { V2Button } from './UIComponents';
   3. **边框 (Disabled Border)**：统一保留微边框 `1px solid var(--ln-hairline)` / `#E3E8EE`（Dark 模式：`#23272F`），保持界面几何结构的平整一致；
   4. **鼠标指针 (Cursor Indicator)**：鼠标悬停与触控指针强制呈现 `cursor: not-allowed`；
   5. **交互行为阻断 (Interaction Suppression)**：完全屏蔽 Hover 悬停色变、Focus 强光圈、Active 缩放，以及下拉 Popover / 日历 Bottom Sheet 弹窗的唤起；
-  6. **子元素与状态防护**：`V2Select` 多选 Tag 隐藏清除 `X` 按钮；`V2Switch` 滑块降级为 `#E2E8F0`；`V2RadioGroup` 与 `V2CheckboxGroup` 保持选中标识但图标降级为灰度；`V2Steps` / `V2Timeline` / `V2ApprovalProgress` 呈现灰度贯穿形态。
+  6. **子元素与状态防护**：`V2Select` 隐藏触发器清空钮与多选 Tag 清除 `X`；`V2Switch` 滑块降级为 `#E2E8F0`；`V2RadioGroup` 与 `V2CheckboxGroup` 保持选中标识但图标降级为灰度；`V2Steps` / `V2Timeline` / `V2ApprovalProgress` 呈现灰度贯穿形态。
 
 ---
 
@@ -340,30 +369,35 @@ import { V2Button } from './UIComponents';
 
 ### 3.13 空状态与异常页规范 (Empty State & Exception View Specifications)
 
-- **设计目标**：在台账暂无数据、高阶筛选未搜索到匹配记录、403 权限受限、500 后端服务超时或网络连接中断等异常或零数据场景下，提供统一、优雅且带导向性的空状态组件 (`V2Empty`)，杜绝原生空白页或无引导的灰字。
+- **设计目标**：在台账暂无数据、筛选无匹配、403 权限受限、500 服务异常或网络中断等场景下，提供统一空状态组件 (`V2Empty`)，杜绝原生空白页。
+- **零数据口径（强制 · `empty` / `no_search`）**：
+  1. **只陈述无数据**：标题默认「暂无数据」；**不要**引导「新建第一条记录 / 开启记录」，也**不要**提示「清空筛选 / 重置条件后重试」等操作建议；
+  2. **默认无主按钮**：`empty` / `no_search` 预设**不带**主操作；确需 CTA 时由业务显式传入 `primaryActionText` + `onPrimaryAction`；
+  3. 无 handler 时**禁止**出现预设主按钮（避免空点子）。
 - **组件用法**：
   ```tsx
   import { V2Empty } from './UIComponents';
 
+  // 零数据：仅说明，无新建引导
+  <V2Empty type="empty" title="暂无工单" />
+
+  // 确需操作时显式传入
   <V2Empty
-    type="empty" // 'empty' | 'no_search' | 'no_permission' | 'server_error' | 'no_network' | 'custom'
-    title="暂无租赁合同记录"
-    description="当前租户库或选定主体下尚未创建合同，您可以新建第一份正式合同。"
-    primaryActionText="新建第一条记录"
-    onPrimaryAction={handleCreate}
+    type="server_error"
+    onPrimaryAction={handleRetry}
   />
   ```
 - **核心场景预设 (Preset Scenarios)**：
-  1. **暂无数据 (`type="empty"`)**：第一主色 `#533AFD` 光环，`<Inbox />` 图标，引导用户新建第一条业务记录；
-  2. **无匹配结果 (`type="no_search"`)**：蓝色 `#3B82F6` 光环，`<SearchX />` 图标，引导用户一键重置 13 项筛选条件；
-  3. **暂无权限 (`type="no_permission"`)**：琥珀黄 `#D97706` 光环，`<Lock />` 图标，引导用户提交审批申请开通权限；
-  4. **服务异常 (`type="server_error"`)**：危险红 `#EF4444` 光环，`<AlertTriangle />` 图标，引导用户一键刷新重试；
-  5. **网络断开 (`type="no_network"`)**：灰度 `#6B7280` 光环，`<WifiOff />` 图标，引导用户检查网络连接；
+  1. **暂无数据 (`type="empty"`)**：主色光环 + `<Inbox />`，标题「暂无数据」，**无默认按钮**；
+  2. **无匹配结果 (`type="no_search"`)**：蓝色光环 + `<SearchX />`，标题「暂无数据」，**无默认按钮、不提重置筛选**；
+  3. **暂无权限 (`type="no_permission"`)**：琥珀光环 + `<Lock />`；有 `onPrimaryAction` 时可带「申请开通权限」；
+  4. **服务异常 (`type="server_error"`)**：危险红光环 + `<AlertTriangle />`；有 handler 时可带「一键刷新重试」；
+  5. **网络断开 (`type="no_network"`)**：灰度光环 + `<WifiOff />`；有 handler 时可带「重新连接网络」；
 - **尺寸变体 (Size Variants)**：
   - `size="default"`：标准大框空状态（用于页面主台账、看板列、大卡片内容区）；
   - `size="compact"`：紧凑型（用于下拉菜单明细、抽屉子表、模态框内嵌表）；
   - `size="large"` / `fullPage={true}`：整页居中（用于 403/500/404 独立整页）。
-- **PC / H5 双端响应式**：移动端 (≤767px) 场景下操作按键自动转为 `min-height: 44px` 触控高，按钮组宽度自动 100% 充满，适应手机端点击。
+- **PC / H5 双端响应式**：移动端 (≤767px) 场景下若存在操作按键，自动转为 `min-height: 44px` 触控高，按钮组宽度自动 100% 充满。
 
 ---
 

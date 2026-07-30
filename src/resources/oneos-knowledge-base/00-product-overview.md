@@ -38,7 +38,7 @@ flowchart TD
 
 | 条线 | 闭环一句话 | 总述文档 |
 |------|------------|----------|
-| 租赁 | 客户准入 → 签约 → 提车应收 → 交车履约台账 → 还车会签结算归档 | [lines/lease.md](lines/lease.md) |
+| 租赁 | 客户对接认领 → 客户准入 → 签约 → 提车应收 → 交车履约台账 → 还车会签结算归档 | [lines/lease.md](lines/lease.md) |
 | 能源 | 供应商/站点 → 加氢订单或补录 → 对账 → 账户核销已付款 | [lines/energy.md](lines/energy.md) |
 | 运维 | 采购验车入库 → 上牌证照备车 → 交还车/故障维保异动 → 处置出库 | [lines/ops.md](lines/ops.md) |
 | 安全 | 司机培训资料 → 违章事故定责 → 费用进还车应结 | [lines/safety.md](lines/safety.md) |

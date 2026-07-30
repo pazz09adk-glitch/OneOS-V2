@@ -2,10 +2,10 @@
   "name": "OneOS 全产品线知识库",
   "version": "1.2.0",
   "generatedFor": "enterprise-and-digital-employees",
-  "moduleCount": 58,
+  "moduleCount": 59,
   "confidenceDistribution": {
     "legacy": 26,
-    "architecture": 16,
+    "architecture": 17,
     "confirmed": 13,
     "building": 3
   },
@@ -32,18 +32,25 @@
       "doc": "lines/lease.md",
       "modules": [
         {
-          "id": "contract-template-management",
-          "name": "标准合同模板",
-          "confidence": "architecture",
-          "md": "modules/contract-template-management.md",
-          "json": "machine/rules/contract-template-management.json"
-        },
-        {
           "id": "customer-management",
           "name": "客户管理",
           "confidence": "architecture",
           "md": "modules/customer-management.md",
           "json": "machine/rules/customer-management.json"
+        },
+        {
+          "id": "customer-engagement",
+          "name": "客户对接过程管理",
+          "confidence": "architecture",
+          "md": "modules/customer-engagement.md",
+          "json": "machine/rules/customer-engagement.json"
+        },
+        {
+          "id": "contract-template-management",
+          "name": "标准合同模板",
+          "confidence": "architecture",
+          "md": "modules/contract-template-management.md",
+          "json": "machine/rules/contract-template-management.json"
         },
         {
           "id": "lease-business-ledger",
@@ -529,6 +536,11 @@
     },
     {
       "id": "customer-management",
+      "line": "lease",
+      "confidence": "architecture"
+    },
+    {
+      "id": "customer-engagement",
       "line": "lease",
       "confidence": "architecture"
     },

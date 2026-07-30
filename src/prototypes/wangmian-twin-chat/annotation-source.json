@@ -1,0 +1,57 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "directory": {
+    "nodes": [
+      {
+        "type": "markdown",
+        "name": "产品需求说明（PRD）",
+        "markdown": "file:.spec/requirements-prd.md"
+      }
+    ]
+  },
+  "data": {
+    "version": 2,
+    "prototypeName": "wangmian-twin-chat",
+    "pageId": "chat",
+    "updatedAt": 1785628800000,
+    "nodes": [
+      {
+        "id": "wtc-messages",
+        "index": 1,
+        "title": "分身对话区",
+        "pageId": "chat",
+        "locator": {
+          "selectors": ["[data-annotation-id='wtc-messages']"],
+          "fingerprint": "div|wtc-messages",
+          "path": []
+        },
+        "aiPrompt": "对话主区",
+        "annotationText": "首条为调皮招呼；支持文本、语音转写、截图多模态。未配 API 时走演示回复。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785628800000,
+        "updatedAt": 1785628800000
+      },
+      {
+        "id": "wtc-composer",
+        "index": 2,
+        "title": "输入与附件",
+        "pageId": "chat",
+        "locator": {
+          "selectors": ["[data-annotation-id='wtc-composer']"],
+          "fingerprint": "footer|wtc-composer",
+          "path": []
+        },
+        "aiPrompt": "发送栏",
+        "annotationText": "截图上传、语音（浏览器 SpeechRecognition）、文本发送；右上角接入 OpenAI 兼容模型。",
+        "hasMarkdown": false,
+        "color": "#533AFD",
+        "images": [],
+        "createdAt": 1785628800000,
+        "updatedAt": 1785628800000
+      }
+    ]
+  }
+}

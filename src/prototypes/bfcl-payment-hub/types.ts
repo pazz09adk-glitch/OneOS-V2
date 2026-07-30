@@ -35,11 +35,7 @@ export type BizDocOption = {
 
 export type PageMode = 'ledger' | 'detail';
 
-export type Filters = {
-  keyword: string;
-  flow: FlowType | 'all';
-  status: LinkStatus | 'all';
-};
+export type StatusTab = LinkStatus | 'all';
 
 export function formatMoney(n: number) {
   return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

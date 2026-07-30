@@ -16,6 +16,7 @@
   ],
   "preconditions": [
     "客户准入允许",
+    "有效客户对接归属且操作人为主对接人（历史豁免除外）",
     "选用有效标准合同模板"
   ],
   "forward": [
@@ -29,6 +30,10 @@
     {
       "case": "禁止签约客户",
       "behavior": "拦截"
+    },
+    {
+      "case": "无有效对接归属或非归属人",
+      "behavior": "拦截并提示现归属人与保护期"
     },
     {
       "case": "非标未通过",
@@ -59,6 +64,10 @@
   ],
   "closedLoop": "签章或法务附件齐备且合同生效，履约要素按本合同规则生成",
   "triggers": [
+    {
+      "to": "customer-engagement",
+      "when": "新建合同前置校验对接归属；生效后回写已转化"
+    },
     {
       "to": "contract-template-management",
       "when": "调取模板"

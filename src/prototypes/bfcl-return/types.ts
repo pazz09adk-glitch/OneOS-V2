@@ -21,6 +21,8 @@ export type ReturnRow = {
   direction: '应收' | '应退';
   amount: number;
   linked: number;
+  /** 对照收付款中枢流水号 */
+  paymentRef?: string;
   status: ReturnStatus;
   approvalStatus: string;
   hasCarePackage: boolean;

@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import { BfclChainNav } from '../bfcl-shared-chain/BfclChainNav';
+import '../bfcl-shared-chain/bfcl-chain-nav.css';
 import { V2Button, V2StatusTabs } from '../../resources/design-system/components/UIComponents';
 import { V2Badge } from '../../resources/design-system/components/V2Badge';
 import { SUPPLIERS, PAYS, BATCHES } from './mockData';
@@ -40,7 +42,7 @@ export function InsuranceHub() {
     if (!batches.some(b=>b.payDocNo===p.docNo)) {
       setBatches(list=>[...list, { id:'b'+Date.now(), batchNo:'POL-BATCH-NEW', payDocNo:p.docNo, vehicles:6, policies:0, status:'可上传' }]);
     }
-    showToast('付款记录已关联保险付款单 → 闭环，可批量上传保单');
+    showToast(`付款记录 PY-20260722-011 已关联 ${p.docNo} → 闭环，可批量上传保单`);
   };
 
   const uploadBatch = (b: PolicyBatch) => {
@@ -52,6 +54,7 @@ export function InsuranceHub() {
 
   return (
     <div className="bfcl-page">
+      <BfclChainNav current="insurance" />
       <div className="bfcl-toolbar">
         <V2StatusTabs value={tab} onChange={setTab} options={[
           {key:'供应商',label:'供应商账户'},{key:'比价付款',label:'比价·付款'},{key:'保单',label:'批量保单'},

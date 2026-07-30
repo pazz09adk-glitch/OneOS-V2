@@ -5,6 +5,9 @@
   "description": "Official Axhub Make client runtime",
   "type": "module",
   "scripts": {
+    "prepare": "git config core.hooksPath scripts/git-hooks 2>/dev/null || true",
+    "hooks:install": "git config core.hooksPath scripts/git-hooks",
+    "s3:apply-local-secrets": "python3 scripts/apply-local-s3-secrets.py",
     "vendor:sync": "node scripts/sync-vendor-if-present.mjs",
     "dev": "node scripts/sync-vendor-if-present.mjs && vite",
     "start": "npm run dev",

@@ -1,84 +1,72 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-28T18:59:07.317Z",
+  "updatedAt": "2026-07-30T05:47:51.153Z",
   "prototypes": [
     {
-      "id": "item-prototypes-biz-finance-line-briefing",
+      "id": "item-prototypes-customer-engagement",
       "kind": "item",
-      "title": "biz finance line briefing",
+      "title": "customer engagement",
+      "itemKey": "prototypes/customer-engagement"
+    },
+    {
+      "id": "item-prototypes-wangmian-twin-chat",
+      "kind": "item",
+      "title": "wangmian twin chat",
+      "itemKey": "prototypes/wangmian-twin-chat"
+    },
+    {
+      "id": "item:prototypes:biz-finance-line-briefing",
+      "kind": "item",
+      "title": "业财闭环汇报",
       "itemKey": "prototypes/biz-finance-line-briefing"
     },
     {
-      "id": "item-prototypes-bfcl-contract",
+      "id": "item:prototypes:bfcl-contract",
       "kind": "item",
-      "title": "bfcl contract",
+      "title": "业财·签约锁死",
       "itemKey": "prototypes/bfcl-contract"
     },
     {
-      "id": "item-prototypes-bfcl-customer-risk",
+      "id": "item:prototypes:bfcl-customer-risk",
       "kind": "item",
-      "title": "bfcl customer risk",
+      "title": "业财·客户风险",
       "itemKey": "prototypes/bfcl-customer-risk"
     },
     {
-      "id": "item-prototypes-bfcl-energy",
+      "id": "item:prototypes:bfcl-energy",
       "kind": "item",
-      "title": "bfcl energy",
+      "title": "业财·能源氢费",
       "itemKey": "prototypes/bfcl-energy"
     },
     {
-      "id": "item-prototypes-bfcl-insurance",
+      "id": "item:prototypes:bfcl-insurance",
       "kind": "item",
-      "title": "bfcl insurance",
+      "title": "业财·保险采购",
       "itemKey": "prototypes/bfcl-insurance"
     },
     {
-      "id": "item-prototypes-bfcl-lease-bill",
+      "id": "item:prototypes:bfcl-payment-hub",
       "kind": "item",
-      "title": "bfcl lease bill",
-      "itemKey": "prototypes/bfcl-lease-bill"
-    },
-    {
-      "id": "item-prototypes-bfcl-payment-hub",
-      "kind": "item",
-      "title": "bfcl payment hub",
+      "title": "业财·收付款中枢",
       "itemKey": "prototypes/bfcl-payment-hub"
     },
     {
-      "id": "item-prototypes-bfcl-pickup-receivable",
+      "id": "item:prototypes:bfcl-pickup-receivable",
       "kind": "item",
-      "title": "bfcl pickup receivable",
+      "title": "业财·提车应收",
       "itemKey": "prototypes/bfcl-pickup-receivable"
     },
     {
-      "id": "item-prototypes-bfcl-return",
+      "id": "item:prototypes:bfcl-return",
       "kind": "item",
-      "title": "bfcl return",
+      "title": "业财·还车应结",
       "itemKey": "prototypes/bfcl-return"
     },
     {
-      "id": "item-prototypes-biz-finance-closed-loop",
+      "id": "item:prototypes:vehicle-return-settlement",
       "kind": "item",
-      "title": "biz finance closed loop",
-      "itemKey": "prototypes/biz-finance-closed-loop"
-    },
-    {
-      "id": "item-prototypes-vehicle-return-settlement",
-      "kind": "item",
-      "title": "vehicle return settlement",
+      "title": "还车应结款",
       "itemKey": "prototypes/vehicle-return-settlement"
-    },
-    {
-      "id": "item-prototypes-task-work-order",
-      "kind": "item",
-      "title": "task work order",
-      "itemKey": "prototypes/task-work-order"
-    },
-    {
-      "id": "item-prototypes-receivable-dunning",
-      "kind": "item",
-      "title": "应收催款",
-      "itemKey": "prototypes/receivable-dunning"
     },
     {
       "id": "folder-1784982146673-8derid",
@@ -158,6 +146,44 @@
               "kind": "item",
               "title": "租赁合同",
               "itemKey": "prototypes/lease-contract-management"
+            },
+            {
+              "id": "item:prototypes:bfcl-lease-bill",
+              "kind": "item",
+              "title": "租赁账单",
+              "itemKey": "prototypes/bfcl-lease-bill"
+            }
+          ]
+        },
+        {
+          "id": "folder-1785317183020-fqk8sl",
+          "kind": "folder",
+          "title": "物流业务",
+          "children": []
+        },
+        {
+          "id": "folder-1785318236553-90vjol",
+          "kind": "folder",
+          "title": "任务管理",
+          "children": [
+            {
+              "id": "item:prototypes:task-work-order",
+              "kind": "item",
+              "title": "任务工单",
+              "itemKey": "prototypes/task-work-order"
+            }
+          ]
+        },
+        {
+          "id": "folder-1785317153367-srmbmf",
+          "kind": "folder",
+          "title": "财务管理",
+          "children": [
+            {
+              "id": "item:prototypes:receivable-dunning",
+              "kind": "item",
+              "title": "应收催款",
+              "itemKey": "prototypes/receivable-dunning"
             }
           ]
         },

@@ -8,7 +8,7 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 
 | 规范属性 | 标准内容 |
 |---|---|
-| 文档版本 | **v2.8 三视角术语澄清 + 列表嵌套主子表定版**（2026-07-29） |
+| 文档版本 | **v2.12 KPI 数字语义色五档（外壳中性）**（2026-07-29） |
 | 视觉基底 | **Stripe Fintech UI**（Stripe Violet 紫光高规 B2B SaaS） + **Linear** 扁平微结构 |
 | 主色调 | Stripe Violet **`#533AFD`**（Hover: `#6346FF`, Focus-Ring: `#4226E8`, Soft: `#E0E7FF` / Dark Soft: `rgba(83, 58, 253, 0.18)`） |
 | 主题支持 | **100% 浅色 (Light Mode) / 暗色 (Dark Mode) 全局双色无缝适配** |
@@ -23,7 +23,7 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 1. **Stripe Violet 紫光高规质感**：以 Stripe Violet（`#533AFD`）作为统一品牌主色，采用精细微边框（浅色 `#E3E8EE` / 暗色 `#23272F`）、无重阴影的扁平浮层与沉浸式卡片容器。
 2. **PC / H5 移动端与 App 嵌入式 100% 响应式**：原生支持 PC 🖥️ 桌面大屏与手机浏览器/App 嵌入式 H5 📱 视口。移动端强制 44px 触控热区、智能底部 Bottom Sheet 日历与下拉面板、吸底操作条及表格卡片化转换。
 3. **三视角模式原生统一 (Three View Perspectives)**：复杂业务台账与管理页面统一提供**【1. 列表模式】**（高密度台账与筛选，可含**主表+嵌套子表**）、**【2. 看板模式】**（阶段 Pipeline 管线）、**【3. 主从工作台 (Split)**】（左任务单据列表 + 右侧工作台）。**禁止**把「列表内嵌套子表」误称为「主从/表单模式」——二者术语见 §5.0。
-4. **数据高可读性 (Tabular Nums)**：所有金额、单价、车辆数、VIN 码、时间与日期统一采用等宽字体 `tabular-nums` (`JetBrains Mono` / `SFMono-Regular`)。
+4. **数据高可读性 (Tabular Nums)**：所有金额、单价、车辆数、期数、宽限天数、VIN/单号/车牌、时间与日期**必须同一套等宽数字字体**（见 §2.2）：`font-family: var(--ln-font-mono)` + `font-variant-numeric: tabular-nums`。禁止金额走 Mono、日期走系统黑体的混排。
 5. **状态语义明确**：全局采用一致的四色语义（成功/绿、预警/橙、危险/红、信息/蓝、次要/灰），配合微徽章（Status Pills）。
 6. **无缝双色适配**：所有元素与组件必须完整定义浅色（Light Mode）与暗色（Dark Mode）对应色彩映射，严禁出现外壳暗色而内容浅色的不匹配情况。
 
@@ -73,15 +73,64 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 
 ### 2.2 字体排版 Token
 
-- **正文字体**：`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif`
-- **等宽数字字体**：`"JetBrains Mono", SFMono-Regular, Consolas, monospace`
-- **数字控制**：全局开启 `font-variant-numeric: tabular-nums`
+- **正文字体（Token）**：`--ln-font` / `--vm-font` =
+
+```text
+-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif
+```
+
+- **正文字体策略（A 档 · 系统栈，不自托管中文）**：
+  1. **产品口径**：汉字允许 Mac / Windows **平台原生差**（苹方 vs 雅黑），验收不以「截图像素同字体」卡汉字；金额/日期等数据字仍走 §2.2 等宽自托管。
+  2. **禁止**把未 `@font-face` / 未引入的 **Inter** 写进主正文栈冒充已加载。
+  3. **禁止**为 A 档去拉 Google Fonts / CDN 思源或 Noto（那是 B 档自托管中文，另立项）。
+
+| 系统 | 英文 / UI（常见） | 汉字（常见） |
+|---|---|---|
+| **macOS** | SF / 系统 UI（`-apple-system`） | **PingFang SC（苹方）** |
+| **Windows** | **Segoe UI** → Roboto | Segoe UI 几乎不覆盖汉字 → **Microsoft YaHei（微软雅黑）**；若本机有 Noto Sans SC 可作垫层 |
+| **最终** | `sans-serif` | 浏览器默认，应避免长期落此层 |
+
+- **等宽数字字体（Token）**：`--ln-font-mono` / `--vm-font-mono` =
+
+```text
+"JetBrains Mono", "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", SFMono-Regular, Menlo, "Courier New", monospace
+```
+
+- **字体加载（强制 · 自托管 · 仅等宽数字）**：
+  1. 由 `oneos-ds-tokens.css` `@import` **仓库内** `fonts/jetbrains-mono/jetbrains-mono.css`（woff2：400/500/600/700/800）。
+  2. **禁止**再绑 Google Fonts / jsDelivr 等外网 CDN（内网与 Windows 无外网环境会直接掉回系统等宽，Mac/Win 观感分裂）。
+  3. 许可：SIL OFL 1.1，文件见同目录 `OFL.txt`；版本见该目录 `README.md`。
+- **等宽栈序与失败态（跨端）**：
+
+| 优先级 | 字体 | 角色 |
+|---|---|---|
+| 1 | **JetBrains Mono** | 主路径：自托管，Mac / Windows / 内网必须一致 |
+| 2 | **Cascadia Mono** → **Cascadia Code** | Windows 11+ **失败态**（自托管未生效且本机有 Cascadia 时） |
+| 3 | **Consolas** | Windows 经典失败态 |
+| 4 | **SF Mono / Menlo** | macOS 失败态 |
+| 5 | **Courier New / monospace** | 最终兜底（应避免落到此层） |
+
+- **栈序硬禁**：JetBrains 必须第一；禁止把 `ui-monospace` 写在 JetBrains 前面。
+- **失败态产品口径**：允许 Cascadia / Consolas（Win）或 Menlo（Mac）作为**整页统一**失败态；**禁止**同一视口内部分金额 JetBrains、部分日期 Consolas/黑体混排——失败则整页走同一回落字体（因均消费 `--ln-font-mono`）。
+- **数字控制**：页面根节点开启 `font-variant-numeric: tabular-nums`；**仅开 tabular-nums 不够**——字宽齐但字族仍是黑体，必须同时切 `--ln-font-mono`。
+- **落地类名（强制）**：
+  - 原型/台账：金额、日期、账期、单号、车牌、宽限天数等统一挂 **`.bfcl-mono`**（或等价 `font-family: var(--ln-font-mono)`）。
+  - KPI：`.bfcl-kpi__value` **与** `.bfcl-kpi__sub`（含「待收 ¥…」副文案）必须同一字族；禁止主数字 Mono、副金额系统黑体。
+  - 表格：主行日期列与金额列同一字族；嵌套子表账期/起止日与金额列同一字族；`.bfcl-mono` 内的 `.bfcl-muted` 必须 `font-family: inherit`。
+  - 页面根节点正文：`font-family: var(--ln-font, var(--vm-font))`，私有 CSS 禁止再手写缺雅黑的短栈。
+- **禁止**：
+  1. 同一视口内金额用 Mono、日期用 PingFang/系统黑体邻列混排；
+  2. 只给金额加 mono、日期裸渲染；
+  3. 私有 CSS 把 `--mono` 写成 `ui-monospace` 优先栈；
+  4. 用外网 CDN 加载 JetBrains 冒充「已统一」；
+  5. 正文栈写 Inter / 思源却不加载（与 A 档事实不符）。
 - **车牌号格式规范**：统一使用标准中国车牌格式 `浙A88888F` 或 `沪B12345F`，禁止中间添加中圈点 `·` 或短横线，保持真实车辆管理系统权威感知。
 - **字号阶梯**：
   - `Caption (11px~12px / 1.33)`：次要微标、时间戳、次级 Label（H5 下正文提示建议 ≥ 12px）
-  - `Body-Sm (12px / 1.4)`：PC 表格单元格、次要描述
+  - `Body-Sm (12px / 1.4)`：PC 表格单元格次要列、等宽单号（含「查看 ›」链接）、表头 thead
   - `Body-Base (13px~14px / 1.5)`：标准正文、表单输入框文本（H5 移动端输入框字号统一 ≥ 14px，防止 iOS 自动放大）
-  - `Subhead (14px~15px / 1.4)`：小标题、按钮文案、卡片子标题
+  - **台账首列主文案（强制）**：双行「标题 + 单号」结构时，**只读标题用 `13px / 600 / line-height 1.35`**（Body-Base 下限）；**禁止**默认用 `14px / 700`（易抢过下方详情入口单号）。卡片标题、页头仍可用 Subhead / Head。
+  - `Subhead (14px~15px / 1.4)`：小标题、按钮文案、**卡片**子标题（非表内首列）
   - `Head-Sm (16px / 1.4)`：模块标题、Modal 标题
   - `Head-Lg (18px / 1.3)`：页面大标题、 Drawer 标题
   - `Display (24px / 1.2)`：KPI 分析大数字
@@ -111,6 +160,44 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 - **响应式降级**：平板屏宽 ≤ 1024px 自动降级为 2 列（`repeat(2, 1fr)`），H5 移动端屏宽 ≤ 767px 降级为单列自适应（`1fr`）；
 - **网格间距 (Gap)**：PC 标准 Gap 为 `16px` 或 `20px`，H5 为 `12px`；
 - **典型应用**：台账与工作台页顶部的 Bento KPI 分析大盘卡片列。
+- **卡片外壳（强制 · 中性）**：KPI 卡统一白/卡片底 + hairline 边框 + `12px` 圆角；**禁止**用语义色整张刷底或描边来表达预警/危险（那是徽章/数字的活，不是卡片壳的活）。Hover 仅可用主色混入边框，不得整卡变橙/红/蓝。
+
+##### 2.4.2.1 KPI 卡内数字 / 金额语义色（全局强制）
+
+> 事实源 CSS：`src/resources/design-system/oneos-ds-kpi.css`（由 `oneos-ds-tokens.css` 引入）。类名 **`ln-kpi-tone-*`** 只挂在数量、金额节点上。
+
+**上色范围（硬门禁）**
+
+| 可上色 | 不可上色 |
+|---|---|
+| 主数字（条数、¥ 汇总）`.ln-kpi__value` | 卡片底、边框、阴影 |
+| 副文案中的金额/度量 `.ln-kpi__sub`（如「待收 ¥18,600.00」） | 卡片标题 Label（保持 `--ln-muted`） |
+| — | 整卡 `background` / 语义色边框伪装「警示卡」 |
+
+**五档语义（业务选型）**
+
+| `tone` / 类名 | Token 色 | 典型 KPI | 禁用场景 |
+|---|---|---|---|
+| **normal** · `.ln-kpi-tone-normal` | 主数字 `--ln-ink`；副文案无金额时用 `--ln-muted` | 中性汇总（本期已收、在约合同数） | — |
+| **info** · `.ln-kpi-tone-info` | `--ln-info` `#3B82F6` | 待办/待处理提示（待收件数+待收金额、待审批） | 不得代替逾期 warning |
+| **warning** · `.ln-kpi-tone-warning` | `--ln-warning` `#D97706` | **逾期账单**件数与待收金额、临期预警 | 不得整卡刷橙底 |
+| **danger** · `.ln-kpi-tone-danger` | `--ln-error` `#EF4444` | 严重违约、已熔断、资金穿仓等需强阻断 | 普通逾期优先用 warning |
+| **success** · `.ln-kpi-tone-success` | `--ln-success` `#10B981` | 已结清、闭环完成 | 不得用于「待收仍有余额」 |
+
+**落地约定**
+
+```tsx
+<button type="button" className="bfcl-kpi__card"> {/* 外壳永远中性 */}
+  <span className="ln-kpi__label">逾期账单</span>
+  <strong className="ln-kpi__value ln-kpi-tone-warning">{count}</strong>
+  <span className="ln-kpi__sub ln-kpi-tone-warning">待收 ¥{amount}</span>
+</button>
+```
+
+1. 同一张卡：主数字挂业务 `tone`；副文案**含金额**时与主数字同 `tone`，纯说明文案用 `normal`（muted）。
+2. 未收金额在**表格单元格**里可用 danger 强调欠款数字；**KPI「逾期」卡**的件数/金额用 **warning**，与「欠款红字」层级区分。
+3. 深浅双色：语义色走 Token，禁止写死仅浅色可用的 HEX。
+4. 私有页可继续用 `bfcl-kpi__*` 布局类，但语义色必须复用 `ln-kpi-tone-*`，禁止再写整卡 `is-warning` 皮肤。
 
 #### 2.4.3 高阶筛选网格 (FilterBar Grid · 母版上限 13 项)
 - **网格定义**：PC 采用 `grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))`；H5 移动端（≤ 767px）自动切换为单列自适应 `grid-template-columns: 1fr`；
@@ -140,22 +227,29 @@ description: ONE-OS V2 全局定版设计规范文件。基于 Stripe Fintech UI
 
 ##### 2.4.3.2 筛选主入口尺寸与视觉（强制 · 防高低不一）
 
-台账工具栏 **主搜索**（`V2FilterSearch` / `.v2-filter-search`）与 **「更多筛选」**（`V2FilterMoreButton` / `.v2-filter-more-btn`）是同一级「优先点击」入口：用主色浅底 + 主色描边 + 外晕引导，**不得**做成弱 ghost 与导出同级。
+台账工具栏 **主搜索**（`V2FilterSearch` / `.v2-filter-search`）与 **「更多筛选」**（`V2FilterMoreButton` / `.v2-filter-more-btn`）是同一级筛选入口，须与导出等同高；视觉采用 **默认克制、交互再强化**，避免默认态主色浅底 + 外晕抢过 Pill Tabs 与表格。
+
+| 状态 | 视觉 | 说明 |
+|---|---|---|
+| **默认** | 白底 / 卡片底 + `1px` `--ln-hairline` 描边；**无**外晕；图标与「更多筛选」文案用 `--ln-muted` / `--ln-body` | 安静可辨，不抢主内容 |
+| **hover** | 浅主色混入底 + 主色弱描边 | 提示可点 |
+| **focus-within（搜索）** | 主色描边 + 轻 focus 环（约 16% 主色） | 键盘可达 |
+| **展开 / 有生效条件**（更多筛选） | 实心主色底 + 白字 + 条件徽标 | 状态反馈，此时才强引导 |
 
 | Token / 规则 | PC（≥768px） | H5（≤767px） |
 |---|---|---|
 | `--v2-filter-entry-height` | **36px**（对齐 `V2Button` `size="md"`） | **44px** |
 | `--v2-filter-entry-radius` | `var(--ln-radius-control)` = **8px**（搜索壳与更多筛选必须同圆角） | 同左 |
-| 边框 | `1.5px` 主色混入描边；默认外晕 `0 0 0 3px` 主色约 12% | 同左 |
+| 默认边框 | `1px` `--ln-hairline` | 同左 |
 | 字号 / 字重 | 13px；搜索字重 500、更多筛选 600 | 同左 |
-| 旁侧导出 / 导入 / 列设置 | 同高 **36px**；视觉保持 secondary/ghost，**不加**主色外晕 | ≥44px |
+| 旁侧导出 / 导入 / 列设置 | 同高 **36px**；secondary/ghost | ≥44px |
 
 **禁止**：
 
 1. 页面私有 CSS 改写 `.v2-filter-search` / `.v2-filter-more-btn` 的 `height` / `min-height` / `padding` 垂直值（导致 37px、40px 等漂移）。
 2. 对壳内 `.ln-select-trigger` 再套「紧凑 32px / padding 6px」覆盖，破坏壳内填满。
 3. 搜索圆角 10px、按钮圆角 8px 等成对不一致。
-4. 用放大尺寸代替视觉引导；引导靠描边/浅底/外晕，尺寸锁死 36/44。
+4. 默认态再叠「主色浅底 + 常驻外晕」造成工具链过亮（引导靠 hover/focus/展开态，尺寸仍锁死 36/44）。
 
 **组件**：必须用 `V2FilterSearch` + `V2FilterMoreButton`；样式唯一事实源 `oneos-ds-filter-affordance.css`。
 
@@ -250,8 +344,39 @@ import { V2Button } from './UIComponents';
 - **状态响应**：
   - **Hover**：边框变为 `#D4D4D8` / 暗色 `#2D3748`；
   - **Focus**：边框变为 Stripe Violet `#533AFD`，同时附加 `0 0 0 3px rgba(83, 58, 253, 0.2)` 光环；
-  - **Error (错误态)**：边框变为 `#EF4444`，附加 `0 0 0 3px rgba(239, 68, 68, 0.15)` 光环；
+  - **Error (错误态)**：边框变为 `#EF4444`，附加 `0 0 0 3px rgba(239, 68, 68, 0.15)` 光环；原生输入/文本域加 `is-invalid`，`V2Select` / `V2DatePicker` 传 `invalid`；
   - **Disabled (禁用态)**：背景变为 `#F1F5F9` / 暗色 `#16181F`，文字变 `#627D98`，光标 `not-allowed`。
+
+#### 3.1.2 表单校验反馈组合（强制）
+
+长表单提交失败时，**同时**提供三层反馈（缺一不可）：
+
+1. **控件 Error 态**：出错字段红边框 + 字段下方红字说明（`v2-field-error`）；
+2. **顶部 Toast**：`V2Toast` `tone="error"`，摘要如「还有 N 项必填未填」；
+3. **锚点定位**：滚到第一个出错字段（`data-field` + `scrollToFirstInvalidField`），并尽量聚焦内部可编辑控件。
+
+> 成功操作仍可用绿色 Toast；校验失败禁止只给红字、不标边框或不给总览提示。
+
+#### 3.1.3 Toast 位置（强制）
+
+`V2Toast` 固定在**视口中央上方**（水平居中，`top ≈ 20px`），**禁止**贴右上角，避免遮挡页头右侧操作（发布 / 暂存 / 催办等）。
+
+---
+
+### 3.2 下拉选择器规范 (`V2Select`)
+
+#### 3.2.1 空态与清空（强制）
+
+1. **禁止「请选择…」假选项**：下拉列表中不得加入 `value=''` 且文案为「请选择 / 请先选择…」的候选项；空态仅通过触发器 `placeholder` 展示（如「请选择采购合同」）。
+2. **清空入口**：`allowClear` **默认开启**。已选值时，在触发器**右侧**（下拉箭头左侧）显示圆形清空按钮（`×`）；点击清空为 `''`（单选）或 `[]`（多选），并关闭面板。
+3. **筛选项例外**：「全部 / 不限」等有业务语义的空值选项可保留（表示不过滤），但不得伪装成「请选择」。
+4. **禁用态**：`disabled` 时隐藏清空按钮；多选 Tag 上的单项 `×` 亦隐藏（见 §3.11）。
+5. **必填清空**：必填字段允许先清空，由发布校验（§3.1.2）拦截并锚点回填。
+
+#### 3.2.2 交互与触控
+
+- 清空按钮需 `cursor-pointer`、可见 focus；移动端触控面积建议 ≥ 28×28px（触发器总高度仍 ≥ 44px）。
+- H5 仍走 Bottom Sheet；清空在 Sheet 打开前于触发器完成，不必依赖 Sheet 内额外「清空」行（可选增强）。
 
 ---
 
@@ -303,7 +428,7 @@ import { V2Button } from './UIComponents';
   3. **边框 (Disabled Border)**：统一保留微边框 `1px solid var(--ln-hairline)` / `#E3E8EE`（Dark 模式：`#23272F`），保持界面几何结构的平整一致；
   4. **鼠标指针 (Cursor Indicator)**：鼠标悬停与触控指针强制呈现 `cursor: not-allowed`；
   5. **交互行为阻断 (Interaction Suppression)**：完全屏蔽 Hover 悬停色变、Focus 强光圈、Active 缩放，以及下拉 Popover / 日历 Bottom Sheet 弹窗的唤起；
-  6. **子元素与状态防护**：`V2Select` 多选 Tag 隐藏清除 `X` 按钮；`V2Switch` 滑块降级为 `#E2E8F0`；`V2RadioGroup` 与 `V2CheckboxGroup` 保持选中标识但图标降级为灰度；`V2Steps` / `V2Timeline` / `V2ApprovalProgress` 呈现灰度贯穿形态。
+  6. **子元素与状态防护**：`V2Select` 隐藏触发器清空钮与多选 Tag 清除 `X`；`V2Switch` 滑块降级为 `#E2E8F0`；`V2RadioGroup` 与 `V2CheckboxGroup` 保持选中标识但图标降级为灰度；`V2Steps` / `V2Timeline` / `V2ApprovalProgress` 呈现灰度贯穿形态。
 
 ---
 
@@ -342,30 +467,35 @@ import { V2Button } from './UIComponents';
 
 ### 3.13 空状态与异常页规范 (Empty State & Exception View Specifications)
 
-- **设计目标**：在台账暂无数据、高阶筛选未搜索到匹配记录、403 权限受限、500 后端服务超时或网络连接中断等异常或零数据场景下，提供统一、优雅且带导向性的空状态组件 (`V2Empty`)，杜绝原生空白页或无引导的灰字。
+- **设计目标**：在台账暂无数据、筛选无匹配、403 权限受限、500 服务异常或网络中断等场景下，提供统一空状态组件 (`V2Empty`)，杜绝原生空白页。
+- **零数据口径（强制 · `empty` / `no_search`）**：
+  1. **只陈述无数据**：标题默认「暂无数据」；**不要**引导「新建第一条记录 / 开启记录」，也**不要**提示「清空筛选 / 重置条件后重试」等操作建议；
+  2. **默认无主按钮**：`empty` / `no_search` 预设**不带**主操作；确需 CTA 时由业务显式传入 `primaryActionText` + `onPrimaryAction`；
+  3. 无 handler 时**禁止**出现预设主按钮（避免空点子）。
 - **组件用法**：
   ```tsx
   import { V2Empty } from './UIComponents';
 
+  // 零数据：仅说明，无新建引导
+  <V2Empty type="empty" title="暂无工单" />
+
+  // 确需操作时显式传入
   <V2Empty
-    type="empty" // 'empty' | 'no_search' | 'no_permission' | 'server_error' | 'no_network' | 'custom'
-    title="暂无租赁合同记录"
-    description="当前租户库或选定主体下尚未创建合同，您可以新建第一份正式合同。"
-    primaryActionText="新建第一条记录"
-    onPrimaryAction={handleCreate}
+    type="server_error"
+    onPrimaryAction={handleRetry}
   />
   ```
 - **核心场景预设 (Preset Scenarios)**：
-  1. **暂无数据 (`type="empty"`)**：第一主色 `#533AFD` 光环，`<Inbox />` 图标，引导用户新建第一条业务记录；
-  2. **无匹配结果 (`type="no_search"`)**：蓝色 `#3B82F6` 光环，`<SearchX />` 图标，引导用户一键重置 13 项筛选条件；
-  3. **暂无权限 (`type="no_permission"`)**：琥珀黄 `#D97706` 光环，`<Lock />` 图标，引导用户提交审批申请开通权限；
-  4. **服务异常 (`type="server_error"`)**：危险红 `#EF4444` 光环，`<AlertTriangle />` 图标，引导用户一键刷新重试；
-  5. **网络断开 (`type="no_network"`)**：灰度 `#6B7280` 光环，`<WifiOff />` 图标，引导用户检查网络连接；
+  1. **暂无数据 (`type="empty"`)**：主色光环 + `<Inbox />`，标题「暂无数据」，**无默认按钮**；
+  2. **无匹配结果 (`type="no_search"`)**：蓝色光环 + `<SearchX />`，标题「暂无数据」，**无默认按钮、不提重置筛选**；
+  3. **暂无权限 (`type="no_permission"`)**：琥珀光环 + `<Lock />`；有 `onPrimaryAction` 时可带「申请开通权限」；
+  4. **服务异常 (`type="server_error"`)**：危险红光环 + `<AlertTriangle />`；有 handler 时可带「一键刷新重试」；
+  5. **网络断开 (`type="no_network"`)**：灰度光环 + `<WifiOff />`；有 handler 时可带「重新连接网络」；
 - **尺寸变体 (Size Variants)**：
   - `size="default"`：标准大框空状态（用于页面主台账、看板列、大卡片内容区）；
   - `size="compact"`：紧凑型（用于下拉菜单明细、抽屉子表、模态框内嵌表）；
   - `size="large"` / `fullPage={true}`：整页居中（用于 403/500/404 独立整页）。
-- **PC / H5 双端响应式**：移动端 (≤767px) 场景下操作按键自动转为 `min-height: 44px` 触控高，按钮组宽度自动 100% 充满，适应手机端点击。
+- **PC / H5 双端响应式**：移动端 (≤767px) 场景下若存在操作按键，自动转为 `min-height: 44px` 触控高，按钮组宽度自动 100% 充满。
 
 ---
 
@@ -757,6 +887,19 @@ PC Web 页面（视口 ≥768）打开下拉/日期，必须是 **Popover 下拉
 ### 5.1 列表模式 (List View - 默认)
 
 - **骨架**：4 列 Bento KPI（PC gap `16–20px`）+ 台账连体壳（Pill Tabs 带 `count` + 工具链 36px 同高 + 更多筛选）+ 主表（可嵌套子表）+ 分页贴壳。
+- **首列信息结构与字号（强制）**：
+  - 推荐双行：上行 **业务标题（只读）** + 下行 **mono 单号详情入口**（主色下划线 +「查看 ›」）。
+  - 标题：`13px / font-weight 600 / line-height 1.35`，色 `var(--ln-ink)`；**不要**用 `14px / 700` 当表内默认（会压过单号入口）。
+  - 单号：`12px` + `var(--ln-font-mono)` + tabular-nums；详情引导见下条。
+  - 母版：任务工单列表「任务」列（`.v2-two-row-title` + 单号链接）。
+- **详情入口视觉引导（强制）**：凡台账单元格内**可点击进入详情页**（同页全页 / 主从 / 新标签单据详情均可）的主键或标题，必须同时满足：
+  1. **主色**（`var(--oneos-primary, var(--ln-primary))`）+ **下划线**（弱装饰色，hover/focus 加深）；
+  2. 文案后方固定引导 **「查看 ›」**（`ChevronRight`，字号略小于正文，`aria-hidden`）；
+  3. 完整 `title` / `aria-label` 说明目的地（如「点击进入工单详情」）；
+  4. 可见 **focus 环**；`cursor: pointer`。
+  - **适用范围**：工单/合同/账单等**单号**、车牌（进档案）、关联业务单号等「点进详情」入口；同一单元格若已有单号带「查看 ›」，**标题可只读**，不必再做成链接。
+  - **不适用**：仅展开 Popover / 下拉的触发器（可用 ChevronDown）；操作列已有「详情」按钮的，单元格单号链接仍须带「查看 ›」，二者不互斥。
+  - **母版**：车辆资产车牌链接 / 合同编号链接（`va-plate-link` / `va-contract-link`）；任务工单单号链接（`DetailEntryLink`）。
 - **嵌套子表（强制可复用）**：
   - 主行：实体主键（`monospace` 合同号等）+ 项目/客户 + 汇总金额/期数 + 实体级最差状态；左侧 Chevron 展开，触控/点击区清晰。
   - 子表：用 Token 底色（`var(--ln-surface-pearl)` 等），**禁止**硬编码 `#eef2f7`；列密度对齐主表；操作列走 `OperationActions`（常用外置 ≤2，明细/历史进 ⋮）。

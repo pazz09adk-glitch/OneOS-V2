@@ -347,7 +347,7 @@ export function H5FaultHandlingApp() {
         style={{
           background: 'var(--ln-surface-card)',
           borderRadius: '12px',
-          borderLeft: opts?.borderColor ? `4px solid ${opts.borderColor}` : `4px solid ${col?.color || '#533AFD'}`,
+          borderLeft: opts?.borderColor ? `4px solid ${opts.borderColor}` : `4px solid ${col?.color || 'var(--oneos-primary, var(--ln-primary, #533AFD))'}`,
           borderTop: '1px solid var(--ln-hairline)',
           borderRight: '1px solid var(--ln-hairline)',
           borderBottom: '1px solid var(--ln-hairline)',
@@ -541,7 +541,7 @@ export function H5FaultHandlingApp() {
                 gap: '4px',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: viewMode === id ? '0 2px 8px rgba(83, 58, 253, 0.3)' : 'none'
+                boxShadow: viewMode === id ? '0 2px 8px color-mix(in srgb, var(--oneos-primary, #533afd) 30%, transparent)' : 'none'
               }}
             >
               <Icon size={15} />
@@ -556,7 +556,7 @@ export function H5FaultHandlingApp() {
         <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
             {([
-              { key: 'all' as KpiFilter, label: '全量故障台账', count: kpiStats.total, icon: Wrench, color: '#533AFD' },
+              { key: 'all' as KpiFilter, label: '全量故障台账', count: kpiStats.total, icon: Wrench, color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' },
               { key: 'active' as KpiFilter, label: '待处理+处理中', count: kpiStats.active, icon: Clock3, color: '#3B82F6' },
               { key: 'suspended' as KpiFilter, label: '挂起保护', count: kpiStats.suspended, icon: PauseCircle, color: '#D97706' },
               { key: 'urgent' as KpiFilter, label: '临期/逾期告警', count: kpiStats.urgent, icon: AlertTriangle, color: '#EF4444' }
@@ -649,7 +649,7 @@ export function H5FaultHandlingApp() {
                 padding: '0 14px',
                 borderRadius: '10px',
                 border: activeFilterCount > 0 ? '1px solid var(--oneos-primary, #533AFD)' : '1px solid var(--ln-hairline)',
-                background: activeFilterCount > 0 ? 'rgba(83, 58, 253, 0.08)' : 'var(--ln-surface-card)',
+                background: activeFilterCount > 0 ? 'color-mix(in srgb, var(--oneos-primary, #533afd) 8%, transparent)' : 'var(--ln-surface-card)',
                 color: activeFilterCount > 0 ? 'var(--oneos-primary, #533AFD)' : 'var(--ln-ink)',
                 fontSize: '13px',
                 fontWeight: 600,
@@ -673,7 +673,7 @@ export function H5FaultHandlingApp() {
                     fontSize: '11px',
                     padding: '4px 8px',
                     borderRadius: '9999px',
-                    background: 'rgba(83, 58, 253, 0.12)',
+                    background: 'color-mix(in srgb, var(--oneos-primary, #533afd) 12%, transparent)',
                     color: 'var(--oneos-primary, #533AFD)',
                     fontWeight: 600,
                     display: 'inline-flex',
@@ -900,7 +900,7 @@ export function H5FaultHandlingApp() {
                 <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ln-body)', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Bot size={14} style={{ color: 'var(--oneos-primary, #533AFD)' }} /> AI 排查摘要
                 </div>
-                <div style={{ fontSize: '13px', color: 'var(--ln-body)', lineHeight: 1.55, padding: '10px 12px', borderRadius: '8px', background: 'rgba(83, 58, 253, 0.06)', border: '1px solid rgba(83, 58, 253, 0.12)' }}>
+                <div style={{ fontSize: '13px', color: 'var(--ln-body)', lineHeight: 1.55, padding: '10px 12px', borderRadius: '8px', background: 'rgba(83, 58, 253, 0.06)', border: '1px solid color-mix(in srgb, var(--oneos-primary, #533afd) 12%, transparent)' }}>
                   {activeRecord.aiChatSummary}
                 </div>
               </div>
@@ -1235,7 +1235,7 @@ export function H5FaultHandlingApp() {
               {actionModal.type === 'handle' ? '故障处置与归档' : actionModal.type === 'suspend' ? '申请挂起保护' : '发送催办通知'}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--ln-muted)' }}>
-              目标单据: <strong style={{ color: '#533AFD' }}>{actionModal.record.id}</strong> ({cleanPlate(actionModal.record.plate)})
+              目标单据: <strong style={{ color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' }}>{actionModal.record.id}</strong> ({cleanPlate(actionModal.record.plate)})
             </div>
             <textarea
               placeholder={
@@ -1365,7 +1365,7 @@ export function H5FaultHandlingApp() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(83, 58, 253, 0.1)', color: '#533AFD', fontSize: '13px', fontWeight: 800 }}>
+          <div style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(83, 58, 253, 0.1)', color: 'var(--oneos-primary, var(--ln-primary, #533AFD))', fontSize: '13px', fontWeight: 800 }}>
             H5 移动端
           </div>
           <div>
@@ -1423,7 +1423,7 @@ export function H5FaultHandlingApp() {
               minHeight: '44px'
             }}
           >
-            {isDark ? <Sun size={14} style={{ color: '#F59E0B' }} /> : <Moon size={14} style={{ color: '#533AFD' }} />}
+            {isDark ? <Sun size={14} style={{ color: '#F59E0B' }} /> : <Moon size={14} style={{ color: 'var(--oneos-primary, var(--ln-primary, #533AFD))' }} />}
             {isDark ? '浅色' : '深色'}
           </button>
         </div>
