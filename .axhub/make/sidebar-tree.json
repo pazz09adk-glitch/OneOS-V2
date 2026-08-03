@@ -3,19 +3,6 @@
   "updatedAt": "2026-07-30T05:47:51.153Z",
   "prototypes": [
     {
-      "id": "folder-management-operations",
-      "kind": "folder",
-      "title": "经营管理",
-      "children": [
-        {
-          "id": "item:prototypes:management-ops-review",
-          "kind": "item",
-          "title": "管理层经营分析会",
-          "itemKey": "prototypes/management-ops-review"
-        }
-      ]
-    },
-    {
       "id": "item-prototypes-customer-engagement",
       "kind": "item",
       "title": "customer engagement",
@@ -32,6 +19,12 @@
       "kind": "item",
       "title": "业财闭环汇报",
       "itemKey": "prototypes/biz-finance-line-briefing"
+    },
+    {
+      "id": "item:prototypes:management-ops-review",
+      "kind": "item",
+      "title": "管理层经营分析会",
+      "itemKey": "prototypes/management-ops-review"
     },
     {
       "id": "item:prototypes:bfcl-contract",
