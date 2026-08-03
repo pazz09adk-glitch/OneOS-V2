@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ONEOS 经营风险闭环看板</title>
+  <style>
+    :root {
+      --primary: #533afd;
+      --primary-soft: #eeebff;
+      --primary-border: #cfc8ff;
+      --ink: #1b2333;
+      --muted: #68758a;
+      --subtle: #8b96a8;
+      --line: #dfe6ef;
+      --line-strong: #c8d3e1;
+      --canvas: #f3f6fa;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --red: #c83d49;
+      --red-bg: #fff1f2;
+      --orange: #c67813;
+      --orange-bg: #fff7e8;
+      --green: #13865f;
+      --green-bg: #ebf8f2;
+      --blue: #2563b9;
+      --blue-bg: #edf5ff;
+      --shadow: 0 16px 38px rgba(38, 52, 77, .08);
+      --radius: 12px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); font-family: var(--font); font-size: 14px; line-height: 1.6; }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .app { min-height: 100vh; }
+    .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 64px; padding: 0 28px; border-bottom: 1px solid rgba(207, 217, 231, .95); background: rgba(255,255,255,.94); backdrop-filter: blur(18px); }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--primary); color: #fff; font-weight: 800; box-shadow: 0 8px 20px rgba(83,58,253,.25); }
+    .brand-copy { min-width: 0; }
+    .brand-copy strong { display: block; font-size: 15px; line-height: 1.25; }
+    .brand-copy span { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .top-meta { display: flex; align-items: center; gap: 10px; }
+    .snapshot { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--panel-soft); font-size: 12px; }
+    .ghost-btn, .primary-btn { min-height: 40px; padding: 8px 13px; border-radius: 8px; cursor: pointer; }
+    .ghost-btn { border: 1px solid var(--line); background: #fff; }
+    .ghost-btn:hover { border-color: var(--line-strong); background: var(--panel-soft); }
+    .primary-btn { border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .primary-btn:hover { background: #4630dc; }
+    button:focus-visible, a:focus-visible { outline: 3px solid rgba(83,58,253,.24); outline-offset: 2px; }
+    .shell { display: grid; grid-template-columns: 224px minmax(0, 1fr); min-height: calc(100vh - 64px); }
+    .sidebar { position: sticky; top: 64px; align-self: start; height: calc(100vh - 64px); padding: 22px 14px; border-right: 1px solid var(--line); background: #fff; overflow-y: auto; }
+    .nav-title { margin: 0 10px 10px; color: var(--subtle); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .nav { display: grid; gap: 4px; }
+    .nav a { display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 9px 11px; border-radius: 8px; color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav a:hover { color: var(--ink); background: var(--panel-soft); }
+    .nav a.active { color: var(--primary); background: var(--primary-soft); }
+    .nav-dot { width: 8px; height: 8px; border: 2px solid currentColor; border-radius: 50%; }
+    [data-page] { min-width: 0; max-width: 100%; }
+    [data-page][hidden] { display: none !important; }
+    .boss-split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .boss-split > *, .boss-item > * { min-width: 0; }
+    .boss-list { display: grid; gap: 10px; padding: 14px; }
+    .boss-item { display: grid; grid-template-columns: minmax(150px, .75fr) minmax(240px, 1.35fr) auto; gap: 14px; align-items: center; padding: 13px 14px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+    .boss-item strong { font-size: 13px; }
+    .boss-item p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+    .decision-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .decision-card { padding: 18px; border: 1px solid var(--line); border-left: 4px solid var(--red); border-radius: var(--radius); background: #fff; box-shadow: 0 8px 24px rgba(43,58,82,.045); }
+    .decision-card h3 { margin: 8px 0 10px; font-size: 17px; }
+    .decision-card dl { display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; margin: 0; }
+    .decision-card dt { color: var(--muted); font-size: 12px; }
+    .decision-card dd { margin: 0; color: #354257; font-size: 13px; }
+    .sidebar-note { margin: 24px 8px 0; padding: 13px; border: 1px solid var(--primary-border); border-radius: 10px; background: var(--primary-soft); color: #4235a8; font-size: 12px; }
+    main { width: 100%; min-width: 0; max-width: 1540px; padding: 26px 30px 56px; overflow-x: visible; }
+    .hero { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 18px; padding: 26px 28px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(125deg, #fff 0%, #fbfbff 62%, #f0eeff 100%); box-shadow: var(--shadow); }
+    .eyebrow { margin: 0 0 7px; color: var(--primary); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    h1 { margin: 0; font-size: clamp(26px, 3vw, 36px); line-height: 1.2; letter-spacing: -.03em; }
+    .hero p { max-width: 780px; margin: 12px 0 0; color: var(--muted); font-size: 15px; }
+    .hero-side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 14px; min-width: 240px; }
+    .strategy { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+    .strategy span { padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .source { color: var(--subtle); font-size: 12px; text-align: right; }
+    .alert { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 18px; padding: 12px 14px; border: 1px solid #efcf94; border-radius: 10px; background: #fff9ed; color: #73511d; }
+    .alert strong { white-space: nowrap; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .kpi { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: 0 8px 22px rgba(42,55,78,.04); }
+    .kpi-label { color: var(--muted); font-size: 12px; font-weight: 650; }
+    .kpi-value { margin-top: 8px; font-size: 28px; font-weight: 750; line-height: 1.1; letter-spacing: -.03em; }
+    .kpi-desc { margin-top: 6px; color: var(--subtle); font-size: 12px; }
+    .kpi.red .kpi-value { color: var(--red); }
+    .kpi.orange .kpi-value { color: var(--orange); }
+    .kpi.green .kpi-value { color: var(--green); }
+    .kpi.blue .kpi-value { color: var(--blue); }
+    .finance-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .finance-note { display: inline-flex; margin-top: 5px; padding: 2px 7px; border-radius: 999px; color: #73511d; background: #fff4d8; font-size: 11px; font-weight: 700; }
+    .data-scope { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 9px; color: #4b5a70; background: #f8fafc; font-size: 12px; }
+    .data-scope strong { color: var(--ink); }
+    .archive-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .archive-card { padding: 15px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+    .archive-card span { display: block; color: var(--muted); font-size: 12px; }
+    .archive-card strong { display: block; margin-top: 5px; font-size: 16px; }
+    .archive-card small { display: block; margin-top: 3px; color: var(--subtle); }
+    .ledger-wrap { overflow-x: auto; }
+    .ledger-table { width: max-content; min-width: 1380px; table-layout: auto; }
+    .profit-wrap { overflow-x: auto; }
+    .profit-table { min-width: 1120px; }
+    .money-negative { color: var(--red); font-weight: 750; }
+    .money-positive { color: var(--green); font-weight: 750; }
+    .section { scroll-margin-top: 82px; margin-top: 20px; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+    .section-title h2 { margin: 0; font-size: 20px; letter-spacing: -.015em; }
+    .section-title p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: 0 8px 26px rgba(43,58,82,.045); overflow: hidden; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 14px; border-bottom: 1px solid var(--line); background: var(--panel-soft); }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+    .filter { min-height: 34px; padding: 6px 11px; border: 1px solid transparent; border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 700; }
+    .filter:hover { color: var(--ink); background: #fff; }
+    .filter.active { color: var(--primary); border-color: var(--primary-border); background: var(--primary-soft); }
+    .view-switch { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    .view-switch button { min-height: 30px; padding: 5px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; }
+    .view-switch button.active { color: var(--ink); background: #edf1f6; }
+    .tracking-tabs, .week-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .tracking-tab, .week-button { min-height: 36px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: #fff; cursor: pointer; font-weight: 700; font-size: 12px; }
+    .tracking-tab.active, .week-button.active { border-color: var(--primary-border); color: var(--primary); background: var(--primary-soft); }
+    .empty-state { padding: 34px 20px; border: 1px dashed var(--line-strong); border-radius: var(--radius); color: var(--muted); background: #fff; text-align: center; }
+    [data-action-pane][hidden], [data-week-pane][hidden] { display: none !important; }
+    .risk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 14px; }
+    .risk-card { position: relative; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .risk-card:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 12px 26px rgba(35,50,77,.08); }
+    .risk-card[hidden] { display: none; }
+    .risk-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .risk-card h3 { margin: 0; font-size: 16px; }
+    .risk-card .project { margin-top: 2px; color: var(--subtle); font-size: 12px; }
+    .badge { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .badge.red { color: var(--red); background: var(--red-bg); }
+    .badge.orange { color: var(--orange); background: var(--orange-bg); }
+    .badge.yellow { color: #8a6a00; background: #fffbe6; }
+    .badge.green { color: var(--green); background: var(--green-bg); }
+    .risk-main { display: flex; align-items: baseline; gap: 6px; margin: 15px 0 8px; }
+    .risk-main strong { font-size: 26px; line-height: 1; }
+    .risk-main span { color: var(--muted); font-size: 12px; }
+    .risk-list { margin: 0; padding-left: 18px; color: #39465a; font-size: 13px; }
+    .risk-list li { margin: 5px 0; }
+    .card-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 12px; }
+    .risk-table-wrap { display: none; overflow-x: auto; }
+    .panel.table-view .risk-grid { display: none; }
+    .panel.table-view .risk-table-wrap { display: block; }
+    table { width: 100%; min-width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; font-size: 13px; }
+    th { position: sticky; top: 0; color: var(--muted); background: #f7f9fc; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .click-row { cursor: pointer; }
+    .click-row:hover { background: #fafbfe; }
+    .two-col { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
+    .flow { display: grid; grid-template-columns: repeat(6, minmax(110px, 1fr)); gap: 8px; padding: 16px; overflow-x: auto; }
+    .flow-step { position: relative; min-width: 110px; padding: 13px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-soft); }
+    .flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 50%; z-index: 2; transform: translate(50%, -50%); width: 20px; color: var(--subtle); background: #fff; text-align: center; }
+    .flow-step span { display: block; color: var(--subtle); font-size: 11px; }
+    .flow-step strong { display: block; margin-top: 5px; font-size: 13px; }
+    .flow-step.alert-step { border-color: #e8ba69; background: var(--orange-bg); }
+    .rule-list { display: grid; gap: 9px; padding: 16px; }
+    .rule { display: grid; grid-template-columns: 104px 1fr; gap: 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-soft); }
+    .rule strong { color: var(--primary); font-size: 12px; }
+    .rule p { margin: 0; color: #3c495c; font-size: 13px; }
+    .type-label { display: inline-flex; align-items: center; margin-left: 8px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 750; vertical-align: middle; }
+    .type-label.problem { color: var(--red); background: var(--red-bg); }
+    .type-label.advice { color: var(--orange); background: var(--orange-bg); }
+    .type-label.solution { color: var(--blue); background: var(--blue-bg); }
+    .problem-summary { margin-bottom: 12px; padding: 13px 15px; border: 1px solid #f0c2c6; border-radius: 10px; background: var(--red-bg); color: #6f3037; }
+    .problem-summary strong { margin-right: 10px; }
+    .panel-caption { padding: 11px 16px; border-bottom: 1px solid var(--line); color: var(--ink); background: var(--panel-soft); font-weight: 750; }
+    .exception-list { display: grid; gap: 10px; padding: 14px; }
+    .exception { display: grid; grid-template-columns: auto 1fr auto; gap: 11px; align-items: start; padding: 13px; border: 1px solid var(--line); border-radius: 9px; }
+    .exception-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: var(--orange); background: var(--orange-bg); font-weight: 800; }
+    .exception h3 { margin: 0; font-size: 14px; }
+    .exception p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .exception-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 9px; color: #4a5870; font-size: 12px; }
+    .actions-wrap { overflow-x: auto; }
+    .actions-wrap, .ledger-wrap, .profit-wrap, .risk-table-wrap { max-width: 100%; scrollbar-gutter: stable; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+    .actions-table { width: max-content; min-width: 1280px; table-layout: auto; }
+    .actions-table th:nth-child(1) { min-width: 76px; }
+    .actions-table th:nth-child(2) { min-width: 300px; }
+    .actions-table th:nth-child(3) { min-width: 130px; }
+    .actions-table th:nth-child(4) { min-width: 100px; }
+    .actions-table th:nth-child(5) { min-width: 160px; }
+    .actions-table th:nth-child(6), .actions-table th:nth-child(7) { min-width: 170px; }
+    .actions-table th:nth-child(8) { min-width: 360px; }
+    .actions-table th:nth-child(9) { min-width: 110px; }
+    .actions-table th:nth-child(10) { min-width: 100px; }
+    .ledger-table th:nth-child(1) { min-width: 120px; }
+    .ledger-table th:nth-child(2) { min-width: 120px; }
+    .ledger-table th:nth-child(3) { min-width: 300px; }
+    .ledger-table th:nth-child(4) { min-width: 220px; }
+    .ledger-table th:nth-child(5) { min-width: 160px; }
+    .ledger-table th:nth-child(6) { min-width: 170px; }
+    .ledger-table th:nth-child(7) { min-width: 300px; }
+    .ledger-table th:nth-child(8) { min-width: 110px; }
+    .scroll-note { margin: -2px 0 9px; color: var(--subtle); font-size: 12px; }
+    .status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--subtle); }
+    .status.red::before { background: var(--red); }
+    .status.orange::before { background: var(--orange); }
+    .status.green::before { background: var(--green); }
+    .pending-text { color: var(--primary); font-weight: 750; }
+    .status.overdue { padding: 3px 8px; border-radius: 999px; color: var(--red); background: var(--red-bg); font-weight: 750; }
+    tr.is-overdue { background: linear-gradient(90deg, rgba(255,241,242,.72), transparent 72%); }
+    .mini-action { max-width: 100%; min-height: 30px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--primary); cursor: pointer; white-space: normal; line-height: 1.25; font-size: 12px; }
+    .mini-action, .status { flex: 0 0 auto; }
+    .mini-action:disabled { cursor: not-allowed; color: var(--muted); border-style: dashed; background: var(--panel-soft); opacity: 1; }
+    .decision-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; padding: 14px; }
+    .decision { padding: 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-soft); }
+    .decision strong { display: block; margin-bottom: 7px; font-size: 13px; }
+    .decision p { margin: 0; color: var(--muted); font-size: 12px; }
+    .decision.good { border-color: #aadbc7; background: var(--green-bg); }
+    .decision.warn { border-color: #e9c17f; background: var(--orange-bg); }
+    .system-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .system-card { padding: 17px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: 0 8px 24px rgba(43,58,82,.045); }
+    .system-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .system-card h3 { margin: 8px 0 4px; font-size: 16px; }
+    .system-card .system-id { color: var(--subtle); font-size: 11px; }
+    .system-card .system-problem { margin: 10px 0; padding: 9px 10px; border-radius: 8px; color: #5d4450; background: #fff5f5; font-size: 12px; }
+    .system-card .system-solution { margin: 0; color: #344258; font-size: 13px; }
+    .system-card-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .feasibility { display: inline-flex; margin-left: 5px; padding: 2px 7px; border-radius: 999px; font-size: 11px; font-weight: 750; }
+    .feasibility.yes { color: var(--green); background: var(--green-bg); }
+    .feasibility.conditional { color: var(--orange); background: var(--orange-bg); }
+    .feasibility.decision { color: #596477; background: #eef1f5; }
+    .kb-governance { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .kb-governance span { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: #fff; font-size: 12px; }
+    .kb-governance span:not(:last-child)::after { content: " →"; margin-left: 8px; color: var(--subtle); }
+    .kb-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .kb-card { padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+    .kb-card h3 { margin: 7px 0 9px; font-size: 15px; }
+    .kb-card dl { display: grid; grid-template-columns: 82px 1fr; gap: 7px 10px; margin: 0; }
+    .kb-card dt { color: var(--muted); font-size: 12px; }
+    .kb-card dd { margin: 0; color: #3b485c; font-size: 12px; }
+    .footer { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--muted); font-size: 12px; }
+    .footer strong { color: var(--ink); }
+    .drawer-backdrop { position: fixed; inset: 0; z-index: 60; display: none; background: rgba(20,27,42,.34); }
+    .drawer-backdrop.open { display: block; }
+    .drawer { position: absolute; top: 0; right: 0; width: min(520px, 92vw); height: 100%; padding: 22px; background: #fff; box-shadow: -20px 0 50px rgba(25,36,58,.18); overflow-y: auto; }
+    .drawer-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+    .drawer-head h2 { margin: 0; font-size: 21px; }
+    .drawer-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .close-btn { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 20px; }
+    .drawer-section { padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .drawer-section:last-child { border-bottom: 0; }
+    .drawer-section h3 { margin: 0 0 9px; font-size: 14px; }
+    .drawer-section p, .drawer-section li { color: #3d4a5f; font-size: 13px; }
+    .drawer-section ul { margin: 0; padding-left: 19px; }
+    .drawer-section li { margin: 6px 0; }
+    @media (max-width: 1260px) { .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .risk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .decision-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .system-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 900px) { .shell { grid-template-columns: 1fr; } .sidebar { display: none; } main { padding: 20px 16px 40px; } .topbar { padding: 0 16px; } .hero { flex-direction: column; padding: 22px; } .hero-side { align-items: flex-start; min-width: 0; } .strategy { justify-content: flex-start; } .source { text-align: left; } .two-col, .boss-split, .decision-cards, .system-grid, .kb-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .top-meta .snapshot { display: none; } .kpi-grid, .archive-grid, .risk-grid, .decision-grid { grid-template-columns: 1fr; } .toolbar, .section-head { align-items: flex-start; flex-direction: column; } .view-switch { align-self: stretch; } .view-switch button { flex: 1; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .risk-card { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">O</div>
+        <div class="brand-copy">
+          <strong>ONEOS 经营风险闭环</strong>
+          <span>管理层经营分析会 · 经营驾驶舱 V0.6</span>
+        </div>
+      </div>
+      <div class="top-meta">
+        <span class="snapshot">2026年第32周 · 跟踪中</span>
+        <button class="ghost-btn" type="button" onclick="setActivePage('decisions')">查看待拍板</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" aria-label="看板导航">
+        <p class="nav-title">经营看板</p>
+        <nav class="nav">
+          <a class="active" href="#dashboard" data-page-target="dashboard"><span class="nav-dot"></span>驾驶舱首页</a>
+          <a href="#decisions" data-page-target="decisions"><span class="nav-dot"></span>待拍板事项</a>
+          <a href="#risks" data-page-target="risks"><span class="nav-dot"></span>风险与问题</a>
+          <a href="#actions" data-page-target="actions"><span class="nav-dot"></span>执行追踪</a>
+          <a href="#finance" data-page-target="finance"><span class="nav-dot"></span>经营损益</a>
+          <a href="#system" data-page-target="system"><span class="nav-dot"></span>系统改造</a>
+          <a href="#archive" data-page-target="archive"><span class="nav-dot"></span>周度追踪</a>
+        </nav>
+        <div class="sidebar-note"><strong>评审边界</strong><br>本页为会议事实与需求方案快照，不代表正式系统实时数据，不产生业务写入。</div>
+      </aside>
+
+      <main>
+        <section class="hero" id="overview" data-page="dashboard">
+          <div>
+            <p class="eyebrow">第31周会议数据 · 第32周执行跟踪</p>
+            <h1>经营结果、重大风险与待拍板事项</h1>
+            <p>聚焦经营效益、现金回收、重大风险、执行进度及管理决策事项。</p>
+          </div>
+          <div class="hero-side">
+            <div class="strategy" aria-label="经营原则"><span>经营可视</span><span>盈利可控</span><span>现金稳健</span><span>资产安全</span></div>
+            <div class="source">来源：完整钉钉转写 + 法眼如炬<br>租赁主链：v2.5.8f</div>
+          </div>
+        </section>
+
+        <div class="alert" data-page="dashboard"><strong>数据说明</strong><span>以下数据来自2026年8月2日会议口述，不是实时经营数据；正式落地后必须关联ONEOS来源、更新时间和业务责任人。</span></div>
+
+        <section class="section" id="archive" data-page="archive" hidden>
+          <div class="section-head"><div class="section-title"><h2>周度追踪</h2><p>按周查看会议快照和执行进展；历史快照不覆盖，跨周事项保持原任务编号。</p></div></div>
+          <div class="week-switch" aria-label="选择周次"><button class="week-button active" type="button" data-week-target="32">2026年第32周 · 跟踪中</button><button class="week-button" type="button" data-week-target="31">2026年第31周 · 已归档</button></div>
+          <div data-week-pane="32">
+            <div class="archive-grid">
+              <article class="archive-card"><span>跟踪周次</span><strong>2026年第32周</strong><small>2026-08-03—2026-08-09</small></article>
+              <article class="archive-card"><span>会议状态</span><strong>尚未召开</strong><small>本周先跟进第31周遗留事项</small></article>
+              <article class="archive-card"><span>历史遗留</span><strong>7项</strong><small>来源：2026年第31周</small></article>
+              <article class="archive-card"><span>本周新增/关闭</span><strong>0项 / 0项</strong><small>随第32周会议和执行结果更新</small></article>
+            </div>
+            <div class="alert" style="margin-top:14px"><strong>结转规则</strong><span>未关闭事项保持原编号和首次截止时间；延期只新增调整后截止时间，不重置逾期状态。</span></div>
+          </div>
+          <div data-week-pane="31" hidden>
+            <p class="scroll-note"><strong>会议归档周期：</strong>2026-07-27—2026-08-02；<strong>下一复盘周期：</strong>2026年第32周。</p>
+            <div class="archive-grid">
+              <article class="archive-card"><span>归档周次</span><strong>2026年第31周</strong><small>2026-07-27—2026-08-02</small></article>
+              <article class="archive-card"><span>会议日期</span><strong>2026-08-02</strong><small>管理层经营分析会</small></article>
+              <article class="archive-card"><span>归档状态</span><strong>会议快照已形成</strong><small>原始事实不再覆盖</small></article>
+              <article class="archive-card"><span>结转结果</span><strong>7项</strong><small>进入第32周历史遗留</small></article>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="health-title" data-page="dashboard">
+          <div class="section-head"><div class="section-title"><h2 id="health-title">经营健康总览</h2><p>管理层第一屏：先看红线，再看行动。</p></div><button class="mini-action" type="button" disabled data-annual-placeholder title="全年经营数据页面待接入">查看全年经营数据 · 预留入口</button></div>
+          <div class="data-scope"><span aria-label="数据所属月份：2026年7月"><strong>数据所属月份：</strong>2026年7月</span><span aria-label="数据截至：2026-08-02"><strong>数据截至：</strong>2026-08-02</span><span aria-label="数据完整性：未完整"><strong>数据完整性：</strong>未完整，会议明确后续继续补录</span></div>
+          <div class="kpi-grid">
+            <article class="kpi blue"><div class="kpi-label">收入</div><div class="kpi-value">约403万</div><div class="kpi-desc">会议口述，待财务核验</div></article>
+            <article class="kpi orange"><div class="kpi-label">成本</div><div class="kpi-value">约429万</div><div class="kpi-desc">会议口述，待财务核验</div></article>
+            <article class="kpi red"><div class="kpi-label">综合毛利</div><div class="kpi-value">约-26万</div><div class="kpi-desc">毛利率约-6.5%，待核验</div></article>
+            <article class="kpi red"><div class="kpi-label">亏损项目</div><div class="kpi-value">1项</div><div class="kpi-desc">物流项目</div></article>
+            <article class="kpi red"><div class="kpi-label">待拍板</div><div class="kpi-value">4项</div><div class="kpi-desc">快照时点：2026-08-02</div></article>
+            <article class="kpi orange"><div class="kpi-label">跨周遗留</div><div class="kpi-value">7项</div><div class="kpi-desc">来源：2026年第31周</div></article>
+          </div>
+        </section>
+
+        <section class="section" data-page="dashboard">
+          <div class="section-head"><div class="section-title"><h2>跨周遗留</h2><p>第31周未关闭事项自动结转至第32周，保留原截止时间和逾期状态。</p></div><button class="mini-action" type="button" onclick="setActivePage('actions'); setActionTab('carryover')">进入跟踪</button></div>
+          <div class="panel boss-list">
+            <article class="boss-item"><div><strong>物流项目止损</strong><p>来源周次：2026年第31周 · 遗留1周</p></div><p>牵头人待指定；首次截止时间：2026-08-07 18:00。</p><span class="badge red">P0</span></article>
+            <article class="boss-item"><div><strong>广州博众车辆处置</strong><p>来源周次：2026年第31周 · 遗留1周</p></div><p>牵头人待指定；首次截止时间：2026-08-04 18:00。</p><span class="badge red">P0</span></article>
+            <article class="boss-item"><div><strong>易顺清费与ETC数据分割</strong><p>来源周次：2026年第31周 · 遗留1周</p></div><p>牵头人待指定；首次截止时间：2026-08-09 18:00。</p><span class="badge red">P0</span></article>
+          </div>
+        </section>
+
+        <section class="section" data-page="dashboard">
+          <div class="boss-split">
+            <div>
+              <div class="section-head"><div class="section-title"><h2>TOP风险</h2><p>只展示最影响利润、现金、资产和合规的事项。</p></div><button class="mini-action" type="button" onclick="setActivePage('risks')">查看全部</button></div>
+              <div class="panel boss-list">
+                <article class="boss-item"><div><strong>物流项目亏损</strong><p>数据周期：2026年7月</p></div><p>预计亏损约27万元，真实止损点尚未完成财务穿透。</p><span class="badge red">P0</span></article>
+                <article class="boss-item"><div><strong>广州博众</strong><p>资产与合规风险</p></div><p>收车、直签和继续谈判范围尚未决策。</p><span class="badge red">P0</span></article>
+                <article class="boss-item"><div><strong>新运多</strong><p>数据截至：2026-07-31</p></div><p>64条违章及通行证费用承担方案未确认。</p><span class="badge orange">P1</span></article>
+                <article class="boss-item"><div><strong>龙天运力</strong><p>回款与退车风险</p></div><p>违章、欠款和退库车辆应结尚未完成。</p><span class="badge orange">P1</span></article>
+              </div>
+            </div>
+            <div>
+              <div class="section-head"><div class="section-title"><h2>待拍板</h2><p>不决策会继续影响经营结果的事项。</p></div><button class="mini-action" type="button" onclick="setActivePage('decisions')">进入决策</button></div>
+              <div class="panel boss-list">
+                <article class="boss-item"><div><strong>博众车辆处置范围</strong><p>2026-08-04 18:00</p></div><p>决定收车、直签或最后谈判的车辆范围。</p><span class="status red">待拍板</span></article>
+                <article class="boss-item"><div><strong>物流项目止损</strong><p>2026-08-07 18:00</p></div><p>指定经营牵头人并确认成本穿透和止损方案。</p><span class="status red">待指定</span></article>
+                <article class="boss-item"><div><strong>账单触发与减免规则</strong><p>2026-08-09 18:00</p></div><p>确认正式账单生成、减免审核和版本锁定规则。</p><span class="status orange">待确认</span></article>
+                <article class="boss-item"><div><strong>风险预警阈值</strong><p>2026-08-09 18:00</p></div><p>确认客户、违章、欠款和资产风险的预警阈值。</p><span class="status orange">待确认</span></article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="decisions" data-page="decisions" hidden>
+          <div class="section-head"><div class="section-title"><h2>待拍板事项</h2><p>每项只回答：决定什么、不决策有什么影响、建议怎么做、最晚什么时候决定。</p></div></div>
+          <div class="decision-cards">
+            <article class="decision-card"><span class="badge red">P0 · 2026-08-04 18:00</span><h3>广州博众车辆处置范围</h3><dl><dt>需要决定</dt><dd>哪些车辆收回、哪些终端直签、哪些保留最后谈判。</dd><dt>不决策影响</dt><dd>资产控制、道路运输资质和客户信用风险持续扩大。</dd><dt>决策建议</dt><dd>按车辆位置、控制权、欠款和终端配合度分三类处置。</dd><dt>执行负责人</dt><dd>待指定</dd></dl></article>
+            <article class="decision-card"><span class="badge red">P0 · 2026-08-07 18:00</span><h3>物流亏损项目止损</h3><dl><dt>需要决定</dt><dd>是否暂停低毛利线路，并指定唯一经营牵头人。</dd><dt>不决策影响</dt><dd>成本继续超过收入，无法确定真实止损点。</dd><dt>决策建议</dt><dd>先完成收入成本穿透，再保留可盈利线路、停止持续亏损部分。</dd><dt>执行负责人</dt><dd>待指定</dd></dl></article>
+            <article class="decision-card"><span class="badge orange">P0 · 2026-08-09 18:00</span><h3>正式账单与减免规则</h3><dl><dt>需要决定</dt><dd>正式账单触发、业务确认、减免审核和版本锁定规则。</dd><dt>不决策影响</dt><dd>账单继续不准，客户无法对账，业务缺少催款依据。</dd><dt>决策建议</dt><dd>按客户×项目×账期出账，减免必须审核并留痕。</dd><dt>执行负责人</dt><dd>苗苗</dd></dl></article>
+            <article class="decision-card"><span class="badge orange">P0 · 2026-08-09 18:00</span><h3>经营风险预警阈值</h3><dl><dt>需要决定</dt><dd>客户欠款、违章、资产失控和连续亏损达到什么程度触发升级。</dd><dt>不决策影响</dt><dd>系统只能展示数据，无法形成统一风险预警。</dd><dt>决策建议</dt><dd>先以第31周风险客户试运行，复盘后再固化阈值。</dd><dt>执行负责人</dt><dd>数字中心</dd></dl></article>
+          </div>
+        </section>
+
+        <section class="section" id="profit" data-page="finance" hidden>
+          <div class="section-head"><div class="section-title"><h2>项目损益与亏损预警</h2><p>会议口述数只用于初步预警，待财务核验。</p></div></div>
+          <div class="data-scope"><span aria-label="数据所属月份：2026年7月"><strong>数据所属月份：</strong>2026年7月</span><span aria-label="数据截至：2026-08-02"><strong>数据截至：</strong>2026-08-02</span><span aria-label="数据完整性：未完整"><strong>数据完整性：</strong>未完整，后续继续补录</span></div>
+          <div class="kpi-grid finance-kpis">
+            <article class="kpi blue"><div class="kpi-label">收入合计</div><div class="kpi-value">约403万</div><div class="kpi-desc">2026年7月｜物流53万＋租赁350万</div><span class="finance-note">待财务核验</span></article>
+            <article class="kpi orange"><div class="kpi-label">成本合计</div><div class="kpi-value">约429万</div><div class="kpi-desc">2026年7月｜物流80万＋租赁349万</div><span class="finance-note">待财务核验</span></article>
+            <article class="kpi red"><div class="kpi-label">综合毛利</div><div class="kpi-value">约-26万</div><div class="kpi-desc">2026年7月｜毛利率约-6.5%</div><span class="finance-note">待财务核验</span></article>
+            <article class="kpi red"><div class="kpi-label">亏损项目</div><div class="kpi-value">1项</div><div class="kpi-desc">2026年7月｜物流项目</div><span class="finance-note">待财务核验</span></article>
+          </div>
+          <div class="panel profit-wrap">
+            <table class="profit-table" aria-label="项目损益与亏损预警列表">
+              <thead><tr><th>业务/项目</th><th>收入</th><th>直接成本</th><th>毛利</th><th>毛利率</th><th>预警</th><th>亏损原因</th><th>经营牵头人</th><th>财务核验人</th><th>核验时点</th></tr></thead>
+              <tbody>
+                <tr><td><strong>物流项目</strong><br><span class="project">数据周期：2026年7月</span></td><td>约53万</td><td>约80万</td><td class="money-negative">约-27万</td><td class="money-negative">约-50.9%</td><td><span class="badge red">亏损</span></td><td>成本超过收入，需拆解车辆、线路、外协、能源及异常费用</td><td>待指定</td><td>待指定</td><td>2026-08-07 18:00</td></tr>
+                <tr><td><strong>租赁业务</strong><br><span class="project">数据周期：2026年7月</span></td><td>约350万</td><td>约349万</td><td class="money-positive">约1万</td><td class="money-positive">约0.3%</td><td><span class="badge orange">低毛利</span></td><td>利润空间极薄，需核验减免、清费、ETC、保险及退车应结</td><td>待指定</td><td>待指定</td><td>2026-08-07 18:00</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="alert" style="margin-top:12px;margin-bottom:0"><strong>财务口径</strong><span>收入－直接成本＝毛利；毛利率＝毛利÷收入。正式看板还应补充期间费用、资金成本、税费和资产减值，才能形成净利润口径。</span></div>
+        </section>
+
+        <section class="section" id="customers" data-page="risks" hidden>
+          <div class="section-head">
+            <div class="section-title"><h2>高风险客户</h2><p>风险数据截至：2026-07-31；每个客户只有一个总牵头人，其他部门作为协同角色。</p></div>
+          </div>
+          <div class="panel" id="riskPanel">
+            <div class="toolbar">
+              <div class="filters" aria-label="筛选风险客户">
+                <button class="filter active" type="button" data-risk-filter="all">全部 6</button>
+                <button class="filter" type="button" data-risk-filter="red">红色 2</button>
+                <button class="filter" type="button" data-risk-filter="orange">橙色 3</button>
+                <button class="filter" type="button" data-risk-filter="yellow">黄色 1</button>
+              </div>
+              <div class="view-switch" aria-label="切换客户视图"><button class="active" type="button" data-view="card">卡片</button><button type="button" data-view="table">表格</button></div>
+            </div>
+            <div class="risk-grid" id="riskGrid"></div>
+            <div class="risk-table-wrap">
+              <table aria-label="高风险客户列表">
+                <thead><tr><th>客户</th><th>等级</th><th>主要问题</th><th>责任链</th><th>下一步</th></tr></thead>
+                <tbody id="riskTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="finance" data-page="finance" hidden>
+          <div class="section-head"><div class="section-title"><h2>账单问题及解决方案</h2><p>原“业财闭环”模块拆分为当前问题、系统解决方案和处理建议。</p></div></div>
+          <div class="problem-summary"><strong>当前问题</strong>费用口径和承担主体不清，正式账单难以锁定，导致客户无法对账、业务缺少催款依据。</div>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-caption">系统解决方案 <span class="type-label solution">系统解决方案</span></div>
+              <div class="flow" aria-label="业财闭环流程">
+                <div class="flow-step"><span>01</span><strong>费用归集</strong></div>
+                <div class="flow-step"><span>02</span><strong>系统试算</strong></div>
+                <div class="flow-step alert-step"><span>03</span><strong>异常检查</strong></div>
+                <div class="flow-step"><span>04</span><strong>业务确认</strong></div>
+                <div class="flow-step"><span>05</span><strong>减免审核</strong></div>
+                <div class="flow-step"><span>06</span><strong>对账与核销</strong></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-caption">业务处理规则 <span class="type-label advice">处理建议</span></div>
+              <div class="rule-list">
+                <div class="rule"><strong>账单维度</strong><p>租赁账单按“客户×项目×账期”生成，车辆仅作为费用明细和分摊依据。</p></div>
+                <div class="rule"><strong>起租门禁</strong><p>运维记录交车事实；业务确认起租及计费起算日。</p></div>
+                <div class="rule"><strong>减免门禁</strong><p>业务发起、相关责任人审核、形成新账单版本并保留变更记录。</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="vehicles" data-page="risks" hidden>
+          <div class="section-head"><div class="section-title"><h2>车辆未闭环问题 <span class="type-label problem">当前问题</span></h2><p>以下均为尚未解决的问题，不是处理建议；需通过系统、实物、合同、计费状态四方对账完成关闭。</p></div></div>
+          <div class="panel">
+            <div class="exception-list">
+              <article class="exception"><div class="exception-icon">!</div><div><h3>已退库车辆仍遗留违章</h3><p>数据截至2026-07-31：龙天运力3台已退库车辆仍有11条违章，退车应结未完成。</p><div class="exception-meta"><span aria-label="车辆问题责任人">责任人：王屹青</span><span aria-label="车辆问题处理时间">处理时间：2026-08-03 18:00</span></div></div><span class="badge red">阻断关闭</span></article>
+              <article class="exception"><div class="exception-icon">!</div><div><h3>系统车辆与现场实物未对齐</h3><p>快照时点2026-08-02：车辆已退回但仍挂在原业务名下，需要盘点并修正库存状态。</p><div class="exception-meta"><span aria-label="车辆问题责任人">责任人：待指定</span><span aria-label="车辆问题处理时间">处理时间：2026-08-09 18:00</span></div></div><span class="badge orange">待核实</span></article>
+              <article class="exception"><div class="exception-icon">!</div><div><h3>费用承担主体未切换</h3><p>数据周期自2026-06-01起：易顺清费和ETC由客户承担，系统数据仍需分割。</p><div class="exception-meta"><span aria-label="车辆问题责任人">责任人：待指定</span><span aria-label="车辆问题处理时间">处理时间：2026-08-09 18:00</span></div></div><span class="badge orange">待对账</span></article>
+              <article class="exception"><div class="exception-icon">!</div><div><h3>证照与设备临期风险</h3><p>快照时点2026-08-02：经营许可证、年审及单北斗设备更换需按监管期限追踪。</p><div class="exception-meta"><span aria-label="车辆问题责任人">责任人：待指定</span><span aria-label="车辆问题处理时间">处理时间：2026-08-09 18:00</span></div></div><span class="badge yellow">持续跟踪</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-page="actions" hidden>
+          <div class="section-head"><div class="section-title"><h2>第32周执行追踪</h2><p>跟踪周期：2026-08-03—2026-08-09；先处理历史遗留，再登记本周新增和关闭结果。</p></div></div>
+          <div class="archive-grid">
+            <article class="archive-card"><strong>7项</strong><span>历史遗留</span></article>
+            <article class="archive-card"><strong>0项</strong><span>本周新增</span></article>
+            <article class="archive-card"><strong>0项</strong><span>本周已关闭</span></article>
+            <article class="archive-card"><strong>3项</strong><span>牵头人待指定</span></article>
+          </div>
+          <div class="tracking-tabs" aria-label="执行事项分类">
+            <button class="tracking-tab active" type="button" data-action-tab="carryover">历史遗留 7</button>
+            <button class="tracking-tab" type="button" data-action-tab="new">本周新增 0</button>
+            <button class="tracking-tab" type="button" data-action-tab="closed">本周已关闭 0</button>
+          </div>
+        </section>
+
+        <section class="section" id="actions" data-page="actions" data-action-pane="carryover" hidden>
+          <div class="section-head"><div class="section-title"><h2>待办工作项</h2><p>快照时点：2026-08-02；“已通知”和“已承诺”不是关闭，必须以结果和凭证完成复核。</p></div></div>
+          <div class="alert"><strong>逾期规则</strong><span>状态仅显示未到期、今日到期、已逾期或已关闭；具体时间以截止日期列为准。</span></div>
+          <p class="scroll-note">表格内容较宽，可在表格区域内左右滚动查看完整状态和操作。</p>
+          <div class="panel actions-wrap">
+            <table class="actions-table" aria-label="会议行动项列表">
+              <thead><tr><th>优先级</th><th>行动项</th><th>来源周次</th><th>遗留周数</th><th>唯一牵头人</th><th>首次截止时间</th><th>调整后截止时间</th><th>关闭标准</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr data-deadline="2026-08-07T18:00:00+08:00" data-closed="false"><td><span class="badge red">P0</span></td><td>物流亏损项目整改：完成收入成本穿透与止损方案</td><td>2026年第31周</td><td>1周</td><td>待指定</td><td>2026-08-07 18:00</td><td>未调整</td><td>财务核验收入成本，形成亏损原因、止损动作、责任人和完成日期</td><td><span class="status red" data-deadline-status>未到期</span></td><td><button class="mini-action" type="button" onclick="setActivePage('finance'); document.querySelector('#profit').scrollIntoView()">查看损益</button></td></tr>
+                <tr data-deadline="2026-08-04T18:00:00+08:00" data-closed="false"><td><span class="badge red">P0</span></td><td>明确博众收车与继续谈判范围</td><td>2026年第31周</td><td>1周</td><td>待指定</td><td>2026-08-04 18:00</td><td>未调整</td><td>形成车辆清单、分类方案和决策记录</td><td><span class="status red" data-deadline-status>未到期</span></td><td><button class="mini-action" type="button" onclick="openCustomerDrawer('博众')">查看依据</button></td></tr>
+                <tr data-deadline="2026-08-09T18:00:00+08:00" data-closed="false"><td><span class="badge red">P0</span></td><td>统一物流与租赁正式账单</td><td>2026年第31周</td><td>1周</td><td>苗苗</td><td>2026-08-09 18:00</td><td>未调整</td><td>减免完成审核、账单版本锁定、客户可对账</td><td><span class="status orange" data-deadline-status data-base-status="处理中">处理中</span></td><td><button class="mini-action" type="button">查看链路</button></td></tr>
+                <tr data-deadline="2026-08-09T18:00:00+08:00" data-closed="false"><td><span class="badge red">P0</span></td><td>完成易顺清费与ETC数据分割</td><td>2026年第31周</td><td>1周</td><td>待指定</td><td>2026-08-09 18:00</td><td>未调整</td><td>6月1日起双方应收应付关系可核验</td><td><span class="status orange" data-deadline-status>未到期</span></td><td><button class="mini-action" type="button" onclick="openCustomerDrawer('易顺')">查看客户</button></td></tr>
+                <tr data-deadline="2026-08-03T18:00:00+08:00" data-closed="false"><td><span class="badge orange">P1</span></td><td>新运多违章与通行证费用方案</td><td>2026年第31周</td><td>1周</td><td>陈高伟</td><td>2026-08-03 18:00</td><td>未调整</td><td>明确承担方、处理计划及清零时间</td><td><span class="status orange" data-deadline-status data-base-status="待反馈">待反馈</span></td><td><button class="mini-action" type="button" onclick="openCustomerDrawer('新运多')">查看客户</button></td></tr>
+                <tr data-deadline="2026-08-03T18:00:00+08:00" data-closed="false"><td><span class="badge orange">P1</span></td><td>龙天17条违章及欠款处置</td><td>2026年第31周</td><td>1周</td><td>王屹青跟进陈高伟</td><td>2026-08-03 18:00</td><td>未调整</td><td>处理凭证、租金计划、退库车辆闭环</td><td><span class="status orange" data-deadline-status data-base-status="处理中">处理中</span></td><td><button class="mini-action" type="button" onclick="openCustomerDrawer('龙天运力')">查看客户</button></td></tr>
+                <tr data-deadline="2026-08-09T18:00:00+08:00" data-closed="false"><td><span class="badge yellow">P2</span></td><td>建立会议决议自动复盘机制</td><td>2026年第31周</td><td>1周</td><td>数字中心</td><td>2026-08-09 18:00</td><td>未调整</td><td>下次会议自动展示完成、逾期和待拍板事项</td><td><span class="status green" data-deadline-status data-base-status="需求明确">需求明确</span></td><td><button class="mini-action" type="button">查看规则</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" id="open-issues" data-page="actions" data-action-pane="carryover" hidden>
+          <div class="section-head"><div class="section-title"><h2>未闭环问题</h2><p>快照时点：2026-08-02；跨周保留，只有满足关闭标准并上传凭证后才能从本表移出。</p></div></div>
+          <p class="scroll-note">表格内容较宽，可在表格区域内左右滚动查看责任人、关闭标准和状态。</p>
+          <div class="panel ledger-wrap">
+            <table class="ledger-table" aria-label="未闭环问题列表">
+              <thead><tr><th>问题编号</th><th>问题对象</th><th>未闭环问题</th><th>风险影响</th><th>唯一牵头人</th><th>目标时间</th><th>关闭标准</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr data-deadline="2026-08-07T18:00:00+08:00" data-closed="false"><td>ISS-31-01</td><td>物流项目</td><td>收入、直接成本和亏损原因尚未完成财务穿透</td><td>无法判断项目真实止损点</td><td>待指定</td><td>2026-08-07 18:00</td><td>财务核验损益并形成止损方案</td><td><span class="status red" data-deadline-status>未到期</span></td></tr>
+                <tr data-deadline="2026-08-04T18:00:00+08:00" data-closed="false"><td>ISS-31-02</td><td>广州博众</td><td>收车、直签与继续谈判车辆范围未决策</td><td>资产控制与合规风险持续</td><td>待指定</td><td>2026-08-04 18:00</td><td>车辆分类清单与决策记录齐备</td><td><span class="status red" data-deadline-status>未到期</span></td></tr>
+                <tr data-deadline="2026-08-09T18:00:00+08:00" data-closed="false"><td>ISS-31-03</td><td>易顺</td><td>6月1日起清费、ETC承担关系与系统数据未分割</td><td>账单不准、客户无法对账</td><td>待指定</td><td>2026-08-09 18:00</td><td>双方应收应付可核验并锁定账单</td><td><span class="status orange" data-deadline-status>未到期</span></td></tr>
+                <tr data-deadline="2026-08-03T18:00:00+08:00" data-closed="false"><td>ISS-31-04</td><td>新运多</td><td>64条违章及通行证费用承担方案未确认</td><td>违章持续积压并影响合作</td><td>陈高伟</td><td>2026-08-03 18:00</td><td>承担方、清零计划和完成日期确认</td><td><span class="status orange" data-deadline-status data-base-status="待反馈">待反馈</span></td></tr>
+                <tr data-deadline="2026-08-03T18:00:00+08:00" data-closed="false"><td>ISS-31-05</td><td>龙天运力</td><td>17条违章、租金欠款及退库车辆应结未完成</td><td>回款、资产和退车闭环受阻</td><td>王屹青</td><td>2026-08-03 18:00</td><td>处理凭证、付款计划和退库应结齐备</td><td><span class="status orange" data-deadline-status data-base-status="处理中">处理中</span></td></tr>
+                <tr data-deadline="2026-08-09T18:00:00+08:00" data-closed="false"><td>ISS-31-06</td><td>车辆资产</td><td>系统状态、实物位置、合同和计费状态不一致</td><td>可能继续错误计费或资产失控</td><td>待指定</td><td>2026-08-09 18:00</td><td>四方对账差异清零并保留盘点记录</td><td><span class="status orange" data-deadline-status>未到期</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" data-page="actions" data-action-pane="new" hidden>
+          <div class="empty-state"><strong>本周新增 0项</strong><p>第32周尚未产生新增事项。周会或日常经营中产生的新问题，应登记任务编号、责任人、截止时间和关闭标准。</p></div>
+        </section>
+
+        <section class="section" data-page="actions" data-action-pane="closed" hidden>
+          <div class="empty-state"><strong>本周已关闭 0项</strong><p>第32周尚无完成复核的事项。只有结果达标并上传凭证后，事项才进入本周已关闭。</p></div>
+        </section>
+
+        <section class="section" id="system-items" data-page="system" hidden>
+          <div class="section-head"><div class="section-title"><h2>系统改造建议</h2><p>参考会议问题与ONEOS现有能力，区分可做、有条件和待拍板，不将建议当作现网能力。</p></div></div>
+          <div class="system-grid" aria-label="系统可改造项列表">
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-01</span><h3>任务工单（PC+H5）</h3></div><div><span class="badge red">P0</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：跨部门催办、违章、安全和法务事项缺少统一责任链。</p><p class="system-solution"><strong>改造：</strong>统一Owner、协作部门、SLA、升级链和关闭凭证；H5优先补齐。</p><div class="system-card-foot"><span>牵头：数字中心</span><span>来源：会议行动项</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-02</span><h3>客户管理与准入评级</h3></div><div><span class="badge red">P0</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：客户风险、准入承诺和首月跟进缺少统一入口。</p><p class="system-solution"><strong>改造：</strong>准入清单产品化，与租赁主链v2.5.8f门禁衔接；高风险自动阻断下游建约草稿。</p><div class="system-card-foot"><span>牵头：产品＋业务管理部</span><span>缺口：准入原型未落地</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-03</span><h3>还车/替换车/交还车状态机</h3></div><div><span class="badge red">P0</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：已退回车辆仍挂原业务名下，系统、实物和计费不一致。</p><p class="system-solution"><strong>改造：</strong>到达入库强制生成差异清单和工单；连续未清零自动升级。</p><div class="system-card-foot"><span>牵头：产品＋运维</span><span>口径：运维只记录事实</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-04</span><h3>氢费账户与车辆氢费</h3></div><div><span class="badge red">P0</span><span class="feasibility conditional">有条件</span></div></div><p class="system-problem">问题：费用承担切日和切日前后账单容易混淆。</p><p class="system-solution"><strong>改造：</strong>锁定承担方切日；氢费核对与对账分开，业务确认后再生成账单。</p><div class="system-card-foot"><span>牵头：产品＋财务</span><span>条件：切日需确认</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-05</span><h3>物流台账与业财闭环</h3></div><div><span class="badge red">P0</span><span class="feasibility decision">待拍板</span></div></div><p class="system-problem">问题：收入成本分散，亏损无法穿透到客户、项目和车辆。</p><p class="system-solution"><strong>改造：</strong>先确认触发与核算口径，再自动生成责任工单；口径未定不直接上线。</p><div class="system-card-foot"><span>牵头：数字中心＋财务</span><span>拍板：项目损益口径</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-06</span><h3>故障管理与售后跟单</h3></div><div><span class="badge orange">P1</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：报修、维修和结果上传分散，缺少审计链。</p><p class="system-solution"><strong>改造：</strong>报修→跟单→修好→强制上传结果；超时与任务工单联动。</p><div class="system-card-foot"><span>牵头：产品＋运维</span><span>建议：先固化组织待办</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-07</span><h3>审核中心与通知</h3></div><div><span class="badge orange">P1</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：关键状态变更提醒分散，通知无法追溯到业务单据。</p><p class="system-solution"><strong>改造：</strong>责任人、协作人和订阅频率可配置；邮件必须携带单据深链。</p><div class="system-card-foot"><span>牵头：数字中心</span><span>渠道：站内＋邮件</span></div></article>
+            <article class="system-card"><div class="system-card-head"><div><span class="system-id">REF-08</span><h3>管理层经营分析会驾驶舱</h3></div><div><span class="badge orange">P1</span><span class="feasibility yes">可做</span></div></div><p class="system-problem">问题：会议结论、经营差距和项目风险跨周分散。</p><p class="system-solution"><strong>改造：</strong>按周归档，自动结转问题、待拍板和逾期任务；与项目作战室分工。</p><div class="system-card-foot"><span>牵头：数字中心</span><span>本页：经营驾驶舱</span></div></article>
+          </div>
+        </section>
+
+        <section class="section" id="kb-feedback" data-page="system" hidden>
+          <div class="section-head"><div class="section-title"><h2>知识库反哺</h2><p>会议内容先进入候选区，经过来源校验、业务复核和法眼裁决后，才能写入正式知识库。</p></div></div>
+          <div class="alert"><strong>入库边界</strong><span>会议口述、未核验经营数据和待拍板建议禁止直接入库；必须保留来源、版本、适用范围、生效时间和审核责任人。</span></div>
+          <div class="kb-governance" aria-label="知识库反哺流程"><span>候选知识</span><span>业务复核</span><span>法眼裁决</span><span>负责人审核</span><span>版本化发布</span></div>
+          <div class="kb-grid">
+            <article class="kb-card"><span class="badge green">KB-31-01 · 可入库</span><h3>租赁主链定版规则</h3><dl><dt>候选内容</dt><dd>v2.5.8f：业务确认起租；客户×项目×账期出账；运维只记录交车事实。</dd><dt>写入条件</dt><dd>引用定版摘要，保持版本号与适用范围。</dd><dt>审核责任人</dt><dd>产品负责人＋业务管理部</dd><dt>目标知识域</dt><dd>租赁合同与业财主链</dd></dl></article>
+            <article class="kb-card"><span class="badge orange">KB-31-02 · 待核验</span><h3>2026年7月经营数据快照</h3><dl><dt>候选内容</dt><dd>收入、成本、毛利、亏损项目及数据完整性说明。</dd><dt>写入条件</dt><dd>财务补齐7月数据并锁定正式版本。</dd><dt>审核责任人</dt><dd>财务负责人</dd><dt>目标知识域</dt><dd>经营事实快照，不覆盖业务规则</dd></dl></article>
+            <article class="kb-card"><span class="badge orange">KB-31-03 · 待确认</span><h3>风险客户处置案例</h3><dl><dt>候选内容</dt><dd>博众、新运多、龙天、易顺的问题、动作、结果和关闭凭证。</dd><dt>写入条件</dt><dd>责任人确认事实，客户敏感信息按权限处理。</dd><dt>审核责任人</dt><dd>业务负责人＋法务/安全</dd><dt>目标知识域</dt><dd>风险案例库与处置模板</dd></dl></article>
+            <article class="kb-card"><span class="badge orange">KB-31-04 · 待闭环</span><h3>车辆账实差异缺陷</h3><dl><dt>候选内容</dt><dd>系统、实物、合同和计费状态不一致的原因及修复记录。</dd><dt>写入条件</dt><dd>差异关闭并关联缺陷、验证结果和版本。</dd><dt>审核责任人</dt><dd>产品负责人＋运维负责人</dd><dt>目标知识域</dt><dd>数据质量缺陷与排查手册</dd></dl></article>
+            <article class="kb-card"><span class="badge red">KB-31-05 · 禁止直接入库</span><h3>管理层待拍板事项</h3><dl><dt>候选内容</dt><dd>博众车辆处置、物流止损、账单规则和风险阈值。</dd><dt>写入条件</dt><dd>形成正式决策记录后，再沉淀结论；讨论方案不得写成规则。</dd><dt>审核责任人</dt><dd>决策人＋对应业务负责人</dd><dt>目标知识域</dt><dd>决策记录库，标注生效日期</dd></dl></article>
+            <article class="kb-card"><span class="badge orange">KB-31-06 · 待验证</span><h3>系统改造验证结果</h3><dl><dt>候选内容</dt><dd>REF-01至REF-08的落地范围、验收证据、失败原因和替代方案。</dd><dt>写入条件</dt><dd>完成需求评审与上线验证，未上线能力不得写成现网说明。</dd><dt>审核责任人</dt><dd>产品负责人＋测试负责人</dd><dt>目标知识域</dt><dd>产品能力与实施经验库</dd></dl></article>
+          </div>
+        </section>
+
+        <section class="section" id="decision" data-page="system" hidden>
+          <div class="section-head"><div class="section-title"><h2>法眼裁决</h2><p>法眼如炬定口径，言出法随落需求。</p></div></div>
+          <div class="panel">
+            <div class="decision-grid">
+              <article class="decision good"><strong>结论</strong><p>建设ONEOS经营风险闭环能力，不另造完整经营中台。</p></article>
+              <article class="decision good"><strong>闭环</strong><p>准入、起租、账单、还车应结按v2.5.8f，风险处置落任务工单。</p></article>
+              <article class="decision good"><strong>可行性</strong><p>现有ONEOS、数据中台、自动采集和任务工单可复用。</p></article>
+              <article class="decision warn"><strong>P0待拍板</strong><p>业财触发规则、风险阈值、博众收车范围、退租日口径。</p></article>
+              <article class="decision"><strong>AI边界</strong><p>AI 只做采集、比对、提醒和起草；正式决策保留负责人审核。</p></article>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer"><strong>经营驾驶舱 V0.6</strong> · 本页面不接正式数据、不执行收车、不修改账务、不发送函件、不调整人员。损益数据为会议口述试算，须由财务核验后方可用于正式经营决策。</footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <aside class="drawer">
+      <div class="drawer-head"><div><h2 id="drawerTitle">客户风险详情</h2><p id="drawerSubtitle"></p></div><button class="close-btn" id="drawerClose" type="button" aria-label="关闭详情">×</button></div>
+      <div id="drawerContent"></div>
+    </aside>
+  </div>
+
+  <script>
+    const customers = [
+      { name: '广州博众', level: 'red', levelText: '红色重大风险', value: '9次', unit: '超限运输', project: '业务三部 · 湖北车辆', asOf: '数据截至：2026-07-31', owner: '待指定', deadline: '2026-08-04 18:00', issues: ['存在转租、再转租及私下卖车风险', '可能影响道路运输资质', '客户信用、司法及税务风险较高'], next: '按车辆、区域和终端客户分类，确定收车、直签或最后谈判方案', evidence: ['车辆位置与控制权', '欠款及承诺兑现记录', '超限与资质影响', '终端客户配合度'] },
+      { name: '新运多', level: 'red', levelText: '红色风险', value: '64条', unit: '违章未处理', project: '业务三部 · 交投车辆', asOf: '数据截至：2026-07-31', owner: '陈高伟', deadline: '2026-08-03 18:00', issues: ['13台车辆主要为交投名下', '约91%为限行类违章', '通行证费用承担尚未统一'], next: '交投协助处理，或确认费用减免与通行方案', evidence: ['资产方与运营责任', '通行证费用依据', '违章清零计划'] },
+      { name: '龙天运力', level: 'orange', levelText: '橙色风险', value: '17条', unit: '违章未处理', project: '业务六部 · 租赁客户', asOf: '数据截至：2026-07-31', owner: '王屹青 / 陈高伟', deadline: '2026-08-03 18:00', issues: ['7月租金及1万元保险上浮费未付', '11条涉及已退库车辆', '客户内部司机处置缺少复核'], next: '集中处理司机违章，补齐付款计划和退库应结', evidence: ['违章处理凭证', '租金到账或计划', '退库车辆应结单'] },
+      { name: '易顺', level: 'orange', levelText: '橙色异常', value: '6月起', unit: '数据待分割', project: '租赁切换 · 清费/ETC', asOf: '快照时点：2026-08-02', owner: '待指定', deadline: '2026-08-09 18:00', issues: ['客户承担规则与系统显示不一致', '清费和ETC双方应收应付不清', '影响正式账单与催收'], next: '以6月1日为切点核实并重算双方费用', evidence: ['合同变更', '系统费用明细', '业务确认记录'] },
+      { name: '志奇', level: 'orange', levelText: '橙色回款风险', value: '26万', unit: '待出账与回款', project: '退车结算 · 上游回款', asOf: '快照时点：2026-08-02', owner: '尚建华 Jeff', deadline: '2026-08-11 18:00', issues: ['退车租金、押金及清费需整单', '付款依赖客户上游回款', '账单尚未最终确认'], next: '形成正式账单并跟踪上游付款后结清', evidence: ['还车应结', '押金处理', '上游付款承诺'] },
+      { name: '双庙', level: 'yellow', levelText: '黄色对账风险', value: '互欠', unit: '应收应付待核', project: '物流账务 · 分别支付', asOf: '快照时点：2026-08-02', owner: '尚建华 Jeff', deadline: '2026-08-09 18:00', issues: ['双方存在应收和应付', '发票已开，不能非正式抵账', '差额与支付时间需确认'], next: '分别确认应收应付金额和付款时间', evidence: ['双方账单', '发票记录', '付款计划'] }
+    ];
+
+    const riskGrid = document.querySelector('#riskGrid');
+    const riskTableBody = document.querySelector('#riskTableBody');
+    const riskPanel = document.querySelector('#riskPanel');
+    const drawerBackdrop = document.querySelector('#drawerBackdrop');
+    const drawerClose = document.querySelector('#drawerClose');
+
+    function riskCard(customer) {
+      return `<article class="risk-card" tabindex="0" role="button" data-level="${customer.level}" data-customer="${customer.name}" aria-label="查看${customer.name}风险详情">
+        <div class="risk-card-head"><div><h3>${customer.name}</h3><div class="project">${customer.project}<br>${customer.asOf}</div></div><span class="badge ${customer.level}">${customer.levelText}</span></div>
+        <div class="risk-main"><strong>${customer.value}</strong><span>${customer.unit}</span></div>
+        <ul class="risk-list">${customer.issues.slice(0,2).map(item => `<li>${item}</li>`).join('')}</ul>
+        <div class="card-foot"><span>牵头：${customer.owner}</span><span>${customer.deadline}</span></div>
+      </article>`;
+    }
+
+    function tableRow(customer) {
+      return `<tr class="click-row" data-level="${customer.level}" data-customer="${customer.name}" tabindex="0"><td><strong>${customer.name}</strong><br><span class="project">${customer.project}<br>${customer.asOf}</span></td><td><span class="badge ${customer.level}">${customer.levelText}</span></td><td>${customer.issues.join('；')}</td><td>${customer.owner}</td><td>${customer.next}</td></tr>`;
+    }
+
+    function renderCustomers() {
+      riskGrid.innerHTML = customers.map(riskCard).join('');
+      riskTableBody.innerHTML = customers.map(tableRow).join('');
+      document.querySelectorAll('[data-customer]').forEach(el => {
+        el.addEventListener('click', () => openCustomerDrawer(el.dataset.customer));
+        el.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCustomerDrawer(el.dataset.customer); } });
+      });
+    }
+
+    function openCustomerDrawer(name) {
+      const customer = customers.find(item => item.name === name);
+      if (!customer) return;
+      document.querySelector('#drawerTitle').textContent = `${customer.name} · 风险详情`;
+      document.querySelector('#drawerSubtitle').textContent = `${customer.project} · ${customer.levelText} · ${customer.asOf}`;
+      document.querySelector('#drawerContent').innerHTML = `
+        <section class="drawer-section"><h3>主要困难</h3><ul>${customer.issues.map(item => `<li>${item}</li>`).join('')}</ul></section>
+        <section class="drawer-section"><h3>责任与时限</h3><p>唯一牵头人：${customer.owner}<br>计划时限：${customer.deadline}</p></section>
+        <section class="drawer-section"><h3>建议下一步</h3><p>${customer.next}</p></section>
+        <section class="drawer-section"><h3>关闭凭证</h3><ul>${customer.evidence.map(item => `<li>${item}</li>`).join('')}</ul></section>`;
+      drawerBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      drawerClose.focus();
+    }
+
+    function closeDrawer() {
+      drawerBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateDeadlineStates(now = new Date()) {
+      document.querySelectorAll('tr[data-deadline]').forEach(row => {
+        const status = row.querySelector('[data-deadline-status]');
+        if (!status) return;
+        const deadline = new Date(row.dataset.deadline);
+        const closed = row.dataset.closed === 'true';
+        status.classList.remove('overdue');
+        row.classList.remove('is-overdue');
+        if (closed) {
+          status.textContent = '已关闭';
+          return;
+        }
+        const remainingMs = deadline.getTime() - now.getTime();
+        if (remainingMs < 0) {
+          const overdueDays = Math.max(1, Math.ceil(Math.abs(remainingMs) / 86400000));
+          status.textContent = `已逾期 ${overdueDays}天`;
+          status.classList.add('overdue');
+          row.classList.add('is-overdue');
+          return;
+        }
+        const nowDay = now.toLocaleDateString('zh-CN', { timeZone: 'Asia/Shanghai' });
+        const deadlineDay = deadline.toLocaleDateString('zh-CN', { timeZone: 'Asia/Shanghai' });
+        status.textContent = nowDay === deadlineDay ? '今日到期' : '未到期';
+      });
+    }
+
+    function setActivePage(page) {
+      const allowedPages = ['dashboard', 'decisions', 'risks', 'actions', 'finance', 'system', 'archive'];
+      const targetPage = allowedPages.includes(page) ? page : 'dashboard';
+      document.querySelectorAll('[data-page]').forEach(section => {
+        section.hidden = section.dataset.page !== targetPage;
+      });
+      document.querySelectorAll('[data-page-target]').forEach(link => {
+        link.classList.toggle('active', link.dataset.pageTarget === targetPage);
+      });
+      history.replaceState(null, '', `#${targetPage}`);
+      if (targetPage === 'actions') {
+        setActionTab(document.querySelector('[data-action-tab].active')?.dataset.actionTab || 'carryover');
+      }
+      if (targetPage === 'archive') {
+        setArchiveWeek(document.querySelector('[data-week-target].active')?.dataset.weekTarget || '32');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setActionTab(tab) {
+      const allowedTabs = ['carryover', 'new', 'closed'];
+      const targetTab = allowedTabs.includes(tab) ? tab : 'carryover';
+      document.querySelectorAll('[data-action-tab]').forEach(button => {
+        button.classList.toggle('active', button.dataset.actionTab === targetTab);
+      });
+      document.querySelectorAll('[data-action-pane]').forEach(pane => {
+        pane.hidden = pane.dataset.actionPane !== targetTab;
+      });
+    }
+
+    function setArchiveWeek(week) {
+      const targetWeek = ['31', '32'].includes(String(week)) ? String(week) : '32';
+      document.querySelectorAll('[data-week-target]').forEach(button => {
+        button.classList.toggle('active', button.dataset.weekTarget === targetWeek);
+      });
+      document.querySelectorAll('[data-week-pane]').forEach(pane => {
+        pane.hidden = pane.dataset.weekPane !== targetWeek;
+      });
+    }
+
+    function markPendingText() {
+      document.querySelectorAll('td, dd, .card-foot span, .exception-meta span').forEach(item => {
+        if (item.textContent.trim().endsWith('待指定')) {
+          item.classList.add('pending-text');
+          item.title = '责任人尚未确认';
+        }
+      });
+    }
+
+    document.querySelectorAll('[data-risk-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-risk-filter]').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const level = button.dataset.riskFilter;
+        document.querySelectorAll('[data-level]').forEach(item => { item.hidden = level !== 'all' && item.dataset.level !== level; });
+      });
+    });
+
+    document.querySelectorAll('[data-view]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-view]').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        riskPanel.classList.toggle('table-view', button.dataset.view === 'table');
+      });
+    });
+
+    document.querySelectorAll('[data-page-target]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        setActivePage(link.dataset.pageTarget);
+      });
+    });
+
+    document.querySelectorAll('[data-action-tab]').forEach(button => {
+      button.addEventListener('click', () => setActionTab(button.dataset.actionTab));
+    });
+
+    document.querySelectorAll('[data-week-target]').forEach(button => {
+      button.addEventListener('click', () => setArchiveWeek(button.dataset.weekTarget));
+    });
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', event => { if (event.target === drawerBackdrop) closeDrawer(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeDrawer(); });
+
+    renderCustomers();
+    updateDeadlineStates();
+    markPendingText();
+    setActivePage(location.hash.slice(1) || 'dashboard');
+  </script>
+</body>
+</html>
