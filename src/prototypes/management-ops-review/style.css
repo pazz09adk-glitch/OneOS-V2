@@ -1,0 +1,23 @@
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+}
+
+.management-ops-review-embed {
+  width: 100%;
+  height: 100vh;
+  min-width: 0;
+  overflow: hidden;
+  background: #f4f6fb;
+}
+
+.management-ops-review-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
